@@ -1,0 +1,60 @@
+body {
+  background: url("../../assets/background.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  min-height: 100vh;
+   font-family: "Saira", sans-serif;
+}
+
+
+
+*{
+  font-family: "Noto Sans", sans-serif;
+}
+
+input::placeholder {
+  color: rgb(199, 195, 195);    /* Change this to any color you want */
+  opacity: 1;      /* Make sure it is fully visible */
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 40px; /* leave space for icon */
+  padding-left: 10px;
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.password-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+
+
+.btn-gradient {
+  background: linear-gradient(271.11deg, #6145BD -0.12%, #9A8CCE 97.42%);
+  border: none;
+  color: white;
+  font-weight: bold;
+  height: 40px;
+  border-radius: 5px;
+  transition: all 0.1s ease; /* fast transition for click */
+}
+
+.btn-gradient:active {
+  transform: translateY(-2px); /* moves button slightly up */
+}
