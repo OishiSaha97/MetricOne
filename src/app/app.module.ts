@@ -8,10 +8,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MyListComponent } from './my-list/my-list.component';
 import { FormsModule } from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavbarComponent } from './dashboard/navbar/navbar.component';
+import { ListComponent } from './dashboard/list/list.component';
 @NgModule({
   declarations: [
     AppComponent,
-    MyListComponent
+    MyListComponent,
+    DashboardComponent,
+    NavbarComponent,
+    ListComponent
   ],
   imports: [
   BrowserModule,

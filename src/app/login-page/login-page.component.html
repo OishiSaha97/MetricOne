@@ -1,78 +1,50 @@
 <body>
-    <div class="container-fluid">
-        <div class="row min-vh-100">
-            <!-- Left side -->
-            <div class="col-12 col-md-6 d-flex flex-column justify-content-between
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <!-- Left side -->
+      <div class="col-12 col-md-6 d-flex flex-column justify-content-between
             align-items-start align-items-md-start align-items-center text-center text-md-start p-5 left-side">
-                <div class="logo mb-3">
-                    <img src="../../assets/logo-matricOne.svg" alt="Logo" style="width: 150px;">
-                </div>
-                <div class="welcome text-white">
-                    <h1 class="fw-bold">Welcome</h1>
-                    <p>Login to your account to continue</p>
-                </div>
-            </div>
-
-            <!-- Right Side-->
-            <div
-                class="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-end p-3 p-md-5 right-side">
-<!--                <app-login-form></app-login-form>-->
-
-              <div class="w-100" style="max-width: 350px;">
-<!--                <form class="p-4 rounded-3" style="background: rgba(0,0,0,0.5);">-->
-<!--                  <div class="text-center mb-4 text-white">-->
-<!--                    <img src="../../../assets/logo-datasoft.svg" class="mb-3" style="width: 100px;" alt="Logo">-->
-
-<!--                  </div>-->
-<!--                  <div class="text-start">-->
-<!--                    <h2>Login</h2>-->
-<!--                  </div>-->
-
-<!--                  <div class="mb-3" style="color:white;">-->
-<!--                    <input type="text"  [(ngModel)]="username" class="form-control bg-transparent text-white border border-white" placeholder="Email"-->
-<!--                           required style="color: white;" onfocus="this.style.color='white'">-->
-<!--                  </div>-->
-
-<!--                  <div class="password-wrapper mb-3">-->
-<!--                    <input type="password" [(ngModel)]="password" placeholder="Password" class="password-input" />-->
-<!--                    <img src="assets/closed-eye.svg" class="password-icon" alt="Password icon" />-->
-<!--                  </div>-->
-
-
-
-<!--                  <div class="mb-3 form-check text-white">-->
-<!--                    <input type="checkbox" class="form-check-input" id="rememberMe">-->
-<!--                    <label class="form-check-label" for="rememberMe">Remember me</label>-->
-<!--                  </div>-->
-
-<!--                  <button type="submit" class="btn btn-gradient w-100 mb-0" (click)="signIn()">Login</button>-->
-
-<!--                  <div class="text-center text-white mt-1">-->
-<!--                    <a href="#" class="text-white " style="text-decoration: none; color: white;">Forgot Password?</a>-->
-<!--                    <img class="mt-4" src="../../../assets/separator.svg" alt="separator" style="max-width: 100%; height: auto; display: block; margin: 10px auto;">-->
-<!--                    <a href="#" class="text-white mt-4 d-block" style="text-decoration: none; color: white;">Create an account?</a>-->
-<!--                  </div>-->
-<!--                </form>-->
-
-
-                <form class="p-4 rounded-3" style="background: rgba(0,0,0,0.5);">
-                  <div class="mb-3">
-                    <input type="text" name="username" [(ngModel)]="username" class="form-control" placeholder="Email" required>
-                  </div>
-
-                  <div class="mb-3">
-                    <input type="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Password" required>
-                  </div>
-
-                  <button type="button" class="btn btn-gradient w-100 mb-0" (click)="signIn()">Login</button>
-                </form>
-
-
-
-              </div>
-
-            </div>
-
+        <div class="logo mb-3">
+          <img src="../../assets/logo-matricOne.svg" alt="Logo" style="width: 150px;">
         </div>
+        <div class="welcome text-white">
+          <h1 class="fw-bold">Welcome</h1>
+          <p>Login to your account to continue</p>
+        </div>
+      </div>
+
+      <!-- Right Side-->
+      <div
+        class="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-end p-3 p-md-5 right-side">
+        <div class="w-100" style="max-width: 350px;">
+          <form class="p-4 rounded-3" style="background: rgba(0,0,0,0.5);">
+            <div class="text-center mb-4 text-white">
+              <img src="../../../assets/logo-datasoft.svg" class="mb-3" style="width: 100px;" alt="Logo">
+            </div>
+            <div class="text-start">
+              <h2>Login</h2>
+            </div>
+            <div class="mb-3">
+              <input type="text" name="username" [(ngModel)]="username"
+                class="form-control bg-transparent text-white border border-white" placeholder="Email"
+                placeholder="Email" required>
+            </div>
+            <div class="password-wrapper mb-3">
+              <input type="password" name="password" [(ngModel)]="password" class="password-input"
+                placeholder="Password" required>
+              <img src="assets/closed-eye.svg" class="password-icon" alt="Password icon" />
+            </div>
+            <button type="button" class="btn btn-gradient w-100 mb-0" (click)="signIn()">Login</button>
+            <div class="text-center text-white mt-1">
+              <a href="#" class="text-white " style="text-decoration: none; color: white;">Forgot Password?</a>
+              <img class="mt-4" src="../../../assets/separator.svg" alt="separator"
+                style="max-width: 100%; height: auto; display: block; margin: 10px auto;">
+              <a href="#" class="text-white mt-4 mb-5 d-block" style="text-decoration: none; color: white;">Create an
+                account?</a>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </body>

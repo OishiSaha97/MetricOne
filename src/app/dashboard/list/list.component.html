@@ -1,0 +1,52 @@
+<div class="list-table">
+  <div class="logo">
+    <img src="../../../assets/logo-datasoft.svg" alt="datasoft logo" />
+  </div>
+
+  <div class="labels">
+    <!-- Left side: KPI / Label -->
+    <div class="kpi">
+      <h5>{{ label }}</h5>
+    </div>
+
+    <!-- Right side: Buttons + Search -->
+    <div class="actions">
+      <button>+ Add New</button>
+      <div class="search-wrapper">
+        <input type="text" placeholder="Search Here" class="search-input" />
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container scrollable">
+    <table>
+      <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Year</th>
+          <th>Designation</th>
+          <th>Team</th>
+          <th>Manager</th>
+          <th>Status</th>
+          <th>SBU</th>
+          <th>Remarks</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userList; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ user.year }}</td>
+          <td>{{ user.designation }}</td>
+          <td>{{ user.team }}</td>
+          <td>{{ user.manager }}</td>
+          <td>{{ user.status }}</td>
+          <td>{{ user.SBU }}</td>
+          <td>({{ user.Remarks }}) <img src="../../../assets/comment.svg"/></td>
+          <td><img src="../../../assets/clear-eye.svg" alt="actions" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

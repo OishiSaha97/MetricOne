@@ -1,0 +1,109 @@
+
+html, body {
+  height: 100%;
+  margin: 0;
+
+ 
+}
+
+.sidebar {
+  background-color: #1C1D21;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 250px; 
+  min-width: 80px; 
+}
+
+.sidebar img.logo-small {
+  max-width: 70%;
+  height: auto;
+}
+
+/* Responsive: reduce sidebar width on small screens */
+@media (max-width: 767.98px) {
+  .sidebar {
+    width: 120px;
+  }
+
+  .sidebar img.logo-small {
+    max-width: 60%; 
+  }
+}
+
+
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding-left: 40px; 
+  padding-right: 10px;
+  background: transparent;
+  color: white;
+  border: 1px solid #44454E;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.search-input::placeholder {
+  color: #918f8f;
+  size: 10px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+
+.logout {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;       /* fixed height */
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.logout .avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  flex-shrink: 0;     /* do not shrink */
+}
+
+.logout .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  font-size: 13px;
+  flex-grow: 1;       /* take remaining space */
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.logout .designation
+{
+  font-weight: lighter;
+  font-size: 11px;
+}
+
+
+.logout .logout-icon {
+  width: 17px;        /* small icon */
+  height: 17px;
+  flex-shrink: 0;     /* do not shrink */
+  cursor: pointer;
+}
