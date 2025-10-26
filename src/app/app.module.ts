@@ -10,12 +10,14 @@ import { MyListComponent } from './my-list/my-list.component';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './dashboard/navbar/navbar.component';
+import { ListComponent } from './dashboard/list/list.component';
 @NgModule({
   declarations: [
     AppComponent,
     MyListComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    ListComponent
   ],
   imports: [
   BrowserModule,
