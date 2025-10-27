@@ -9,7 +9,6 @@ import {AllEmployeeKPIComponent} from "./dashboard/all-employee-kpi/all-employee
 import {KpModuleModule} from "./dashboard/kp-module/kp-module.module";
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '', component: LoginPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'my-form', component:KpiFormComponent},
@@ -18,13 +17,18 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    loadChildren: () => import('./dashboard/kp-module/kp-module.module').then(m => m.KpModuleModule),
-    // children: [
-    //   { path: 'myKPI', component: ListComponent },
-    //   { path: 'teamsKPI', component: TeamsKPIComponent },
-    //   { path: 'allEmployeeKPI', component: AllEmployeeKPIComponent }
-    // ]
+    // loadChildren: () => import('./dashboard/kp-module/kp-module.module').then(m => m.KpModuleModule),
+    children: [
+      { path: 'myKPI', component: ListComponent },
+      { path: 'teamsKPI', component: TeamsKPIComponent },
+      { path: 'allEmployeeKPI', component: AllEmployeeKPIComponent }
+    ]
   }
+  // {
+  //   path: 'dashboard',
+  //   loadChildren: () =>
+  //     import('./dashboard/kp-module/kp-module.module').then(m => m.KpModuleModule)
+  // }
 
 ];
 
