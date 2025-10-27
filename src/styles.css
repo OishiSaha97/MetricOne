@@ -33,11 +33,10 @@ body {
 .background{
   background-color: black;
   font-color:white;
-  color:white;
+  /*color:white;*/
 }
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #2A2B2F; /* full-page background */
+
+.font-color-system {
+  color: #AD94FF;
 }
+

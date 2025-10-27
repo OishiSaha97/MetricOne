@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import {CommonModule} from "@angular/common";
 import { TeamsKPIComponent } from './dashboard/teams-kpi/teams-kpi.component';
 import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employee-kpi.component';
+import {KpModuleModule} from "./dashboard/kp-module/kp-module.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employ
     HttpClientModule,
     RouterModule,
     CommonModule,
+    KpModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
