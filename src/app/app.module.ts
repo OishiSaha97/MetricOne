@@ -16,8 +16,7 @@ import { ListComponent } from './dashboard/list/list.component';
     AppComponent,
     MyListComponent,
     DashboardComponent,
-    NavbarComponent,
-    ListComponent
+    NavbarComponent
   ],
   imports: [
   BrowserModule,
@@ -27,6 +26,7 @@ import { ListComponent } from './dashboard/list/list.component';
     ButtonModule,
     HttpClientModule,
     FormsModule,
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

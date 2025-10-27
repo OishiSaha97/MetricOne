@@ -39,7 +39,8 @@ export class LoginPageComponent {
           localStorage.setItem('username', this.username);
           localStorage.setItem('fullName', result['Name']);
           localStorage.setItem('token', result['token']);
-          this.router.navigate(['/dashboard']);
+          //this.router.navigate(['/dashboard']);
+          this.router.navigate(['/my-form']);
           // this.dialogRef.close(true)
         }
       }, ()=>{

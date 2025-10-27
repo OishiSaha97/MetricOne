@@ -1,13 +1,21 @@
 <div class="d-flex vh-100 ">
   <!-- Sidebar -->
   <nav class="sidebar text-white p-4 flex-shrink-0">
-    
+
     <div class="mb-3">
       <img src="../../assets/logo-nav.svg" class="img-fluid mb-3 logo-small" alt="Logo" />
       <div class="search-wrapper mb-3">
+
         <img src="../../../assets/magnifine-bar.svg" class="search-icon" alt="Search icon" />
         <input type="text" class="search-input" placeholder="Search" />
       </div>
+
+      <button>+ Add New</button>
+      <div class="search-wrapper">
+        <input type="text" placeholder="Search Here" class="search-input" (click)="onClick()">
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+      </div>
+
     </div>
 
     <div class="logout">
@@ -16,9 +24,9 @@
         <div class="name">{{name}}</div>
         <div class="designation">{{designation}}</div>
       </div>
-   
+
         <img src="../../../assets/logout-icon.svg" class="logout-icon" alt="Logout Icon" (click)="logout()" />
-     
+
     </div>
   </nav>
 
