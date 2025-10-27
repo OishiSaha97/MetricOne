@@ -21,7 +21,7 @@ export class KpiFormComponent implements OnInit {
   constructor(private kpi: CommonServiceService){
   }
 
-  objectiveTypes: string[] = ['Production', 'Support', 'Innovation'];
+  objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: Objective[] = [];
   year:string=''
 
@@ -82,11 +82,11 @@ export class KpiFormComponent implements OnInit {
     if (!this.validateObjectives()) {
       return;
     }
-      let obj ={
-        randomData:this.objectives,
-        year:this.year,
-        param:'kpi_insert_data'
-      }
+    let obj ={
+      randomData:JSON.stringify(this.objectives),
+      year:this.year,
+      param:'kpi_insert_data'
+    }
     console.log('Submitting Objectives:', obj);
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
