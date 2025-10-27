@@ -89,7 +89,7 @@
           <td title="{{ user.employeeName }}">{{ user.employeeName }}</td>
           <td title="{{ user.team }}">{{ user.team }}</td>
           <td title="{{ user.employeeId }}">{{ user.employeeId }}</td>
-          <td title="{{ user.status }}">{{ user.status }}</td>
+          <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }}</td>
           <td title="{{ user.designation }}">{{ user.designation }}</td>
           <td title="{{ user.SBU }}">{{ user.SBU }}</td>
           <td class="text-center">
