@@ -6,11 +6,9 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { MyListComponent } from './my-list/my-list.component';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './dashboard/navbar/navbar.component';
-import { ListComponent } from './dashboard/list/list.component';
 import { RouterModule } from '@angular/router';
 import {CommonModule} from "@angular/common";
 import { TeamsKPIComponent } from './dashboard/teams-kpi/teams-kpi.component';
@@ -19,10 +17,8 @@ import {KpModuleModule} from "./dashboard/kp-module/kp-module.module";
 @NgModule({
   declarations: [
     AppComponent,
-    MyListComponent,
     DashboardComponent,
     NavbarComponent,
-    ListComponent,
     TeamsKPIComponent,
     AllEmployeeKPIComponent
   ],

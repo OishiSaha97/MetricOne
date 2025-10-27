@@ -17,9 +17,9 @@ export class NavbarComponent {
     {
       name: 'KPI Management',
       subTasks: [
-        { name: 'My KPI' , routePath: 'my-kpi'},
-        { name: 'Team`s KPI', routePath: 'team-kpi' },
-        { name: 'All Employee KPI', routePath: 'all-employee-kpi' },
+        { name: 'My KPI', routePath: 'myKPI' },
+        { name: 'Team`s KPI', routePath: 'teamsKPI' },
+        { name: 'All Employee KPI', routePath: 'allEmployeeKPI' },
       ]
     }
   ];
@@ -32,7 +32,7 @@ export class NavbarComponent {
   navigateTo(path: string) {
     this.activeSubTask = path;
     console.log('Navigating to:', path);
-    this.router.navigate(['/', path]);
+    this.router.navigate(['dashboard', path]);
   }
 
   logout() {

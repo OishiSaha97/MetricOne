@@ -39,4 +39,7 @@ body {
 .font-color-system {
   color: #AD94FF;
 }
-
+.content-wrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
