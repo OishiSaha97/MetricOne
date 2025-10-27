@@ -3,16 +3,23 @@ html, body {
   height: 100%;
   margin: 0;
 
- 
+
 }
+.nav-bar-bg{
+  background-color: #1C1D21;
+}
+.nav-height{
+  height: 100%;
+}
+
 
 .sidebar {
   background-color: #1C1D21;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 250px; 
-  min-width: 80px; 
+  width: 250px;
+  min-width: 80px;
 }
 
 .sidebar img.logo-small {
@@ -27,7 +34,7 @@ html, body {
   }
 
   .sidebar img.logo-small {
-    max-width: 60%; 
+    max-width: 60%;
   }
 }
 
@@ -36,17 +43,18 @@ html, body {
 .search-wrapper {
   position: relative;
   width: 100%;
+  padding-left: 4px;
 }
 
 .search-input {
   width: 100%;
-  padding-left: 40px; 
+  padding-left: 40px;
   padding-right: 10px;
   background: transparent;
   color: white;
   border: 1px solid #44454E;
   height: 40px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .search-input::placeholder {
@@ -56,7 +64,7 @@ html, body {
 
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
   width: 20px;
@@ -84,7 +92,7 @@ html, body {
 .logout .info {
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   font-size: 13px;
   flex-grow: 1;       /* take remaining space */
   line-height: 1.1;

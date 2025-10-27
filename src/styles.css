@@ -9,4 +9,23 @@ body {
   margin: 0;
 
 }
+.big-logo {
+  height: 40px;
+}
+.small-logo {
+  display: none;
+  width: 3.2rem;
+}
+.sidebar-mini.sidebar-collapse .main-sidebar:hover .big-logo {
+  display: inline-block;
+}
+.sidebar-mini.sidebar-collapse .main-sidebar:hover .small-logo {
+  display: none;
+}
+.sidebar-mini.sidebar-collapse .big-logo {
+  display: none;
+}
+.sidebar-mini.sidebar-collapse .small-logo {
+  display: block;
+}
 

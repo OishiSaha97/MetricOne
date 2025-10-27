@@ -1,26 +1,63 @@
-<div class="d-flex vh-100 ">
-  <!-- Sidebar -->
-  <nav class="sidebar text-white p-4 flex-shrink-0">
-    
-    <div class="mb-3">
-      <img src="../../assets/logo-nav.svg" class="img-fluid mb-3 logo-small" alt="Logo" />
-      <div class="search-wrapper mb-3">
+<!--<div class="d-flex vh-100 ">-->
+<!--  &lt;!&ndash; Sidebar &ndash;&gt;-->
+<!--  <nav class="sidebar text-white p-4 flex-shrink-0">-->
+
+<!--    <div class="mb-3">-->
+<!--      <img src="../../assets/logo-nav.svg" class="img-fluid mb-3 logo-small" alt="Logo" />-->
+<!--      <div class="search-wrapper mb-3">-->
+<!--        <img src="../../../assets/magnifine-bar.svg" class="search-icon" alt="Search icon" />-->
+<!--        <input type="text" class="search-input" placeholder="Search" />-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="logout">-->
+<!--      <img src="../../../assets/avatar.svg" class="avatar"  />-->
+<!--      <div class="info">-->
+<!--        <div class="name">{{ 'kaungkon' }}</div>-->
+<!--        <div class="designation">{{designation}}</div>-->
+<!--      </div>-->
+
+<!--        <img src="../../../assets/logout-icon.svg" class="logout-icon" alt="Logout Icon" (click)="logout()" />-->
+
+<!--    </div>-->
+<!--  </nav>-->
+
+
+<!--</div>-->
+<div class="nav-bar-bg nav-height">
+  <aside class="main-sidebar elevation-3" style="overflow: hidden">
+    <div class="p-2">
+      <a class="brand-link shadow-box" #brand style="padding: .33rem;line-height: initial">
+
+        <img src="../../assets/logo-nav.svg" class="img-fluid mb-3 logo-small" alt="Logo" />
+
+      </a>
+
+      <div class="search-wrapper">
         <img src="../../../assets/magnifine-bar.svg" class="search-icon" alt="Search icon" />
         <input type="text" class="search-input" placeholder="Search" />
       </div>
+      <!--    <div class="sidebar sidebar-margin-0"-->
+      <!--         [style.height]="sanitizer.bypassSecurityTrustStyle('calc(100% - '+brand.offsetHeight+'px)')">-->
+
+      <!--    </div>-->
+      <nav class="mt-2" style="font-size: 12px!important;">
+        <ul class="nav nav-pills pr-1 nav-sidebar flex-column">
+          <ng-container *ngFor="let superTask of superTasks; let i = index">
+
+                <p style="color: white;">
+                  {{ superTask.name }}
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+
+
+          </ng-container>
+
+        </ul>
+      </nav>
+
     </div>
 
-    <div class="logout">
-      <img src="../../../assets/avatar.svg" class="avatar"  />
-      <div class="info">
-        <div class="name">{{name}}</div>
-        <div class="designation">{{designation}}</div>
-      </div>
-   
-        <img src="../../../assets/logout-icon.svg" class="logout-icon" alt="Logout Icon" (click)="logout()" />
-     
-    </div>
-  </nav>
-
-
+  </aside>
 </div>
+
