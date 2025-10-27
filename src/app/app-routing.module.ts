@@ -3,13 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { MyListComponent } from './my-list/my-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.component";
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '', component: LoginPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'my-list', component: MyListComponent },
-  { path:'dashboard', component:DashboardComponent}
+  { path:'dashboard', component:DashboardComponent},
+  { path:'my-form', component:KpiFormComponent},
 ];
 
 @NgModule({

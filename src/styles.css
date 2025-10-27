@@ -3,11 +3,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: black;
+  font-color:white;
+  color:white;
+  overflow-x:hidden;
 }
 body {
   height: 100%;
   margin: 0;
-
+  font-color:white;
+  color:white;
 }
 .big-logo {
   height: 40px;
