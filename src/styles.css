@@ -3,9 +3,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: black;
-  font-color:white;
-  color:white;
   overflow-x:hidden;
 }
 body {
@@ -34,3 +31,8 @@ body {
   display: block;
 }
 
+.background{
+  background-color: black;
+  font-color:white;
+  color:white;
+}
