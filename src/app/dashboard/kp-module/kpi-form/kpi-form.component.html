@@ -78,7 +78,7 @@
                 (change)="onObjectiveChange($event, obj)"
                 [(ngModel)]="obj.selectedType"
               >
-                <option value="">Select Type</option>
+                <option value="">Select Category</option>
                 <option *ngFor="let type of objectiveTypes" [value]="type">
                   {{ type }}
                 </option>
@@ -107,8 +107,8 @@
           </div>
 
           <!-- Add new objective -->
-          <button class="btn btn-primary mt-2" (click)="addObjective()">
-            + Add Objective
+          <button class="btn btn-info mt-2" (click)="addObjective()">
+            + Add Work Objective
           </button>
         </div>
 
