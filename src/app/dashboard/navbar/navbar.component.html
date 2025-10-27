@@ -25,8 +25,8 @@
 
 <!--</div>-->
 <div class="nav-bar-bg nav-height nav-width">
-  <aside class="main-sidebar elevation-3 d-flex flex-column" style="overflow: hidden; height: 100%;">
-    <div class="p-2">
+  <aside class="main-sidebar elevation-3 d-flex flex-column" style="overflow: hidden;">
+    <div class="p-2 flex-shrink-0">
       <a class="brand-link shadow-box" #brand style="padding: .33rem;line-height: initial">
 
         <img src="../../assets/logo-nav.svg" class="img-fluid mb-3 logo-small" alt="Logo" />
@@ -41,7 +41,7 @@
       <!--         [style.height]="sanitizer.bypassSecurityTrustStyle('calc(100% - '+brand.offsetHeight+'px)')">-->
 
       <!--    </div>-->
-      <nav class="mt-2" style="font-size: 12px!important;">
+      <nav class="mt-2 flex-grow-1" style="font-size: 12px!important;">
         <ul class="nav nav-pills pr-1 nav-sidebar flex-column">
           <ng-container *ngFor="let superTask of superTasks; let i = index">
             <li class="nav-item" >
@@ -77,15 +77,24 @@
           </ng-container>
 
         </ul>
+
+
       </nav>
 
-      <div class="sidebar-footer p-2">
-        <p style="margin: 0; color: white;">{{ name }}</p>
-        <p style="margin: 0; font-size: 12px; color: white;">{{ designation }}</p>
-        <button class="btn btn-sm btn-outline-light mt-1" (click)="logout()">Logout</button>
-      </div>
+
 
     </div>
+    <footer class="sidebar-footer p-2">
+      <div>
+        <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
+      </div>
+      <div>
+        <p style="margin: 0; color: white;">{{ name }}</p>
+        <p style="margin: 0; font-size: 12px; color: white;">{{ designation }}</p>
+      </div>
+
+      <button class="btn btn-sm btn-outline-light mt-1 ml-1 logout-icon" (click)="logout()"></button>
+    </footer>
 
   </aside>
 </div>

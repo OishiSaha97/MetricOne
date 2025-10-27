@@ -12,7 +12,7 @@ html, body {
   height: 100%;
 }
 .nav-width{
-  width: 250px;
+  width: 260px;
 }
 
 
@@ -148,11 +148,14 @@ html, body {
 }
 
 
-.logout .logout-icon {
-  width: 17px;        /* small icon */
-  height: 17px;
-  flex-shrink: 0;     /* do not shrink */
+.logout-icon {
+  width: 35px;
+  height: 46px;
+  flex-shrink: 0;
   cursor: pointer;
+  background: url("src/assets/logout.svg") center center no-repeat;
+  scale: 0.7;
+  border: none;
 }
 
 .task-icon{
@@ -193,4 +196,20 @@ html, body {
 .subtask.active-subtask .subtask-text {
   color: #7254D5;
 }
-
+.main-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+nav.flex-grow-1 {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+.sidebar-footer{
+  bottom: 0;
+  z-index: 1020;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
