@@ -1,0 +1,75 @@
+<div class="list-table">
+  <div class="logo">
+    <img src="../../../assets/logo-datasoft.svg" alt="datasoft logo" />
+  </div>
+
+  <div class="labels">
+    <div class="kpi">
+      <h5 style="color:#AD94FF;">{{ label }}</h5>
+    </div>
+    <div class="actions">
+      <img src="../../../assets/download.svg" style="background-color:#6449BE ; padding: 2px 6px 2px 6px; border-radius: 5px"/>
+      <img src="../../../assets/upload.svg" style="background-color:#6449BE ; padding: 2px 6px 2px 6px; border-radius: 5px"/>
+      <button style="background-color: #6449BE;">+ Add New</button>
+      <div class="search-wrapper">
+        <input type="text" placeholder="Search Here" class="search-input" />
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+      </div>
+      <img src="../../../assets/column_picker.svg" style="background-color:#6449BE ; padding: 2px 6px 2px 6px; border-radius: 5px"/>
+    </div>
+  </div>
+
+  <!-- Table scroll wrapper -->
+  <div class="table-scroll-wrapper">
+    <div class="table-x-scroll">
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <div class="checkbox-cell">
+              <label class="custom-checkbox">
+                <input type="checkbox" />
+                <span></span>
+              </label>
+              <span class="sl-no">Sl No</span>
+            </div>
+          </th>
+            <th>Year</th>
+            <th>Employee Name</th>
+            <th>Team</th>
+            <th>Employee Id</th>
+            <th>Status</th>
+            <th>Employee Designation</th>
+            <th>SBU</th>
+            <th>Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of userList; let i = index">
+          <td>
+            <div class="checkbox-cell">
+              <label class="custom-checkbox">
+                <input type="checkbox"  />
+                <span></span>
+              </label>
+              <span class="sl-no">{{ i + 1 }}</span>
+            </div>
+          </td>
+
+          <td title="{{ user.year }}">{{ user.year }}</td>
+          <td title="{{ user.employeeName }}">{{ user.employeeName }}</td>
+          <td title="{{ user.team }}">{{ user.team }}</td>
+          <td title="{{ user.employeeId }}">{{ user.employeeId }}</td>
+          <td title="{{ user.status }}">{{ user.status }}</td>
+          <td title="{{ user.designation }}">{{ user.designation }}</td>
+          <td title="{{ user.SBU }}">{{ user.SBU }}</td>
+          <td class="text-center">
+            <img src="../../../assets/clear-eye.svg" alt="actions" />
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

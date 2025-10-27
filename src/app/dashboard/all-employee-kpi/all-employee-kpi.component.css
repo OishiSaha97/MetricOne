@@ -197,14 +197,77 @@ tbody td[title]:hover::after {
 }
 
 
-/* unserline in remarks */
-.remarks {
-  border-bottom: 1px solid white;
-  display: inline-flex;
+/*Custom checkbox*/
+.checkbox-cell {
+  display: flex;
   align-items: center;
-  gap: 4px; /* spacing between text and icon */
+  gap: 10px;
 }
 
+
+.custom-checkbox {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+.custom-checkbox input {
+  display: none; /* hide native checkbox */
+}
+
+.custom-checkbox span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.custom-checkbox input:checked + span::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 6px;
+  height: 12px;
+  border: solid #6449BE; /* tick color */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+}
+
+.custom-checkbox span {
+  width: 18px;
+  height: 18px;
+}
+
+.sl-no {
+  line-height: 18px;
+}
+.custom-checkbox input:checked + span {
+  background-color: #6449BE; /* violet background when checked  background: #AD94FF; background: #6449BE;*/
+  border-color: #a08bf1;
+}
+
+.custom-checkbox input:checked + span::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid white; /* tick color white */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
 
 /* -------------------------------------------------
    MOBILE VIEW ADJUSTMENTS

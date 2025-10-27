@@ -13,12 +13,17 @@ import { NavbarComponent } from './dashboard/navbar/navbar.component';
 import { ListComponent } from './dashboard/list/list.component';
 import { RouterModule } from '@angular/router';
 import {CommonModule} from "@angular/common";
+import { TeamsKPIComponent } from './dashboard/teams-kpi/teams-kpi.component';
+import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employee-kpi.component';
 @NgModule({
   declarations: [
     AppComponent,
     MyListComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    ListComponent,
+    TeamsKPIComponent,
+    AllEmployeeKPIComponent
   ],
   imports: [
     BrowserModule,

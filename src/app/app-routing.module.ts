@@ -4,6 +4,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { MyListComponent } from './my-list/my-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.component";
+import {ListComponent} from "./dashboard/list/list.component";
+import {TeamsKPIComponent} from "./dashboard/teams-kpi/teams-kpi.component";
+import {AllEmployeeKPIComponent} from "./dashboard/all-employee-kpi/all-employee-kpi.component";
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -12,6 +15,16 @@ const routes: Routes = [
   { path: 'my-kpi', component: MyListComponent },
   { path: 'dashboard', component:DashboardComponent},
   { path: 'my-form', component:KpiFormComponent},
+  { path: 'my-list', component: MyListComponent },
+  { path:'dashboard', component:DashboardComponent,
+
+  children:[
+    {path:'myKPI' , component:ListComponent },
+    {path:'teamsKPI', component:TeamsKPIComponent},
+    {path:'allEmployeeKPI', component:AllEmployeeKPIComponent}
+
+  ]},
+
 ];
 
 @NgModule({
