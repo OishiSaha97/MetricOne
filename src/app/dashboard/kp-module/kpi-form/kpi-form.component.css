@@ -1,5 +1,5 @@
 * {
-  color: white;
+  /*color: white;*/
   font-family: "Inter", sans-serif;
   box-sizing: border-box;
   /* include padding/border in width */
@@ -77,5 +77,36 @@
   .d-flex.justify-content-end {
     flex-direction: column;
     gap: 0.5rem;
+  }
+}
+
+
+.objective-box {
+  background-color: #2c3e50;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.objective-box:hover {
+  background-color: #34495e;
+}
+
+.collapse-content {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scaleY(0.9); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+
+@media (max-width: 576px) {
+  .objective-box {
+    padding: 1rem;
+  }
+
+  select.form-select-sm {
+    width: 100%;
+    margin-top: 0.5rem;
   }
 }

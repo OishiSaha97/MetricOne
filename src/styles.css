@@ -15,5 +15,10 @@ body {
 .background{
   background-color: black;
   font-color:white;
-  color:white;
+  /*color:white;*/
 }
+
+.font-color-system {
+  color: #AD94FF;
+}
+

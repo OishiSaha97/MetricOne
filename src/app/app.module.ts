@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './dashboard/navbar/navbar.component';
 import { ListComponent } from './dashboard/list/list.component';
+import {CommonModule} from "@angular/common";
+import {KpModuleModule} from "./dashboard/kp-module/kp-module.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,13 +22,15 @@ import { ListComponent } from './dashboard/list/list.component';
   ],
   imports: [
   BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule,
     InputTextModule,
     ButtonModule,
     HttpClientModule,
     FormsModule,
-    BrowserModule
+    BrowserModule,
+    KpModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
