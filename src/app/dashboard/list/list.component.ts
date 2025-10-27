@@ -10,7 +10,7 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 export class ListComponent {
 
   label="My KPI";
-  
+
 
   userList = [
   { year: 2000, designation: "Software Engineer", team: "Frontend", manager: "Revert", status: "Active", SBU: "Datasoft", Remarks: "1", Action: "" },

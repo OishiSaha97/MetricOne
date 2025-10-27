@@ -11,13 +11,17 @@ import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './dashboard/navbar/navbar.component';
 import { ListComponent } from './dashboard/list/list.component';
+import { TeamsKPIComponent } from './dashboard/teams-kpi/teams-kpi.component';
+import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employee-kpi.component';
 @NgModule({
   declarations: [
     AppComponent,
     MyListComponent,
     DashboardComponent,
     NavbarComponent,
-    ListComponent
+    ListComponent,
+    TeamsKPIComponent,
+    AllEmployeeKPIComponent
   ],
   imports: [
   BrowserModule,

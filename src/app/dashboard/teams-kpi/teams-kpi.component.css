@@ -196,16 +196,6 @@ tbody td[title]:hover::after {
   overflow-y: auto;
 }
 
-
-/* unserline in remarks */
-.remarks {
-  border-bottom: 1px solid white;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px; /* spacing between text and icon */
-}
-
-
 /* -------------------------------------------------
    MOBILE VIEW ADJUSTMENTS
 ------------------------------------------------- */
