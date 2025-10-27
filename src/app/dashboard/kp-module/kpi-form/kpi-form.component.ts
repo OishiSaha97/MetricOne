@@ -1,5 +1,6 @@
 
 import { NgModule ,Component, OnInit } from '@angular/core';
+import {CommonServiceService} from "../../common-service.service";
 
 interface Objective {
   id: number;
@@ -17,8 +18,12 @@ interface Objective {
 })
 export class KpiFormComponent implements OnInit {
 
+  constructor(private kpi: CommonServiceService){
+  }
+
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation'];
   objectives: Objective[] = [];
+  year:string=''
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
@@ -56,21 +61,41 @@ export class KpiFormComponent implements OnInit {
   //   });
   // }
 
-  onSubmit(): void {
-    console.log('Submitting Objectives:', this.objectives);
+  validateObjectives(): boolean {
+    for (let i = 0; i < this.objectives.length; i++) {
+      const obj = this.objectives[i];
 
-    // Example backend POST
-    // const apiUrl = 'https://your-backend-api.com/api/kpi/save-objectives';
-    // this.http.post(apiUrl, this.objectives).subscribe({
-    //   next: (response) => {
-    //     console.log('Objectives saved successfully!', response);
-    //     alert('Objectives submitted successfully!');
-    //   },
-    //   error: (error) => {
-    //     console.error('Error submitting objectives:', error);
-    //     alert('Failed to submit objectives.');
-    //   }
-    // });
+      if (
+        !obj.selectedType?.trim() ||
+        !obj.objectiveText?.trim() ||
+        !obj.targetText?.trim()
+      ) {
+        alert(`⚠️ Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  onSubmit(): void {
+    if (!this.validateObjectives()) {
+      return;
+    }
+      let obj ={
+        randomData:this.objectives,
+        year:this.year,
+        param:'kpi_insert_data'
+      }
+    console.log('Submitting Objectives:', obj);
+    this.kpi.saveKpi(obj).subscribe({
+      next: (response) => {
+
+      },
+      error: (error) => {
+
+      }
+    });
   }
 
 
