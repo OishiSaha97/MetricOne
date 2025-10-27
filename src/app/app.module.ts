@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './dashboard/navbar/navbar.component';
 import { ListComponent } from './dashboard/list/list.component';
+import { RouterModule } from '@angular/router';
+import {CommonModule} from "@angular/common";
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,14 +21,14 @@ import { ListComponent } from './dashboard/list/list.component';
     NavbarComponent
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     FormsModule,
     InputTextModule,
     ButtonModule,
     HttpClientModule,
-    FormsModule,
-    BrowserModule
+    RouterModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,6 +11,9 @@ html, body {
 .nav-height{
   height: 100%;
 }
+.nav-width{
+  width: 250px;
+}
 
 
 .sidebar {
@@ -60,6 +63,42 @@ html, body {
 .search-input::placeholder {
   color: #918f8f;
   size: 10px;
+}
+.sided {
+  padding-left: 0px;
+  margin-bottom: 0;
+  width: 100%;
+  display: block;
+  cursor: pointer;
+}
+.nav-sidebar .nav-item > .nav-link {
+  margin-bottom: 0rem;
+}
+
+
+.nav-link:focus{
+  background-color: #7254D5;
+}
+/*.nav-sidebar .nav-treeview {*/
+/*  display: block;*/
+/*  list-style: none;*/
+/*  padding: 0;*/
+/*  overflow: hidden;*/
+/*  !* max-height: 0.0001%; *!*/
+/*  height: 100%;*/
+/*  !* transition: 0.3s ease-out; *!*/
+/*  transform: scaleY(0);*/
+/*  transform-origin: top;*/
+/*  transition: transform 0.26s ease;*/
+/*}*/
+
+.menu-open .nav-treeview {
+  height: auto;
+  /* max-height: 100%; */
+  transform: scaleY(1);
+}
+.supertask:hover {
+  color: #7254D5 !important;
 }
 
 .search-icon {
@@ -115,3 +154,43 @@ html, body {
   flex-shrink: 0;     /* do not shrink */
   cursor: pointer;
 }
+
+.task-icon{
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.top-up {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url('src/assets/top-up.svg') center center no-repeat;
+  transition: transform 0.3s ease;
+}
+.top-up.rotated {
+  transform: rotate(180deg);
+}
+.sidebar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  color: white;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.sidebar-item.active-item {
+  background-color: #7254D5;
+}
+.subtask-text {
+  color: white;
+  margin: 0;
+}
+
+.subtask.active-subtask .subtask-text {
+  color: #7254D5;
+}
+
