@@ -27,6 +27,7 @@ export class NavbarComponent {
     ngOnInit() {
 
       console.log('superTasks:', this.superTasks);
+      console.log('superTasks:', this.superTasks.subTasks);
 
     }
   navigateTo(path: string) {
