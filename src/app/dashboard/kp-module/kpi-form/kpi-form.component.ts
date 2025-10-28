@@ -22,7 +22,7 @@ export class KpiFormComponent implements OnInit {
   }
 
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
-  objectives: Objective[] = [];
+  objectives: any = [];
   year:string=''
 
   ngOnInit(): void {
@@ -47,8 +47,9 @@ export class KpiFormComponent implements OnInit {
     obj.isOpen = !obj.isOpen;
   }
 
-  onObjectiveChange(event: any, obj: Objective): void {
-    obj.selectedType = event.target.value;
+  onObjectiveChange(type: any, obj: Objective,i:number): void {
+    obj.selectedType = type;
+    this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
   }
 
@@ -60,6 +61,7 @@ export class KpiFormComponent implements OnInit {
   //     o.title = `Work Objective ${i + 1}`;
   //   });
   // }
+  isOpen: boolean[] = [];
 
   validateObjectives(): boolean {
     for (let i = 0; i < this.objectives.length; i++) {

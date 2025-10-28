@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
+import {Router} from "@angular/router";
+import {BsModalService} from "ngx-bootstrap/modal";
 
 @Component({
   selector: 'app-list',
@@ -8,9 +10,9 @@ import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
 })
 export class ListComponent {
 
-  // constructor(public modalService: BsModalService,public modalRef:BsModalRef) {}
+  constructor(public modalService: BsModalService) {}
 
-  // modalRef: BsModalRef;
+
   label="My KPI";
   choosedOption="Initial KPI settings";
 
@@ -59,15 +61,15 @@ export class ListComponent {
 
 
   onClick() {
-    // this.modalRef=this.modalService.show(KpiFormComponent, {
-    //   class: 'modal-lg',
-    //   backdrop: 'static',
-    //   keyboard: false
-    // });
-    //
-    // // You can pass data to the modal component
-    // this.modalRef.content.title = 'Add KPI Form';
-    // this.modalRef.content.someInputData = { year: 2025 };
+    this.modalService.show(KpiFormComponent, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-dialog modal-dialog-centered modal-xl'
+    });
+
+    // You can pass data to the modal component
+
+    // this.router.navigate(['', 'my-form']);
   }
 
 
