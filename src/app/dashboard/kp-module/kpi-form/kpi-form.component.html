@@ -73,7 +73,8 @@
             <div class="work-obj">
               <div class="fw-semibold p-3">Work Objective</div>
               <!-- Loop through objectives -->
-              <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light">
+              <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light"
+                   [ngClass]="{ 'bg-open': obj.isOpen }">
 <!--                <li>-->
                   <div class="d-flex justify-content-between align-items-center"
 
@@ -116,10 +117,11 @@
 
                 <!-- Collapsible content -->
                 <div *ngIf="obj.isOpen" class="collapse-content">
+                  <hr>
                   <label class="text-secondary small">OBJECTIVE</label>
                   <input
                     type="text"
-                    class="form-control mb-2"
+                    class="obj-input mb-2"
                     [(ngModel)]="obj.objectiveText"
                     placeholder="Enter objective..."
                   />
@@ -127,7 +129,7 @@
                   <label class="text-secondary small">TARGET</label>
                   <textarea
                     rows="4"
-                    class="form-control small"
+                    class="obj-input small"
                     [(ngModel)]="obj.targetText"
                     placeholder="Enter target..."
                   ></textarea>
@@ -139,16 +141,16 @@
           </ul>
 
           <!-- Add new objective -->
-          <button class="btn btn-info mt-2" (click)="addObjective()">
+          <button class="btn mt-2 add-obj-btn" (click)="addObjective()">
             + Add Work Objective
           </button>
         </div>
 
 
         <div class="d-flex justify-content-end gap-2">
-          <button class="btn btn-outline-light">Cancel</button>
+          <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>
 <!--          <button class="btn btn-outline-success">Revert</button>-->
-          <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+          <button class="btn submit-btn" (click)="onSubmit()">Submit</button>
         </div>
       </div>
     </div>

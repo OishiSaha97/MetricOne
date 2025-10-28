@@ -23,7 +23,7 @@ export class KpiFormComponent implements OnInit {
 
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
-  year:string=''
+  year:string='2025';
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
@@ -101,4 +101,7 @@ export class KpiFormComponent implements OnInit {
   }
 
 
+  onCancel() {
+    // Logic to close the modal
+  }
 }
