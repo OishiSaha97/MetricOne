@@ -1,58 +1,57 @@
-<!--<div class="list-table">-->
-<!--  <div class="logo">-->
-<!--    <img src="../../../assets/logo-datasoft.svg" alt="datasoft logo" />-->
-<!--  </div>-->
+<div class="list-table">
+  <div class="logo">
+    <img src="../../../assets/logo-datasoft.svg" alt="datasoft logo" />
+  </div>
 
-<!--  <div class="labels">-->
-<!--    <div class="kpi">-->
-<!--      <h5 style="color:#AD94FF;">{{ label }}</h5>-->
-<!--    </div>-->
-<!--    <div class="actions">-->
-<!--      <button style="background-color: #6449BE;">+ Add New</button>-->
-<!--      <div class="search-wrapper">-->
-<!--        <input type="text" placeholder="Search Here" class="search-input" (click)="onClick()">-->
-<!--        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+  <div class="labels">
+    <div class="kpi">
+      <h5 style="color:#AD94FF;">{{ label }}</h5>
+    </div>
+    <div class="actions">
+      <button style="background-color: #6449BE;" (click)="onClick()">+ Add New</button>
+      <div class="search-wrapper">
+        <input type="text" placeholder="Search Here" class="search-input" >
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+      </div>
+    </div>
+  </div>
 
-<!--  &lt;!&ndash; Table scroll wrapper &ndash;&gt;-->
-<!--  <div class="table-scroll-wrapper">-->
-<!--    <div class="table-x-scroll">-->
-<!--      <table>-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--          <th>Sl No</th>-->
-<!--          <th>Year</th>-->
-<!--          <th>Designation</th>-->
-<!--          <th>Team</th>-->
-<!--          <th>Manager</th>-->
-<!--          <th>Status</th>-->
-<!--          <th>SBU</th>-->
-<!--          <th>Remarks</th>-->
-<!--          <th>Action</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr *ngFor="let user of userList; let i = index">-->
-<!--          <td>{{ i + 1 }}</td>-->
-<!--          <td title="{{ user.year }}">{{ user.year }}</td>-->
-<!--          <td title="{{ user.designation }}">{{ user.designation }}</td>-->
-<!--          <td title="{{ user.team }}">{{ user.team }}</td>-->
-<!--          <td title="{{ user.manager }}">{{ user.manager }}</td>-->
-<!--          <td title="{{ user.status }}">{{ user.status }}</td>-->
-<!--          <td title="{{ user.SBU }}">{{ user.SBU }}</td>-->
-<!--          <td class="remarks-cell" title="{{ user.Remarks }}">-->
-<!--           <span class="remarks"> ({{ user.Remarks }})</span>-->
-<!--            {{" "}} <img src="../../../assets/comment.svg" />-->
-<!--          </td>-->
-<!--          <td class="text-center">-->
-<!--            <img src="../../../assets/clear-eye.svg" alt="actions" />-->
-<!--          </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--      </table>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<h1>sfkdjg</h1>
+  <!-- Table scroll wrapper -->
+  <div class="table-scroll-wrapper">
+    <div class="table-x-scroll">
+      <table>
+        <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Year</th>
+          <th>Designation</th>
+          <th>Team</th>
+          <th>Manager</th>
+          <th>Status</th>
+          <th>SBU</th>
+          <th>Remarks</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of userList; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td title="{{ user.year }}">{{ user.year }}</td>
+          <td title="{{ user.designation }}">{{ user.designation }}</td>
+          <td title="{{ user.team }}">{{ user.team }}</td>
+          <td title="{{ user.manager }}">{{ user.manager }}</td>
+          <td title="{{ user.status }}">{{ user.status }}</td>
+          <td title="{{ user.SBU }}">{{ user.SBU }}</td>
+          <td class="remarks-cell" title="{{ user.Remarks }}">
+           <span class="remarks"> ({{ user.Remarks }})</span>
+            {{" "}} <img src="../../../assets/comment.svg" />
+          </td>
+          <td class="text-center">
+            <img src="../../../assets/clear-eye.svg" alt="actions" />
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

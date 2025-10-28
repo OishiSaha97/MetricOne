@@ -13,14 +13,17 @@ import { RouterModule } from '@angular/router';
 import {CommonModule} from "@angular/common";
 import { TeamsKPIComponent } from './dashboard/teams-kpi/teams-kpi.component';
 import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employee-kpi.component';
-import {KpModuleModule} from "./dashboard/kp-module/kp-module.module";
+import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.component";
+import {ListComponent} from "./dashboard/list/list.component";
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     NavbarComponent,
     TeamsKPIComponent,
-    AllEmployeeKPIComponent
+    AllEmployeeKPIComponent,
+    KpiFormComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import {KpModuleModule} from "./dashboard/kp-module/kp-module.module";
     HttpClientModule,
     RouterModule,
     CommonModule,
-    KpModuleModule
+    // ModalModule.forRoot()
+
   ],
   providers: [],
   bootstrap: [AppComponent]

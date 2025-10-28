@@ -26,10 +26,20 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "src/assets/css/adminlte.css",
+              "src/assets/css/daterangepicker.css"
             ],
             "scripts": [
-               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/jquery-ui.min.js",
+              "src/assets/bootstrap/js/bootstrap.js",
+              "src/assets/js/moment.min.js",
+              "src/assets/js/adminlte.js",
+              "src/assets/js/daterangepicker.min.js"
             ]
           },
           "configurations": {

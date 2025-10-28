@@ -6,12 +6,11 @@ import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.componen
 import {ListComponent} from "./dashboard/list/list.component";
 import {TeamsKPIComponent} from "./dashboard/teams-kpi/teams-kpi.component";
 import {AllEmployeeKPIComponent} from "./dashboard/all-employee-kpi/all-employee-kpi.component";
-import {KpModuleModule} from "./dashboard/kp-module/kp-module.module";
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: 'my-form', component:KpiFormComponent},
+  { path: 'dashboard/my-form', component:KpiFormComponent},
   { path:'dashboard', component:DashboardComponent},
 
   {

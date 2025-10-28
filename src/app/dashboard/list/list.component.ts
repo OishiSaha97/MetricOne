@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultTitleStrategy, Router } from '@angular/router';
-import { Action } from 'rxjs/internal/scheduler/Action';
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
-import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-list',
@@ -11,9 +8,9 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 })
 export class ListComponent {
 
-  constructor(   private modalService: BsModalService) {}
+  // constructor(public modalService: BsModalService,public modalRef:BsModalRef) {}
 
-  modalRef?: BsModalRef;
+  // modalRef: BsModalRef;
   label="My KPI";
 
 
@@ -41,15 +38,15 @@ export class ListComponent {
 ];
 
   onClick() {
-    this.modalRef = this.modalService.show(KpiFormComponent, {
-      class: 'modal-lg',
-      backdrop: 'static',
-      keyboard: false
-    });
-
-    // You can pass data to the modal component
-    this.modalRef.content.title = 'Add KPI Form';
-    this.modalRef.content.someInputData = { year: 2025 };
+    // this.modalRef=this.modalService.show(KpiFormComponent, {
+    //   class: 'modal-lg',
+    //   backdrop: 'static',
+    //   keyboard: false
+    // });
+    //
+    // // You can pass data to the modal component
+    // this.modalRef.content.title = 'Add KPI Form';
+    // this.modalRef.content.someInputData = { year: 2025 };
   }
 
 
