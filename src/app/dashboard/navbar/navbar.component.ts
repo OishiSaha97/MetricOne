@@ -26,7 +26,6 @@ export class NavbarComponent {
     constructor(private router: Router){}
     ngOnInit() {
 
-      console.log('superTasks:', this.superTasks);
 
     }
   navigateTo(path: string) {
