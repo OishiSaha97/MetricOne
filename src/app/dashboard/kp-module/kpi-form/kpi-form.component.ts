@@ -14,7 +14,7 @@ interface Objective {
 @Component({
   selector: 'app-kpi-form',
   templateUrl: './kpi-form.component.html',
-  styleUrl: './kpi-form.component.css'
+  styleUrls: ['./kpi-form.component.css']
 })
 export class KpiFormComponent implements OnInit {
 
