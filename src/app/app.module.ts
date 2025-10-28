@@ -15,6 +15,7 @@ import { TeamsKPIComponent } from './dashboard/teams-kpi/teams-kpi.component';
 import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employee-kpi.component';
 import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.component";
 import {ListComponent} from "./dashboard/list/list.component";
+import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,10 +35,10 @@ import {ListComponent} from "./dashboard/list/list.component";
     HttpClientModule,
     RouterModule,
     CommonModule,
-    // ModalModule.forRoot()
+    ModalModule.forRoot()
 
   ],
-  providers: [],
+  providers: [BsModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

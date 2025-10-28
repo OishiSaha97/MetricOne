@@ -1,34 +1,42 @@
 
-<div class="container-fluid kpi-page py-4">
+<div class="container-fluid kpi-page">
+
   <!-- Header -->
-  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 header-section">
+  <div class="d-flex flex-wrap justify-content-between align-items-center p-2 header-section" style="background-color: #1C1D21">
     <div class="d-flex align-items-center">
       <img src="../../assets/logo-nav.svg" alt="MetricOne Logo" class="logo me-2" />
     </div>
 
-    <div class="text-end text-light header-info">
+    <div class="text-end text-light header-info" style="display: flex;justify-content: space-between;align-items: center;">
       <div><strong class="font-color-system">Year:</strong> 2025 | <strong class="font-color-system">KPI of</strong> Sharmilie Nawar</div>
+      <div>
+        <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
+      </div>
 <!--      <div><strong>Team:</strong> bKash | <strong>Designation:</strong> Business Analyst | <a href="#" class="text-primary">View as: Manager</a></div>-->
     </div>
   </div>
 
-  <div class="container-fluid py-4">
+  <div class="container-fluid py-2" style="background-color: #25262C">
     <!-- Header -->
-    <div class="row d-flex flex-wrap justify-content-between align-items-center mb-4 header-section">
+    <div class="row d-flex flex-wrap justify-content-between align-items-center mb-2 mt-2 header-section">
       <div class="row d-flex align-items-center">
-        <div class="col-md-4">
+        <div class="col-md-3">
+          <span class="font-color-system">Manager's Name: </span>
+          <span>Ashiful Islam</span>
+        </div>
+        <div class="col-md-3">
           <span class="font-color-system">Team: </span>
           <span>bKash</span>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
           <span class="font-color-system">Designation: </span>
           <span>Business Analyst</span>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
           <span class="font-color-system">View as: </span>
-          <span>Manager </span>
+          <span>Self </span>
         </div>
       </div>
     </div>
@@ -37,7 +45,7 @@
 
 
   <!-- Title -->
-  <h5 class="text-info mb-3 fw-bold">INITIAL KPI SETTING</h5>
+  <h5 class=" m-3 fw-bold" style="color:#00B2B1">INITIAL KPI SETTING</h5>
 
   <!-- Main Content -->
   <div class="row g-4">
@@ -61,50 +69,74 @@
         </p>
 
         <div class="container mt-3">
+          <ul class="list-group">
+            <div class="work-obj">
+              <div class="fw-semibold p-3">Work Objective</div>
+              <!-- Loop through objectives -->
+              <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light">
+<!--                <li>-->
+                  <div class="d-flex justify-content-between align-items-center"
 
-          <!-- Loop through objectives -->
-          <div *ngFor="let obj of objectives" class="objective-box p-3 rounded mb-3 bg-dark text-light">
+                       style="cursor:pointer;">
+                    <div class="d-flex justify-content-between"  (click)="toggleObjective(obj)">
+                      <div>
+                        <img src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7"  />
+                      </div>
+                      <span class="fw-semibold">{{ obj.title }}</span>
+                    </div>
+                    <div class="dropdown">
+                      <button class="btn btn-dark btn-sm dropdown-toggle"
+                              type="button"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                              style="background-color:#33343C; border:1px solid #7A7B8299;">
+                        {{ obj.selectedType || 'Select Category' }}
+                      </button>
 
-            <!-- Header (click to toggle) -->
-            <div class="d-flex justify-content-between align-items-center mb-2"
-                 (click)="toggleObjective(obj)"
-                 style="cursor:pointer;">
+                      <ul class="dropdown-menu dropdown-menu-dark"
+                          style="background-color: #33343C;">
+                        <li *ngFor="let type of objectiveTypes">
+                          <a class="dropdown-item text-light"
 
-              <span class="fw-semibold">{{ obj.title }}</span>
+                             (click)="onObjectiveChange(type, obj, i)">
+                            {{ type }}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
 
-              <select
-                class="form-select form-select-sm w-auto"
-                (click)="$event.stopPropagation()"
-                (change)="onObjectiveChange($event, obj)"
-                [(ngModel)]="obj.selectedType"
-              >
-                <option value="">Select Category</option>
-                <option *ngFor="let type of objectiveTypes" [value]="type">
-                  {{ type }}
-                </option>
-              </select>
+
+                  </div>
+
+
+<!--                </li>-->
+
+                <!-- Header (click to toggle) -->
+
+
+                <!-- Collapsible content -->
+                <div *ngIf="obj.isOpen" class="collapse-content">
+                  <label class="text-secondary small">OBJECTIVE</label>
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    [(ngModel)]="obj.objectiveText"
+                    placeholder="Enter objective..."
+                  />
+
+                  <label class="text-secondary small">TARGET</label>
+                  <textarea
+                    rows="4"
+                    class="form-control small"
+                    [(ngModel)]="obj.targetText"
+                    placeholder="Enter target..."
+                  ></textarea>
+                </div>
+              </div>
 
             </div>
 
-            <!-- Collapsible content -->
-            <div *ngIf="obj.isOpen" class="collapse-content">
-              <label class="text-secondary small">OBJECTIVE</label>
-              <input
-                type="text"
-                class="form-control mb-2"
-                [(ngModel)]="obj.objectiveText"
-                placeholder="Enter objective..."
-              />
-
-              <label class="text-secondary small">TARGET</label>
-              <textarea
-                rows="4"
-                class="form-control small"
-                [(ngModel)]="obj.targetText"
-                placeholder="Enter target..."
-              ></textarea>
-            </div>
-          </div>
+          </ul>
 
           <!-- Add new objective -->
           <button class="btn btn-info mt-2" (click)="addObjective()">

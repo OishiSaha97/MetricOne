@@ -10,6 +10,16 @@ body {
   font-color:white;
   color:white;
 }
+.modal-max {
+  max-width: 98vw !important;
+}
+
+.modal-max-smaller {
+  max-width: 95vw !important;
+}
+.modal-max-smaller {
+  max-width: 55vw !important;
+}
 .big-logo {
   height: 40px;
 }

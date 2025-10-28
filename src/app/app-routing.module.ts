@@ -10,7 +10,7 @@ import {AllEmployeeKPIComponent} from "./dashboard/all-employee-kpi/all-employee
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: 'dashboard/my-form', component:KpiFormComponent},
+  { path: 'my-form', component:KpiFormComponent},
   { path:'dashboard', component:DashboardComponent},
 
   {

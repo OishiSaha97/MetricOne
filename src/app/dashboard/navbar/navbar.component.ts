@@ -26,7 +26,6 @@ export class NavbarComponent {
     constructor(private router: Router){}
     ngOnInit() {
 
-      console.log('superTasks:', this.superTasks);
 
     }
   navigateTo(path: string) {
@@ -37,5 +36,9 @@ export class NavbarComponent {
 
   logout() {
     this.router.navigate(['']);
+  }
+
+  openTask() {
+    this.active=!this.active;
   }
 }
