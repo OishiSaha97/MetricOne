@@ -20,18 +20,7 @@
   box-sizing: border-box;
 }
 
-.logo {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
 
-.logo img {
-  width: 120px;
-  height: auto;
-  object-fit: contain;
-  padding-bottom: 45px;
-}
 
 .labels {
   display: flex;
@@ -267,6 +256,63 @@ tbody td[title]:hover::after {
   border: solid white; /* tick color white */
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
+}
+
+.status-reverted {
+  color: #f6af21!important;
+}
+
+.status-forwarded {
+  color: #dc43fa  !important;
+}
+
+.status-approved {
+  color: #95ffa6 !important;
+}
+
+.status-submitted {
+  color: #dc43fa !important;
+}
+
+.small-text {
+  font-size: 63%;
+}
+
+/* Initially hide the checkbox span */
+.custom-checkbox span {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Show checkbox span on row hover OR if checkbox is checked */
+tbody tr:hover .custom-checkbox span,
+.custom-checkbox input:checked + span {
+  opacity: 1;
+}
+
+
+thead th:nth-child(1),
+tbody td:nth-child(1) { width: 30px; padding-left: 10px; }       /* Sl No */
+thead th:nth-child(2),
+tbody td:nth-child(2) { width: 80px; }                             /* Year */
+thead th:nth-child(3),
+tbody td:nth-child(3) { width: 150px; }                            /* Employee Name */
+thead th:nth-child(4),
+tbody td:nth-child(4) { width: 120px; }                            /* Team */
+thead th:nth-child(5),
+tbody td:nth-child(5) { width: 100px; }                            /* Employee Id */
+thead th:nth-child(6),
+tbody td:nth-child(6) { width: 100px; }                            /* Status */
+thead th:nth-child(7),
+tbody td:nth-child(7) { width: 180px; }                            /* Designation */
+thead th:nth-child(8),
+tbody td:nth-child(8) { width: 80px; }                             /* Remarks */
+thead th:nth-child(9),
+tbody td:nth-child(9) { width: 50px; text-align: center; }        /* Action */
+
+
+thead th:first-child{
+  padding-left: 20px !important; /* force your desired space */
 }
 
 /* -------------------------------------------------
