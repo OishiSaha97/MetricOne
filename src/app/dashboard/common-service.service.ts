@@ -13,7 +13,7 @@ export class CommonServiceService {
   ApiEndpoint = `${environment.baseUrl}/kpi`;
 
   saveKpi(obj:any){
-    return this.http.post(`${this.ApiEndpoint}/kpi-form`, obj);
+    return this.http.post(`${this.ApiEndpoint}/kpi-form/save`, obj);
   }
 
 
