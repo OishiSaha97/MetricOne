@@ -27,7 +27,6 @@ export class NavbarComponent {
     ngOnInit() {
 
       console.log('superTasks:', this.superTasks);
-      console.log('superTasks:', this.superTasks.subTasks);
 
     }
   navigateTo(path: string) {
@@ -42,6 +41,5 @@ export class NavbarComponent {
 
   openTask() {
     this.active=!this.active;
-    console.log(this.active);
   }
 }
