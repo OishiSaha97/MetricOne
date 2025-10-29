@@ -1,0 +1,42 @@
+.popup-overlay {
+  background-color: rgba(0,0,0,0.7);
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+
+.popup {
+  border-radius:8px;
+}
+.popup-header {
+  background-color: #1C1D21;
+  color: #00B2B1;
+  padding: 12px;
+  text-align:start;
+  font-weight: bold;
+  font-size: 16px; /* smaller font */
+}
+
+.popup-body {
+  background-color: #25262C;
+  padding: 20px;
+  font-size: 14px; /* smaller font overall */
+}
+
+.footer-section{
+  background-color: #25262C;
+}
+
+.cancel-btn{
+  color:white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+}
+
+.submit-btn{
+  color:white;
+  background-color: rgba(100, 73, 190, 1);
+  border: 1px solid rgba(100, 73, 190, 1);
+}
