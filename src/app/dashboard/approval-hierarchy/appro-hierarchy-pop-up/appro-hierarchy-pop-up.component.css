@@ -1,0 +1,147 @@
+.popup-overlay {
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  width: 700px;
+  border-radius: 8px;
+
+}
+
+.popup-header {
+  background-color: #1C1D21;
+  color: #00B2B1;
+  padding: 12px;
+  text-align:start;
+  font-weight: bold;
+  font-size: 16px; /* smaller font */
+}
+
+.popup-body {
+  background-color: #25262C;
+  padding: 20px;
+  font-size: 14px; /* smaller font overall */
+}
+
+.team-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 13px; /* smaller */
+}
+
+.team-box {
+  background-color: #1C1D21;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: left; /* left-aligned */
+  width: 200px; /* smaller box */
+}
+
+.tiers-row {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.tier-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tier-label {
+  margin-bottom: 5px;
+  font-size: 13px; /* smaller */
+}
+
+.dropdown-box {
+  background-color: #1C1D21;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 140px; /* smaller width */
+  position: relative;
+  font-size: 13px; /* smaller font */
+}
+
+.dropdown-selected {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-text {
+  white-space: nowrap;       /* prevent wrapping */
+  overflow: hidden;          /* hide overflow text */
+  text-overflow: ellipsis;   /* show ... if text too long */
+  margin-right: 7px;/* small space from arrow */
+  flex-grow: 1;
+
+}
+
+.arrow {
+  flex-shrink: 0;            /* arrow always visible */
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+.arrow {
+  margin-left: 0px;
+
+  font-size: 10px;
+  flex-shrink: 0;  /* smaller arrow */
+}
+
+.dropdown-options {
+  position: absolute;   /* absolute, not relative */
+  top: calc(100% + 4px); /* a little gap below the box */
+  left: 0;
+  min-width: 150px;      /* at least same width as dropdown box */
+  background-color: #25262C;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;         /* make sure it's above everything */
+}
+
+.dropdown-option {
+  padding: 6px;
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  background-color: #00B2B1;
+}
+
+.add-hierarchy-btn {
+  margin-top: 20px;
+  cursor: pointer;
+  color: #00B2B1;
+  font-weight: 500;
+  align-self: center;
+  font-size: 13px; /* smaller font */
+}
+
+.modal-content {
+  background-color: #25262C;
+  border-radius: 8px;
+  color: white;
+  padding: 20px;
+}
+
+.modal-header {
+  background-color: #1C1D21;
+  color: #00B2B1;
+  font-weight: bold;
+}

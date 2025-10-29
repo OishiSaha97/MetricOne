@@ -1,0 +1,55 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <div
+      class="stage"
+      *ngFor="let stage of stages; let i = index"
+      [class.active]="i === currentStage">
+      {{ stage }}
+    </div>
+    <button type="button" class="btn-close" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body">
+    <!-- KPI Initiation -->
+    <div *ngIf="currentStage === 0">
+      <p class="description">
+        These settings allow you to activate <strong>KPI Initiation</strong>, enabling the setup
+        of KPI Targets for all employees. Specifying the <strong>End Date</strong> will define
+        the deadline for setting the initial KPI Targets for the year.
+      </p>
+
+      <hr />
+
+      <div class="date-row">
+        <label for="endDate">End Date:</label>
+        <div class="date-input">
+          <input
+            type="text"
+            placeholder="Select Date"
+            class="form-control"
+            bsDatepicker
+            [(ngModel)]="selectedDate"
+          />
+          <i class="bi bi-calendar-date calendar-icon"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI Modification -->
+    <div *ngIf="currentStage === 1">
+      KPI Modification content...
+    </div>
+
+    <!-- KPI Evaluation -->
+    <div *ngIf="currentStage === 2">
+      KPI Evaluation content...
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-primary" (click)="nextStage()">
+      {{ currentStage === stages.length - 1 ? 'Finish' : 'Next' }}
+    </button>
+    <button class="btn btn-secondary">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="popup-overlay">
+  <div class="popup">
+    <div class="popup-header">
+      KPI APPROVAL HIERARCHY
+    </div>
+    <div class="popup-body">
+      <label class="team-label">Team Name</label>
+      <div class="team-box">{{teamName}}</div>
+
+      <div class="tiers-row">
+        <div *ngFor="let tier of tiers" class="tier-block">
+          <div class="tier-label">Tier-{{tier}}</div>
+          <div class="dropdown-box" (click)="toggleDropdown(tier)">
+            <div class="dropdown-selected">
+  <span class="dropdown-text">
+    {{ selectedValues['tier'+tier] || (tier === 1 ? 'Select Manager' : 'Select Approver') }}
+  </span>
+              <span class="arrow"><img src="../../../../assets/dropdwon.svg"/></span>
+            </div>
+
+            <div class="dropdown-options" *ngIf="isDropdownOpen(tier)">
+              <div *ngFor="let option of tier === 1 ? managers : approvers"
+                   class="dropdown-option"
+                   (click)="selectOption(tier, option)">
+                {{option}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="isAddVisible()" class="add-hierarchy-btn" (click)="addTier()">
+          + Add Hierarchy
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
