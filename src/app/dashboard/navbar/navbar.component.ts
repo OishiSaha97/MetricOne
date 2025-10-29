@@ -21,6 +21,13 @@ export class NavbarComponent {
         { name: 'Team`s KPI', routePath: 'teamsKPI' },
         { name: 'All Employee KPI', routePath: 'allEmployeeKPI' },
       ]
+    },
+    {
+      name: 'Configuration',
+      subTasks: [
+        { name: 'Approval Hierarchy List', routePath: 'kpiReports' },
+        { name: 'Performance Analysis', routePath: 'performanceAnalysis' },
+      ]
     }
   ];
     constructor(private router: Router){}
