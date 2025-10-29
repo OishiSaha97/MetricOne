@@ -3,6 +3,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {ApproHierarchyPopUpComponent} from "./appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
 
 
+// @ts-ignore
 @Component({
   selector: 'app-approval-hierarchy',
   templateUrl: './approval-hierarchy.component.html',
