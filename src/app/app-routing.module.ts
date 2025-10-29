@@ -27,7 +27,6 @@ const routes: Routes = [
       { path: 'myKPI', component: ListComponent },
       { path: 'teamsKPI', component: TeamsKPIComponent },
       { path: 'allEmployeeKPI', component: AllEmployeeKPIComponent },
-      { path: 'allEmployeeKPI', component: AllEmployeeKPIComponent },
       { path: 'hierarchy', component: ApprovalHierarchyComponent }
       //{ path: 'attributes', component: KpiAttributeComponent }
     ]
