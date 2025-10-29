@@ -16,6 +16,12 @@ import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employ
 import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.component";
 import {ListComponent} from "./dashboard/list/list.component";
 import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
+import { SettingsComponent } from './dashboard/settings/settings.component';
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ApprovalHierarchyComponent } from './dashboard/approval-hierarchy/approval-hierarchy.component';
+import { ApproHierarchyPopUpComponent } from './dashboard/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +30,10 @@ import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
     TeamsKPIComponent,
     AllEmployeeKPIComponent,
     KpiFormComponent,
-    ListComponent
+    ListComponent,
+    SettingsComponent,
+    ApprovalHierarchyComponent,
+    ApproHierarchyPopUpComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +44,9 @@ import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
     HttpClientModule,
     RouterModule,
     CommonModule,
-    ModalModule.forRoot()
+    BrowserAnimationsModule,
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
 
   ],
   providers: [BsModalService],

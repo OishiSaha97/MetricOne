@@ -199,21 +199,29 @@ table tbody td:first-child {
   padding-left: 35px; /* adjust the value as needed */
 }
 
-.status-reverted {
-  color: #f6af21!important;
-}
-
-.status-forwarded {
-  color: #dc43fa  !important;
-}
-
-.status-approved {
-  color: #95ffa6 !important;
+.status-draft,
+.status-not-submitted {
+  color: #FFFFFF !important; /* White */
 }
 
 .status-submitted {
-  color: #dc43fa !important;
+  color: #6BCAFA !important; /* Blue */
 }
+
+.status-in-review,
+.status-in-hr-review,
+.status-in-manager-review {
+  color: #FF4FD3 !important; /* Pink */
+}
+
+.status-reverted {
+  color: #E5FD51 !important; /* Neon Green */
+}
+
+.status-published {
+  color: #A645FF !important; /* Purple */
+}
+
 
 .small-text {
   font-size: 63%;
