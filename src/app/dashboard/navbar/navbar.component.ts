@@ -45,7 +45,9 @@ export class NavbarComponent {
     this.router.navigate(['']);
   }
 
-  openTask() {
-    this.active=!this.active;
+  activeIndex: number | null = null;
+
+  toggleTask(index: number): void {
+    this.activeIndex = this.activeIndex === index ? null : index;
   }
 }

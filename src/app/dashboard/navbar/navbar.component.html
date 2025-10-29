@@ -45,14 +45,15 @@
         <ul class="nav nav-pills pr-1 nav-sidebar flex-column">
           <ng-container *ngFor="let superTask of superTasks; let i = index">
             <li class="nav-item" >
-              <div class="nav-link   sidebar-item" [class.active-item]="active"  (click)="openTask();">
+              <div class="nav-link   sidebar-item" [class.active-item]="activeIndex === i"
+                   (click)="toggleTask(i)">
                 <div class="left-content">
                   <img class="nav-icon task-icon" src="assets/coolicon.svg" alt="icon">
                   {{ superTask.name }}
                 </div>
                 <i class="right top-up" [class.rotated]="active"></i>
               </div>
-              <div *ngIf="active==true">
+              <div *ngIf="activeIndex === i">
                 <ul class="nav nav-treeview" >
                   <li class="nav-item sided"
                     *ngFor="let subTask of superTask.subTasks"
