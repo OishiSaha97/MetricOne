@@ -7,22 +7,26 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./appro-hierarchy-pop-up.component.css']
 })
 export class ApproHierarchyPopUpComponent {
+
   constructor(public bsModalRef: BsModalRef) {}
 
   teamName = 'Development Team';
 
   tiers: number[] = [1, 2];
   maxTiers = 4;
+  selectedValues: any = {};
+  dropdownOpen: { [tier: number]: boolean } = {};
 
   managers = ['Manager A', 'Manager B', 'Manager C'];
   approvers = ['Approver X', 'Approver Y', 'Approver Z'];
 
-  selectedValues: { [key: string]: string } = {};
   dropdownOpenStates: { [key: string]: boolean } = {};
 
   addTier() {
-    if(this.tiers.length < this.maxTiers) {
-      this.tiers.push(this.tiers.length + 1);
+    if (this.tiers.length < this.maxTiers) {
+      const insertIndex = this.tiers.length - 1;
+      const newTier = this.tiers.length;
+      this.tiers.splice(insertIndex, 0, newTier);
     }
   }
 
@@ -31,20 +35,27 @@ export class ApproHierarchyPopUpComponent {
   }
 
   toggleDropdown(tier: number) {
-    const key = `tier${tier}`;
-    this.dropdownOpenStates[key] = !this.dropdownOpenStates[key];
+    this.dropdownOpen[tier] = !this.dropdownOpen[tier];
   }
 
-  selectOption(tier: number, value: string) {
-    this.selectedValues[`tier${tier}`] = value;
-    this.dropdownOpenStates[`tier${tier}`] = false;
+  selectOption(tier: number, option: string) {
+    this.selectedValues['tier' + tier] = option;
+    this.dropdownOpen[tier] = false;
   }
 
-  isDropdownOpen(tier: number): boolean {
-    return !!this.dropdownOpenStates[`tier${tier}`];
+  isDropdownOpen(tier: number) {
+    return this.dropdownOpen[tier];
   }
 
   closeModal() {
     this.bsModalRef.hide();
+  }
+
+  closePopup() {
+    this.bsModalRef.hide();
+  }
+
+  onSubmit() {
+
   }
 }

@@ -11,12 +11,39 @@
     <div class="kpi">
       <h5 style="color:#AD94FF;">{{ label }}</h5>
     </div>
-    <div class="actions">
-      <div class="search-wrapper">
-        <input type="text" placeholder="Search Here" class="search-input">
-        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+    <div >
+      <div style="display: flex;justify-content: space-between;align-items: center;">
+        <div>
+          <button class="btn btn-dark "
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style="background-color:#33343C; border:1px solid #7A7B8299;" (click)="getFinalApprovers();">
+            {{ selectedType || 'Select Final Approver' }}
+          </button>
+
+<!--          <ul class="dropdown-menu dropdown-menu-dark"-->
+<!--              style="background-color: #33343C;">-->
+<!--            <li *ngFor="let apr of finalApprover">-->
+<!--              <a class="dropdown-item text-light"-->
+
+<!--                 (click)="onFinalApr(apr)">-->
+<!--                {{ apr.name }}-->
+<!--              </a>-->
+<!--            </li>-->
+<!--          </ul>-->
+        </div>
+        <div class="actions">
+          <div class="search-wrapper">
+            <input type="text" placeholder="Search Here" class="search-input">
+            <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+          </div>
+        </div>
       </div>
+
+
     </div>
+
   </div>
 
   <div class="table-scroll-wrapper">
@@ -31,9 +58,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of userList; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td title="{{ user.team }}">{{ user.team }}</td>
+        <tr *ngFor="let user of resData; let i = index">
+          <td>
+            <label *ngIf="checkBox[i]==true" [for]="'customCheck'+i"
+                   class="square-checkbox-container">{{pagination.paramOffset+i+1}}
+              <input type="checkbox" [id]="'customCheck'+i"
+                     >
+              <span class="checkmark"></span>
+            </label>
+            <label class="square-checkbox-container"
+                   *ngIf="this.checkBox[i]!=true">
+              {{pagination.paramOffset+i+1}}
+            </label>
+          </td>
+          <td title="{{ user.team }}">{{ user.team_name }}</td>
           <td title="{{ user.designation }}">{{ user.designation }}</td>
           <td class="text-center">
             <img src="../../../assets/edit.svg" alt="actions" (click)="edit()" />
@@ -44,3 +82,17 @@
     </div>
   </div>
 </div>
+
+<ng-template #actionModal1>
+<div class="modal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-color">
+      <div class="d-flex flex-wrap justify-content-between align-items-center p-2 header-section" style="background-color: #1C1D21">
+        <div class="header-info" style="display: flex;justify-content: space-between;align-items: center;">
+          <div><h5 class=" m-3 fw-bold" style="color:#00B2B1">FINAL APPROVER SETTING</h5></div>
+        </div>
+      </div>
+      </div>
+  </div>
+</div>
+</ng-template>

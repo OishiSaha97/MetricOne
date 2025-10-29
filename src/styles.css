@@ -45,7 +45,9 @@ body {
   font-color:white;
   /*color:white;*/
 }
-
+.bg-color{
+  background:rgba(37, 38, 44, 1);
+}
 .font-color-system {
   color: #AD94FF;
 }

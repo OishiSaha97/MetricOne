@@ -24,11 +24,16 @@ export class KpiFormComponent implements OnInit {
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
   year:string='2025';
+  userName:any;
+  userId:any;
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
       this.addObjective();
     }
+    this.userName = localStorage.getItem('fullName');
+    this.userId = localStorage.getItem('username');
+
   }
 
   addObjective(): void {
@@ -85,6 +90,8 @@ export class KpiFormComponent implements OnInit {
       return;
     }
     let obj ={
+      userIdKPI:this.userId,
+      userName:this.userName,
       randomData:JSON.stringify(this.objectives),
       year:this.year,
       param:'kpi_insert_data'

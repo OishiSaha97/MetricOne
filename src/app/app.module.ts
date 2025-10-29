@@ -16,14 +16,13 @@ import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employ
 import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.component";
 import {ListComponent} from "./dashboard/list/list.component";
 import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
-//import { SettingsComponent } from './dashboard/settings/settings.component';
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-//import { ApprovalHierarchyComponent } from './dashboard/approval-hierarchy/approval-hierarchy.component';
-//import { ApproHierarchyPopUpComponent } from './dashboard/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component';
-
-//import { ApprovalHierarchyComponent } from './dashboard/approval-hierarchy/approval-hierarchy.component';
 import { KpiAttributeComponent } from './dashboard/kpi-attribute/kpi-attribute.component';
+import {ApprovalHierarchyComponent} from "./dashboard/approval-hierarchy/approval-hierarchy.component";
+import {SettingsComponent} from "./dashboard/settings/settings.component";
+import {ApproHierarchyPopUpComponent} from "./dashboard/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
+import { FinalApprovalPopUpComponent } from './dashboard/approval-hierarchy/final-approval-pop-up/final-approval-pop-up.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +32,11 @@ import { KpiAttributeComponent } from './dashboard/kpi-attribute/kpi-attribute.c
     AllEmployeeKPIComponent,
     KpiFormComponent,
     ListComponent,
-    //ApproHierarchyPopUpComponent,
-    KpiAttributeComponent
+    ApprovalHierarchyComponent,
+    SettingsComponent,
+    ApproHierarchyPopUpComponent,
+    KpiAttributeComponent,
+    FinalApprovalPopUpComponent
   ],
   imports: [
     BrowserModule,

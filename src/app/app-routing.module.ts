@@ -31,7 +31,7 @@ const routes: Routes = [
       { path: 'allEmployeeKPI', component: AllEmployeeKPIComponent },
       { path: 'hierarchy', component: ApprovalHierarchyComponent },
       { path: 'attributes', component: KpiAttributeComponent },
-      { path: 'approHierarchyPopUp', component: ApproHierarchyPopUpComponent }
+      // { path: 'approHierarchyPopUp', component: ApproHierarchyPopUpComponent }
 
     ]
   }

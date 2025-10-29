@@ -15,7 +15,6 @@ export class ListComponent {
 
   modalRef?: BsModalRef;
   label="My KPI";
-  constructor(public modalService: BsModalService) {}
   choosedOption="Initial KPI settings";
 
   userList = [

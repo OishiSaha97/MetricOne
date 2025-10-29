@@ -4,18 +4,23 @@
       KPI APPROVAL HIERARCHY
     </div>
     <div class="popup-body">
-      <label class="team-label">Team Name</label>
-      <div class="team-box">{{teamName}}</div>
+      <label class="team-label"  style="color:white">Team Name</label>
+      <div class="team-box" style="color:white">{{teamName}}</div>
 
       <div class="tiers-row">
-        <div *ngFor="let tier of tiers" class="tier-block">
-          <div class="tier-label">Tier-{{tier}}</div>
+        <div *ngFor="let tier of tiers; let i = index" class="tier-block">
+
+          <div class="tier-label" *ngIf="tier === 1">Approver-{{tier}} (Manager)</div>
+          <div class="tier-label" *ngIf="tier !== 1 && i !== tiers.length - 1">Approver-{{tier}}</div>
+          <div class="tier-label" *ngIf="i === tiers.length - 1">Final Approver</div>
+
           <div class="dropdown-box" (click)="toggleDropdown(tier)">
             <div class="dropdown-selected">
-  <span class="dropdown-text">
-    {{ selectedValues['tier'+tier] || (tier === 1 ? 'Select Manager' : 'Select Approver') }}
-  </span>
-              <span class="arrow"><img src="../../../../assets/dropdwon.svg"/></span>
+        <span class="dropdown-text" style="color:white">
+          {{ selectedValues['tier'+tier] ||
+        (tier === 1 ? 'Select Manager' : i === tiers.length - 1 ? 'Select Final Approver' : 'Select Approver') }}
+        </span>
+              <span class="arrow"><img src="../../../../assets/dropdwon.svg" /></span>
             </div>
 
             <div class="dropdown-options" *ngIf="isDropdownOpen(tier)">
@@ -28,10 +33,20 @@
           </div>
         </div>
 
+        <!-- Add button inside the row, aligned to the right -->
         <div *ngIf="isAddVisible()" class="add-hierarchy-btn" (click)="addTier()">
           + Add Hierarchy
         </div>
       </div>
+
+
+
     </div>
+    <footer class="footer-section">
+      <div class="d-flex justify-content-end gap-2 p-3">
+        <button class="btn cancel-btn" (click)="closePopup()">Cancel</button>
+        <button class="btn submit-btn" (click)="onSubmit()">Setup</button>
+      </div>
+    </footer>
   </div>
 </div>
