@@ -6,8 +6,12 @@ import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.componen
 import {ListComponent} from "./dashboard/list/list.component";
 import {TeamsKPIComponent} from "./dashboard/teams-kpi/teams-kpi.component";
 import {AllEmployeeKPIComponent} from "./dashboard/all-employee-kpi/all-employee-kpi.component";
-import {ApprovalHierarchyComponent} from "./dashboard/approval-hierarchy/approval-hierarchy.component";
+//import {SettingsComponent} from "./dashboard/settings/settings.component";
+//import {ApprovalHierarchyComponent} from "./dashboard/approval-hierarchy/approval-hierarchy.component";
+//import {ApproHierarchyPopUpComponent} from "./dashboard/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
+//import {ApprovalHierarchyComponent} from "./dashboard/approval-hierarchy/approval-hierarchy.component";
 import {KpiAttributeComponent} from "./dashboard/kpi-attribute/kpi-attribute.component";
+import { ApprovalHierarchyComponent } from "./dashboard/approval-hierarchy/approval-hierarchy.component";
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
@@ -23,8 +27,9 @@ const routes: Routes = [
       { path: 'myKPI', component: ListComponent },
       { path: 'teamsKPI', component: TeamsKPIComponent },
       { path: 'allEmployeeKPI', component: AllEmployeeKPIComponent },
-      { path: 'hierarchy', component: ApprovalHierarchyComponent },
-      { path: 'attributes', component: KpiAttributeComponent }
+      { path: 'allEmployeeKPI', component: AllEmployeeKPIComponent },
+      { path: 'hierarchy', component: ApprovalHierarchyComponent }
+      //{ path: 'attributes', component: KpiAttributeComponent }
     ]
   }
   // {
