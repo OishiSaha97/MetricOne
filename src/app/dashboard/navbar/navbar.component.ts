@@ -25,8 +25,8 @@ export class NavbarComponent {
     {
       name: 'Configuration',
       subTasks: [
-        { name: 'Approval Hierarchy List', routePath: 'kpiReports' },
-        { name: 'Performance Analysis', routePath: 'performanceAnalysis' },
+        { name: 'Approval Hierarchy List', routePath: 'hierarchy' },
+        { name: 'KPI Attributes', routePath: 'attributes' },
       ]
     }
   ];

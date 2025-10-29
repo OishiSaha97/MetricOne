@@ -16,6 +16,8 @@ import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employ
 import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.component";
 import {ListComponent} from "./dashboard/list/list.component";
 import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
+import { ApprovalHierarchyComponent } from './dashboard/approval-hierarchy/approval-hierarchy.component';
+import { KpiAttributeComponent } from './dashboard/kpi-attribute/kpi-attribute.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,9 @@ import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
     TeamsKPIComponent,
     AllEmployeeKPIComponent,
     KpiFormComponent,
-    ListComponent
+    ListComponent,
+    ApprovalHierarchyComponent,
+    KpiAttributeComponent,
   ],
   imports: [
     BrowserModule,
