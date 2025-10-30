@@ -54,7 +54,7 @@ export class ApprovalHierarchyComponent {
   @ViewChild('#template') template!: TemplateRef<any>;
   finalApprover: any = [];
   selectedType: string='';
-
+  mode: any;
   ngOnInit() {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
@@ -103,10 +103,14 @@ export class ApprovalHierarchyComponent {
     // const initialState = {
     //   team_name: data.team_name,
     // };
+    if(!this.finalApprover && this.finalApprover.length <= 0){
+      return;
+    }
     this.modalRef = this.modalService.show(ApproHierarchyPopUpComponent, {
       class: 'modal-dialog modal-dialog-centered modal-lg',
       initialState: {
-        team_name: data.team_name
+        team_name: data.team_name,
+        finalApprover:this.finalApprover
       },
       backdrop: 'static',
       keyboard: false,
@@ -123,8 +127,16 @@ export class ApprovalHierarchyComponent {
     this.modalRef = this.modalService.show(FinalApprovalPopUpComponent, {
       backdrop: 'static',
       keyboard: false,
-      class: 'modal-dialog modal-dialog-centered modal-lg'
+      class: 'modal-dialog modal-dialog-centered modal-lg',
+      initialState: {
+        mode: this.mode,
+      },
 
+    });
+    const modalContent = this.modalRef.content as FinalApprovalPopUpComponent;
+    modalContent.finalApproverSelected.subscribe((approver: any) => {
+      console.log('Final Approver Received:', approver);
+      this.finalApprover = approver;
     });
 
 

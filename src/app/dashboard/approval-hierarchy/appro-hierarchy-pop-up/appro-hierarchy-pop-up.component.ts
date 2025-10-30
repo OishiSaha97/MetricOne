@@ -8,7 +8,7 @@ import {CommonServiceService} from "../../common-service.service";
   styleUrls: ['./appro-hierarchy-pop-up.component.css']
 })
 export class ApproHierarchyPopUpComponent {
-  finalApprover: any;
+  finalApprover: any=[];
   userId:any;
   constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
@@ -17,6 +17,7 @@ export class ApproHierarchyPopUpComponent {
 
     this.userId = localStorage.getItem('username');
     this.getUserList();
+    console.log("finalApprover : ", this.finalApprover);
   }
 
   team_name :any = '';
@@ -41,6 +42,8 @@ export class ApproHierarchyPopUpComponent {
   ];
   dropdownOpenStates: { [key: string]: boolean } = {};
 
+
+
   addTier() {
     if (this.tiers.length < this.maxTiers) {
       const insertIndex = this.tiers.length - 1;
@@ -59,7 +62,7 @@ export class ApproHierarchyPopUpComponent {
     this.dropdownOpen[tier] = !this.dropdownOpen[tier];
   }
 
-  selectOption(tier: number, option: { id: number; name: string }) {
+  selectOption(tier: number, option: { id: number; name: string},  i : any ) {
 
     this.selectedValues['tier' + tier] = {
       index: tier,
@@ -77,6 +80,7 @@ export class ApproHierarchyPopUpComponent {
         name: option.name
       };
     }
+    this.dropdownOpen[tier] = false;
 
     console.log('Selected Values:', this.selectedValues);
   }
@@ -106,7 +110,7 @@ export class ApproHierarchyPopUpComponent {
     console.log('Submitting Objectives:', obj);
     this.kpi.saveKpiHierarchy(obj).subscribe({
       next: (response) => {
-
+        this.bsModalRef.hide();
       },
       error: (error) => {
 

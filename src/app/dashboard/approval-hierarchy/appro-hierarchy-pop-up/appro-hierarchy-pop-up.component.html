@@ -10,41 +10,50 @@
       <div class="tiers-row">
         <div *ngFor="let tier of tiers; let i = index" class="tier-block">
 
-
-          <div class="tier-label" *ngIf="tier === 1">Approver-{{tier}} (Manager)</div>
-          <div class="tier-label" *ngIf="tier !== 1 && i !== tiers.length - 1">Approver-{{tier}}</div>
+          <!-- Tier Label -->
+          <div class="tier-label" *ngIf="tier === 1">Approver-{{ tier }} (Manager)</div>
+          <div class="tier-label" *ngIf="tier !== 1 && i !== tiers.length - 1">Approver-{{ tier }}</div>
           <div class="tier-label" *ngIf="i === tiers.length - 1">Final Approver</div>
 
-
+          <!-- Dropdown / Fixed Display -->
           <div
             class="dropdown-box"
             [class.disabled]="i === tiers.length - 1"
-          (click)="i !== tiers.length - 1 && toggleDropdown(tier)">
+            (click)="i !== tiers.length - 1 && toggleDropdown(tier)">
 
-          <div class="dropdown-selected">
-      <span class="dropdown-text" style="color:white">
-        {{ selectedValues['tier'+tier]?.name ||
-      (tier === 1 ? 'Select Manager'
-        : i === tiers.length - 1 ? 'Final Approver (Fixed)'
-          : 'Select Approver') }}
-      </span>
-            <span *ngIf="i !== tiers.length - 1" class="arrow">
-        <img src="../../../../assets/dropdwon.svg" />
-      </span>
-          </div>
+            <div class="dropdown-selected">
+        <span class="dropdown-text" style="color:white">
 
-          <div
-            class="dropdown-options"
-            *ngIf="i !== tiers.length - 1 && isDropdownOpen(tier)">
+          <ng-container *ngIf="i === tiers.length - 1; else otherTiers">
+            {{ finalApprover?.full_name || 'Final Approver (Fixed)' }}
+          </ng-container>
+
+
+          <ng-template #otherTiers>
+            {{ selectedValues['tier' + tier]?.name ||
+          (tier === 1 ? 'Select Manager' : 'Select Approver') }}
+          </ng-template>
+        </span>
+
+
+              <span *ngIf="i !== tiers.length - 1" class="arrow">
+          <img src="../../../../assets/dropdwon.svg" />
+        </span>
+            </div>
+
+
             <div
-              *ngFor="let option of tier === 1 ? managers : approvers"
-              class="dropdown-option"
-              (click)="selectOption(tier, option)">
-              {{option.name}}
+              class="dropdown-options"
+              *ngIf="i !== tiers.length - 1 && isDropdownOpen(tier)">
+              <div
+                *ngFor="let option of tier === 1 ? managers : approvers; let index = i;"
+                class="dropdown-option"
+                (click)="selectOption(tier, option, i)">
+                {{ option.name }}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
 
         <div *ngIf="isAddVisible()" class="add-hierarchy-btn" (click)="addTier()">
