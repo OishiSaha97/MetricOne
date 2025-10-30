@@ -10,7 +10,7 @@ export class ApproHierarchyPopUpComponent {
 
   constructor(public bsModalRef: BsModalRef) {}
 
-  teamName = 'Development Team';
+  team_name :any = '';
 
   tiers: number[] = [1, 2];
   maxTiers = 4;
