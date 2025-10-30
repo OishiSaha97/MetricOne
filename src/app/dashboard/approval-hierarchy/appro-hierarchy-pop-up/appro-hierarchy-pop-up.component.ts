@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import {CommonServiceService} from "../../common-service.service";
 
 @Component({
   selector: 'app-appro-hierarchy-pop-up',
@@ -7,8 +8,12 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./appro-hierarchy-pop-up.component.css']
 })
 export class ApproHierarchyPopUpComponent {
+  finalApprover: any;
 
-  constructor(public bsModalRef: BsModalRef) {}
+  constructor(public bsModalRef: BsModalRef,
+              private kpi: CommonServiceService) {}
+
+
 
   team_name :any = '';
 
@@ -35,12 +40,21 @@ export class ApproHierarchyPopUpComponent {
   }
 
   toggleDropdown(tier: number) {
+    Object.keys(this.dropdownOpen).forEach(key => this.dropdownOpen[+key] = false);
+
     this.dropdownOpen[tier] = !this.dropdownOpen[tier];
   }
 
   selectOption(tier: number, option: string) {
     this.selectedValues['tier' + tier] = option;
     this.dropdownOpen[tier] = false;
+
+    if (tier === this.tiers[this.tiers.length - 2]) {
+      const finalTier = this.tiers[this.tiers.length - 1];
+      this.selectedValues['tier' + finalTier] = option;
+    }
+
+    console.log("Selected Values:", this.selectedValues);
   }
 
   isDropdownOpen(tier: number) {
@@ -56,7 +70,21 @@ export class ApproHierarchyPopUpComponent {
   }
 
   onSubmit() {
-    console.log();
+    let obj ={
+      tier:this.selectedValues,
+      approver:this.finalApprover,
+      team:this.teamName,
+      param:'kpi_insert_hierarchy_data'
+    }
+    console.log('Submitting Objectives:', obj);
+    this.kpi.saveKpiHierarchy(obj).subscribe({
+      next: (response) => {
+
+      },
+      error: (error) => {
+
+      }
+    });
   }
 
 
