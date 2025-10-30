@@ -1,0 +1,78 @@
+<div class="list-table">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+
+    <div class="left-side d-flex align-items-center gap-3">
+      <div class="KPI-status border-1  d-flex align-items-center p-10px"
+           style="background-color: #1B1B1B; border-radius: 5px; align-items: center">
+
+      </div>
+
+      <div class="KPI-status border-1 align-items-center  p-10px " style="background-color: #25262C;
+; border-radius: 5px;  border: 5px solid #44454E; align-items: center">
+
+      </div>
+
+
+    </div>
+
+    <div class="right-side" style="display: flex; align-items: center; gap: 16px;">
+
+      <div class="logo" style="display: flex; align-items: center;">
+        <img src="../../../assets/logo-datasoft.svg" alt="datasoft logo" style="width: 120px; height: auto;">
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="labels">
+    <div class="kpi">
+      <h5 style="color:#AD94FF;">{{ label }}</h5>
+    </div>
+    <div class="actions">
+
+
+      <button style="background-color: #6449BE; height:36px">+ Add New</button>
+      <div class="search-wrapper">
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon" alt="Search icon"/>
+        <input type="text" class="search-input" placeholder="Search"/>
+        <img src="../../../assets/search-edit.svg" class="edit-icon" alt="edit icon"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table scroll wrapper -->
+  <div class="table-scroll-wrapper">
+    <div class="table-x-scroll">
+      <table>
+        <thead>
+        <tr>
+          <th >Sl No</th>
+          <th>Configured Name</th>
+          <th>Configured Type</th>
+          <th>Created By</th>
+          <th>Created On</th>
+          <th>Updated By</th>
+          <th>Updated On</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of userList; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td title="{{ user.configuredName }}">{{ user.configuredName }}</td>
+          <td title="{{ user.configuredType }}">{{ user.configuredType }}</td>
+          <td title="{{ user.createdBy }}">{{ user.createdBy }}</td>
+          <td title="{{ user.createdOn }}">{{ user.createdOn }}</td>
+          <td title="{{ user.updatedBy }}">{{ user.updatedBy }}</td>
+          <td title="{{ user.updatedOn }}">{{ user.updatedOn }}</td>
+          <td class="text-center">
+            <img src="../../../assets/edit.svg" alt="actions" (click)="edit()" />
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,270 @@
+.popup-overlay {
+  position: fixed;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+
+.popup-header {
+  background-color: #1C1D21;
+  color: #00B2B1;
+  padding: 12px;
+  text-align:start;
+  font-weight: bold;
+  font-size: 16px; /* smaller font */
+}
+
+.popup-body {
+  background-color: #25262C;
+  padding: 20px;
+  font-size: 14px; /* smaller font overall */
+}
+
+.team-label .name{
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 13px; /* smaller */
+}
+
+.team-box {
+  background-color: #1C1D21;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: left; /* left-aligned */
+  width: 200px; /* smaller box */
+}
+
+.tiers-row {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.tier-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tier-label {
+  margin-bottom: 5px;
+  font-size: 13px; /* smaller */
+}
+
+.dropdown-box  {
+  background-color: #1C1D21;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 140px; /* smaller width */
+  position: relative;
+  font-size: 13px; /* smaller font */
+}
+
+.dropdown-selected {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-text {
+  white-space: nowrap;       /* prevent wrapping */
+  overflow: hidden;          /* hide overflow text */
+  text-overflow: ellipsis;   /* show ... if text too long */
+  margin-right: 7px;/* small space from arrow */
+  flex-grow: 1;
+
+}
+
+.arrow {
+  flex-shrink: 0;            /* arrow always visible */
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+.arrow {
+  margin-left: 0px;
+
+  font-size: 10px;
+  flex-shrink: 0;  /* smaller arrow */
+}
+
+.dropdown-options {
+  position: absolute;   /* absolute, not relative */
+  top: calc(100% + 4px); /* a little gap below the box */
+  left: 0;
+  min-width: 150px;      /* at least same width as dropdown box */
+  background-color: #25262C;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;         /* make sure it's above everything */
+}
+
+.dropdown-option {
+  padding: 6px;
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  background-color: #00B2B1;
+}
+
+.add-hierarchy-btn {
+  margin-top: 20px;
+  cursor: pointer;
+  color: #00B2B1;
+  font-weight: 500;
+  align-self: center;
+  font-size: 13px; /* smaller font */
+}
+
+.modal-content {
+  background-color: #25262C;
+  border-radius: 8px;
+  color: white;
+  padding: 20px;
+}
+
+.modal-header {
+  background-color: #1C1D21;
+  color: #00B2B1;
+  font-weight: bold;
+}
+
+
+
+.dropdown-box {
+  background-color: #1C1D21;
+  padding: 6px 8px;
+  border-radius: 4px;
+  width: 200px;
+  cursor: pointer;
+  position: relative;
+  color: white;
+  font-size: 13px;
+}
+
+.dropdown-selected {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background-color: #25262C;
+  border-radius: 4px;
+  z-index: 9999; /* higher than popup body */
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+
+.dropdown-option {
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  background-color: #00B2B1;
+}
+
+.arrow {
+  font-size: 12px;
+}
+.dropdown-box {
+  background-color: #33343C;
+  padding: 6px 8px;
+  border-radius: 4px;
+  width: 200px;
+  cursor: pointer;
+  position: relative;
+  color: white;
+  font-size: 13px;
+}
+
+.dropdown-selected {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background-color: #33343C;
+;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+.dropdown-option {
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  background-color: #6449BE42;
+
+}
+.textinput {
+  background-color: #33343C;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 8px;
+  width: 200px; /* same as dropdown */
+  font-size: 13px; /* match dropdown text size */
+  outline: none;
+}
+
+.textinput::placeholder {
+  color: #FFFFFF80; /* same faint white as dropdown default text */
+}
+
+
+
+.svbtn {
+  background-color: #6449BE;
+;   /* Primary color */
+  color: white;                /* Text color for dark theme */
+  height: 35px;                /* Size = 56dp */
+  padding: 0 24px;             /* Balanced side padding */
+  border: none;                /* No border */
+  border-radius: 8px;          /* Rounded-8 */
+  font-size: 12px;             /* Readable text size */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;   /* Smooth hover effect */
+}
+
+.svbtn:hover {
+  background-color: #7B63D4;   /* Lighter shade on hover */
+}
+
+.svbtn:active {
+  background-color: #5237A3;   /* Slightly darker when pressed */
+  transform: translateY(-1px);    /* Reset lift */
+}
+
+.popup {
+  width: 465px;
+}

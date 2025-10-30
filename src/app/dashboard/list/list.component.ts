@@ -10,7 +10,6 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class ListComponent {
 
-  constructor(public modalService: BsModalService) {}
 
 
   modalRef?: BsModalRef;

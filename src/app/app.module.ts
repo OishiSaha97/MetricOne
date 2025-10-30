@@ -25,10 +25,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 //import { ApprovalHierarchyComponent } from './dashboard/approval-hierarchy/approval-hierarchy.component';
 import { KpiAttributeComponent } from './dashboard/kpi-attribute/kpi-attribute.component';
 import {SettingsComponent} from "./dashboard/settings/settings.component";
-import {ApprovalHierarchyComponent} from "./dashboard/approval-hierarchy/approval-hierarchy.component";
+import {ApprovalHierarchyComponent} from "./my-list/approval-hierarchy/approval-hierarchy.component";
 import {
   ApproHierarchyPopUpComponent
-} from "./dashboard/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
+} from "./my-list/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
+import { KpiAttriComponent } from './dashboard/kpi-attri/kpi-attri.component';
+import { KpiAttriPopUpComponent } from './dashboard/kpi-attri/kpi-attri-pop-up/kpi-attri-pop-up.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,9 @@ import {
     ApprovalHierarchyComponent,
     ApproHierarchyPopUpComponent,
     //ApproHierarchyPopUpComponent,
-    KpiAttributeComponent
+    KpiAttributeComponent,
+    KpiAttriComponent,
+    KpiAttriPopUpComponent
   ],
   imports: [
     BrowserModule,
