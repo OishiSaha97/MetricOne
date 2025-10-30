@@ -120,9 +120,13 @@
 
 .search-box{
   background-color:rgba(51, 52, 60, 1);
-  padding: 6px 10px;
+  padding: 4px 5px;
   border-radius: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 7px;
   text-align: left; /* left-aligned */
-  width: 200px; /* smaller box */
+  width:190px; /* smaller box */
+}
+input::placeholder {
+  color: whitesmoke;
+  opacity: 1;
 }

@@ -34,7 +34,7 @@
                 <div (click)="$event.stopPropagation()" class="search-box bg-color" style="color:white">
                   <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
                   <input [(ngModel)]="searchApprover" type="text" class="form-control"
-                         placeholder="Search Here" style="background: #F4F6F9; padding-left: 30px;height: 44px;" (input)="filterApprovers()">
+                         placeholder="Search Here" style=" padding-left: 13px;height: 35px; background-color: #25262C; color: white;" (input)="filterApprovers()">
                 </div>
                 <div
                   *ngFor="let option of aprrovers"

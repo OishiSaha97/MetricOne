@@ -23,7 +23,7 @@
 
           <div class="dropdown-selected">
       <span class="dropdown-text" style="color:white">
-        {{ selectedValues['tier'+tier] ||
+        {{ selectedValues['tier'+tier]?.name ||
       (tier === 1 ? 'Select Manager'
         : i === tiers.length - 1 ? 'Final Approver (Fixed)'
           : 'Select Approver') }}
