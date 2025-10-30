@@ -9,11 +9,15 @@ import {CommonServiceService} from "../../common-service.service";
 })
 export class ApproHierarchyPopUpComponent {
   finalApprover: any;
-
+  userId:any;
   constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
 
+  ngOnInit(): void {
 
+    this.userId = localStorage.getItem('username');
+
+  }
 
   teamName = 'Development Team';
 
@@ -70,9 +74,13 @@ export class ApproHierarchyPopUpComponent {
   }
 
   onSubmit() {
+    let approver = {
+      id:1, approver:this.finalApprover
+    };
     let obj ={
-      tier:this.selectedValues,
-      approver:this.finalApprover,
+      userIdKPI:this.userId,
+      hierarchyData:JSON.stringify(this.selectedValues),
+      approver:approver,
       team:this.teamName,
       param:'kpi_insert_hierarchy_data'
     }
