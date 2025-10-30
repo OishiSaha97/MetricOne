@@ -98,7 +98,7 @@ export class ApproHierarchyPopUpComponent {
 
     let obj = {
       userIdKPI:this.userId,
-      tier: JSON.stringify(tierArray),
+      hierarchyData: JSON.stringify(tierArray),
       approver: this.finalApprover,
       team: this.team_name,
       param: 'kpi_insert_hierarchy_data'
@@ -116,7 +116,7 @@ export class ApproHierarchyPopUpComponent {
 
 
   getUserList() {
-    this.kpi.getLogData({params: 'user-name-list'})
+    this.kpi.getLogData({param: 'user-name-list',userIdKPI:this.userId,})
       .subscribe(res => {
          this.userList = res?.['user-name-list'];
          this.filterUserList = res?.['user-name-list'];
