@@ -51,7 +51,7 @@ export class ApprovalHierarchyComponent {
   rowNo: any = 0;
   userName:any;
   userId:any;
-  @ViewChild('template') template!: TemplateRef<any>;
+  @ViewChild('#template') template!: TemplateRef<any>;
   finalApprover: any = [];
   selectedType: string='';
 
@@ -98,12 +98,18 @@ export class ApprovalHierarchyComponent {
 
   }
 
-  edit() {
+  edit(data:any) {
+    // console.log(data)
+    // const initialState = {
+    //   team_name: data.team_name,
+    // };
     this.modalRef = this.modalService.show(ApproHierarchyPopUpComponent, {
+      class: 'modal-dialog modal-dialog-centered modal-lg',
+      initialState: {
+        team_name: data.team_name
+      },
       backdrop: 'static',
       keyboard: false,
-      class: 'modal-dialog modal-dialog-centered modal-lg'
-      // class: 'modal-lg modal-dialog-centered',
 
     });
   }

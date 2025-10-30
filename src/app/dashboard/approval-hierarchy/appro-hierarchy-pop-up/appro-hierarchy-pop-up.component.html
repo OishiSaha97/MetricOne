@@ -5,11 +5,7 @@
     </div>
     <div class="popup-body">
       <label class="team-label"  style="color:white">Team Name</label>
-      <div class="team-box bg-color" style="color:white">
-        <input [(ngModel)]="teamName" type="text"
-               class="form-control text-white border-0"
-               style="background-color: rgba(51, 52, 60, 1);; padding-left: 4px;height: 24px;">
-      </div>
+      <div class="team-box" style="color:white">{{team_name}}</div>
 
       <div class="tiers-row">
         <div *ngFor="let tier of tiers; let i = index" class="tier-block">
@@ -44,7 +40,7 @@
               *ngFor="let option of tier === 1 ? managers : approvers"
               class="dropdown-option"
               (click)="selectOption(tier, option)">
-              {{option}}
+              {{option.name}}
             </div>
           </div>
         </div>

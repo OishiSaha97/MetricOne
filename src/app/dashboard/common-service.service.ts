@@ -23,5 +23,8 @@ export class CommonServiceService {
     return this.http.post(`${this.ApiEndpoint}/hierarchy/save`, obj);
   }
 
+  getLogData(obj:any): Observable<any>{
+    return this.http.post(`${this.ApiEndpoint}/hierarchy/config/data`, obj);
+  }
 
 }
