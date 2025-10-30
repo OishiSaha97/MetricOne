@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {DomSanitizer} from "@angular/platform-browser";
+import {CommonServiceService} from "../common-service.service";
 
 @Component({
   selector: 'app-navbar',
@@ -11,8 +12,12 @@ export class NavbarComponent {
 
    name = "Skipper";
    designation = "full stack web-mobile-ml dev";
+  userName:any = '';
+  userId:any='';
   active : boolean= false;
   activeSubTask: string | null = null;
+  allPermission: boolean = false;
+  onlyMyKpi: boolean = false;
   superTasks = [
     {
       name: 'KPI Management',
@@ -30,16 +35,23 @@ export class NavbarComponent {
       ]
     }
   ];
-    constructor(private router: Router){}
+
+  permissionList:any='';
+    constructor(private router: Router,private kpi: CommonServiceService){}
+
     ngOnInit() {
-
-
+      this.userId = localStorage.getItem('username');
+      this.userName = localStorage.getItem('fullName');
+      console.log(this.userName);
+      console.log(this.userId);
+      this.getPermission();
     }
-  navigateTo(path: string) {
-    this.activeSubTask = path;
-    console.log('Navigating to:', path);
-    this.router.navigate(['dashboard', path]);
-  }
+
+    navigateTo(path: string) {
+      this.activeSubTask = path;
+      console.log('Navigating to:', path);
+      this.router.navigate(['dashboard', path]);
+    }
 
   logout() {
     this.router.navigate(['']);
@@ -50,4 +62,23 @@ export class NavbarComponent {
   toggleTask(index: number): void {
     this.activeIndex = this.activeIndex === index ? null : index;
   }
+
+  getPermission() {
+    this.kpi.getLogData({param: 'permission-list',objectId:this.userId,})
+      .subscribe(res => {
+          const data = res?.['permission-list']?.[0];
+          if (data) {
+            this.allPermission = !!data.allPermission;
+            this.onlyMyKpi = !!data.onlyMyKpi;
+          }
+          console.log("allPermission:", this.allPermission);
+          console.log("onlyMyKpi:", this.onlyMyKpi);
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+          // optionally show a toast or alert
+        }
+      );
+  }
+
 }

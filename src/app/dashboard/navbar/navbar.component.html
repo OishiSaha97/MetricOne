@@ -59,15 +59,29 @@
                     *ngFor="let subTask of superTask.subTasks"
                     routerLinkActive="active" >
                     <div
+                      *ngIf="
+                  (subTask.name === 'My KPI' && (onlyMyKpi || allPermission)) ||
+                  (subTask.name === 'Team`s KPI' && allPermission) ||
+                  (subTask.name === 'All Employee KPI' && allPermission) ||
+                  (superTask.name === 'Configuration' && allPermission)
+                "
                       (click)="navigateTo(subTask.routePath)"
                       class="mt-2 nav-link subtask"
                       [class.active-subtask]="activeSubTask === subTask.routePath"
                     >
-                      <p class="subtask-text">
-                        {{ subTask.name }}
-                      </p>
-
+                      <p class="subtask-text">{{ subTask.name }}</p>
                     </div>
+
+<!--                    <div-->
+<!--                      (click)="navigateTo(subTask.routePath)"-->
+<!--                      class="mt-2 nav-link subtask"-->
+<!--                      [class.active-subtask]="activeSubTask === subTask.routePath"-->
+<!--                    >-->
+<!--                      <p class="subtask-text">-->
+<!--                        {{ subTask.name }}-->
+<!--                      </p>-->
+
+<!--                    </div>-->
                   </li>
                 </ul>
               </div>
@@ -90,7 +104,7 @@
         <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
       </div>
       <div>
-        <p style="margin: 0; color: white;">{{ name }}</p>
+        <p style="margin: 0; color: white;">{{ userName }}</p>
         <p style="margin: 0; font-size: 12px; color: white;">{{ designation }}</p>
       </div>
 
