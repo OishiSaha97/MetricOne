@@ -9,11 +9,15 @@ import {CommonServiceService} from "../../common-service.service";
 })
 export class ApproHierarchyPopUpComponent {
   finalApprover: any;
-
+  userId:any;
   constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
 
+  ngOnInit(): void {
 
+    this.userId = localStorage.getItem('username');
+    this.getUserList();
+  }
 
   team_name :any = '';
 
@@ -36,10 +40,6 @@ export class ApproHierarchyPopUpComponent {
     { id: 3, name: 'Approver Z' }
   ];
   dropdownOpenStates: { [key: string]: boolean } = {};
-
-  ngOnInit(){
-    this.getUserList();
-  }
 
   addTier() {
     if (this.tiers.length < this.maxTiers) {
@@ -81,18 +81,6 @@ export class ApproHierarchyPopUpComponent {
     console.log('Selected Values:', this.selectedValues);
   }
 
-  // selectOption(tier: number, option: string) {
-  //   this.selectedValues['tier' + tier] = option;
-  //   this.dropdownOpen[tier] = false;
-  //
-  //   if (tier === this.tiers[this.tiers.length - 2]) {
-  //     const finalTier = this.tiers[this.tiers.length - 1];
-  //     this.selectedValues['tier' + finalTier] = option;
-  //   }
-  //
-  //   console.log("Selected Values:", this.selectedValues);
-  // }
-
   isDropdownOpen(tier: number) {
     return this.dropdownOpen[tier];
   }
@@ -109,7 +97,8 @@ export class ApproHierarchyPopUpComponent {
     const tierArray = Object.values(this.selectedValues);
 
     let obj = {
-      tier: JSON.stringify(tierArray),
+      userIdKPI:this.userId,
+      hierarchyData: JSON.stringify(tierArray),
       approver: this.finalApprover,
       team: this.team_name,
       param: 'kpi_insert_hierarchy_data'
@@ -127,7 +116,7 @@ export class ApproHierarchyPopUpComponent {
 
 
   getUserList() {
-    this.kpi.getLogData({params: 'user-name-list'})
+    this.kpi.getLogData({param: 'user-name-list',userIdKPI:this.userId,})
       .subscribe(res => {
          this.userList = res?.['user-name-list'];
          this.filterUserList = res?.['user-name-list'];
