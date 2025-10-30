@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {ApproAttributePopUpComponent} from "./appro-attribute-pop-up/appro-attribute-pop-up.component";
+import {CommonServiceService} from "../common-service.service";
 
 @Component({
   selector: 'app-kpi-attribute',
@@ -10,8 +11,9 @@ import {ApproAttributePopUpComponent} from "./appro-attribute-pop-up/appro-attri
 export class KpiAttributeComponent {
   label="KPI Attributes";
   modalRef?: BsModalRef;
-
-  constructor(private modalService: BsModalService) {
+  mode: any;
+  constructor(private modalService: BsModalService,
+              private kpi: CommonServiceService) {
   }
 
   userList = [
@@ -38,5 +40,15 @@ export class KpiAttributeComponent {
   }
 
 
+  add() {
+    this.modalRef = this.modalService.show(ApproAttributePopUpComponent,{
+      class: 'modal-dialog modal-dialog-centered modal-max-smaller',
+      backdrop: 'static',
+      keyboard: false,
+      initialState: {
+        mode: this.mode = 'add',
+      },
+    });
 
+  }
 }

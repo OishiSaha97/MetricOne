@@ -55,6 +55,16 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 }
+.modal-max {
+  max-width: 98vw !important;
+}
+
+.modal-max-smaller {
+  max-width: 45vw !important;
+}
+.modal-max-smaller {
+  max-width: 45vw !important;
+}
 
 
 
@@ -120,4 +130,17 @@ body {
   font-weight: 500;
 }
 
+.cancel-btn{
+  color:white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+}
+.cancel-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
+}
 
+.submit-btn{
+  color:white;
+  background-color: rgba(100, 73, 190, 1);
+  border: 1px solid rgba(100, 73, 190, 1);
+}

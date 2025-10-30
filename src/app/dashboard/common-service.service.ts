@@ -33,5 +33,8 @@ export class CommonServiceService {
   getLogData(obj:any): Observable<any>{
     return this.http.post(`${this.ApiEndpoint}/hierarchy/config/data`, obj);
   }
+  saveKPIAttribute(obj: any) {
+    return this.http.post(`${this.ApiEndpoint}/attribute/save`, obj);
+  }
 
 }

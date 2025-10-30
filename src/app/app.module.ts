@@ -23,6 +23,9 @@ import {ApprovalHierarchyComponent} from "./dashboard/approval-hierarchy/approva
 import {SettingsComponent} from "./dashboard/settings/settings.component";
 import {ApproHierarchyPopUpComponent} from "./dashboard/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
 import { FinalApprovalPopUpComponent } from './dashboard/approval-hierarchy/final-approval-pop-up/final-approval-pop-up.component';
+import {
+  ApproAttributePopUpComponent
+} from "./dashboard/kpi-attribute/appro-attribute-pop-up/appro-attribute-pop-up.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,8 @@ import { FinalApprovalPopUpComponent } from './dashboard/approval-hierarchy/fina
     SettingsComponent,
     ApproHierarchyPopUpComponent,
     KpiAttributeComponent,
-    FinalApprovalPopUpComponent
+    FinalApprovalPopUpComponent,
+    ApproAttributePopUpComponent
   ],
   imports: [
     BrowserModule,

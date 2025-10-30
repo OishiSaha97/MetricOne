@@ -30,8 +30,8 @@ export class FinalApprovalPopUpComponent {
   }
 
   onSubmit() {
-    this.finalApproverSelected.emit(this.finalApprover);
-    this.bsModalRef.hide();
+
+
 
     const formData = new FormData();
 
@@ -41,6 +41,8 @@ export class FinalApprovalPopUpComponent {
     console.log('Submitting Final Approver:', formData);
     this.kpi.saveFinalHierarchy(formData).subscribe({
       next: (response) => {
+        this.finalApproverSelected.emit(this.finalApprover);
+        this.bsModalRef.hide();
 
       },
       error: (error) => {

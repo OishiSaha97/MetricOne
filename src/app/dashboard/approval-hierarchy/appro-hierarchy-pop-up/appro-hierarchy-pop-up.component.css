@@ -122,17 +122,6 @@ border-radius:8px;
   flex-shrink: 0;  /* smaller arrow */
 }
 
-/*.dropdown-options {*/
-/*  position: absolute;   !* absolute, not relative *!*/
-/*  top: calc(100% + 4px); !* a little gap below the box *!*/
-/*  left: 0;*/
-/*  min-width: 150px;      !* at least same width as dropdown box *!*/
-/*  background-color: #25262C;*/
-/*  border-radius: 4px;*/
-/*  max-height: 200px;*/
-/*  overflow-y: auto;*/
-/*  z-index: 1000;         !* make sure it's above everything *!*/
-/*}*/
 
 .dropdown-option {
   padding: 6px;
@@ -169,7 +158,10 @@ border-radius:8px;
   color:white;
   border: 1px solid rgba(100, 73, 190, 0.41);
 }
-
+.cancel-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
+}
 .submit-btn{
   color:white;
   background-color: rgba(100, 73, 190, 1);

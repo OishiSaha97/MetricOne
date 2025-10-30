@@ -1,6 +1,6 @@
 .popup-overlay {
-  position: fixed;
-  background-color: rgba(0,0,0,0.7);
+  /*position: fixed;*/
+  background-color:#25262C;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +20,7 @@
 
 .popup-body {
   background-color: #25262C;
-  padding: 20px;
+  padding: 50px;
   font-size: 14px; /* smaller font overall */
 }
 
@@ -58,13 +58,14 @@
 }
 
 .dropdown-box  {
-  background-color: #1C1D21;
+  background-color: #33343C;
   padding: 6px 8px;
   border-radius: 4px;
   cursor: pointer;
-  width: 140px; /* smaller width */
+  width: 260px; /* smaller width */
   position: relative;
-  font-size: 13px; /* smaller font */
+  font-size: 16px; /* smaller font */
+  border: 1px solid rgba(198, 197, 202, 0.5);
 }
 
 .dropdown-selected {
@@ -99,26 +100,18 @@
   flex-shrink: 0;  /* smaller arrow */
 }
 
+
 .dropdown-options {
-  position: absolute;   /* absolute, not relative */
-  top: calc(100% + 4px); /* a little gap below the box */
+  position: absolute;
+  top: calc(100% + 4px);
   left: 0;
-  min-width: 150px;      /* at least same width as dropdown box */
-  background-color: #25262C;
-  border-radius: 4px;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;         /* make sure it's above everything */
+  background: rgba(53, 54, 61, 1);
+  border-radius: 6px;
+  padding: 5px;
+  z-index: 10;
+  width: 100%;
 }
 
-.dropdown-option {
-  padding: 6px;
-  cursor: pointer;
-}
-
-.dropdown-option:hover {
-  background-color: #00B2B1;
-}
 
 .add-hierarchy-btn {
   margin-top: 20px;
@@ -144,16 +137,7 @@
 
 
 
-.dropdown-box {
-  background-color: #1C1D21;
-  padding: 6px 8px;
-  border-radius: 4px;
-  width: 200px;
-  cursor: pointer;
-  position: relative;
-  color: white;
-  font-size: 13px;
-}
+
 
 .dropdown-selected {
   display: flex;
@@ -161,41 +145,19 @@
   align-items: center;
 }
 
-.dropdown-options {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  width: 100%;
-  background-color: #25262C;
-  border-radius: 4px;
-  z-index: 9999;
-  max-height: 150px;
-  overflow-y: auto;
-}
 
 
 .dropdown-option {
   padding: 6px 8px;
   cursor: pointer;
+  color:white;
 }
-
 .dropdown-option:hover {
-  background-color: #00B2B1;
+  background-color: rgba(100, 73, 190, 0.26);
 }
-
 .arrow {
   font-size: 12px;
 }
-.dropdown-box {
-  background-color: #33343C;
-  padding: 6px 8px;
-  border-radius: 4px;
-  width: 200px;
-  cursor: pointer;
-  position: relative;
-  color: white;
-  font-size: 13px;
-}
 
 .dropdown-selected {
   display: flex;
@@ -203,43 +165,26 @@
   align-items: center;
 }
 
-.dropdown-options {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  width: 100%;
-  background-color: #33343C;
-;
-  border-radius: 4px;
-  max-height: 150px;
-  overflow-y: auto;
-  z-index: 9999;
-}
 
-.dropdown-option {
-  padding: 6px 8px;
-  cursor: pointer;
-}
-
-.dropdown-option:hover {
-  background-color: #6449BE42;
-
-}
 .textinput {
   background-color: #33343C;
   color: white;
-  border: none;
   border-radius: 4px;
   padding: 6px 8px;
-  width: 200px;
-  font-size: 13px;
-  outline: none;
+  width: 260px;
+  font-size: 16px; /* smaller font */
+  border: 1px solid rgba(198, 197, 202, 0.5);
+
 }
 
 .textinput::placeholder {
   color: #FFFFFF80;
 }
 
+.textinput.focus {
+  border: 1px solid rgba(198, 197, 202, 0.5);
+  outline: none;
+}
 
 
 .svbtn {
@@ -265,5 +210,22 @@
 }
 
 .popup {
-  width: 465px;
+  width: 100%;
 }
+.submit-btn{
+  color:white;
+  background-color: rgba(100, 73, 190, 1);
+  border: 1px solid rgba(100, 73, 190, 1);
+  width: 105px;
+}
+
+.cancel-btn{
+  color:white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  width: 105px;
+}
+.cancel-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
+}
+

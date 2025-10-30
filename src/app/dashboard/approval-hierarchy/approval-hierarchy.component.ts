@@ -13,9 +13,7 @@ declare var $: any;
 export class ApprovalHierarchyComponent {
   label = "Approval Hierarchy";
    modalRef?: BsModalRef;
-  constructor(private modalService: BsModalService,
-              private kpi: CommonServiceService) {
-  }
+
 
 
   userList = [
@@ -55,6 +53,9 @@ export class ApprovalHierarchyComponent {
   finalApprover: any = [];
   selectedType: string='';
   mode: any;
+  constructor(private modalService: BsModalService,
+              private kpi: CommonServiceService) {
+  }
   ngOnInit() {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
