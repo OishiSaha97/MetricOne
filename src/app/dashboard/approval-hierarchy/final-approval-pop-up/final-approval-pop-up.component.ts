@@ -64,7 +64,13 @@ export class FinalApprovalPopUpComponent {
   }
 
   filterApprovers() {
-
+    if (this.searchApprover.trim()) {
+      this.filterAprroversList = this.aprrovers.filter((apr: any) =>
+        apr.full_name.toLowerCase().includes(this.searchApprover.toLowerCase())
+      );
+    } else {
+      this.filterAprroversList = [...this.aprrovers];
+    }
   }
 
   getUserList() {

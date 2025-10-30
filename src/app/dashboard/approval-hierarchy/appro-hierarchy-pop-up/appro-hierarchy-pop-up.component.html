@@ -46,7 +46,7 @@
               class="dropdown-options"
               *ngIf="i !== tiers.length - 1 && isDropdownOpen(tier)">
               <div
-                *ngFor="let option of tier === 1 ? managers : approvers; let index = i;"
+                *ngFor="let option of tier === 1 ? managers : approvers;  let i = index;"
                 class="dropdown-option"
                 (click)="selectOption(tier, option, i)">
                 {{ option.name }}

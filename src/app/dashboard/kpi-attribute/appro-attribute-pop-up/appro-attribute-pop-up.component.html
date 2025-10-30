@@ -1,0 +1,53 @@
+<div class="popup-overlay">
+  <div class="popup">
+    <div class="popup-header">KPI ATTRIBUTES</div>
+
+    <div class="popup-body d-flex ">
+      <div class="dropdown">
+        <label class="team-label mb-1" style="color:white;">KPI Type</label>
+
+        <div class="dropdown-box" (click)="toggleDropdown()">
+          <div class="dropdown-selected">
+          <span class="dropdown-text" style="color: #FFFFFF80">
+            {{ selectedKpiType || 'Select' }}
+          </span>
+            <span class="arrow">
+            <img src="../../../../assets/dropdwon.svg" />
+          </span>
+          </div>
+
+
+
+          <div class="dropdown-options" *ngIf="dropdownOpen">
+            <div
+              class="dropdown-option"
+              *ngFor="let type of kpiType"
+              (click)="selectOption(type, $event)"
+            >
+              {{ type }}
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="inputfeild ms-4 ">
+        <label class="name mb-1" style="color:white;">Name</label> <br>
+        <input type="text" class="textinput"  placeholder="Type Here">
+
+        <div class=" d-flex justify-content-end mt-4">
+
+          <button  class="svbtn"  (click)="save()">Save</button>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+</div>
+

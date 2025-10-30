@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {ApproHierarchyPopUpComponent} from "./appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {ApproAttributePopUpComponent} from "./appro-attribute-pop-up/appro-attribute-pop-up.component";
 
 @Component({
   selector: 'app-kpi-attribute',
@@ -30,7 +30,7 @@ export class KpiAttributeComponent {
 
   edit()
   {
-    this.modalRef = this.modalService.show(ApproHierarchyPopUpComponent,{
+    this.modalRef = this.modalService.show(ApproAttributePopUpComponent,{
       class: 'modal-dialog-centered',
       backdrop: 'static',
       keyboard: false,
