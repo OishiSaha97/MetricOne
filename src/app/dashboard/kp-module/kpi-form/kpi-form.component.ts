@@ -1,6 +1,7 @@
 
 import { NgModule ,Component, OnInit } from '@angular/core';
 import {CommonServiceService} from "../../common-service.service";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 
 interface Objective {
   id: number;
@@ -18,8 +19,12 @@ interface Objective {
 })
 export class KpiFormComponent implements OnInit {
 
-  constructor(private kpi: CommonServiceService){
+  constructor(public modalRef: BsModalRef,
+              private modalService: BsModalService,
+              private kpi: CommonServiceService) {
   }
+
+
 
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
@@ -109,6 +114,6 @@ export class KpiFormComponent implements OnInit {
 
 
   onCancel() {
-    // Logic to close the modal
+    this.modalRef.hide();
   }
 }

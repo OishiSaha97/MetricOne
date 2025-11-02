@@ -65,12 +65,7 @@
 <!--                    (superTask.name === 'Configuration' && allPermission)-->
 <!--                    "-->
                     <div
-                      *ngIf="
-                  (subTask.name === 'My KPI' && (onlyMyKpi || allPermission)) ||
-                  (subTask.name === 'Team`s KPI' && allPermission) ||
-                  (subTask.name === 'All Employee KPI' && allPermission) ||
-                  (superTask.name === 'Configuration' && onlyMyKpi)
-                "
+
                       (click)="navigateTo(subTask.routePath)"
                       class="mt-2 nav-link subtask"
                       [class.active-subtask]="activeSubTask === subTask.routePath"

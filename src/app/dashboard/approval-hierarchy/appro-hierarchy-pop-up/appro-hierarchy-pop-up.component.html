@@ -54,7 +54,7 @@
               <div
                 *ngFor="let option of (filterApproversList[tier] || []);  let i = index;"
                 class="dropdown-option"
-                (click)="selectOption(tier, option, i)">
+                (click)="$event.stopPropagation();selectOption(tier, option, i)">
                 {{ option.full_name }}
               </div>
             </div>

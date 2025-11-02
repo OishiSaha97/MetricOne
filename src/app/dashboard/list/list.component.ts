@@ -14,7 +14,6 @@ export class ListComponent {
   // constructor(public modalService: BsModalService) {}
 
 
-  modalRef?: BsModalRef;
   label="My KPI";
   choosedOption="Initial KPI settings";
 
@@ -57,10 +56,10 @@ export class ListComponent {
   resDataDup: any = [];
   scrollStatus: any = true;
 
-  constructor(private modalService: BsModalService,
+  constructor(public modalRef: BsModalRef,
+              private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
-
 
   ngOnInit() {
     this.userName = localStorage.getItem('fullName');

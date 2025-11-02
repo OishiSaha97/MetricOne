@@ -19,6 +19,9 @@ export class CommonServiceService {
   getHierarchyList(obj:any): Observable<any> {
     return this.http.post(`${this.ApiEndpoint}/hierarchy/list`, obj);
   }
+  getAttributeList(obj:any): Observable<any> {
+    return this.http.post(`${this.ApiEndpoint}/attribute/list`, obj);
+  }
 
   getKpiList(obj:any): Observable<any> {
     return this.http.post(`${this.ApiEndpoint}/list`, obj);

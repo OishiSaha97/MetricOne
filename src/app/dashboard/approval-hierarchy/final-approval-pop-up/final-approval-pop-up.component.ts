@@ -10,12 +10,15 @@ import {CommonServiceService} from "../../common-service.service";
 export class FinalApprovalPopUpComponent {
     mode:any;
    isOpen: boolean = false;
+   isOpenNew: boolean = false;
    filterAprroversList: any=[];
    constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
   userId:any;
   @Output() finalApproverSelected = new EventEmitter<any>();
+  @Output() modeEdit = new EventEmitter<any>();
   finalApprover: any;
+  finalApproverNew: any;
   aprrovers: any=[];
   searchApprover: any;
 
@@ -23,6 +26,8 @@ export class FinalApprovalPopUpComponent {
 
     this.userId = localStorage.getItem('username');
     this.getUserList();
+
+    console.log("mode:", this.mode);
   }
 
   closePopup() {
@@ -30,18 +35,29 @@ export class FinalApprovalPopUpComponent {
   }
 
   onSubmit() {
+    let approverId: string = '';
+    let name: string = '';
+    if(this.mode == 'edit'){
+       approverId = this.finalApproverNew?.username || '';
+       name = this.finalApproverNew?.full_name || '';
 
-
+    }
+    else{
+       approverId = this.finalApprover?.username || '';
+       name = this.finalApprover?.full_name || '';
+    }
 
     const formData = new FormData();
 
     formData.append('userId', this.userId);
-    formData.append('approverId', this.finalApprover?.username || '');
-    formData.append('name', this.finalApprover?.full_name || '');
+    formData.append('approverId', approverId);
+    formData.append('name', name);
     console.log('Submitting Final Approver:', formData);
     this.kpi.saveFinalHierarchy(formData).subscribe({
       next: (response) => {
-        this.finalApproverSelected.emit(this.finalApprover);
+        this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
+        this.mode = 'edit'
+        this.modeEdit.emit(this.mode);
         this.bsModalRef.hide();
 
       },
@@ -62,7 +78,13 @@ export class FinalApprovalPopUpComponent {
   }
 
   selectOption( option: any) {
-    this.finalApprover = option;
+
+    if(this.mode == 'edit'){
+      this.finalApproverNew = option;
+    }
+    else{
+      this.finalApprover = option;
+    }
   }
 
   filterApprovers() {

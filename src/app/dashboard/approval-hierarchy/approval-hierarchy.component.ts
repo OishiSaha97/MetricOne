@@ -106,6 +106,11 @@ export class ApprovalHierarchyComponent {
       keyboard: false,
 
     });
+    this.modalRef.content.hierarchySaved.subscribe(() => {
+      this.loadData('');
+    });
+
+
   }
 
   onFinalApr(apr: any) {
@@ -120,6 +125,7 @@ export class ApprovalHierarchyComponent {
       class: 'modal-dialog modal-dialog-centered modal-lg',
       initialState: {
         mode: this.mode,
+        finalApprover: this.mode === 'edit' ? this.finalApprover : []
       },
 
     });
@@ -127,6 +133,11 @@ export class ApprovalHierarchyComponent {
     modalContent.finalApproverSelected.subscribe((approver: any) => {
       console.log('Final Approver Received:', approver);
       this.finalApprover = approver;
+      this.loadData('');
+    });
+    modalContent.modeEdit.subscribe((mode: any) => {
+      console.log('mode Received:', mode);
+      this.mode = mode;
     });
 
 
@@ -136,8 +147,19 @@ export class ApprovalHierarchyComponent {
       this.kpi.getLogData({ param: 'final_approver', userIdKPI: this.userId })
         .subscribe(res => {
           this.finalApprover = res?.['final_approver'][0] || [];
-          console.log('Final Approver:', this.finalApprover);
+          if (this.finalApprover && this.finalApprover.full_name) {
+            this.mode = 'edit';
+          }
+          else{
+            this.mode = 'add';
+          }
         });
+
+  }
+
+  search() {
+    this.pagination.paramOffset=0;
+    this.loadData('');
 
   }
 }

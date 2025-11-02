@@ -72,10 +72,10 @@
           <ul class="list-group">
             <div class="work-obj">
               <div class="fw-semibold p-3">Work Objective</div>
-              <!-- Loop through objectives -->
+
               <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light"
                    [ngClass]="{ 'bg-open': obj.isOpen }">
-<!--                <li>-->
+
                   <div class="d-flex justify-content-between align-items-center"
 
                        style="cursor:pointer;">
@@ -109,30 +109,30 @@
 
                   </div>
 
-
-<!--                </li>-->
-
-                <!-- Header (click to toggle) -->
-
-
                 <!-- Collapsible content -->
                 <div *ngIf="obj.isOpen" class="collapse-content">
                   <hr>
-                  <label class="text-secondary small">OBJECTIVE</label>
-                  <input
-                    type="text"
-                    class="obj-input mb-2"
-                    [(ngModel)]="obj.objectiveText"
-                    placeholder="Enter objective..."
-                  />
+                  <div>
+                    <label class="text-secondary small">OBJECTIVE</label>
+                    <input
+                      type="text"
+                      class="obj-input mb-2"
+                      [(ngModel)]="obj.objectiveText"
+                      placeholder="Enter objective..."
+                    />
+                  </div>
+                  <div>
+                    <label class="text-secondary small">TARGET</label>
+                    <textarea
+                      rows="4"
+                      class="obj-input small"
+                      [(ngModel)]="obj.targetText"
+                      placeholder="Enter target..."
+                    ></textarea>
+                  </div>
 
-                  <label class="text-secondary small">TARGET</label>
-                  <textarea
-                    rows="4"
-                    class="obj-input small"
-                    [(ngModel)]="obj.targetText"
-                    placeholder="Enter target..."
-                  ></textarea>
+
+
                 </div>
               </div>
 

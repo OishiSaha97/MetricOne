@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import {CommonServiceService} from "../../common-service.service";
 
@@ -10,6 +10,8 @@ import {CommonServiceService} from "../../common-service.service";
 export class ApproHierarchyPopUpComponent {
   finalApprover: any=[];
   userId:any;
+
+  @Output() hierarchySaved = new EventEmitter<void>();
   constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
 
@@ -61,25 +63,8 @@ export class ApproHierarchyPopUpComponent {
       username: option.username,
       full_name: option.full_name
     };
-
-    // Close dropdown for this tier
     this.dropdownOpen[tier] = false;
-    this.filterApproversList[tier] = [...this.approvers];
-    //
-    // Only copy value to FINAL APPROVER if this is the second last tier
-    // const lastTierIndex = this.tiers.length - 1;
-    // const secondLastTier = this.tiers[lastTierIndex - 1];
-    //
-    // if (tier === secondLastTier) {
-    //   const finalTier = this.tiers[lastTierIndex];
-    //   this.selectedValues['tier' + finalTier] = {
-    //     index: finalTier,
-    //     username: option.username,
-    //     full_name: option.full_name
-    //   };
-    // }
-
-    console.log('Selected Values:', JSON.parse(JSON.stringify(this.selectedValues)));
+    console.log("selectedValues: ", this.selectedValues);
   }
 
 
@@ -109,6 +94,7 @@ export class ApproHierarchyPopUpComponent {
     this.kpi.saveKpiHierarchy(obj).subscribe({
       next: (response) => {
         this.bsModalRef.hide();
+        this.hierarchySaved.emit();
       },
       error: (error) => {
 

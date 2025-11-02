@@ -12,8 +12,32 @@ export class KpiAttributeComponent {
   label="KPI Attributes";
   modalRef?: BsModalRef;
   mode: any;
+  userName:any;
+  userId:any;
+  pagination: any = {
+    paramLimit: 100,
+    paramOffset: 0,
+  };
+  filter_names: any = [];
+  filter_values: any = [];
+  filterParam: any = [];
+  searchParam: any = '';
+  orderParam: any = '';
+  orderType: any = '';
+  scrollStatus: any = true;
+  scrollTop: any = 0;
+  rowNo: any = 0;
+  resData: any = [];
+  resDataDup: any = [];
   constructor(private modalService: BsModalService,
               private kpi: CommonServiceService) {
+  }
+
+  ngOnInit() {
+    this.userName = localStorage.getItem('fullName');
+    this.userId = localStorage.getItem('username');
+    this.loadData('');
+
   }
 
   userList = [
@@ -49,6 +73,48 @@ export class KpiAttributeComponent {
         mode: this.mode = 'add',
       },
     });
+
+  }
+
+  loadData(obj:any){
+    let offset:any =null;
+    if(obj=='increment'){
+      offset=this.pagination.paramOffset+100;
+    }else if(obj=='decrease'){
+      offset=this.pagination.paramOffset-100;
+    }else{
+      offset=this.pagination.paramOffset
+    }
+
+    this.rowNo = 0;
+    console.log("loading !!!")
+    this.kpi.getAttributeList({
+      userIdKPI:this.userId,
+      filterParam: this.filterParam,
+      searchParam: this.searchParam,
+      orderParam: this.orderParam,
+      orderType: this.orderType,
+      paramLimit: this.pagination.paramLimit,
+      paramOffset: offset
+    })
+      .subscribe((res:any) => {
+          this.pagination.paramOffset=offset
+          this.resData = res.result['content'];
+          this.resDataDup = res.result['content'];
+
+          this.scrollStatus = false;
+          // document.getElementById('dataTable').scrollTo(0, 0);
+
+        }, (error:any) => {
+        }
+      );
+
+
+  }
+
+  search() {
+    this.pagination.paramOffset=0;
+    this.loadData('');
 
   }
 }

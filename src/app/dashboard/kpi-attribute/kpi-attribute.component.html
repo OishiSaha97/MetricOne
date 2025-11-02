@@ -30,13 +30,13 @@
       <h5 style="color:#AD94FF;">{{ label }}</h5>
     </div>
     <div class="actions">
+      <button style="background-color: #6449BE; height:34px" (click)="add()">+ Add New</button>
 
 
-      <button style="background-color: #6449BE; height:36px" (click)="add()">+ Add New</button>
-      <div class="search-wrapper">
-        <img src="../../../assets/magnifine-bar.svg" class="search-icon" alt="Search icon"/>
-        <input type="text" class="search-input" placeholder="Search"/>
-        <img src="../../../assets/search-edit.svg" class="edit-icon" alt="edit icon"/>
+      <div class="search-wrapper"   (keydown.enter)="search()">
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon" alt="Search icon" (click)="search()" />
+        <input type="text" class="search-input" placeholder="Search"  [(ngModel)]="searchParam" />
+<!--        <img src="../../../assets/search-edit.svg" class="edit-icon" alt="edit icon"/>-->
       </div>
     </div>
   </div>
@@ -58,14 +58,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of userList; let i = index">
+        <tr *ngFor="let user of resData; let i = index">
           <td>{{ i + 1 }}</td>
-          <td title="{{ user.configuredName }}">{{ user.configuredName }}</td>
-          <td title="{{ user.configuredType }}">{{ user.configuredType }}</td>
-          <td title="{{ user.createdBy }}">{{ user.createdBy }}</td>
-          <td title="{{ user.createdOn }}">{{ user.createdOn }}</td>
-          <td title="{{ user.updatedBy }}">{{ user.updatedBy }}</td>
-          <td title="{{ user.updatedOn }}">{{ user.updatedOn }}</td>
+          <td title="{{ user.kpi_category_name }}">{{ user.kpi_category_name }}</td>
+          <td title="{{ user.kpi_type }}">{{ user.kpi_type }}</td>
+          <td title="{{ user.created_by }}">{{ user.created_by }}</td>
+          <td title="{{ user.created_at }}">{{ user.created_at }}</td>
+          <td title="{{ user.updated_by }}">{{ user.updated_by }}</td>
+          <td title="{{ user.updated_at }}">{{ user.updated_at }}</td>
           <td class="text-center">
             <img src="../../../assets/edit.svg" alt="actions" (click)="edit()" />
           </td>

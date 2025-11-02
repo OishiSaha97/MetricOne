@@ -13,30 +13,21 @@
     </div>
     <div >
       <div style="display: flex;justify-content: space-between;align-items: center;">
-        <div>
-          <button class="btn btn-dark "
+        <div  style="background-color:#25262C; border:1px solid #44454E;width: 250px;border-radius: 5px;height: 35px;" >
+          <button class="btn d-flex align-items-center justify-content-between w-100"
+                  style="padding: 4px 10px; background-color: #25262C; color: white; border: none;"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  style="background-color:#33343C; border:1px solid #7A7B8299;" (click)="getFinalApprovers();">
-            {{ finalApprover?.full_name || 'Select Final Approver' }}
+                 (click)="getFinalApprovers();">
+            <span>{{ finalApprover?.full_name || 'Select Final Approver' }}</span>
+            <img src="../../../assets/approver_icon.svg" alt="icon" style="width: 20px; height: 20px;">
           </button>
-
-<!--          <ul class="dropdown-menu dropdown-menu-dark"-->
-<!--              style="background-color: #33343C;">-->
-<!--            <li *ngFor="let apr of finalApprover">-->
-<!--              <a class="dropdown-item text-light"-->
-
-<!--                 (click)="onFinalApr(apr)">-->
-<!--                {{ apr.name }}-->
-<!--              </a>-->
-<!--            </li>-->
-<!--          </ul>-->
         </div>
         <div class="actions">
-          <div class="search-wrapper">
-            <input type="text" placeholder="Search Here" class="search-input">
-            <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+          <div class="search-wrapper"  (keydown.enter)="search()" >
+            <input type="text" placeholder="Search Here" class="search-input" [(ngModel)]="searchParam">
+            <img src="../../../assets/magnifine-bar.svg" class="search-icon" (click)="search()" />
           </div>
         </div>
       </div>
