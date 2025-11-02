@@ -16,18 +16,6 @@ export class ApprovalHierarchyComponent {
 
 
 
-  userList = [
-    { designation: "Software Engineer", team: "Frontend" },
-    { designation: "Senior Developer", team: "Backend" },
-    { designation: "Project Manager", team: "Frontend" },
-    { designation: "QA Engineer", team: "QA" },
-    { designation: "UI/UX Designer", team: "Design" },
-    { designation: "DevOps Engineer", team: "Infrastructure" },
-    { designation: "Software Engineer", team: "Backend" },
-    { designation: "Senior Developer", team: "Frontend" },
-    { designation: "Project Manager", team: "QA" },
-    { designation: "QA Engineer", team: "Design" }
-  ];
   pagination: any = {
     paramLimit: 100,
     paramOffset: 0,
@@ -60,6 +48,7 @@ export class ApprovalHierarchyComponent {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.loadData('');
+    this.getFinalApprover();
 
   }
 
@@ -140,6 +129,15 @@ export class ApprovalHierarchyComponent {
       this.finalApprover = approver;
     });
 
+
+  }
+
+  getFinalApprover(){
+      this.kpi.getLogData({ param: 'final_approver', userIdKPI: this.userId })
+        .subscribe(res => {
+          this.finalApprover = res?.['final_approver'][0] || [];
+          console.log('Final Approver:', this.finalApprover);
+        });
 
   }
 }

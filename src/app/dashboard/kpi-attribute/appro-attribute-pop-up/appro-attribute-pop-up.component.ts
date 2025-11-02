@@ -22,6 +22,7 @@ export class ApproAttributePopUpComponent {
 
     this.userId = localStorage.getItem('username');
 
+
   }
 
 
@@ -61,4 +62,5 @@ export class ApproAttributePopUpComponent {
   closePopup() {
     this.modalRef.hide();
   }
+
 }

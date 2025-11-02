@@ -30,7 +30,7 @@
 
 
           <ng-template #otherTiers>
-            {{ selectedValues['tier' + tier]?.name ||
+            {{ selectedValues['tier' + tier]?.full_name ||
           (tier === 1 ? 'Select Manager' : 'Select Approver') }}
           </ng-template>
         </span>
@@ -45,11 +45,17 @@
             <div
               class="dropdown-options"
               *ngIf="i !== tiers.length - 1 && isDropdownOpen(tier)">
+              <div (click)="$event.stopPropagation()" class="search-box bg-color" style="color:white">
+                <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+                <input [(ngModel)]="searchApprover[tier]" type="text" class="form-control"
+                       placeholder="Search Here" style=" padding-left: 13px;height: 35px; background-color: #25262C; color: white;"
+                       (input)="filterApprovers(tier)">
+              </div>
               <div
-                *ngFor="let option of tier === 1 ? managers : approvers;  let i = index;"
+                *ngFor="let option of (filterApproversList[tier] || []);  let i = index;"
                 class="dropdown-option"
                 (click)="selectOption(tier, option, i)">
-                {{ option.name }}
+                {{ option.full_name }}
               </div>
             </div>
           </div>

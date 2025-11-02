@@ -29,17 +29,6 @@ export class ApproHierarchyPopUpComponent {
   userList:any='';
   filterUserList:any='';
 
-  managers = [
-    { id: 1, name: 'Manager A' },
-    { id: 2, name: 'Manager B' },
-    { id: 3, name: 'Manager C' }
-  ];
-
-  approvers = [
-    { id: 1, name: 'Approver X' },
-    { id: 2, name: 'Approver Y' },
-    { id: 3, name: 'Approver Z' }
-  ];
   dropdownOpenStates: { [key: string]: boolean } = {};
 
 
@@ -57,33 +46,42 @@ export class ApproHierarchyPopUpComponent {
   }
 
   toggleDropdown(tier: number) {
+
+
     Object.keys(this.dropdownOpen).forEach(key => this.dropdownOpen[+key] = false);
 
     this.dropdownOpen[tier] = !this.dropdownOpen[tier];
+    this.filterApproversList[tier] = [...this.approvers];
   }
 
-  selectOption(tier: number, option: { id: number; name: string},  i : any ) {
+  selectOption(tier: number, option: { username: string; full_name: string }, i: number) {
 
     this.selectedValues['tier' + tier] = {
       index: tier,
-      id: option.id,
-      name: option.name
+      username: option.username,
+      full_name: option.full_name
     };
 
+    // Close dropdown for this tier
     this.dropdownOpen[tier] = false;
+    this.filterApproversList[tier] = [...this.approvers];
+    //
+    // Only copy value to FINAL APPROVER if this is the second last tier
+    // const lastTierIndex = this.tiers.length - 1;
+    // const secondLastTier = this.tiers[lastTierIndex - 1];
+    //
+    // if (tier === secondLastTier) {
+    //   const finalTier = this.tiers[lastTierIndex];
+    //   this.selectedValues['tier' + finalTier] = {
+    //     index: finalTier,
+    //     username: option.username,
+    //     full_name: option.full_name
+    //   };
+    // }
 
-    if (tier === this.tiers[this.tiers.length - 2]) {
-      const finalTier = this.tiers[this.tiers.length - 1];
-      this.selectedValues['tier' + finalTier] = {
-        index: finalTier,
-        id: option.id,
-        name: option.name
-      };
-    }
-    this.dropdownOpen[tier] = false;
-
-    console.log('Selected Values:', this.selectedValues);
+    console.log('Selected Values:', JSON.parse(JSON.stringify(this.selectedValues)));
   }
+
 
   isDropdownOpen(tier: number) {
     return this.dropdownOpen[tier];
@@ -119,17 +117,37 @@ export class ApproHierarchyPopUpComponent {
   }
 
 
+  approvers: any=[];
+  managers: any=[];
+  searchApprover: { [tier: number]: string } = {};
+  filterApproversList: { [tier: number]: any[] } = {};
+
+  filterManagerList: any=[];
   getUserList() {
-    this.kpi.getLogData({param: 'user-name-list',userIdKPI:this.userId,})
+    this.kpi.getLogData({ param: 'user-name-list', userIdKPI: this.userId })
       .subscribe(res => {
-         this.userList = res?.['user-name-list'];
-         this.filterUserList = res?.['user-name-list'];
-        }, error => {
-          // this.alerts.closeAlert();
-          // this.alerts.toast('error', 'Unable to fetch incident Category List.  Please try again. If the problem persists then please contact our Support Team')
-        }
-      );
+        this.approvers = res?.['user-name-list'] || [];
+
+        this.tiers.forEach(tier => {
+          this.filterApproversList[tier] = [...this.approvers];
+        });
+
+        console.log('filterApproversList:', this.filterApproversList);
+      });
   }
+
+  filterApprovers(tier: number) {
+    const searchText = this.searchApprover[tier]?.trim().toLowerCase() || '';
+
+    if (searchText) {
+      this.filterApproversList[tier] = this.approvers.filter((apr: any) =>
+        apr.full_name.toLowerCase().includes(searchText)
+      );
+    } else {
+      this.filterApproversList[tier] = [...this.approvers];
+    }
+  }
+
 
 
 }

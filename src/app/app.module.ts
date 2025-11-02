@@ -26,6 +26,7 @@ import { FinalApprovalPopUpComponent } from './dashboard/approval-hierarchy/fina
 import {
   ApproAttributePopUpComponent
 } from "./dashboard/kpi-attribute/appro-attribute-pop-up/appro-attribute-pop-up.component";
+import {TooltipModule} from "ngx-bootstrap/tooltip";
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,20 +43,21 @@ import {
     FinalApprovalPopUpComponent,
     ApproAttributePopUpComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    InputTextModule,
-    ButtonModule,
-    HttpClientModule,
-    RouterModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    ModalModule.forRoot(),
-    BsDatepickerModule.forRoot(),
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        InputTextModule,
+        ButtonModule,
+        HttpClientModule,
+        RouterModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        ModalModule.forRoot(),
+        BsDatepickerModule.forRoot(),
+        TooltipModule,
 
-  ],
+    ],
   providers: [BsModalService],
   bootstrap: [AppComponent]
 })
