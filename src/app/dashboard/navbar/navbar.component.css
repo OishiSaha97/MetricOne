@@ -44,9 +44,15 @@ html, body {
 
 
 .search-wrapper {
+
   position: relative;
   width: 100%;
-  padding-left: 4px;
+  padding-left: 25px;
+  background: transparent;
+  height: 40px;
+}
+.search-wrapper.home-active {
+  background:#7254D5; /* only active initially */
 }
 
 .search-input {
@@ -183,6 +189,8 @@ html, body {
   color: white;
   background-color: transparent;
   cursor: pointer;
+  margin-left: 25px;
+  margin-right: 5px;
 }
 
 .sidebar-item.active-item {
@@ -191,6 +199,8 @@ html, body {
 .subtask-text {
   color: white;
   margin: 0;
+  margin-left: 20px;
+  font-size: 14px;
 }
 
 .subtask.active-subtask .subtask-text {

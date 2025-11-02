@@ -18,6 +18,7 @@ export class NavbarComponent {
   activeSubTask: string | null = null;
   allPermission: boolean = false;
   onlyMyKpi: boolean = false;
+  isHomeActive: boolean = true;
   superTasks = [
     {
       name: 'KPI Management',
@@ -49,6 +50,7 @@ export class NavbarComponent {
 
     navigateTo(path: string) {
       this.activeSubTask = path;
+      this.isHomeActive = false;
       console.log('Navigating to:', path);
       this.router.navigate(['dashboard', path]);
     }
@@ -61,6 +63,7 @@ export class NavbarComponent {
 
   toggleTask(index: number): void {
     this.activeIndex = this.activeIndex === index ? null : index;
+    this.isHomeActive = false;
   }
 
   getPermission() {

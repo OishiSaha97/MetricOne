@@ -27,6 +27,7 @@ import {
   ApproAttributePopUpComponent
 } from "./dashboard/kpi-attribute/appro-attribute-pop-up/appro-attribute-pop-up.component";
 import {TooltipModule} from "ngx-bootstrap/tooltip";
+import { HomeComponent } from './dashboard/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
     ApproHierarchyPopUpComponent,
     KpiAttributeComponent,
     FinalApprovalPopUpComponent,
-    ApproAttributePopUpComponent
+    ApproAttributePopUpComponent,
+    HomeComponent
   ],
     imports: [
         BrowserModule,

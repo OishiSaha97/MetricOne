@@ -40,7 +40,7 @@ export class LoginPageComponent {
           localStorage.setItem('fullName', result['Name']);
           localStorage.setItem('token', result['token']);
           //this.router.navigate(['/dashboard']);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/home']);
           // this.dialogRef.close(true)
         }
       }, ()=>{
