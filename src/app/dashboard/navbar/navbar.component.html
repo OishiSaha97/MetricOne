@@ -57,35 +57,50 @@
               </div>
               <div *ngIf="activeIndex === i">
                 <ul class="nav nav-treeview" >
-                  <li class="nav-item sided"
-                    *ngFor="let subTask of superTask.subTasks"
-                    routerLinkActive="active" >
-<!--                    *ngIf="-->
-<!--                    (subTask.name === 'My KPI' && (onlyMyKpi || allPermission)) ||-->
-<!--                    (subTask.name === 'Team`s KPI' && allPermission) ||-->
-<!--                    (subTask.name === 'All Employee KPI' && allPermission) ||-->
-<!--                    (superTask.name === 'Configuration' && allPermission)-->
-<!--                    "-->
-                    <div
-
-                      (click)="navigateTo(subTask.routePath)"
-                      class="mt-2 nav-link subtask"
-                      [class.active-subtask]="activeSubTask === subTask.routePath"
+                  <ng-container *ngFor="let subTask of superTask.subTasks">
+                    <li
+                      class="nav-item sided"
+                      routerLinkActive="active"
+                      *ngIf="
+                            (subTask.name === 'My KPI') ||
+                            (subTask.name === 'Team`s KPI' && (teamKpi || allPermission)) ||
+                            (subTask.name === 'All Employee KPI' && allPermission) ||
+                            (superTask.name === 'Configuration' && allPermission)
+                          "
                     >
-                      <p class="subtask-text">{{ subTask.name }}</p>
-                    </div>
-
+                      <div
+                        (click)="navigateTo(subTask.routePath)"
+                        class="mt-2 nav-link subtask"
+                        [class.active-subtask]="activeSubTask === subTask.routePath"
+                      >
+                        <p class="subtask-text">{{ subTask.name }}</p>
+                      </div>
+                    </li>
+                  </ng-container>
+<!--                  <li class="nav-item sided"-->
+<!--                    *ngFor="let subTask of superTask.subTasks"-->
+<!--                    routerLinkActive="active"-->
+<!--                      *ngIf=" (subTask === 'My KPI') ||-->
+<!--                              (subTask.name === 'Team`s KPI' && (teamKpi || allPermission)) ||-->
+<!--                              (subTask.name === 'All Employee KPI' && allPermission) ||-->
+<!--                              (superTask.name === 'Configuration' && allPermission)">-->
+<!--&lt;!&ndash;                    *ngIf="&ndash;&gt;-->
+<!--&lt;!&ndash;                    (subTask.name === 'My KPI' && (onlyMyKpi || allPermission)) ||&ndash;&gt;-->
+<!--&lt;!&ndash;                    (subTask.name === 'Team`s KPI' && allPermission) ||&ndash;&gt;-->
+<!--&lt;!&ndash;                    (subTask.name === 'All Employee KPI' && allPermission) ||&ndash;&gt;-->
+<!--&lt;!&ndash;                    (superTask.name === 'Configuration' && allPermission)&ndash;&gt;-->
+<!--&lt;!&ndash;                    "&ndash;&gt;-->
 <!--                    <div-->
+
 <!--                      (click)="navigateTo(subTask.routePath)"-->
 <!--                      class="mt-2 nav-link subtask"-->
 <!--                      [class.active-subtask]="activeSubTask === subTask.routePath"-->
 <!--                    >-->
-<!--                      <p class="subtask-text">-->
-<!--                        {{ subTask.name }}-->
-<!--                      </p>-->
-
+<!--                      <p class="subtask-text">{{ subTask.name }}</p>-->
 <!--                    </div>-->
-                  </li>
+
+
+<!--                  </li>-->
                 </ul>
               </div>
 
@@ -117,3 +132,15 @@
   </aside>
 </div>
 
+
+
+<!--                    <div-->
+<!--                      (click)="navigateTo(subTask.routePath)"-->
+<!--                      class="mt-2 nav-link subtask"-->
+<!--                      [class.active-subtask]="activeSubTask === subTask.routePath"-->
+<!--                    >-->
+<!--                      <p class="subtask-text">-->
+<!--                        {{ subTask.name }}-->
+<!--                      </p>-->
+
+<!--                    </div>-->
