@@ -10,11 +10,17 @@ import {CommonServiceService} from "../common-service.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  endDate = new Date('2025-01-25T00:00:00');
   days: number = 0;
   hours: number = 0;
   minutes: number = 0;
   modalRef?: BsModalRef;
+  resData: any;
+  endDate: string | null = null;
+  userId:any;
+  dashBoardData: any;
+  pendingHR: any;
+  totalEmloyee: any;
+
   constructor(private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
@@ -30,17 +36,48 @@ export class HomeComponent {
   ];
 
   ngOnInit() {
+    this.userId = localStorage.getItem('username');
+    this.checkEndDate();
+    this.getData();
     this.updateCountdown();
     setInterval(() => this.updateCountdown(), 60000); // Update every minute
+
+
+  }
+
+  getData() {
+    this.kpi.getLogData({ param: 'dashboardInfo', userIdKPI: this.userId })
+      .subscribe(res => {
+        this.dashBoardData = res?.['dashboardInfo'][0] || [];
+        this.totalEmloyee = this.dashBoardData.totalEmployee || 0;
+
+
+      });
   }
 
   updateCountdown() {
     const now = new Date().getTime();
-    const distance = this.endDate.getTime() - now;
+    const date = new Date(this.resData.kpi_last_date);
+    const distance = date.getTime() - now;
 
     this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
     this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  }
+  checkEndDate() {
+    this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
+      .subscribe(res => {
+        this.resData = res?.['KPIendDate'][0] || [];
+
+        this.endDate = this.formatDateForInput(this.resData.kpi_last_date);
+      });
+  }
+  formatDateForInput(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 
   openSetting(){

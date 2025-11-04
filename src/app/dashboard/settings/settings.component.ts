@@ -24,6 +24,7 @@ export class SettingsComponent {
   };
   currentTable: keyof SettingsComponent['tables'] = 'initiation';
   tab: any;
+   showProceedButton: boolean = false;
   constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
   ngOnInit(){
@@ -70,5 +71,11 @@ export class SettingsComponent {
 
   onSubmit() {
 
+  }
+
+  getProceedButton($event: any) {
+    console.log("Received showProceedButton event:", $event);
+    this.showProceedButton = $event;
+    console.log("showProceedButton in settings:", this.showProceedButton);
   }
 }

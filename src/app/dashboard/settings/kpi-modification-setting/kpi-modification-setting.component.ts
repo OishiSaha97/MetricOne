@@ -14,6 +14,16 @@ export class KpiModificationSettingComponent {
   selectedDate: Date | undefined = undefined;
   totalEmloyee: any;
   userId:any;
+  isOpen: boolean = false;
+  isOpenNew: boolean = false;
+  selectedFor: any;
+  searchFor: any;
+  modificationForList = [
+    { id: 1, name: 'All Employees' },
+    { id: 2, name: 'Teams' },
+    { id: 3, name: 'Individuals' }
+  ];
+  filterModificationForList: any=[];
 
   constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
@@ -31,6 +41,11 @@ export class KpiModificationSettingComponent {
 
     const [day, month, year] = '25-06-2025'.split('-').map(Number);
     this.selectedDate = new Date(year, month - 1, day);
+
+    this.filterModificationForList = [...this.modificationForList];
+
+
+    console.log("")
   }
 
   onActive() {
@@ -38,6 +53,14 @@ export class KpiModificationSettingComponent {
   }
 
   closePopup() {
+
+  }
+
+  selectOption(option: any) {
+
+  }
+
+  onDateSelect() {
 
   }
 }

@@ -17,7 +17,7 @@ export class NavbarComponent {
   active : boolean= false;
   activeSubTask: string | null = null;
   allPermission: boolean = false;
-  onlyMyKpi: boolean = false;
+  teamKpi: boolean = false;
   isHomeActive: boolean = true;
   superTasks = [
     {
@@ -72,10 +72,8 @@ export class NavbarComponent {
           const data = res?.['permission-list']?.[0];
           if (data) {
             this.allPermission = !!data.allPermission;
-            this.onlyMyKpi = !!data.onlyMyKpi;
+            this.teamKpi = !!data.teamKpi;
           }
-          console.log("allPermission:", this.allPermission);
-          console.log("onlyMyKpi:", this.onlyMyKpi);
         },
         (error) => {
           console.error("Error fetching permission list", error);

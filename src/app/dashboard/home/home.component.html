@@ -56,72 +56,108 @@
   <div class="col-md-4" style="background-color:#1C1D21; height:100%">
     <div class="kpi-box mb-3">
       <div class="kpi-header d-flex justify-content-between align-items-center mb-3" (click)="openSetting();">
-        <h6 class="mb-0" >Initial KPI Setting</h6>
-        <i class="bi bi-gear-fill text-info"></i>
+        <div>
+          <h6 class="mb-0 text-center" >Initial KPI Setting</h6>
+        </div>
+        <div>
+          <span class="setting-icon"></span>
+        </div>
+
+
       </div>
 
-      <div class="d-flex justify-content-between align-items-center mb-3">
-<!--        <div>-->
-<!--          <small class="text-secondary">Closes in:</small>-->
-<!--          <div class="countdown">-->
-<!--            <span>{{ days }}</span><small>days</small>-->
-<!--            <span>{{ hours }}</span><small>hours</small>-->
-<!--            <span>{{ minutes }}</span><small>minutes</small>-->
-<!--          </div>-->
-<!--        </div>-->
+      <div class="row align-items-center mb-3">
 
-        <div class="countdown-card p-3">
-          <h6 class="text-info mb-3">Closes In:</h6>
+        <div class="col-md-6 col-sm-6">
+          <div class="countdown-card tier-block">
+            <h6 class=" mb-3" style="color: #83F7F6">Closes In:</h6>
 
-          <div class="countdown d-flex justify-content-center align-items-center gap-3">
-            <div class="time-box text-center">
-              <div class="time-value">{{ days | number: '2.0' }}</div>
-              <div class="time-label">DAYS</div>
-            </div>
+            <div class="countdown d-flex justify-content-center align-items-center gap-3">
+              <div class="time-box text-center">
+                <div class="time-value">{{ days | number: '2.0' }}</div>
 
-            <div class="time-box text-center">
-              <div class="time-value">{{ hours | number: '2.0' }}</div>
-              <div class="time-label">HOURS</div>
-            </div>
+              </div>
+<!--              <div class="time-label">DAYS</div>-->
 
-            <div class="time-box text-center">
-              <div class="time-value">{{ minutes | number: '2.0' }}</div>
-              <div class="time-label">MINUTES</div>
+              <div class="time-box text-center">
+                <div class="time-value">{{ hours | number: '2.0' }}</div>
+
+              </div>
+<!--              <div class="time-label">HOURS</div>-->
+
+              <div class="time-box text-center">
+                <div class="time-value">{{ minutes | number: '2.0' }}</div>
+
+              </div>
+<!--              <div class="time-label">MINUTES</div>-->
             </div>
           </div>
         </div>
 
-<!--        <div>-->
-<!--          <small class="text-secondary">End Date:</small>-->
-<!--          <div class="end-date-box">-->
-<!--            {{ endDate | date:'dd MMMM, yyyy' }}-->
-<!--          </div>-->
-<!--        </div>-->
+
+        <div class="col-md-6 col-sm-6">
+          <div class="countdown-card">
+            <h6 class="mb-3" style="color: #83F7F6">End Date:</h6>
+            <div class="end-date-box">
+              {{ endDate | date:'dd MMMM, yyyy' }}
+            </div>
+          </div>
+        </div>
       </div>
 
 
 
-      <div class="d-flex justify-content-around text-center mt-3">
-        <div>
-          <h4>32</h4>
-          <small>In Progress Review</small>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-title">In Manager's Review</div>
+          <div class="kpi-value">
+            <div>
+              <span class="divider">|</span>
+            </div>
+            <div>
+              <span class="number">32</span>
+            </div>
+
+
+          </div>
         </div>
-        <div>
-          <h4>250</h4>
-          <small>Total Employees</small>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Total Employees</div>
+          <div class="kpi-value">
+            <div>
+              <span class="divider">|</span>
+            </div>
+            <div>
+              <span class="number">{{ totalEmloyee }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">KPI In Progress</div>
+          <div class="kpi-value">
+            <div>
+              <span class="divider">|</span>
+            </div>
+            <div>
+              <span class="number">32</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">In HR's Review</div>
+          <div class="kpi-value">
+            <div>
+              <span class="divider">|</span>
+            </div>
+            <div>
+              <span class="number">32</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="d-flex justify-content-around text-center mt-3">
-        <div>
-          <h4>73</h4>
-          <small>KPI in Progress</small>
-        </div>
-        <div>
-          <h4>05</h4>
-          <small>KPI Reviewed</small>
-        </div>
-      </div>
-    </div>
     <div class="card p-4 text-center">
       <div class="progress-circle">
         <span>35%</span>
