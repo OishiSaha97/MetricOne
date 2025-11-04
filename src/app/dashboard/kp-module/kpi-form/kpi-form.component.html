@@ -121,22 +121,23 @@
                              (click)="toggleObjectiveEdit(obj)" />
                       </div>
                     </div>
-                    <div *ngIf="obj.isEditingObjective">
-                      <h5>Key Update Points*</h5>
-                      <p>Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
-                      <input
-                        type="text"
-                        class="obj-input mb-2"
-                        [(ngModel)]="obj.objectiveText"
-                        placeholder="Enter objective..."
-                      />
-                    </div>
                     <input
                       type="text"
                       class="obj-input mb-2"
                       [(ngModel)]="obj.objectiveText"
                       placeholder="Enter objective..."
+                      [readonly]="mode === 'approver' && !obj.isEditingObjective"
                     />
+                    <div *ngIf="obj.isEditingObjective" class="mt-3">
+                      <h6 style="font-size: 12px;">Key Update Points*</h6>
+                      <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                      <input
+                        type="text"
+                        class="obj-input mb-2"
+                        [(ngModel)]="obj.keyObjective"
+                        placeholder="Enter key point objective..."
+                      />
+                    </div>
                   </div>
                   <div>
                     <div>
@@ -153,16 +154,18 @@
                       class="obj-input small"
                       [(ngModel)]="obj.targetText"
                       placeholder="Enter target..."
+                      [readonly]="mode === 'approver' && !obj.isEditingTarget"
                     ></textarea>
 
-                    <div *ngIf="obj.isEditingTarget">
-                      <h5>Key Update Points*</h5>
-                      <p>Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                    <div *ngIf="obj.isEditingTarget" class="mt-3">
+                      <h6 style="font-size: 12px;">Key Update Points*</h6>
+                      <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
                       <input
                         type="text"
                         class="obj-input mt-2"
-                        [(ngModel)]="obj.objectiveText"
-                        placeholder="Enter objective..."
+                        [(ngModel)]="obj.keyTarget"
+                        placeholder="Enter key point target..."
+
                       />
                     </div>
                   </div>

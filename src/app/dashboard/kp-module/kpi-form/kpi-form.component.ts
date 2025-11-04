@@ -10,6 +10,8 @@ interface Objective {
   objectiveText: string;
   targetText: string;
   isOpen: boolean;
+  keyObjective?: string;
+  keyTarget?: string;
 }
 
 @Component({
@@ -134,13 +136,42 @@ export class KpiFormComponent implements OnInit {
     if (!this.validateObjectives()) {
       return;
     }
+    let processedObjectives = this.objectives.map((obj: Objective) => {
+      // Create a structured object grouped by title
+      let item: any = {
+        title: obj.title,
+        selectedType: obj.selectedType,
+        objectiveText: obj.objectiveText,
+        targetText: obj.targetText
+      };
+
+      // If mode = approver, include key points if present
+      if (this.mode === 'approver') {
+        if (obj.keyObjective?.trim()) {
+          item.keyObjective = obj.keyObjective.trim();
+        }
+        if (obj.keyTarget?.trim()) {
+          item.keyTarget = obj.keyTarget.trim();
+        }
+      }
+
+      return item;
+    });
+    console.log(processedObjectives)
+
+    const param = this.mode === 'approver'
+      ? 'kpi_update_data_by_approver'
+      : 'kpi_insert_data';
+
     let obj ={
       userIdKPI:this.userId,
       userName:this.userName,
-      randomData:JSON.stringify(this.objectives),
+      randomData:JSON.stringify(processedObjectives),
       year:this.year,
-      param:'kpi_insert_data'
+      param:param
     }
+
+
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
 

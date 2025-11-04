@@ -65,8 +65,7 @@
                             (subTask.name === 'My KPI') ||
                             (subTask.name === 'Team`s KPI' && (teamKpi || allPermission)) ||
                             (subTask.name === 'All Employee KPI' && allPermission) ||
-                            (superTask.name === 'Configuration' && allPermission)
-                          "
+                            (superTask.name === 'Configuration' ) "
                     >
                       <div
                         (click)="navigateTo(subTask.routePath)"
@@ -77,30 +76,7 @@
                       </div>
                     </li>
                   </ng-container>
-<!--                  <li class="nav-item sided"-->
-<!--                    *ngFor="let subTask of superTask.subTasks"-->
-<!--                    routerLinkActive="active"-->
-<!--                      *ngIf=" (subTask === 'My KPI') ||-->
-<!--                              (subTask.name === 'Team`s KPI' && (teamKpi || allPermission)) ||-->
-<!--                              (subTask.name === 'All Employee KPI' && allPermission) ||-->
-<!--                              (superTask.name === 'Configuration' && allPermission)">-->
-<!--&lt;!&ndash;                    *ngIf="&ndash;&gt;-->
-<!--&lt;!&ndash;                    (subTask.name === 'My KPI' && (onlyMyKpi || allPermission)) ||&ndash;&gt;-->
-<!--&lt;!&ndash;                    (subTask.name === 'Team`s KPI' && allPermission) ||&ndash;&gt;-->
-<!--&lt;!&ndash;                    (subTask.name === 'All Employee KPI' && allPermission) ||&ndash;&gt;-->
-<!--&lt;!&ndash;                    (superTask.name === 'Configuration' && allPermission)&ndash;&gt;-->
-<!--&lt;!&ndash;                    "&ndash;&gt;-->
-<!--                    <div-->
 
-<!--                      (click)="navigateTo(subTask.routePath)"-->
-<!--                      class="mt-2 nav-link subtask"-->
-<!--                      [class.active-subtask]="activeSubTask === subTask.routePath"-->
-<!--                    >-->
-<!--                      <p class="subtask-text">{{ subTask.name }}</p>-->
-<!--                    </div>-->
-
-
-<!--                  </li>-->
                 </ul>
               </div>
 
@@ -132,15 +108,4 @@
   </aside>
 </div>
 
-
-
-<!--                    <div-->
-<!--                      (click)="navigateTo(subTask.routePath)"-->
-<!--                      class="mt-2 nav-link subtask"-->
-<!--                      [class.active-subtask]="activeSubTask === subTask.routePath"-->
-<!--                    >-->
-<!--                      <p class="subtask-text">-->
-<!--                        {{ subTask.name }}-->
-<!--                      </p>-->
-
-<!--                    </div>-->
+<!--(superTask.name === 'Configuration' && allPermission)-->
