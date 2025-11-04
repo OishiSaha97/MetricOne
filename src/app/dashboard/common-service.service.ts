@@ -32,6 +32,9 @@ export class CommonServiceService {
   saveFinalHierarchy(obj: any) {
     return this.http.post(`${this.ApiEndpoint}/hierarchy/add/final_approver`, obj);
   }
+  saveEndDate(obj: any) {
+    return this.http.post(`${this.ApiEndpoint}/setting/save/endDate`, obj);
+  }
 
   getLogData(obj:any): Observable<any>{
     return this.http.post(`${this.ApiEndpoint}/hierarchy/config/data`, obj);

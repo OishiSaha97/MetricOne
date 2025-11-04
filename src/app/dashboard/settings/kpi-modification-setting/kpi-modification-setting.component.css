@@ -1,0 +1,23 @@
+.tier-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+}
+.tier-label {
+  margin-bottom: 5px;
+  font-size: 13px;
+  color:white;
+}
+
+.description{
+  color: #FFFFFF;
+  font-size: 14px;
+  margin-left: 30px;
+  margin-right: 20px;
+}
+.arrow {
+  flex-shrink: 0;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}

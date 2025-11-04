@@ -37,7 +37,6 @@ export class ApprovalHierarchyComponent {
   rowNo: any = 0;
   userName:any;
   userId:any;
-  @ViewChild('#template') template!: TemplateRef<any>;
   finalApprover: any = [];
   selectedType: string='';
   mode: any;

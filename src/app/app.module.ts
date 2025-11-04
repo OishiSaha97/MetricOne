@@ -16,7 +16,7 @@ import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employ
 import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.component";
 import {ListComponent} from "./dashboard/list/list.component";
 import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
-import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { KpiAttributeComponent } from './dashboard/kpi-attribute/kpi-attribute.component';
 import {ApprovalHierarchyComponent} from "./dashboard/approval-hierarchy/approval-hierarchy.component";
@@ -28,6 +28,12 @@ import {
 } from "./dashboard/kpi-attribute/appro-attribute-pop-up/appro-attribute-pop-up.component";
 import {TooltipModule} from "ngx-bootstrap/tooltip";
 import { HomeComponent } from './dashboard/home/home.component';
+import {InitialComponent} from "./dashboard/settings/initial/initial.component";
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import {
+    KpiModificationSettingComponent
+} from "./dashboard/settings/kpi-modification-setting/kpi-modification-setting.component";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,23 +49,24 @@ import { HomeComponent } from './dashboard/home/home.component';
     KpiAttributeComponent,
     FinalApprovalPopUpComponent,
     ApproAttributePopUpComponent,
-    HomeComponent
+    HomeComponent,
+    InitialComponent,
+    KpiModificationSettingComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        InputTextModule,
-        ButtonModule,
-        HttpClientModule,
-        RouterModule,
-        CommonModule,
-        BrowserAnimationsModule,
-        ModalModule.forRoot(),
-        BsDatepickerModule.forRoot(),
-        TooltipModule,
-
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    InputTextModule,
+    ButtonModule,
+    HttpClientModule,
+    RouterModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    TooltipModule
+  ],
   providers: [BsModalService],
   bootstrap: [AppComponent]
 })

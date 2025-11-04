@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import {FinalApprovalPopUpComponent} from "../approval-hierarchy/final-approval-pop-up/final-approval-pop-up.component";
+import {SettingsComponent} from "../settings/settings.component";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {CommonServiceService} from "../common-service.service";
 
 @Component({
   selector: 'app-home',
@@ -10,6 +14,10 @@ export class HomeComponent {
   days: number = 0;
   hours: number = 0;
   minutes: number = 0;
+  modalRef?: BsModalRef;
+  constructor(private modalService: BsModalService,
+              private kpi: CommonServiceService) {
+  }
 
   notifications = [
     { name: 'Jaber Alom', message: 'KPI review session announced.', image: 'https://i.pravatar.cc/40?img=1' },
@@ -33,5 +41,17 @@ export class HomeComponent {
     this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
     this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  }
+
+  openSetting(){
+    this.modalRef = this.modalService.show(SettingsComponent, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-dialog modal-dialog-centered modal-lg',
+      initialState: {
+
+      },
+
+    });
   }
 }

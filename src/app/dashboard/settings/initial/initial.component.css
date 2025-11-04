@@ -1,0 +1,201 @@
+
+hr{
+
+}
+.description{
+  color: #FFFFFF;
+  font-size: 14px;
+  margin-left: 30px;
+  margin-right: 20px;
+}
+
+.abc{
+  margin-bottom: 40px;
+  margin-top: 20px;
+  padding-left: 26px;
+  padding-right: 11px;
+}
+
+.date-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+input::placeholder {
+  color: #918f8f;
+  size: 10px;
+}
+.date-row label {
+  width: 80px;
+  color: #ccc;
+  font-weight: 500;
+}
+
+/*.date-input {*/
+/*  position: relative;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*}*/
+/*.bs-datepicker-container {*/
+/*  z-index: 100000 !important;*/
+/*}*/
+/*.bs-datepicker-container {*/
+/*  top: auto !important;*/
+/*  bottom: 100% !important;*/
+/*  margin-bottom: 5px !important;*/
+/*  z-index: 9999 !important;*/
+/*}*/
+.date-input .form-control {
+  width: 200px;
+  padding-right: 35px;
+  cursor: pointer;
+  background-color: #1e1f23;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: white;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 10px;
+  height: 25px;
+  width: 30px;
+  pointer-events: none;
+  background: url("src/assets/calender-icon.svg") center center no-repeat;
+}
+
+/*!* ngx-bootstrap datepicker popup *!*/
+/*.bs-datepicker {*/
+/*  background-color: #2c2d33 !important;*/
+/*  color: #fff !important;*/
+/*  border-radius: 12px;*/
+/*  border: 1px solid #444;*/
+/*  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);*/
+/*  font-family: 'Inter', sans-serif;*/
+/*}*/
+
+/*!* Header of datepicker *!*/
+/*.bs-datepicker .bs-datepicker-head {*/
+/*  background-color: #1f2025 !important;*/
+/*  border-bottom: 1px solid #444;*/
+/*  color: #0d6efd;*/
+/*  font-weight: 600;*/
+/*}*/
+
+/*!* Navigation buttons (prev/next) *!*/
+/*.bs-datepicker .bs-datepicker-nav button {*/
+/*  background: none;*/
+/*  border: none;*/
+/*  color: #0d6efd;*/
+/*  font-weight: bold;*/
+/*  transition: all 0.2s;*/
+/*}*/
+
+/*.bs-datepicker .bs-datepicker-nav button:hover {*/
+/*  color: #69b3ff;*/
+/*  transform: scale(1.1);*/
+/*}*/
+
+/*!* Days grid *!*/
+/*.bs-datepicker .bs-datepicker-body td span {*/
+/*  color: #fff;*/
+/*  background-color: transparent;*/
+/*  border-radius: 50%;*/
+/*  padding: 5px 8px;*/
+/*  transition: all 0.2s ease;*/
+/*}*/
+
+/*!* Hover day *!*/
+/*.bs-datepicker .bs-datepicker-body td span:hover {*/
+/*  background-color: #0d6efd;*/
+/*  color: #fff;*/
+/*  transform: scale(1.1);*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*!* Selected day *!*/
+/*.bs-datepicker .bs-datepicker-body td span.active {*/
+/*  background-color: #0d6efd !important;*/
+/*  color: #fff !important;*/
+/*  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.7);*/
+/*  transform: scale(1.1);*/
+/*}*/
+
+/*!* Today highlight *!*/
+/*.bs-datepicker .bs-datepicker-body td span.today {*/
+/*  border: 1px solid #0d6efd;*/
+/*  border-radius: 50%;*/
+/*}*/
+
+/*!* Weekdays *!*/
+/*.bs-datepicker .bs-datepicker-body thead th {*/
+/*  color: #bbb;*/
+/*  font-weight: 500;*/
+/*}*/
+
+/*!* Smooth transition for all dates *!*/
+/*.bs-datepicker .bs-datepicker-body td span {*/
+/*  transition: all 0.2s ease-in-out;*/
+/*}*/
+
+.active-btn{
+  background-color: #04AC7C;
+  color: #FFFFFF;
+  border:none;
+
+
+}
+.close-btn{
+  background-color: #BE4949;
+  color: #FFFFFF;
+  border:none;
+}
+
+.disabled-active-btn{
+  background-color: #04AC7C54;
+  color:  #FFFFFF;
+  cursor: not-allowed;
+  border:none;
+}
+
+.disabled-close-btn{
+  background-color: #BE49494D;
+  color:  #FFFFFF;
+  cursor: not-allowed;
+  border:none;
+}
+.date-input-container {
+  position: relative!important; /* reference for absolute positioning */
+  width: 100%; /* or your desired width */
+  height: 50px; /* optional, to control layout space */
+}
+
+.date-input {
+  position: absolute!important;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background-color: #25262c;
+  color: #ffffff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.date-input::placeholder {
+  color: #ccc; /* white-ish placeholder */
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #00b2b1;
+}
+body .bs-datepicker-container,
+body bs-datepicker-container,
+.ngx-bootstrap .bs-datepicker-container {
+  z-index: 20000 !important;
+}
+.cdk-overlay-container {
+  z-index: 1200 !important; /* higher than your modal */
+}
