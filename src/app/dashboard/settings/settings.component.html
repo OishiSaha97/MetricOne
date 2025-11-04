@@ -47,7 +47,7 @@
   <div class="modal-body">
     <!-- KPI Initiation -->
     <fieldset *ngIf="currentTable=='initiation'">
-      <app-initial [tabs]="this.tab" >
+      <app-initial [tabs]="this.tab" (showProceed)="getProceedButton($event)"  >
 
       </app-initial>
 
@@ -76,8 +76,8 @@
      </div>
     </div>
     <div class="d-flex justify-content-end gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
-      <button class="btn cancel-btn" (click)="closePopup()">Close</button>
-      <button class="submit-btn" (click)="onSubmit()">Proceed</button>
+      <button class="cancel-btn" (click)="closePopup()">Close</button>
+      <button class="submit-btn" *ngIf="showProceedButton" (click)="onSubmit()">Proceed</button>
     </div>
   </footer>
 

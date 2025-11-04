@@ -71,42 +71,6 @@ hr {
   margin: 20px 0;
 }
 
-.date-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.date-row label {
-  width: 80px;
-  color: #ccc;
-  font-weight: 500;
-}
-
-.date-input {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.date-input .form-control {
-  width: 200px;
-  padding-right: 35px;
-  cursor: pointer;
-  background-color: #1e1f23;
-  border: 1px solid #555;
-  border-radius: 6px;
-  color: white;
-}
-
-.calendar-icon {
-  position: absolute;
-  right: 10px;
-  font-size: 18px;
-  color: #aaa;
-  pointer-events: none;
-}
-
 .modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -123,38 +87,7 @@ hr {
   color: white;
   padding-right: 35px;
 }
-/* Input field styling */
-.date-input {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
 
-.date-input .form-control {
-  width: 220px;
-  cursor: pointer;
-  background-color: #1f2025;
-  border: 1px solid #555;
-  border-radius: 8px;
-  color: white;
-  padding: 8px 40px 8px 12px;
-  font-size: 14px;
-  transition: all 0.25s ease-in-out;
-}
-
-.date-input .form-control:focus {
-  border-color: #0d6efd;
-  box-shadow: 0 0 8px rgba(13, 110, 253, 0.5);
-}
-
-/* Calendar icon */
-.calendar-icon {
-  position: absolute;
-  right: 12px;
-  font-size: 18px;
-  color: #0d6efd;
-  pointer-events: none;
-}
 
 
 .submit-btn{
@@ -165,4 +98,16 @@ hr {
   color:white;
   background-color: rgba(100, 73, 190, 1);
   border: 1px solid rgba(100, 73, 190, 1);
+}
+.cancel-btn{
+  width: 100px !important;
+  border-radius: 4px !important;
+  color: white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  background: transparent;
+  height: 40px;
+}
+.cancel-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
 }

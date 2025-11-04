@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {BsDatepickerConfig} from "ngx-bootstrap/datepicker";
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
@@ -11,10 +11,14 @@ import {CommonServiceService} from "../../common-service.service";
 export class InitialComponent {
   bsConfig?: Partial<BsDatepickerConfig>;
   today: any;
-  selectedDate: Date | undefined = undefined;
+  selectedDate: string | null = null;
   totalEmloyee: any;
   userId:any;
   @Input() tabs: any;
+   resData: any;
+   dashBoardData: any;
+    pendingHR: any;
+   showProceedButton: boolean = false;
 
   constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
@@ -28,13 +32,42 @@ export class InitialComponent {
       showWeekNumbers: false
     };
 
-    this.totalEmloyee = 250;
+    this.pendingHR = 250;
 
-    console.log("tabs : ", this.tabs);
-    const [day, month, year] = '25-06-2025'.split('-').map(Number);
-    this.selectedDate = new Date(year, month - 1, day);
+    this.checkEndDate();
+    this.getData();
+  }
+  @Output() showProceed = new EventEmitter<any>();
+  getData() {
+    this.kpi.getLogData({ param: 'dashboardInfo', userIdKPI: this.userId })
+      .subscribe(res => {
+        this.dashBoardData = res?.['dashboardInfo'][0] || [];
+        this.totalEmloyee = this.dashBoardData.totalEmployee || 0;
+
+        if(this.totalEmloyee == this.pendingHR){
+          this.showProceedButton = true;
+        }
+        this.showProceed.emit(this.showProceedButton);
+
+      });
   }
 
+  checkEndDate() {
+    this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
+      .subscribe(res => {
+        this.resData = res?.['KPIendDate'][0] || [];
+
+        this.selectedDate = this.formatDateForInput(this.resData.kpi_last_date);
+        console.log('selectedDate:', this.formatDateForInput(this.resData.kpi_last_date));
+      });
+  }
+  formatDateForInput(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
 
   closePopup() {
 
@@ -42,14 +75,11 @@ export class InitialComponent {
 
 
   onActive() {
-    const formattedDate =
-      this.selectedDate instanceof Date
-        ? this.selectedDate.toISOString().split('T')[0]
-        : String(this.selectedDate);
+    const formattedDate = this.selectedDate || '';
     const formData = new FormData();
 
     formData.append('userId', this.userId);
-    formData.append('endDate', formattedDate);
+    formData.append('date', formattedDate);
 
     console.log('Submitting EndDate:', formData);
     this.kpi.saveEndDate(formData).subscribe({
@@ -65,6 +95,8 @@ export class InitialComponent {
   }
 
   onDateSelect() {
+    console.log("selected Date : ", this.selectedDate);
 
   }
+
 }
