@@ -115,8 +115,22 @@
                   <div>
                     <div>
                       <label class="text-secondary small">OBJECTIVE</label>
+                      <div *ngIf="mode == 'approver'">
+                        <img src="../../../assets/fa-regular_edit.svg"
+                             class="mb-1" style="scale:0.7"
+                             (click)="toggleObjectiveEdit(obj)" />
+                      </div>
                     </div>
-
+                    <div *ngIf="obj.isEditingObjective">
+                      <h5>Key Update Points*</h5>
+                      <p>Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                      <input
+                        type="text"
+                        class="obj-input mb-2"
+                        [(ngModel)]="obj.objectiveText"
+                        placeholder="Enter objective..."
+                      />
+                    </div>
                     <input
                       type="text"
                       class="obj-input mb-2"
@@ -127,6 +141,11 @@
                   <div>
                     <div>
                       <label class="text-secondary small">TARGET</label>
+                      <div *ngIf="mode == 'approver'">
+                        <img src="../../../assets/fa-regular_edit.svg"
+                             class="mb-1" style="scale:0.7"
+                             (click)="toggleTargetEdit(obj)" />
+                      </div>
                     </div>
 
                     <textarea
@@ -135,6 +154,17 @@
                       [(ngModel)]="obj.targetText"
                       placeholder="Enter target..."
                     ></textarea>
+
+                    <div *ngIf="obj.isEditingTarget">
+                      <h5>Key Update Points*</h5>
+                      <p>Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                      <input
+                        type="text"
+                        class="obj-input mt-2"
+                        [(ngModel)]="obj.objectiveText"
+                        placeholder="Enter objective..."
+                      />
+                    </div>
                   </div>
 
 
@@ -155,7 +185,7 @@
 
         <div class="d-flex justify-content-end gap-2">
           <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>
-<!--          <button class="btn btn-outline-success">Revert</button>-->
+          <button class="btn btn-outline-success" *ngIf="mode == 'approver'">Revert</button>
           <button class="btn submit-btn" (click)="onSubmit()">Submit</button>
         </div>
       </div>

@@ -82,7 +82,14 @@ export class ApproHierarchyPopUpComponent {
 
   onSubmit() {
     const tierArray = Object.values(this.selectedValues);
+    if (this.finalApprover) {
+      const finalApproverWithIndex = {
+        index: tierArray.length + 1,
+        ...this.finalApprover
+      };
 
+      tierArray.push(finalApproverWithIndex);
+    }
     let obj = {
       userIdKPI:this.userId,
       hierarchyData: JSON.stringify(tierArray),
@@ -90,7 +97,6 @@ export class ApproHierarchyPopUpComponent {
       team: this.team_name,
       param: 'kpi_insert_hierarchy_data'
     };
-    console.log('Submitting Objectives:', obj);
     this.kpi.saveKpiHierarchy(obj).subscribe({
       next: (response) => {
         this.bsModalRef.hide();

@@ -24,7 +24,11 @@ export class CommonServiceService {
   }
 
   getKpiList(obj:any): Observable<any> {
-    return this.http.post(`${this.ApiEndpoint}/list`, obj);
+    return this.http.post(`${this.ApiEndpoint}/list/myKpi`, obj);
+  }
+
+  getTeamKpiList(obj:any): Observable<any> {
+    return this.http.post(`${this.ApiEndpoint}/list/teamKpi`, obj);
   }
   saveKpiHierarchy(obj:any){
     return this.http.post(`${this.ApiEndpoint}/hierarchy/save`, obj);

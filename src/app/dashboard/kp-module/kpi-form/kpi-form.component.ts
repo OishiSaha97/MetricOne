@@ -28,9 +28,14 @@ export class KpiFormComponent implements OnInit {
 
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
+  data: any = [];
   year:string='2025';
   userName:any;
   userId:any;
+  mode:any
+  team:any;
+  kpiUserId:any;
+
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
@@ -38,8 +43,43 @@ export class KpiFormComponent implements OnInit {
     }
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
+      if(this.mode == 'approver'){
+        this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
+          .subscribe(res => {
+              // this.data = res?.['kpi-list'];
+              this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list']
+              console.log(this.data);
+              this.objectives = this.data.map((item:any, index:any) => ({
+                id: item.id,
+                title: `Work Objective ${index + 1}`,
+                selectedType: item.category_name,
+                objectiveText: item.objective,
+                targetText: item.target,
+                isOpen: false
+              }));
+            },
+            (error) => {
+              console.error("Error fetching permission list", error);
+            }
+          );
+      }
 
   }
+
+  // addObjectivesFromData(): void {
+  //   this.data.forEach((item:any, index:any) => {
+  //     const newObjective: Objective = {
+  //       id: this.objectives.length + 1,
+  //       title: `Work Objective ${this.objectives.length + 1}`,
+  //       selectedType: item.category_name,
+  //       objectiveText: item.objective,
+  //       targetText: item.target,
+  //       isOpen: false
+  //     };
+  //     this.objectives.push(newObjective);
+  //   });
+  // }
+
 
   addObjective(): void {
     const newObjective: Objective = {
@@ -82,7 +122,7 @@ export class KpiFormComponent implements OnInit {
         !obj.objectiveText?.trim() ||
         !obj.targetText?.trim()
       ) {
-        alert(`⚠️ Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
+        alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
         return false;
       }
     }
@@ -101,7 +141,6 @@ export class KpiFormComponent implements OnInit {
       year:this.year,
       param:'kpi_insert_data'
     }
-    console.log('Submitting Objectives:', obj);
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
 
@@ -112,8 +151,17 @@ export class KpiFormComponent implements OnInit {
     });
   }
 
+  toggleObjectiveEdit(obj: any) {
+    obj.isEditingObjective = !obj.isEditingObjective;
+  }
+
+  toggleTargetEdit(obj: any) {
+    obj.isEditingTarget = !obj.isEditingTarget;
+  }
 
   onCancel() {
     this.modalRef.hide();
   }
+
+
 }
