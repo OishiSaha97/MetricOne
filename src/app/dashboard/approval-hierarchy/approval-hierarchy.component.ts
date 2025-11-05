@@ -95,11 +95,19 @@ export class ApprovalHierarchyComponent {
     if(!this.finalApprover && this.finalApprover.length <= 0){
       return;
     }
+
+    if(data.hierarchy_with_final && data.hierarchy_with_final.length){
+      this.mode = 'edit';
+    }
+    else{
+      this.mode = 'add';
+    }
     this.modalRef = this.modalService.show(ApproHierarchyPopUpComponent, {
       class: 'modal-dialog modal-dialog-centered modal-lg',
       initialState: {
         team_name: data.team_name,
-        finalApprover:this.finalApprover
+        finalApprover:this.finalApprover,
+        mode: this.mode
       },
       backdrop: 'static',
       keyboard: false,

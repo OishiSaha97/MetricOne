@@ -20,7 +20,7 @@
              (click)="this.isOpen = !this.isOpen;">
           <div class="dropdown-selected">
                 <span class="dropdown-text" style="color:#FFFFFF80">
-                  {{ selectedFor || 'Select' }}
+                  {{ selectedFor?.name || 'Select' }}
                 </span>
             <span class="arrow" >
                   <img src="../../../../assets/dropdwon.svg" />
@@ -32,7 +32,7 @@
             <div
               *ngFor="let option of filterModificationForList"
               class="dropdown-option"
-              (click)="selectOption(option)">
+              (click)="selectOption(option);$event.stopPropagation();">
               {{option.name}}
             </div>
           </div>
@@ -44,10 +44,10 @@
           {{ 'Select Team/Individual: ' }}
         </div>
         <div class="dropdown-box"
-             (click)="this.isOpenNew = !this.isOpenNew;">
+             (click)="isOpenNew = !isOpenNew">
           <div class="dropdown-selected">
                 <span class="dropdown-text" style="color:#FFFFFF80">
-                  {{ selectedFor || 'Select' }}
+                  {{ (selectedFor?.name === 'Teams' ? selectedTeams[0]?.name : selectedIndividuals[0]?.full_name) || 'Select' }}
                 </span>
             <span class="arrow" >
                   <img src="../../../../assets/dropdwon.svg" />
@@ -56,12 +56,25 @@
           <div
             class="dropdown-options"
             *ngIf="isOpenNew">
-            <div
-              *ngFor="let option of filterModificationForList"
-              class="dropdown-option"
-              (click)="selectOption(option)">
-              {{option.name}}
+            <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
+              <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+              <input [(ngModel)]="searchTeam" type="text" class="form-control search-input"
+                     placeholder="Search Here" style=""
+                     (input)="selectedFor?.name === 'Teams' ? filterTeam(): filterIndividual()">
             </div>
+<!--            <div >-->
+              <div
+                class="dropdown-option"
+                *ngFor="let option of (selectedFor?.name === 'Teams'? filterTeams : filterIndividuals)"
+                [class.selected]="isSelected(option)"
+                (click)="selectTeams(option);$event.stopPropagation();">
+                <span class="option-text">
+                  {{ selectedFor?.name === 'Teams' ? option.name : option.full_name }}
+                </span>
+                <span class="checkmark" *ngIf="isSelected(option)">✔</span>
+              </div>
+
+
           </div>
         </div>
       </div>

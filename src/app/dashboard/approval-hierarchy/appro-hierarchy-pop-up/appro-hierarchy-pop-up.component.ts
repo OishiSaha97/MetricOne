@@ -10,8 +10,10 @@ import {CommonServiceService} from "../../common-service.service";
 export class ApproHierarchyPopUpComponent {
   finalApprover: any=[];
   userId:any;
+  mode:any;
 
   @Output() hierarchySaved = new EventEmitter<void>();
+  resData: any;
   constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
 
@@ -19,7 +21,11 @@ export class ApproHierarchyPopUpComponent {
 
     this.userId = localStorage.getItem('username');
     this.getUserList();
-    console.log("finalApprover : ", this.finalApprover);
+    console.log("mode : ", this.mode);
+
+    if(this.mode === 'edit'){
+      this.getData();
+    }
   }
 
   team_name :any = '';
@@ -124,7 +130,6 @@ export class ApproHierarchyPopUpComponent {
           this.filterApproversList[tier] = [...this.approvers];
         });
 
-        console.log('filterApproversList:', this.filterApproversList);
       });
   }
 
@@ -141,5 +146,11 @@ export class ApproHierarchyPopUpComponent {
   }
 
 
+  getData() {
+    this.kpi.getLogData({ param: 'getPrevHierarchy', userIdKPI: this.userId, segment: this.team_name})
+      .subscribe(res => {
+        this.resData = res?.['getPrevHierarchy'] || [];
 
+      });
+  }
 }
