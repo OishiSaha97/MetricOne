@@ -12,6 +12,7 @@ export class InitialComponent {
   bsConfig?: Partial<BsDatepickerConfig>;
   today: any;
   selectedDate: string | null = null;
+  @Output() selectedDates: EventEmitter<string | null> = new EventEmitter<string | null>();
   totalEmloyee: any;
   userId:any;
   @Input() tabs: any;
@@ -44,7 +45,7 @@ export class InitialComponent {
         this.dashBoardData = res?.['dashboardInfo'][0] || [];
         this.totalEmloyee = this.dashBoardData.totalEmployee || 0;
 
-        if(this.totalEmloyee == this.pendingHR){
+        if(this.pendingHR == 0){
           this.showProceedButton = true;
         }
         this.showProceed.emit(this.showProceedButton);
@@ -58,7 +59,6 @@ export class InitialComponent {
         this.resData = res?.['KPIendDate'][0] || [];
 
         this.selectedDate = this.formatDateForInput(this.resData.kpi_last_date);
-        console.log('selectedDate:', this.formatDateForInput(this.resData.kpi_last_date));
       });
   }
   formatDateForInput(dateString: string): string {
@@ -96,6 +96,7 @@ export class InitialComponent {
 
   onDateSelect() {
     console.log("selected Date : ", this.selectedDate);
+    this.selectedDates.emit(this.selectedDate);
 
   }
 

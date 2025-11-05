@@ -15,10 +15,7 @@ body {
 }
 
 .modal-max-smaller {
-  max-width: 95vw !important;
-}
-.modal-max-smaller {
-  max-width: 55vw !important;
+  max-width: 34vw !important;
 }
 .big-logo {
   height: 40px;
@@ -58,13 +55,10 @@ body {
 .modal-max {
   max-width: 98vw !important;
 }
+.modal { overflow: auto !important; }
 
-.modal-max-smaller {
-  max-width: 45vw !important;
-}
-.modal-max-smaller {
-  max-width: 45vw !important;
-}
+
+
 
 
 

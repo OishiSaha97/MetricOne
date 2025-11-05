@@ -43,8 +43,6 @@ export class NavbarComponent {
     ngOnInit() {
       this.userId = localStorage.getItem('username');
       this.userName = localStorage.getItem('fullName');
-      console.log(this.userName);
-      console.log(this.userId);
       this.getPermission();
     }
 

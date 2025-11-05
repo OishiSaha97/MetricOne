@@ -162,9 +162,9 @@ export class KpiModificationSettingComponent {
     }
     const formData = new FormData();
 
-    formData.append('userId', this.userId);
+    formData.append('userKpiId', this.userId);
     formData.append('selectedFor', this.selectedFor?.name);
-    formData.append('modifyFor', modifyFor);
+    formData.append('modifyFor',  JSON.stringify(modifyFor));
     formData.append('date', formattedDate);
 
     console.log('Submitting EndDate:', formData);

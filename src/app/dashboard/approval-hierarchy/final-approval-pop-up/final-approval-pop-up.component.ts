@@ -12,6 +12,7 @@ export class FinalApprovalPopUpComponent {
    isOpen: boolean = false;
    isOpenNew: boolean = false;
    filterAprroversList: any=[];
+   isexists: boolean = false;
    constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService) {}
   userId:any;
@@ -34,7 +35,35 @@ export class FinalApprovalPopUpComponent {
     this.bsModalRef.hide();
   }
 
+  isAllowedFinalApprover(){
+    let approverId: string = '';
+    if(this.mode == 'edit'){
+      approverId = this.finalApproverNew?.username || '';
+
+    }
+    else{
+      approverId = this.finalApprover?.username || '';
+    }
+
+
+    console.log("Final Approver:", approverId);
+    this.kpi.getLogData({ param: 'check-approver', userIdKPI: this.userId, objectId: approverId})
+      .subscribe(res => {
+        this.isexists = res?.['check-approver'][0].exists_flag;
+        console.log("beApprovers:", this.isexists);
+
+        if(this.isexists){
+          alert('This user is already assigned as an approver in the hierarchy. Please select a different user.');
+        }
+        else{
+          this.onSubmit();
+        }
+      });
+  }
+
   onSubmit() {
+
+
     let approverId: string = '';
     let name: string = '';
     if(this.mode == 'edit'){

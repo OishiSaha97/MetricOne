@@ -91,8 +91,9 @@ hr {
 
 
 .submit-btn{
-  width: 150px!important;
+
   border-radius: 4px !important;
+  padding: 5px 30px
 }
 .submit-btn.hover{
   color:white;
@@ -110,4 +111,33 @@ hr {
 .cancel-btn.hover{
   border: 1px solid rgba(100, 73, 190, 0.41);
   color:white;
+}
+.disabled-submit-btn{
+  background-color: #6449BE80;
+  color:  #FFFFFF;
+  cursor: not-allowed;
+  border:none;
+}
+
+.disabled-close-btn{
+  background-color: #BE49494D;
+  color:  #FFFFFF;
+  cursor: not-allowed;
+  border:none;
+}
+.active-btn{
+  background-color: #04AC7C;
+  color: #FFFFFF;
+  border:none;
+
+
+}
+.close-btn{
+  background-color: #BE4949;
+  color: #FFFFFF;
+  border:none;
+}
+.custom-modal .modal-dialog {
+  max-width: 450px;
+  height: auto;
 }

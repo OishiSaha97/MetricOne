@@ -29,7 +29,7 @@ export class ApproHierarchyPopUpComponent {
   }
 
   team_name :any = '';
-
+  hierarchyLength:any=0;
   tiers: number[] = [1, 2];
   maxTiers = 4;
   selectedValues: any = {};
@@ -122,9 +122,9 @@ export class ApproHierarchyPopUpComponent {
 
   filterManagerList: any=[];
   getUserList() {
-    this.kpi.getLogData({ param: 'user-name-list', userIdKPI: this.userId })
+    this.kpi.getLogData({ param: 'approver-list', userIdKPI: this.userId })
       .subscribe(res => {
-        this.approvers = res?.['user-name-list'] || [];
+        this.approvers = res?.['approver-list'] || [];
 
         this.tiers.forEach(tier => {
           this.filterApproversList[tier] = [...this.approvers];
@@ -147,10 +147,27 @@ export class ApproHierarchyPopUpComponent {
 
 
   getData() {
-    this.kpi.getLogData({ param: 'getPrevHierarchy', userIdKPI: this.userId, segment: this.team_name})
+    this.kpi.getLogData({ param: 'getPrevHierarchy', userIdKPI: this.userId, parameter: this.team_name})
       .subscribe(res => {
         this.resData = res?.['getPrevHierarchy'] || [];
-
+        this.hierarchyLength = this.resData.length;
+        this.setViewHierarchy();
       });
+  }
+
+  setViewHierarchy() {
+    this.tiers = Array.from({ length: this.hierarchyLength + 1 }, (_, i) => i + 1);
+    this.resData.forEach((element: any) => {
+      this.selectedValues['tier' + element.index] = {
+        index: element.index,
+        username: element.username,
+        full_name: element.full_name
+      };
+      if (!this.tiers.includes(element.index)) {
+        this.tiers.push(element.index);
+      }
+    });
+
+    console.log("selectedValues:", this.selectedValues);
   }
 }

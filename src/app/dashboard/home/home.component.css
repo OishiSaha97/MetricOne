@@ -78,7 +78,7 @@ thead {
 .kpi-box {
   background-color: #1C1D21;
   border-radius: 10px;
-  padding: 20px;
+  padding-top: 20px;
 }
 
 .progress-circle {
@@ -167,7 +167,7 @@ thead {
   border-radius: 8px;
   justify-content: center;
   align-items: center;
-  width: 90px;
+  width: 40px;
   height: 40px;
   position: relative;
   overflow: hidden;
@@ -191,7 +191,7 @@ thead {
 }
 
 .time-label {
-  font-size: 0.75rem;
+  font-size: 8px;
   color: #9BE9F9;
   letter-spacing: 1px;
   text-transform: uppercase;

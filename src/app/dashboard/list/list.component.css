@@ -36,20 +36,15 @@
 }
 
 .actions button {
-  padding: 6px 12px;
+  padding: 6px 16px;
   border: none;
-  border-radius: 4px;
-  background-color: #444;
+  border-radius: 8px;
+  background-color: #6449BE;
   color: white;
   cursor: pointer;
+  height:35px;
 }
 
-.actions input {
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  min-width: 120px;
-}
 
 /* -------------------------------------------------
    SEARCH FIELD
@@ -57,7 +52,7 @@
 .search-wrapper {
   position: relative;
   display: inline-block;
-  width: 200px;
+  width: 250px;
 }
 
 .search-input {
@@ -66,13 +61,14 @@
   padding-right: 35px;
   height: 35px;
   border-radius: 8px;
-  border: 1px solid #44454E;
-  background: #25262C;
+  background-color:#25262C;
+  border:1px solid #44454E;
   color: white;
 }
 
 .search-input::placeholder {
-  color: #ccc;
+  color: whitesmoke;
+  opacity: 1;
 }
 
 .search-icon {
