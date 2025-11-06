@@ -31,6 +31,7 @@ export class KpiFormComponent implements OnInit {
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
   data: any = [];
+  check_kpi: any = [];
   changedHistory: any = [];
   changedObjHistory: any = [];
   attributeType: any = [];
@@ -50,6 +51,8 @@ export class KpiFormComponent implements OnInit {
     this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
+
+
       if(this.mode == 'approver'){
         this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
           .subscribe(res => {
@@ -155,13 +158,13 @@ export class KpiFormComponent implements OnInit {
     }
 
     let processedObjectives = this.objectives.map((obj: Objective) => {
-      // Escape newline and tab characters to make JSON MySQL-safe
+
       const escapeText = (text: string | undefined) => {
         return text
           ? text
-            .replace(/\r/g, '\\r')  // Windows newlines
-            .replace(/\n/g, '\\n')  // Unix newlines
-            .replace(/\t/g, '\\t')  // Tabs
+            .replace(/\r/g, '\\r')
+            .replace(/\n/g, '\\n')
+            .replace(/\t/g, '\\t')
           : '';
       };
 
@@ -201,6 +204,8 @@ export class KpiFormComponent implements OnInit {
 
     if (this.mode === 'approver') {
       obj.objectId = this.kpiId;
+    }else{
+      obj.objectId = '';
     }
 
     this.kpi.saveKpi(obj).subscribe({
