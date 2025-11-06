@@ -11,14 +11,17 @@ import {CommonServiceService} from "../../common-service.service";
 export class InitialComponent {
   bsConfig?: Partial<BsDatepickerConfig>;
   today: any;
+  @Input() mode: any;
   selectedDate: string | null = null;
+  selectedDateEva: string | null = null;
   @Output() selectedDates: EventEmitter<string | null> = new EventEmitter<string | null>();
+  @Output() selectedDatesEva: EventEmitter<string | null> = new EventEmitter<string | null>();
   totalEmloyee: any;
   userId:any;
   @Input() tabs: any;
    resData: any;
    dashBoardData: any;
-    pendingHR: any;
+    completed: any;
    showProceedButton: boolean = false;
 
   constructor(public bsModalRef: BsModalRef,
@@ -27,16 +30,19 @@ export class InitialComponent {
     this.userId = localStorage.getItem('username');
     this.today = new Date();
     this.bsConfig = {
-      adaptivePosition: false, // disables auto reposition
-      containerClass: 'theme-default bs-datepicker-top',        // forces it above
+      adaptivePosition: false,
+      containerClass: 'theme-default bs-datepicker-top',
       dateInputFormat: 'DD MMM YYYY',
       showWeekNumbers: false
     };
 
-    this.pendingHR = 250;
+    this.completed = 250;
 
     this.checkEndDate();
-    this.getData();
+    if(this.mode=='edit'){
+      this.getData();
+    }
+
   }
   @Output() showProceed = new EventEmitter<any>();
   getData() {
@@ -45,7 +51,7 @@ export class InitialComponent {
         this.dashBoardData = res?.['dashboardInfo'][0] || [];
         this.totalEmloyee = this.dashBoardData.totalEmployee || 0;
 
-        if(this.pendingHR == 0){
+        if(this.completed == this.totalEmloyee){
           this.showProceedButton = true;
         }
         this.showProceed.emit(this.showProceedButton);
@@ -62,11 +68,17 @@ export class InitialComponent {
       });
   }
   formatDateForInput(dateString: string): string {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
+    if (!dateString) return '';
+
+    // Parse manually to avoid UTC timezone shift
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+
+    const formattedYear = date.getFullYear();
+    const formattedMonth = ('0' + (date.getMonth() + 1)).slice(-2);
+    const formattedDay = ('0' + date.getDate()).slice(-2);
+
+    return `${formattedYear}-${formattedMonth}-${formattedDay}`;
   }
 
   closePopup() {
@@ -95,8 +107,12 @@ export class InitialComponent {
   }
 
   onDateSelect() {
-    console.log("selected Date : ", this.selectedDate);
-    this.selectedDates.emit(this.selectedDate);
+    if(this.tabs === 'evaluation'){
+      this.selectedDatesEva.emit(this.selectedDateEva);
+    }
+    else{
+      this.selectedDates.emit(this.selectedDate);
+    }
 
   }
 

@@ -17,6 +17,9 @@ body {
 .modal-max-smaller {
   max-width: 34vw !important;
 }
+.modal-medium {
+  max-width: 54vw !important;
+}
 .big-logo {
   height: 40px;
 }
