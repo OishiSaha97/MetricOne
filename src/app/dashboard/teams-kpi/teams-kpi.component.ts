@@ -109,7 +109,8 @@ export class TeamsKPIComponent {
       team: user.team,
       name: user.name,
       year: user.year,
-      mode:"approver"
+      mode:"approver",
+      kpiId: user.id,
     };
     this.modalService.show(KpiFormComponent, {
       backdrop: 'static',

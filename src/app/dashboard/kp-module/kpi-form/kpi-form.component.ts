@@ -31,13 +31,16 @@ export class KpiFormComponent implements OnInit {
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
   data: any = [];
+  changedHistory: any = [];
+  changedObjHistory: any = [];
+  changedTargetHistory: any = [];
   year:string='2025';
   userName:any;
   userId:any;
   mode:any
   team:any;
   kpiUserId:any;
-
+  kpiId:any;
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
@@ -53,12 +56,24 @@ export class KpiFormComponent implements OnInit {
               console.log(this.data);
               this.objectives = this.data.map((item:any, index:any) => ({
                 id: item.id,
+                workId: item.work_id,
                 title: `Work Objective ${index + 1}`,
                 selectedType: item.category_name,
                 objectiveText: item.objective,
                 targetText: item.target,
                 isOpen: false
               }));
+            },
+            (error) => {
+              console.error("Error fetching permission list", error);
+            }
+          );
+
+        this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+          .subscribe(res => {
+
+              this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
+              console.log(this.changedHistory);
             },
             (error) => {
               console.error("Error fetching permission list", error);
@@ -136,8 +151,9 @@ export class KpiFormComponent implements OnInit {
     if (!this.validateObjectives()) {
       return;
     }
+
     let processedObjectives = this.objectives.map((obj: Objective) => {
-      // Create a structured object grouped by title
+
       let item: any = {
         title: obj.title,
         selectedType: obj.selectedType,
@@ -145,7 +161,6 @@ export class KpiFormComponent implements OnInit {
         targetText: obj.targetText
       };
 
-      // If mode = approver, include key points if present
       if (this.mode === 'approver') {
         if (obj.keyObjective?.trim()) {
           item.keyObjective = obj.keyObjective.trim();
@@ -153,35 +168,41 @@ export class KpiFormComponent implements OnInit {
         if (obj.keyTarget?.trim()) {
           item.keyTarget = obj.keyTarget.trim();
         }
+
       }
 
       return item;
     });
-    console.log(processedObjectives)
 
-    const param = this.mode === 'approver'
-      ? 'kpi_update_data_by_approver'
-      : 'kpi_insert_data';
+    console.log(processedObjectives);
+    const param =
+      this.mode === 'approver'
+        ? 'kpi_update_data_by_approver'
+        : 'kpi_insert_data';
 
-    let obj ={
-      userIdKPI:this.userId,
-      userName:this.userName,
-      randomData:JSON.stringify(processedObjectives),
-      year:this.year,
-      param:param
+    let obj: any = {
+      userIdKPI: this.userId,
+      userName: this.userName,
+      randomData: JSON.stringify(processedObjectives),
+      year: this.year,
+      param: param
+    };
+
+    if (this.mode === 'approver') {
+      obj.objectId = this.kpiId;
     }
-
 
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
-
+        console.log('KPI saved successfully:', response);
+        this.onCancel();
       },
       error: (error) => {
-
+        console.error('Error saving KPI:', error);
+        this.onCancel();
       }
     });
   }
-
   toggleObjectiveEdit(obj: any) {
     obj.isEditingObjective = !obj.isEditingObjective;
   }
@@ -192,6 +213,42 @@ export class KpiFormComponent implements OnInit {
 
   onCancel() {
     this.modalRef.hide();
+  }
+
+
+  openTargetHistory(obj: any) {
+    console.log(obj)
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+      .subscribe(res => {
+
+          this.changedTargetHistory = Array.isArray(res?.['changed-target-history']) ? res?.['changed-target-history'] : res?.['changed-target-history']
+          console.log(this.changedTargetHistory);
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+        }
+      );
+  }
+
+  openObjectiveHistory(obj: any) {
+    //this.changedHistory = obj.changedHistory || [];
+    console.log(obj)
+    this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
+      .subscribe(res => {
+          this.changedObjHistory = Array.isArray(res?.['changed-objective-history']) ? res?.['changed-objective-history'] : res?.['changed-objective-history']
+          console.log(this.changedObjHistory);
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+        }
+      );
+  }
+
+  isOpenChange: boolean[] = [];
+
+  toggleChangeHistory(index: number, event: MouseEvent) {
+    event.stopPropagation();
+    this.isOpenChange[index] = !this.isOpenChange[index];
   }
 
 
