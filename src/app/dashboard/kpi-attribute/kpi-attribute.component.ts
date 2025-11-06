@@ -57,16 +57,19 @@ export class KpiAttributeComponent {
   edit()
   {
     this.modalRef = this.modalService.show(ApproAttributePopUpComponent,{
-      class: 'modal-dialog-centered',
+      class: 'modal-dialog modal-dialog-centered modal-medium',
       backdrop: 'static',
       keyboard: false,
+      initialState: {
+        mode: this.mode = 'edit',
+      },
     });
   }
 
 
   add() {
     this.modalRef = this.modalService.show(ApproAttributePopUpComponent,{
-      class: 'modal-dialog modal-dialog-centered modal-max-smaller',
+      class: 'modal-dialog modal-dialog-centered modal-medium',
       backdrop: 'static',
       keyboard: false,
       initialState: {

@@ -14,7 +14,7 @@
 <!--        [ngClass]="{ active: !tables.modification.selected }">-->
 <!--        KPI MODIFICATION-->
 <!--      </div>-->
-      <div
+      <div *ngIf="showEvaluation"
         class="tab col"
         (click)="changeTable('evaluation')"
         [ngClass]="{ active: !tables.evaluation.selected }">
@@ -27,14 +27,14 @@
   <div class="modal-body">
     <!-- KPI Initiation -->
     <fieldset *ngIf="currentTable=='initiation'">
-      <app-initial [tabs]="this.tab" (showProceed)="getProceedButton($event)" (selectedDates)="getSelectedEndDate($event)" >
+      <app-initial [tabs]="this.tab" [mode]="this.mode" (showProceed)="getProceedButton($event)" (selectedDates)="getSelectedEndDate($event)" >
 
       </app-initial>
 
     </fieldset>
 
     <fieldset *ngIf="currentTable=='evaluation'">
-      <app-initial [tabs]="this.tab">
+      <app-initial [tabs]="this.tab" [mode]="this.mode" (selectedDatesEva)="getSelectedEndDate($event)">
 
       </app-initial>
 
@@ -44,20 +44,19 @@
   <footer class="footer-section">
     <div class="d-flex justify-content-end gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
       <button class="cancel-btn" (click)="closePopup()">Cancel</button>
-      <button class="submit-btn"
+      <button class="submit-btn" *ngIf="!showProceedButton"
               [disabled]="!selectedDate"
               [ngClass]="{ 'disabled-submit-btn': !selectedDate }"
               (click)="statusAction(actionModal)"
       >Active</button>
 <!--      onActive();-->
-      <button class="submit-btn" *ngIf="showProceedButton" (click)="onSubmit()">Proceed</button>
     </div>
   </footer>
 
 </div>
 <ng-template #actionModal>
 
-    <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;height:260px;">
+    <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
 
       <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">
         <div class="d-flex justify-content-center text-center " >
@@ -66,12 +65,11 @@
 
 
       </div>
-      <div class="modal-footer">
+      <div class="">
         <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
           <button class="btn close-btn" style="cursor: pointer;" (click)="closeModal()">Close</button>
-          <button class="btn active-btn"
-                  (click)="onActive();"
-          >Confirm</button>
+          <button class="btn active-btn" style="cursor: pointer;"
+                  (click)="tab === 'initiation'? onActive() : onActiveEva();">Confirm</button>
           <!--      onActive();-->
         </div>
       </div>

@@ -15,11 +15,13 @@ export class HomeComponent {
   minutes: number = 0;
   modalRef?: BsModalRef;
   resData: any;
-  endDate: string | null = null;
+  initialtionDate: string | null = null;
   userId:any;
   dashBoardData: any;
   pendingHR: any;
   totalEmloyee: any;
+   settingTitle: any;
+   mode: any;
 
   constructor(private modalService: BsModalService,
               private kpi: CommonServiceService) {
@@ -55,6 +57,8 @@ export class HomeComponent {
       });
   }
 
+
+
   updateCountdown() {
     const now = new Date().getTime();
     const date = new Date(this.resData.kpi_last_date);
@@ -69,23 +73,39 @@ export class HomeComponent {
       .subscribe(res => {
         this.resData = res?.['KPIendDate'][0] || [];
 
-        this.endDate = this.formatDateForInput(this.resData.kpi_last_date);
+        this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
+        console.log("this.initialtionDate" , this.initialtionDate)
+        if(this.initialtionDate){
+          this.settingTitle = "Initiation";
+          this.mode = "edit";
+        }
+        else {
+          this.settingTitle = "Setting";
+          this.mode = "add";
+        }
       });
   }
   formatDateForInput(dateString: string): string {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
+    if (!dateString) return '';
+
+    // Parse manually to avoid UTC timezone shift
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+
+    const formattedYear = date.getFullYear();
+    const formattedMonth = ('0' + (date.getMonth() + 1)).slice(-2);
+    const formattedDay = ('0' + date.getDate()).slice(-2);
+
+    return `${formattedYear}-${formattedMonth}-${formattedDay}`;
   }
 
-  openSetting(){
+  openSetting(): void {
     this.modalRef = this.modalService.show(SettingsComponent, {
       backdrop: 'static',
       keyboard: false,
       class: 'modal-dialog modal-dialog-centered modal-lg',
       initialState: {
+        mode: this.mode,
 
       },
 

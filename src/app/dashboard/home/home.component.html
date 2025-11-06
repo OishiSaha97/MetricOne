@@ -57,7 +57,7 @@
     <div class="kpi-box mb-3">
       <div class="kpi-header d-flex justify-content-between align-items-center mb-3" (click)="openSetting();">
         <div>
-          <h6 class="mb-0 text-center" >Initial KPI Setting</h6>
+          <h6 class="mb-0 text-center" >{{ settingTitle }}</h6>
         </div>
         <div>
           <span class="setting-icon"></span>
@@ -108,7 +108,7 @@
           <div class="countdown-card">
             <h6 class="mb-3" style="color: #83F7F6">End Date:</h6>
             <div class="end-date-box">
-              {{ endDate | date:'dd MMMM, yyyy' }}
+              {{ initialtionDate | date:'dd MMMM, yyyy' }}
             </div>
           </div>
         </div>
