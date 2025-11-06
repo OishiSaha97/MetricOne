@@ -1,0 +1,17 @@
+<div class="flip-clock" (click)="tick()">
+<div class="d-flex">
+  <app-flip-tracker style="margin-right:10px "
+    [label]="trackers[0]"
+    [value]="time[trackers[0]]"
+  ></app-flip-tracker>
+  <app-flip-tracker style="margin-right:5px"
+    [label]="trackers[1]"
+    [value]="time[trackers[1]]"
+  ></app-flip-tracker>
+  <app-flip-tracker
+    [label]="trackers[2]"
+    [value]="time[trackers[2]]"
+  ></app-flip-tracker>
+</div>
+
+</div>
