@@ -33,6 +33,7 @@ export class KpiFormComponent implements OnInit {
   data: any = [];
   changedHistory: any = [];
   changedObjHistory: any = [];
+  attributeType: any = [];
   changedTargetHistory: any = [];
   year:string='2025';
   userName:any;
@@ -46,6 +47,7 @@ export class KpiFormComponent implements OnInit {
     for (let i = 1; i <= 3; i++) {
       this.addObjective();
     }
+    this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
       if(this.mode == 'approver'){
@@ -153,28 +155,37 @@ export class KpiFormComponent implements OnInit {
     }
 
     let processedObjectives = this.objectives.map((obj: Objective) => {
+      // Escape newline and tab characters to make JSON MySQL-safe
+      const escapeText = (text: string | undefined) => {
+        return text
+          ? text
+            .replace(/\r/g, '\\r')  // Windows newlines
+            .replace(/\n/g, '\\n')  // Unix newlines
+            .replace(/\t/g, '\\t')  // Tabs
+          : '';
+      };
 
       let item: any = {
         title: obj.title,
         selectedType: obj.selectedType,
-        objectiveText: obj.objectiveText,
-        targetText: obj.targetText
+        objectiveText: escapeText(obj.objectiveText),
+        targetText: escapeText(obj.targetText)
       };
 
       if (this.mode === 'approver') {
         if (obj.keyObjective?.trim()) {
-          item.keyObjective = obj.keyObjective.trim();
+          item.keyObjective = escapeText(obj.keyObjective.trim());
         }
         if (obj.keyTarget?.trim()) {
-          item.keyTarget = obj.keyTarget.trim();
+          item.keyTarget = escapeText(obj.keyTarget.trim());
         }
-
       }
 
       return item;
     });
 
     console.log(processedObjectives);
+
     const param =
       this.mode === 'approver'
         ? 'kpi_update_data_by_approver'
@@ -203,6 +214,8 @@ export class KpiFormComponent implements OnInit {
       }
     });
   }
+
+
   toggleObjectiveEdit(obj: any) {
     obj.isEditingObjective = !obj.isEditingObjective;
   }
@@ -231,7 +244,6 @@ export class KpiFormComponent implements OnInit {
   }
 
   openObjectiveHistory(obj: any) {
-    //this.changedHistory = obj.changedHistory || [];
     console.log(obj)
     this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
       .subscribe(res => {
@@ -244,12 +256,17 @@ export class KpiFormComponent implements OnInit {
       );
   }
 
-  isOpenChange: boolean[] = [];
 
-  toggleChangeHistory(index: number, event: MouseEvent) {
-    event.stopPropagation();
-    this.isOpenChange[index] = !this.isOpenChange[index];
+  getAttribute() {
+    this.kpi.getLogData({param: 'attributeType'})
+      .subscribe(res => {
+          this.attributeType = Array.isArray(res?.['attributeType']) ? res?.['attributeType'] : res?.['attributeType']
+          console.log(this.attributeType);
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+        }
+      );
   }
-
 
 }

@@ -121,6 +121,7 @@
                              (click)="toggleObjectiveEdit(obj)" />
                       </div>
                     </div>
+
                     <input
                       type="text"
                       class="obj-input mb-2"
@@ -140,60 +141,23 @@
                       />
                     </div>
 
-                      <div *ngIf="mode == 'approver' && changedHistory.length > 0" class="mt-1">
+                      <div *ngIf="mode === 'approver' " class="mt-1">
                         <img src="../../../assets/bx_chat.svg"
                              class="mb-1" style="scale:0.999"
                              (click)="openObjectiveHistory(obj)" />
                         <span class="ml-2">Changed History</span>
-
-                        <div
-                          class="dropdown-menu d-large p-4"
-                          aria-labelledby="dropdownMenu2"
-                          style="word-wrap: break-word; overflow-wrap: break-word; min-width: 500px;"
-                        >
-                          <div style="font-size: 14px; font-weight: bold;">Change History</div>
-
-                          <div
-                            class="m_datatable m-datatable--default m-datatable--loaded w-100"
-                            style="height:200px; overflow-x: hidden; overflow-y: auto;"
-                          >
-                            <div *ngFor="let c of changedObjHistory; let i = index">
-                              <div class="row text-secondary small">
-                                <div class="col-md-10">
-                                  <strong>{{ c.created_by }}</strong>
-                                </div>
-
-                                <!-- Toggle Arrow -->
-                                <div class="col-md-2 text-right">
-                                <span
-                                  class="collapse-remark-i"
-                                  [ngClass]="{ 'collapse-remark-i-rotate': isOpenChange[i] }"
-                                  (click)="toggleChangeHistory(i, $event)"
-                                  style="cursor: pointer;"
-                                ></span>
-                                </div>
-                              </div>
-
-                              <!-- Collapsible Content -->
-                              <div *ngIf="isOpenChange[i]" class="mt-2">
-                                <p><strong>Key Point:</strong> {{ c.key_point }}</p>
-                                <p style="color: #808080; font-size: small;">{{ c.created_at | date: 'medium' }}</p>
-                                <div class="dropdown-divider"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
 
                       </div>
 
 
                   </div>
 
-                  </div>
+
+
                   <div>
                     <div>
                       <label class="text-secondary small">TARGET</label>
-                      <div *ngIf="mode == 'approver'">
+                      <div *ngIf="mode === 'approver'">
                         <img src="../../../assets/fa-regular_edit.svg"
                              class="mb-1" style="scale:0.7"
                              (click)="toggleTargetEdit(obj)" />
@@ -219,7 +183,7 @@
                       />
                     </div>
 
-                    <div *ngIf="mode == 'approver' && changedHistory.length > 0" class="mt-1">
+                    <div *ngIf="mode === 'approver' " class="mt-1">
                       <img src="../../../assets/bx_chat.svg"
                            class="mb-1" style="scale:0.999"
                            (click)="openTargetHistory(obj)" />
@@ -232,6 +196,7 @@
 
                 </div>
 
+                </div>
             </div>
 
           </ul>
