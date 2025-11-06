@@ -33,6 +33,9 @@ import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {
     KpiModificationSettingComponent
 } from "./dashboard/settings/kpi-modification-setting/kpi-modification-setting.component";
+import {FlipClockComponent} from "./app-flip-tracker/flip-clock/flip-clock.component";
+import {FlipTrackerComponent} from "./app-flip-tracker/app-flip-tracker.component";
+import {ZeroFillPipe} from "./zero-fill.pipe";
 
 @NgModule({
   declarations: [
@@ -51,7 +54,11 @@ import {
     ApproAttributePopUpComponent,
     HomeComponent,
     InitialComponent,
-    KpiModificationSettingComponent
+    KpiModificationSettingComponent,
+    FlipClockComponent,
+    FlipClockComponent,
+    FlipTrackerComponent,
+    ZeroFillPipe
   ],
   imports: [
     BrowserModule,

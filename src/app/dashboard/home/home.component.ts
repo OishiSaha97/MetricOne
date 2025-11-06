@@ -111,4 +111,8 @@ export class HomeComponent {
 
     });
   }
+
+  onDone() {
+
+  }
 }

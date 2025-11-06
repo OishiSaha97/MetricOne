@@ -1,4 +1,12 @@
+
 <div class="vh-100">
+<!--  <div>-->
+<!--    <app-flip-clock-->
+<!--      [date]="'2026-01-01 00:00:00'"-->
+<!--      [showDays]="true"-->
+<!--      (completed)="onDone()"-->
+<!--    ></app-flip-clock>-->
+<!--  </div>-->
 <div class="row h-100">
   <div class="col-md-8 d-flex flex-column">
     <div class="row g-3">
@@ -71,35 +79,33 @@
         <div class="col-md-6 col-sm-6">
           <div class="countdown-card tier-block">
             <h6 class=" mb-3" style="color: #83F7F6">Closes In:</h6>
-
-            <div class="countdown d-flex justify-content-center align-items-center gap-3">
-              <div class="tier-block">
-                <div class="time-box text-center">
-                  <div class="time-value">{{ days | number: '2.0' }}</div>
-                </div>
-                <div class="time-label text-center">DAYS</div>
-              </div>
-
-<!--              <div class="time-label">DAYS</div>-->
-
-              <div>
-                <div class="time-box text-center">
-                  <div class="time-value">{{ hours | number: '2.0' }}</div>
-                </div>
-                <div class="time-label text-center">HOURS</div>
-              </div>
-
-<!--              <div class="time-label">HOURS</div>-->
-
-              <div>
-                <div class="time-box text-center">
-                  <div class="time-value">{{ minutes | number: '2.0' }}</div>
-                </div>
-                <div class="time-label text-center">MINUTES</div>
-              </div>
-
-<!--              <div class="time-label">MINUTES</div>-->
+            <div>
+              <app-flip-clock
+                [date]="'2026-01-01 00:00:00'"
+                [showDays]="true"
+                (completed)="onDone()"
+              ></app-flip-clock>
             </div>
+
+<!--            <div class="countdown d-flex justify-content-center align-items-center gap-3">-->
+<!--              <div class="time-box text-center">-->
+<!--                <div class="time-value">{{ days | number: '2.0' }}</div>-->
+
+<!--              </div>-->
+<!--&lt;!&ndash;              <div class="time-label">DAYS</div>&ndash;&gt;-->
+
+<!--              <div class="time-box text-center">-->
+<!--                <div class="time-value">{{ hours | number: '2.0' }}</div>-->
+
+<!--              </div>-->
+<!--&lt;!&ndash;              <div class="time-label">HOURS</div>&ndash;&gt;-->
+
+<!--              <div class="time-box text-center">-->
+<!--                <div class="time-value">{{ minutes | number: '2.0' }}</div>-->
+
+<!--              </div>-->
+<!--&lt;!&ndash;              <div class="time-label">MINUTES</div>&ndash;&gt;-->
+<!--            </div>-->
           </div>
         </div>
 
@@ -191,3 +197,5 @@
 
 </div>
 </div>
+
+
