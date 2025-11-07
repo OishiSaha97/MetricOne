@@ -111,12 +111,35 @@ export class SettingsComponent {
   }
 
   onActive() {
-    const formattedDate = (this.tab === 'initiation'? this.selectedDate : this.selectedDateEva) || '';
+    const formattedDate =  this.selectedDate || '';
     const formData = new FormData();
 
     formData.append('userId', this.userId);
     formData.append('date', formattedDate);
-    formData.append('for', (this.tab === 'initiation'? 'initiation' : 'evaluation')  );
+    formData.append('forDate', 'initiation');
+
+    console.log('Submitting EndDate:', formData);
+    this.kpi.saveEndDate(formData).subscribe({
+      next: (response) => {
+        // this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
+        if (this.modalRef) {
+          this.modalRef.hide();
+        }
+        this.bsModalRef.hide();
+
+      },
+      error: (error) => {
+
+      }
+    });
+  }
+  onActiveEva() {
+    const formattedDate = this.selectedDateEva || '';
+    const formData = new FormData();
+
+    formData.append('userId', this.userId);
+    formData.append('date', formattedDate);
+    formData.append('forDate', (this.tab === 'initiation'? 'initiation' : 'evaluation')  );
 
     console.log('Submitting EndDate:', formData);
     this.kpi.saveEndDate(formData).subscribe({

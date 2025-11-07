@@ -69,7 +69,7 @@
         <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
           <button class="btn close-btn" style="cursor: pointer;" (click)="closeModal()">Close</button>
           <button class="btn active-btn" style="cursor: pointer;"
-                  (click)="onActive();">Confirm</button>
+                  (click)="tab === 'initiation'? onActive() : onActiveEva();">Confirm</button>
           <!--      onActive();-->
         </div>
       </div>
