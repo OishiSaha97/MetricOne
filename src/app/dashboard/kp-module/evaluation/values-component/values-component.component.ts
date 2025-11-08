@@ -23,7 +23,7 @@ export class ValuesComponentComponent {
     {name:'DECISIVENESS',isOpen: false, isEditingObjective:false},
     {name: 'INTERPERSONAL RELATIONSHIPS', isOpen: false, isEditingObjective:false}];
   isOpen: boolean[] = [];
-  mode:any
+  mode:any;
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
   overAllRating: any;
