@@ -14,9 +14,10 @@ import {KpiAttributeComponent} from "./dashboard/kpi-attribute/kpi-attribute.com
 import { ApprovalHierarchyComponent } from "./dashboard/approval-hierarchy/approval-hierarchy.component";
 import { ApproHierarchyPopUpComponent } from "./dashboard/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
 import {HomeComponent} from "./dashboard/home/home.component";
+import {EvaluationComponent} from "./dashboard/kp-module/evaluation/evaluation.component";
 
 const routes: Routes = [
-  { path: '', component: LoginPageComponent },
+  { path: '', component: EvaluationComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'my-form', component:KpiFormComponent},
   { path:'dashboard', component:DashboardComponent},
