@@ -1,0 +1,15 @@
+.objective-box {
+  background-color: #35363D;
+  border: 1px solid #7A7B8299;
+  transition: background-color 0.3s ease;
+}
+
+.objective-box.bg-open {
+  background-color: #41424C;
+  border-color: #9A9BA3;
+}
+
+.btn-primary {
+  background-color: #6366f1;
+  border: none;
+}

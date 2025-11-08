@@ -1,1 +1,20 @@
-<p>values-component works!</p>
+<div class="objectives-card p-4 rounded">
+  <h5 class="text-light fw-semibold">Values</h5>
+  <p class="text-secondary small">
+    Explain how you demonstrated each value in your daily work and overall performance.
+
+  </p>
+
+  <div class="container mt-3">
+    <ul class="list-group">
+      <div class="work-obj">
+        <div class="fw-semibold p-3">Category</div>
+        <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light"
+             [ngClass]="{ 'bg-open': obj.isOpen }">
+
+        </div>
+      </div>
+
+    </ul>
+  </div>
+</div>

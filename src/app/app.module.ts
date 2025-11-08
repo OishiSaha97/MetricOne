@@ -36,6 +36,9 @@ import {
 import {FlipClockComponent} from "./app-flip-tracker/flip-clock/flip-clock.component";
 import {FlipTrackerComponent} from "./app-flip-tracker/app-flip-tracker.component";
 import {ZeroFillPipe} from "./zero-fill.pipe";
+import {EvaluationComponent} from "./dashboard/kp-module/evaluation/evaluation.component";
+import {ValuesComponentComponent} from "./dashboard/kp-module/evaluation/values-component/values-component.component";
+import {ManagerInsightComponent} from "./dashboard/kp-module/evaluation/manager-insight/manager-insight.component";
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import {ZeroFillPipe} from "./zero-fill.pipe";
     FlipClockComponent,
     FlipClockComponent,
     FlipTrackerComponent,
-    ZeroFillPipe
+    ZeroFillPipe,
+    EvaluationComponent,
+    ValuesComponentComponent,
+    ManagerInsightComponent
   ],
   imports: [
     BrowserModule,
