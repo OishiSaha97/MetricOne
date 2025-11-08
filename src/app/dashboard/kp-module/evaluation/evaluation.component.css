@@ -1,0 +1,11 @@
+.kpi-page {
+  background-color: #2A2B2F;
+  color: #fff;
+  min-height: 100vh;
+  padding-left:0px !important;
+  padding-right:0px !important;
+}
+
+.logo {
+  height: 40px;
+}
