@@ -47,13 +47,22 @@
 
   <div class="row g-4">
     <div class="col-lg-4 col-md-4">
-      <div class="d-flex step-section p-3 rounded">
-        <span class="step-number">3</span>
+      <div class="d-flex step-section p-3 rounded" (click)="changeTable('values')">
+        <span class="step-number">3 </span>
         <h6 class="mt-2 text-light" style="margin-left: 6%;">Values</h6>
+      </div>
+      <div class="d-flex step-section p-3 rounded" (click)="changeTable('manager')">
+        <span class="step-number">4</span>
+        <h6 class="mt-2 text-light" style="margin-left: 6%;">Manager's Insight</h6>
       </div>
     </div>
     <div class="col-lg-8 col-md-8">
+      <fieldset *ngIf="currentTable=='values'">
       <app-values-component></app-values-component>
+      </fieldset>
+      <fieldset *ngIf="currentTable=='values'">
+        <app-manager-insight></app-manager-insight>
+      </fieldset>
     </div>
   </div>
 
