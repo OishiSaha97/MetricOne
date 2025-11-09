@@ -2,7 +2,7 @@
 import { NgModule ,Component, OnInit } from '@angular/core';
 import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
-
+declare var $: any;
 interface Objective {
   id: number;
   title: string;
@@ -311,6 +311,7 @@ export class KpiFormComponent implements OnInit {
   }
 
   showObjectiveHistoryIndex: number | null = null;
+  remark: string = '';
 
   openChangedObjectiveHistory(index: number): void {
     if (this.showObjectiveHistoryIndex === index) {
@@ -367,5 +368,9 @@ export class KpiFormComponent implements OnInit {
     });
   }
 
+
+  openModal() {
+    $(`#${'actionModal'}`).modal({show: true, backdrop: 'static', keyboard: false});
+  }
 
 }
