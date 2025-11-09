@@ -340,7 +340,7 @@
 
         <div class="d-flex justify-content-end gap-2">
           <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>
-          <button class="btn btn-outline-success" *ngIf="mode == 'approver'">Revert</button>
+          <button class="btn btn-outline-success" (click)="onRevert()" *ngIf="mode == 'approver'">Revert</button>
           <button class="btn submit-btn" (click)="onSubmit()">Submit</button>
         </div>
       </div>

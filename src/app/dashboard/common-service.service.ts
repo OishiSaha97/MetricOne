@@ -16,6 +16,10 @@ export class CommonServiceService {
   saveKpi(obj:any){
     return this.http.post(`${this.ApiEndpoint}/kpi-form/save`, obj);
   }
+
+  revertKpi(obj:any){
+    return this.http.post(`${this.ApiEndpoint}/kpi-form/revert`, obj);
+  }
   getHierarchyList(obj:any): Observable<any> {
     return this.http.post(`${this.ApiEndpoint}/hierarchy/list`, obj);
   }
