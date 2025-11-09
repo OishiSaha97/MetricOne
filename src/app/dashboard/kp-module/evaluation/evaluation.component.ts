@@ -44,6 +44,19 @@ export class EvaluationComponent {
     }
   }
   onBack(){
+    let currentStep;
+    if (this.currentStep == 2) {
+      currentStep = 1;
+      this.changeTable('objective',currentStep)
+    }else if(this.currentStep == 3) {
+      currentStep = 2;
+      this.changeTable('self',currentStep)
+    }else if(this.currentStep == 4){
+      currentStep = 3;
+      this.changeTable('values',currentStep)
+    }
+  }
+  cancel(){
 
   }
 }
