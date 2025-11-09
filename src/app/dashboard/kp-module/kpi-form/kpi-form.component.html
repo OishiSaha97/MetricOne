@@ -340,7 +340,7 @@
 
         <div class="d-flex justify-content-end gap-2">
           <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>
-          <button class="btn btn-outline-success" (click)="openModal()" *ngIf="mode == 'approver'">Revert</button>
+          <button class="btn btn-outline-success" (click)="openModal(actionModal)" *ngIf="mode == 'approver'">Revert</button>
           <button class="btn submit-btn" (click)="onSubmit()">Submit</button>
         </div>
       </div>
@@ -349,38 +349,41 @@
 </div>
 
 
-<div class="modal " id="actionModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content bg-color">
-      <div>
-        <span class="top-left-title-bar">Revert Remarks</span>
-        <span class="close-btn close" data-dismiss="modal"></span>
-      </div>
-      <div class="modal-body modal-message-body text-break">
-        <p>
-          Are you sure you want to revert the KPI?
-        </p>
-
-        <div  class="form-group form-group-sm">
-          <div style="color:#e2136e">*Remark<small style="color: lightgrey;padding-left: 10px">(250 character
-            max)</small></div>
-          <textarea class="form-control form-control-sm add-input-box" name="" id="" cols="30" rows="3"
-                    maxlength="250" [(ngModel)]="remark"></textarea>
+<ng-template #actionModal>
+  <div class="modal " id="actionModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content bg-color">
+        <div>
+          <span class="top-left-title-bar">Revert Remarks</span>
+          <span class="close-btn close" data-dismiss="modal"></span>
         </div>
+        <div class="modal-body modal-message-body text-break">
+          <p>
+            Are you sure you want to revert the KPI?
+          </p>
 
-      </div>
-      <div class="modal-footer row justify-content-end" style="border:none; margin-top:-20px">
-        <button type="button" class="cancel-button" data-dismiss="modal">
-          Cancel
-        </button>
-        <button
-          [ngClass]=" (remark==''||remark==null)? 'cursor-disabled' : 'cursor-enabled'"
-          [disabled]=" (remark==''||remark==null)"
-          (click)="onRevert()" class="add-btn" data-dismiss="modal">
-          Submit
-        </button>
+          <div  class="form-group form-group-sm">
+            <div style="color:#e2136e">*Remark<small style="color: lightgrey;padding-left: 10px">(250 character
+              max)</small></div>
+            <textarea class="form-control form-control-sm add-input-box" name="" id="" cols="30" rows="3"
+                      maxlength="250" [(ngModel)]="remark"></textarea>
+          </div>
 
+        </div>
+        <div class="modal-footer row justify-content-end" style="border:none; margin-top:-20px">
+          <button type="button" class="cancel-button" data-dismiss="modal">
+            Cancel
+          </button>
+          <button
+            [ngClass]=" (remark==''||remark==null)? 'cursor-disabled' : 'cursor-enabled'"
+            [disabled]=" (remark==''||remark==null)"
+            (click)="onRevert()" class="add-btn" data-dismiss="modal">
+            Submit
+          </button>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-template>
+
