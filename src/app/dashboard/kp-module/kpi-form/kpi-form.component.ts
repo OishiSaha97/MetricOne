@@ -1,8 +1,10 @@
 
-import { NgModule ,Component, OnInit } from '@angular/core';
+import {NgModule, Component, OnInit, TemplateRef} from '@angular/core';
 import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+
 declare var $: any;
+
 interface Objective {
   id: number;
   title: string;
@@ -27,7 +29,6 @@ export class KpiFormComponent implements OnInit {
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
-
 
 
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
@@ -351,7 +352,8 @@ export class KpiFormComponent implements OnInit {
       randomData: JSON.stringify(processedObjectives),
       year: this.year,
       param: "revert_kpi_update_data",
-      objectId: this.mode === 'approver' ? this.kpiId : ''
+      objectId: this.mode === 'approver' ? this.kpiId : '',
+      remarks:this.remark
     };
 
 
@@ -369,8 +371,17 @@ export class KpiFormComponent implements OnInit {
   }
 
 
-  openModal() {
-    $(`#${'actionModal'}`).modal({show: true, backdrop: 'static', keyboard: false});
-  }
+  openModal(template: TemplateRef<any>) {
+      this.modalRef = this.modalService.show(template, {
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-lg'
+      });
+    }
+
+    closeModal() {
+      this.modalRef?.hide();
+    }
+
 
 }
