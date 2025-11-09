@@ -3,13 +3,11 @@ import { Component } from '@angular/core';
 
 interface Objective {
   id: number;
-  title: string;
-  selectedRating: string;
-  objectiveText: string;
-  targetText: string;
+  name: string;
   isOpen: boolean;
+  isEditingObjective: boolean;
+  objectiveText: string;
   keyObjective?: string;
-  keyTarget?: string;
 }
 @Component({
   selector: 'app-manager-insight',
@@ -17,25 +15,28 @@ interface Objective {
   styleUrls: ['./manager-insight.component.css']
 })
 export class ManagerInsightComponent {
-  objectives: any = [
-    {name:'MANAGER’S COMMENT',isOpen: false, isEditingObjective:false},
-    {name:'OVERALL PERFORMANCE',isOpen: false, isEditingObjective:false},
-    {name:'PROPOSED INCREMENT',isOpen: false, isEditingObjective:false}];
-  isOpen: boolean[] = [];
-  mode:any;
+
+  objectives: Objective[] = [
+    { id: 1, name: 'MANAGER’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '' },
+    { id: 2, name: 'OVERALL PERFORMANCE', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '' },
+    { id: 3, name: 'PROPOSED INCREMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '' }
+  ];
+
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
   }
-  toggleObjectiveEdit(obj: any) {
+
+  toggleObjectiveEdit(obj: Objective): void {
     obj.isEditingObjective = !obj.isEditingObjective;
   }
 
-
   onBack() {
-
+    // handle previous step
   }
 
   onNext() {
-
+    // Example: log full data to see stored input
+    console.log('Saved objectives:', this.objectives);
   }
+
 }

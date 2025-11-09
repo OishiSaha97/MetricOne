@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 interface Objective {
   id: number;
-  title: string;
+  name: string;
   selectedRating: string;
   objectiveText: string;
-  targetText: string;
+  keyObjective: string;
   isOpen: boolean;
-  keyObjective?: string;
-  keyTarget?: string;
+  isEditingObjective: boolean;
 }
 @Component({
   selector: 'app-values-component',
@@ -15,52 +14,63 @@ interface Objective {
   styleUrls: ['./values-component.component.css']
 })
 export class ValuesComponentComponent {
-  objectives: any = [{name:'DEPENDABILITY',isOpen: false, isEditingObjective:false},
-    {name:'JOB KNOWLEDGE AND SKILLS',isOpen: false, isEditingObjective:false}
-    , {name:'INITIATIVE AND RESOURCEFULNESS',isOpen: false, isEditingObjective:false},
-    {name:'JUDGEMENT',isOpen: false, isEditingObjective:false},
-    {name:'ADAPTABILITY',isOpen: false, isEditingObjective:false},
-    {name:'DECISIVENESS',isOpen: false, isEditingObjective:false},
-    {name: 'INTERPERSONAL RELATIONSHIPS', isOpen: false, isEditingObjective:false}];
+  objectives: Objective[] = [
+    { id: 1, name: 'DEPENDABILITY', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
+    { id: 2, name: 'JOB KNOWLEDGE AND SKILLS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
+    { id: 3, name: 'INITIATIVE AND RESOURCEFULNESS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
+    { id: 4, name: 'JUDGEMENT', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
+    { id: 5, name: 'ADAPTABILITY', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
+    { id: 6, name: 'DECISIVENESS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
+    { id: 7, name: 'INTERPERSONAL RELATIONSHIPS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
+  ];
+
   isOpen: boolean[] = [];
   mode:any;
-  objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
+  // objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
   overAllRating: any;
 
-  addObjective(): void {
-    const newObjective: Objective = {
-      id: this.objectives.length + 1,
-      title: `Work Objective ${this.objectives.length + 1}`,
-      selectedRating: '',
-      objectiveText: '',
-      targetText: '',
-      isOpen: false
-    };
-    this.objectives.push(newObjective);
-  }
 
-  onObjectiveChange(type: any, obj: Objective,i:number): void {
-    obj.selectedRating = type;
-    this.isOpen[i] = false;
-    console.log(`Objective ${obj.id} selected rating:`, obj.selectedRating);
-  }
-  toggleObjective(obj: Objective): void {
-    obj.isOpen = !obj.isOpen;
-  }
-  toggleObjectiveEdit(obj: any) {
-    obj.isEditingObjective = !obj.isEditingObjective;
-  }
+
+  // onObjectiveChange(type: any, obj: Objective,i:number): void {
+  //   obj.selectedRating = type;
+  //   this.isOpen[i] = false;
+  //   console.log(`Objective ${obj.id} selected rating:`, obj.selectedRating);
+  // }
+
 
   onBack() {
-
-  }
-
-  onNext() {
 
   }
 
   onOverallRating(type: any) {
     this.overAllRating = type;
   }
+
+  toggleObjective(obj: Objective): void {
+    obj.isOpen = !obj.isOpen;
+  }
+
+  toggleObjectiveEdit(obj: Objective): void {
+    obj.isEditingObjective = !obj.isEditingObjective;
+  }
+
+  onObjectiveChange(type: string, obj: Objective): void {
+    obj.selectedRating = type;
+  }
+
+  onNext(): void {
+    // log or save full data
+    console.log('All Objectives:', this.objectives);
+
+    // Example: show unsaved ones
+    const incomplete = this.objectives.filter(o => !o.objectiveText || !o.selectedRating);
+    if (incomplete.length > 0) {
+      console.warn('Incomplete objectives:', incomplete);
+    } else {
+      console.log('All objectives are filled in.');
+    }
+  }
+
+
 }

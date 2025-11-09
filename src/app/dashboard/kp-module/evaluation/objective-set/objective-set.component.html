@@ -1,1 +1,159 @@
-<p>objective-set works!</p>
+
+
+<div class="objectives-card p-4 rounded">
+  <h5 class="text-light fw-semibold">Objectives Set for Year 2025</h5>
+  <p class="text-secondary small">
+    Please write SMART Objective statements:
+    <span >Stretching</span>,
+    <span >Measurable</span>,
+    <span >Agreed</span>,
+    <span >Realistic</span>,
+    <span >Time-Bound</span>.
+  </p>
+
+  <div class="container mt-3">
+    <ul class="list-group">
+      <div class="work-obj">
+        <div class="fw-semibold p-3">Work Objective</div>
+
+        <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light"
+             [ngClass]="{ 'bg-open': obj.isOpen }">
+
+          <div class="d-flex justify-content-between align-items-center"
+
+               style="cursor:pointer;">
+            <div class="d-flex justify-content-between"  (click)="toggleObjective(obj)">
+              <div>
+                <img src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7"  />
+              </div>
+              <span class="fw-semibold">{{ obj.title }}</span>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-dark btn-sm dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      style="background-color:#33343C; border:1px solid #7A7B8299;">
+                {{ obj.selectedType || 'Select Category' }}
+              </button>
+
+              <ul class="dropdown-menu dropdown-menu-dark"
+                  style="background-color: #33343C;">
+                <li *ngFor="let type of objectiveTypes">
+                  <a class="dropdown-item text-light"
+
+                     (click)="onObjectiveChange(type, obj, i)">
+                    {{ type }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+
+          </div>
+
+          <!-- Collapsible content -->
+          <div *ngIf="obj.isOpen" class="collapse-content">
+            <hr>
+            <div>
+              <div>
+                <label class="text-secondary small">OBJECTIVE</label>
+                <div *ngIf="mode == 'approver'">
+                  <img src="../../../assets/fa-regular_edit.svg"
+                       class="mb-1" style="scale:0.7"
+                       (click)="toggleObjectiveEdit(obj)" />
+                </div>
+              </div>
+
+              <input
+                type="text"
+                class="obj-input mb-2"
+                [(ngModel)]="obj.objectiveText"
+                placeholder="Enter objective..."
+                [readonly]="mode === 'approver' && !obj.isEditingObjective"
+              />
+
+              <div *ngIf="obj.isEditingObjective" class="mt-3">
+                <h6 style="font-size: 12px;">Key Update Points*</h6>
+                <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                <input
+                  type="text"
+                  class="obj-input mb-2"
+                  [(ngModel)]="obj.keyObjective"
+                  placeholder="Enter key point objective..."
+                />
+              </div>
+
+              <div *ngIf="mode === 'approver' " class="mt-1">
+                <img src="../../../assets/bx_chat.svg"
+                     class="mb-1" style="scale:0.999"
+                     (click)="openObjectiveHistory(obj)" />
+                <span class="ml-2">Changed History</span>
+
+              </div>
+
+
+            </div>
+
+
+
+            <div>
+              <div>
+                <label class="text-secondary small">TARGET</label>
+                <div *ngIf="mode === 'approver'">
+                  <img src="../../../assets/fa-regular_edit.svg"
+                       class="mb-1" style="scale:0.7"
+                       (click)="toggleTargetEdit(obj)" />
+                </div>
+              </div>
+
+              <textarea
+                rows="4"
+                class="obj-input small"
+                [(ngModel)]="obj.targetText"
+                placeholder="Enter target..."
+                [readonly]="mode === 'approver' && !obj.isEditingTarget"
+              ></textarea>
+
+              <div *ngIf="obj.isEditingTarget" class="mt-3">
+                <h6 style="font-size: 12px;">Key Update Points*</h6>
+                <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                <input
+                  type="text"
+                  class="obj-input mt-2"
+                  [(ngModel)]="obj.keyTarget"
+                  placeholder="Enter key point target..."
+                />
+              </div>
+
+              <div *ngIf="mode === 'approver' " class="mt-1">
+                <img src="../../../assets/bx_chat.svg"
+                     class="mb-1" style="scale:0.999"
+                     (click)="openTargetHistory(obj)" />
+                <span class="ml-2">Changed History</span>
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+        </div>
+      </div>
+
+    </ul>
+
+    <!-- Add new objective -->
+    <button class="btn mt-2 add-obj-btn" (click)="addObjective()">
+      + Add Work Objective
+    </button>
+  </div>
+
+
+  <div class="d-flex justify-content-end gap-2">
+    <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>
+    <button class="btn btn-outline-success" *ngIf="mode == 'approver'">Revert</button>
+    <button class="btn submit-btn" (click)="onSubmit()">Submit</button>
+  </div>
+</div>

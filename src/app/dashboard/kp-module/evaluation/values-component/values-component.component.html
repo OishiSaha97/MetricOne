@@ -22,77 +22,70 @@
 
         <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light"
              [ngClass]="{ 'bg-open': obj.isOpen }">
-          <div class="d-flex justify-content-between align-items-center"
 
-               style="cursor:pointer;">
-            <div class="d-flex justify-content-between"  (click)="toggleObjective(obj)">
+          <div class="d-flex justify-content-between align-items-center" style="cursor:pointer;">
+            <div class="d-flex justify-content-between" (click)="toggleObjective(obj)">
               <div>
-                <img src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7"  />
+                <img src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7" />
               </div>
               <span class="fw-semibold">{{ obj.name }}</span>
             </div>
+
             <div class="dropdown">
               <button class="btn btn-dark dropdown-toggle"
                       type="button"
                       data-bs-toggle="dropdown"
-                      aria-expanded="false"
                       style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px;">
-                {{ obj.selectedType || 'Select' }}
+                {{ obj.selectedRating || 'Select' }}
               </button>
 
-              <ul class="dropdown-menu dropdown-menu-dark"
-                  style="background-color: #33343C;">
-                <li *ngFor="let type of rating; let i = index;">
+              <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #33343C;">
+                <li *ngFor="let type of rating">
                   <a class="dropdown-item text-light"
-
-                     (click)="onObjectiveChange(type, obj, i)">
+                     (click)="onObjectiveChange(type, obj)">
                     {{ type }}
                   </a>
                 </li>
               </ul>
             </div>
-
-
           </div>
+
+          <!-- Collapsible content -->
           <div *ngIf="obj.isOpen" class="collapse-content">
             <hr style="width: 104%;margin-left: -18px;">
-            <div class="d-flex justify-content-end align-items-center">
-
-              <!--              *ngIf="mode == 'approver'"-->
-              <div class="right-side" style="display: flex; align-items: center;">
-                <img src="../../../assets/fa-regular_edit.svg"
-                     class="mb-1" style="scale:0.7"
-                     (click)="toggleObjectiveEdit(obj)" />
-              </div>
+            <div class="d-flex justify-content-end align-items-center" *ngIf="mode == 'manager-review'">
+              <img src="../../../assets/fa-regular_edit.svg"
+                   class="mb-1" style="scale:0.7"
+                   (click)="toggleObjectiveEdit(obj)" />
             </div>
+
             <input
               type="text"
               class="obj-input mb-2"
               [(ngModel)]="obj.objectiveText"
-              placeholder="Type Here"
+              placeholder="Type your objective..."
             />
 
-            <div *ngIf="obj.isEditingObjective"  class="mt-3">
-<!--              -->
+            <div *ngIf="obj.isEditingObjective" class="mt-3">
               <div style="font-size: 15px;">Key Update Points*</div>
               <div style="font-size: 11px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</div>
               <input
                 type="text"
                 class="obj-input mb-2"
                 [(ngModel)]="obj.keyObjective"
-                placeholder="Type Here"
+                placeholder="Type key points..."
               />
             </div>
-
           </div>
-
         </div>
+
+
       </div>
 
     </ul>
   </div>
 
-  <div class="container mt-3">
+  <div class="container mt-3" *ngIf="mode == 'manager-review'">
     <ul class="list-group">
       <div class="work-obj">
         <div class="d-flex justify-content-between">

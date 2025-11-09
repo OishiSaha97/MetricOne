@@ -145,7 +145,43 @@
                         <img src="../../../assets/bx_chat.svg"
                              class="mb-1" style="scale:0.999"
                              (click)="openObjectiveHistory(obj)" />
-                        <span class="ml-2">Changed History</span>
+
+                        <span class="ml-2" (click)="openChangedObjectiveHistory(i)">Changed History</span>
+
+                        <div class="history-popup"
+                             *ngIf="showObjectiveHistoryIndex === i">
+                          <div class="popup-header">
+                            <strong>History</strong>
+                            <button class="close-btn" (click)="openChangedObjectiveHistory(i)">×</button>
+                          </div>
+
+                          <div class="popup-meta">
+                            <span class="user-name">Ashiful Islam</span>
+                            <span class="date">Date: Jan 28</span>
+                          </div>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                          </p>
+                        </div>
+
+<!--                        <div class="history-popup" *ngIf="showObjectiveHistory">-->
+<!--                          <div class="popup-header dropdown-toggle" >-->
+<!--                            <strong>History</strong>-->
+<!--                            <button class="close-btn"-->
+<!--                                    data-bs-toggle="dropdown"-->
+<!--                                    (click)="openChangedObjectiveHistory()">×</button>-->
+<!--                          </div>-->
+
+<!--                          <ul class="dropdown-menu dropdown-menu-dark">-->
+<!--                            <div class="popup-meta">-->
+<!--                              <span class="user-name">Ashiful Islam</span>-->
+<!--                              <span class="date">Date: Jan 28</span>-->
+<!--                            </div>-->
+<!--                            <p>-->
+<!--                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+<!--                            </p>-->
+<!--                          </ul>-->
+<!--                        </div>-->
 
                       </div>
 
@@ -156,29 +192,29 @@
 
                   <div>
                     <div>
-                      <label class="text-secondary small">TARGET</label>
+                      <label class="text-secondary small">PERFORMANCE MEASURE</label>
                       <div *ngIf="mode === 'approver'">
                         <img src="../../../assets/fa-regular_edit.svg"
                              class="mb-1" style="scale:0.7"
-                             (click)="toggleTargetEdit(obj)" />
+                             (click)="togglePerformanceEdit(obj)" />
                       </div>
                     </div>
 
-                    <textarea
+                    <input
                       rows="4"
                       class="obj-input small"
-                      [(ngModel)]="obj.targetText"
+                      [(ngModel)]="obj.performanceText"
                       placeholder="Enter target..."
-                      [readonly]="mode === 'approver' && !obj.isEditingTarget"
-                    ></textarea>
+                      [readonly]="mode === 'approver' && !obj.isEditingPerformance"
+                    >
 
-                    <div *ngIf="obj.isEditingTarget" class="mt-3">
+                    <div *ngIf="obj.isEditingPerformance" class="mt-3">
                       <h6 style="font-size: 12px;">Key Update Points*</h6>
                       <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
                       <input
                         type="text"
                         class="obj-input mt-2"
-                        [(ngModel)]="obj.keyTarget"
+                        [(ngModel)]="obj.performanceText"
                         placeholder="Enter key point target..."
                       />
                     </div>
@@ -186,9 +222,103 @@
                     <div *ngIf="mode === 'approver' " class="mt-1">
                       <img src="../../../assets/bx_chat.svg"
                            class="mb-1" style="scale:0.999"
-                           (click)="openTargetHistory(obj)" />
-                      <span class="ml-2">Changed History</span>
+                           (click)="openPerformanceHistory(obj)" />
+                      <span class="ml-2" (click)="openChangedHistory()">Changed History</span>
+
+                      <div class="history-popup" *ngIf="showHistory">
+                        <div class="popup-header">
+                          <strong>History</strong>
+                          <button class="close-btn" (click)="openChangedHistory()">×</button>
+                        </div>
+
+                        <div class="popup-body">
+                          <div class="popup-meta">
+                            <span class="user-name">Ashiful Islam</span>
+                            <span class="date">Date: Jan 28</span>
+                          </div>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                          </p>
+                        </div>
+                      </div>
+
                     </div>
+
+                  </div>
+
+
+                  <div class="row">
+
+                    <div class="col-md-8">
+                      <div>
+                        <label class="text-secondary small">TARGET</label>
+                        <div *ngIf="mode === 'approver'">
+                          <img src="../../../assets/fa-regular_edit.svg"
+                               class="mb-1" style="scale:0.7"
+                               (click)="toggleTargetEdit(obj)" />
+                        </div>
+                      </div>
+
+                      <input
+                        rows="4"
+                        class="obj-input small"
+                        [(ngModel)]="obj.targetText"
+                        placeholder="Enter target..."
+                        [readonly]="mode === 'approver' && !obj.isEditingTarget"
+                      >
+
+                      <div *ngIf="obj.isEditingTarget" class="mt-3">
+                        <h6 style="font-size: 12px;">Key Update Points*</h6>
+                        <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                        <input
+                          type="text"
+                          class="obj-input mt-2"
+                          [(ngModel)]="obj.keyTarget"
+                          placeholder="Enter key point target..."
+                        />
+                      </div>
+
+                      <div *ngIf="mode === 'approver' " class="mt-1">
+                        <img src="../../../assets/bx_chat.svg"
+                             class="mb-1" style="scale:0.999"
+                             (click)="openTargetHistory(obj)" />
+                        <span class="ml-2" (click)="openChangedTargetHistory()">Changed History</span>
+
+                        <div class="history-popup" *ngIf="showTargetHistory">
+                          <div class="popup-header">
+                            <strong>History</strong>
+                            <button class="close-btn" (click)="openChangedTargetHistory()">×</button>
+                          </div>
+
+                          <div class="popup-body">
+                            <div class="popup-meta">
+                              <span class="user-name">Ashiful Islam</span>
+                              <span class="date">Date: Jan 28</span>
+                            </div>
+                            <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div>
+                        <label class="text-secondary small">WEIGHTAGE</label>
+                        <div *ngIf="mode === 'approver' ">
+                          <img src="" class="mb-1" style="scale:0.7" />
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        class="obj-input mb-2"
+                        [(ngModel)]="obj.weightage"
+                        placeholder="Enter weightage..."
+                      />
+                    </div>
+
 
                   </div>
 

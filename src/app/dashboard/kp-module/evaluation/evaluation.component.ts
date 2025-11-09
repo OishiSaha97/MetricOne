@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class EvaluationComponent {
   tables: { [key: string]: { selected: boolean } } = {
+    objetive: { selected: false },
+    self: { selected: false },
     values: { selected: true },
     manager: { selected: false },
   };

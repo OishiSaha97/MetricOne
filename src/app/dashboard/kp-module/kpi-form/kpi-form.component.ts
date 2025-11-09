@@ -9,6 +9,8 @@ interface Objective {
   selectedType: string;
   objectiveText: string;
   targetText: string;
+  performanceText: string;
+  weightage: string;
   isOpen: boolean;
   keyObjective?: string;
   keyTarget?: string;
@@ -36,6 +38,7 @@ export class KpiFormComponent implements OnInit {
   changedObjHistory: any = [];
   attributeType: any = [];
   changedTargetHistory: any = [];
+  changedPerformanceHistory: any = [];
   year:string='2025';
   userName:any;
   userId:any;
@@ -66,6 +69,8 @@ export class KpiFormComponent implements OnInit {
                 selectedType: item.category_name,
                 objectiveText: item.objective,
                 targetText: item.target,
+                performanceText: item.performance,
+                weightage: item.weightage,
                 isOpen: false
               }));
             },
@@ -110,6 +115,8 @@ export class KpiFormComponent implements OnInit {
       selectedType: '',
       objectiveText: '',
       targetText: '',
+      performanceText: '',
+      weightage: '',
       isOpen: false
     };
     this.objectives.push(newObjective);
@@ -229,10 +236,27 @@ export class KpiFormComponent implements OnInit {
     obj.isEditingTarget = !obj.isEditingTarget;
   }
 
+  togglePerformanceEdit(obj: any) {
+    obj.isEditingPerformance = !obj.isEditingPerformance;
+  }
+
   onCancel() {
     this.modalRef.hide();
   }
 
+
+  openPerformanceHistory(obj: any) {
+    console.log(obj)
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+      .subscribe(res => {
+          this.changedPerformanceHistory = Array.isArray(res?.['changed-performance-history']) ? res?.['changed-performance-history'] : res?.['changed-performance-history']
+          console.log(this.changedPerformanceHistory);
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+        }
+      );
+  }
 
   openTargetHistory(obj: any) {
     console.log(obj)
@@ -272,6 +296,28 @@ export class KpiFormComponent implements OnInit {
           console.error("Error fetching permission list", error);
         }
       );
+  }
+
+  showHistory = false;
+  showTargetHistory = false;
+  showObjectiveHistory = false;
+
+  openChangedHistory() {
+    this.showHistory = !this.showHistory;
+  }
+
+  openChangedTargetHistory() {
+    this.showTargetHistory = !this.showTargetHistory;
+  }
+
+  showObjectiveHistoryIndex: number | null = null;
+
+  openChangedObjectiveHistory(index: number): void {
+    if (this.showObjectiveHistoryIndex === index) {
+      this.showObjectiveHistoryIndex = null;
+    } else {
+      this.showObjectiveHistoryIndex = index;
+    }
   }
 
 }
