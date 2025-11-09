@@ -47,25 +47,53 @@
 
   <div class="row g-4">
     <div class="col-lg-4 col-md-4">
-      <div class="d-flex step-section p-3 rounded" (click)="changeTable('objetive')">
-        <span class="step-number">3 </span>
-        <h6 class="mt-2 text-light" style="margin-left: 6%;">Objective set For the year</h6>
+
+      <!-- Step 1 -->
+      <div class="d-flex step-section p-3 rounded"
+           [ngClass]="{
+           'active-step': currentStep === 1,
+           'completed-step': currentStep > 1,
+           'pending-step': currentStep < 1
+         }">
+        <span class="step-number">1</span>
+        <h6 class="mt-2 text-light ms-2">Objective set For the year</h6>
       </div>
 
-      <div class="d-flex step-section p-3 rounded" (click)="changeTable('self')">
-        <span class="step-number">3 </span>
-        <h6 class="mt-2 text-light" style="margin-left: 6%;">Self Assessment</h6>
+      <!-- Step 2 -->
+      <div class="d-flex step-section p-3 rounded"
+           [ngClass]="{
+           'active-step': currentStep === 2,
+           'completed-step': currentStep > 2,
+           'pending-step': currentStep < 2
+         }">
+        <span class="step-number">2</span>
+        <h6 class="mt-2 text-light ms-2">Self Assessment</h6>
       </div>
 
-      <div class="d-flex step-section p-3 rounded" (click)="changeTable('values')">
-        <span class="step-number">3 </span>
-        <h6 class="mt-2 text-light" style="margin-left: 6%;">Values</h6>
+      <!-- Step 3 -->
+      <div class="d-flex step-section p-3 rounded"
+           [ngClass]="{
+           'active-step': currentStep === 3,
+           'completed-step': currentStep > 3,
+           'pending-step': currentStep < 3
+         }">
+        <span class="step-number">3</span>
+        <h6 class="mt-2 text-light ms-2">Values</h6>
       </div>
-      <div class="d-flex step-section p-3 rounded" (click)="changeTable('manager')">
+
+      <!-- Step 4 -->
+      <div class="d-flex step-section p-3 rounded"
+           [ngClass]="{
+           'active-step': currentStep === 4,
+           'completed-step': currentStep > 4,
+           'pending-step': currentStep < 4
+         }">
         <span class="step-number">4</span>
-        <h6 class="mt-2 text-light" style="margin-left: 6%;">Manager's Insight</h6>
+        <h6 class="mt-2 text-light ms-2">Manager's Insight</h6>
       </div>
+
     </div>
+
     <div class="col-lg-8 col-md-8">
       <fieldset *ngIf="currentTable=='objective'">
         <app-objective-set></app-objective-set>
@@ -84,5 +112,47 @@
       </fieldset>
     </div>
   </div>
+<!--  <div class="d-flex justify-content-end gap-2">-->
+<!--    <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>-->
+<!--    <button class="btn btn-outline-success" *ngIf="mode == 'approver'">Revert</button>-->
+<!--    <button class="btn submit-btn" (click)="onSubmit()">Submit</button>-->
+<!--  </div>-->
+  <div class="row">
+    <div class="col-lg-4 col-md-4">
+    </div>
+    <div class="col-lg-8 col-md-8">
+      <div class="container mt-3" *ngIf="currentTable!='manager'">
+        <div class="d-flex justify-content-between">
+          <div>
+            <button class="btn cancel-btn" (click)="onBack()">Cancel</button>
+          </div>
+          <div>
+            <div class="d-flex justify-content-end gap-2 p-3">
+              <button class=" cancel-btn" (click)="onBack()">Back</button>
+              <button class=" submit-btn" (click)="onNext()">Next</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+        <div class="container mt-3"  *ngIf="currentTable=='manager'">
+          <div class="d-flex justify-content-between">
+            <div>
+              <button class="btn cancel-btn" (click)="onBack()">Cancel</button>
+            </div>
+            <div>
+              <div class="d-flex justify-content-end gap-2 p-3">
+                <button class=" cancel-btn" (click)="onBack()">Back</button>
+                <button class=" submit-btn" (click)="onNext()">Submit</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+    </div>
+ </div>
 
 </div>
+
