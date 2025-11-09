@@ -251,7 +251,7 @@ export class KpiFormComponent implements OnInit {
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
       .subscribe(res => {
           this.changedPerformanceHistory = Array.isArray(res?.['changed-performance-history']) ? res?.['changed-performance-history'] : res?.['changed-performance-history']
-          console.log(this.changedPerformanceHistory);
+          this.openChangedHistory();
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -265,7 +265,7 @@ export class KpiFormComponent implements OnInit {
       .subscribe(res => {
 
           this.changedTargetHistory = Array.isArray(res?.['changed-target-history']) ? res?.['changed-target-history'] : res?.['changed-target-history']
-          console.log(this.changedTargetHistory);
+          this.openChangedTargetHistory();
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -273,12 +273,12 @@ export class KpiFormComponent implements OnInit {
       );
   }
 
-  openObjectiveHistory(obj: any) {
-    console.log(obj)
+  openObjectiveHistory(obj: any,i:any) {
+    this.showObjectiveHistoryIndex = null;
     this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
       .subscribe(res => {
           this.changedObjHistory = Array.isArray(res?.['changed-objective-history']) ? res?.['changed-objective-history'] : res?.['changed-objective-history']
-          console.log(this.changedObjHistory);
+          this.openChangedObjectiveHistory(i);
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -375,13 +375,12 @@ export class KpiFormComponent implements OnInit {
       this.modalRef = this.modalService.show(template, {
         backdrop: 'static',
         keyboard: false,
-        class: 'modal-lg'
+        class: 'modal-md'
       });
     }
 
-    closeModal() {
-      this.modalRef?.hide();
-    }
-
+  onClose(): void {
+    this.modalRef?.hide();
+  }
 
 }

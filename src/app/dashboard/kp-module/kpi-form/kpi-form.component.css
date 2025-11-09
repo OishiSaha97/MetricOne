@@ -173,8 +173,6 @@
 
 .history-popup {
   position: absolute;
-  top: 24px;
-  left: 0;
   width: 320px;
   background-color: #2C2D33;
   border: 1px solid #444;
@@ -212,4 +210,117 @@
   background-color: #25262C;
   padding: 50px;
   font-size: 14px; /* smaller font overall */
+}
+/* ===== Modal container ===== */
+.modal-content.bg-color {
+  background: #181824;              /* dark card */
+  color: #f5f5f5;
+  border-radius: 5px;
+  padding: 24px 32px 28px;
+  border: none;
+  min-width: 520px;
+  max-width: 640px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* header row */
+.modal-content.bg-color > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+/* ===== Title & close ===== */
+.top-left-title-bar {
+  font-size: 16px;
+  font-weight: 600;
+  color: #c084fc;                   /* purple title */
+}
+
+.close-btn.close {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  cursor: pointer;
+}
+.close-btn.close::before,
+.close-btn.close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  background: #9ca3af;
+  border-radius: 999px;
+}
+.close-btn.close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.close-btn.close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* ===== Body text ===== */
+.modal-message-body p {
+  margin-bottom: 16px;
+  color: #e5e7eb;
+  font-size: 14px;
+}
+
+/* “*Remark (250 character max)” */
+.form-group-sm > div:first-child {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ===== Textarea ===== */
+.add-input-box {
+  background: #111827;
+  border-radius: 6px;
+  border: 1px solid #4b5563;
+  color: #f9fafb;
+  font-size: 13px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  resize: vertical;
+}
+
+.add-input-box::placeholder {
+  color: #6b7280;
+}
+
+.add-input-box:focus {
+  outline: none;
+}
+
+/* ===== Footer & buttons ===== */
+.modal-footer {
+  padding-top: 20px;
+}
+
+
+/* Cancel – outline purple */
+.cancel-button {
+  background: transparent;
+  border: 1px solid #a855f7;
+  color: #e5e7eb;
+  margin-right: 12px;
+}
+.cancel-button:hover {
+  background: rgba(168, 85, 247, 0.16);
+}
+
+
+/* ===== Enabled / disabled states from [ngClass] ===== */
+.cursor-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+.cursor-enabled {
+  opacity: 1;
+  cursor: pointer;
 }

@@ -150,3 +150,6 @@ body {
 .bs-datepicker-container {
   z-index: 100000 !important;
 }
+.common-purple{
+  color: #AD94FF !important;
+}
