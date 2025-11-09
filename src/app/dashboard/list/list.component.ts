@@ -35,6 +35,8 @@ export class ListComponent {
   scrollStatus: any = true;
   check_kpi:any =[];
   year:any = '2025';
+  isInitCrossed: boolean = false;
+  showEvaluation: boolean = false;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -45,19 +47,31 @@ export class ListComponent {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.loadData('');
-    this.kpi.getLogData({param: 'check_kpi_my',objectId:this.year,extraParam:this.userId})
-      .subscribe(res => {
-
-          this.check_kpi = Array.isArray(res?.['check_kpi_my']) ? res?.['check_kpi_my'] : res?.['check_kpi_my']
-          console.log(this.check_kpi);
-        },
-        (error) => {
-          console.error("Error fetching permission list", error);
-        }
-      );
+    this.checkInitiationDate();
+    // this.kpi.getLogData({param: 'check_kpi_my',objectId:this.year,extraParam:this.userId})
+    //   .subscribe(res => {
+    //
+    //       this.check_kpi = Array.isArray(res?.['check_kpi_my']) ? res?.['check_kpi_my'] : res?.['check_kpi_my']
+    //       console.log(this.check_kpi);
+    //     },
+    //     (error) => {
+    //       console.error("Error fetching permission list", error);
+    //     }
+    //   );
 
 
   }
+
+  checkInitiationDate() {
+    this.kpi.getLogData({ param: 'initiationCheck', userIdKPI: this.userId })
+      .subscribe(res => {
+        this.isInitCrossed = res?.['initiationCheck'][0].deadline_crossed;
+        if(this.isInitCrossed){
+          this.showEvaluation = true;
+        }
+      });
+  }
+
 
   loadData(obj:any){
     let offset:any =null;

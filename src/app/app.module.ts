@@ -39,6 +39,8 @@ import {ZeroFillPipe} from "./zero-fill.pipe";
 import {EvaluationComponent} from "./dashboard/kp-module/evaluation/evaluation.component";
 import {ValuesComponentComponent} from "./dashboard/kp-module/evaluation/values-component/values-component.component";
 import {ManagerInsightComponent} from "./dashboard/kp-module/evaluation/manager-insight/manager-insight.component";
+import { ObjectiveSetComponent } from './dashboard/kp-module/evaluation/objective-set/objective-set.component';
+import { SelfAssessmentComponent } from './dashboard/kp-module/evaluation/self-assessment/self-assessment.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import {ManagerInsightComponent} from "./dashboard/kp-module/evaluation/manager-
     ZeroFillPipe,
     EvaluationComponent,
     ValuesComponentComponent,
-    ManagerInsightComponent
+    ManagerInsightComponent,
+    ObjectiveSetComponent,
+    SelfAssessmentComponent
   ],
   imports: [
     BrowserModule,
