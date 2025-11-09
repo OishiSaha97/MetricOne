@@ -2,7 +2,7 @@
 import { NgModule ,Component, OnInit } from '@angular/core';
 import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
-
+declare var $: any;
 interface Objective {
   id: number;
   title: string;
@@ -311,6 +311,7 @@ export class KpiFormComponent implements OnInit {
   }
 
   showObjectiveHistoryIndex: number | null = null;
+  remark: string = '';
 
   openChangedObjectiveHistory(index: number): void {
     if (this.showObjectiveHistoryIndex === index) {
@@ -318,6 +319,58 @@ export class KpiFormComponent implements OnInit {
     } else {
       this.showObjectiveHistoryIndex = index;
     }
+  }
+
+  onRevert() {
+    if (!this.validateObjectives()) {
+      return;
+    }
+
+    const escapeText = (text: string | undefined) => {
+      return text
+        ? text
+          .replace(/\r/g, '\\r')
+          .replace(/\n/g, '\\n')
+          .replace(/\t/g, '\\t')
+        : '';
+    };
+
+    let processedObjectives = this.objectives.map((obj: Objective) => {
+      let item: any = {
+        title: obj.title,
+        selectedType: obj.selectedType,
+        objectiveText: escapeText(obj.objectiveText),
+        targetText: escapeText(obj.targetText)
+      };
+      return item;
+    });
+
+    let requestPayload: any = {
+      userIdKPI: this.userId,
+      userName: this.userName,
+      randomData: JSON.stringify(processedObjectives),
+      year: this.year,
+      param: "revert_kpi_update_data",
+      objectId: this.mode === 'approver' ? this.kpiId : ''
+    };
+
+
+    this.kpi.revertKpi(requestPayload).subscribe({
+      next: (response) => {
+        console.log('KPI saved successfully:', response);
+        alert('KPI data submitted successfully!');
+        this.onCancel();
+      },
+      error: (error) => {
+        console.error('Error saving KPI:', error);
+        alert('Something went wrong while saving KPI.');
+      }
+    });
+  }
+
+
+  openModal() {
+    $(`#${'actionModal'}`).modal({show: true, backdrop: 'static', keyboard: false});
   }
 
 }
