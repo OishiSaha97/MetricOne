@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
 
@@ -25,6 +25,11 @@ export class ObjectiveSetComponent {
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
+
+  @Output() dataSubmitted = new EventEmitter<any>();
+
+
+
 
 
   @Input() userData: any;
@@ -101,6 +106,13 @@ export class ObjectiveSetComponent {
   //     this.objectives.push(newObjective);
   //   });
   // }
+
+  submitData() {
+    console.log(this.objectives);
+    this.dataSubmitted.emit(this.objectives);
+
+
+  }
 
 
   addObjective(): void {
@@ -311,4 +323,6 @@ export class ObjectiveSetComponent {
   openChangedObjectiveHistory(i: number) {
 
   }
+
+
 }

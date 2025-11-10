@@ -161,6 +161,7 @@ export class ListComponent {
       const initialState = {
         userData: user,
         title: 'Employee Evaluation',
+        currentStatus:'employee',
       };
       this.modalService.show(EvaluationComponent, {
         initialState:initialState,
