@@ -5,6 +5,7 @@ import {ManagerInsightComponent} from "./manager-insight/manager-insight.compone
 import { ValuesComponentComponent } from './values-component/values-component.component';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
+import {HrModalComponent} from "./hr-modal/hr-modal.component";
 
 
 
@@ -47,6 +48,7 @@ export class EvaluationComponent {
   @ViewChild(SelfAssessmentComponent) selfComp!: SelfAssessmentComponent;
   @ViewChild(ValuesComponentComponent) valuesComp!: ValuesComponentComponent;
   @ViewChild(ManagerInsightComponent) managerComp!: ManagerInsightComponent;
+  @ViewChild(HrModalComponent) hrComp!: HrModalComponent;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -110,7 +112,11 @@ export class EvaluationComponent {
         this.changeTable('hr',currentStep)
       }
 
+    }else if(this.currentStep == 5){
+      this.hrComp.submitData();
+      this.submitEmployee();
     }
+
 
   }
 
@@ -157,6 +163,9 @@ export class EvaluationComponent {
     }else if(item == 'manager'){
       this.managerData = data;
       console.log('Received data from manager:', data);
+    }else if(item == 'hr'){
+      this.hrData = data;
+      console.log('Received data from hr:', data);
     }
 
 
