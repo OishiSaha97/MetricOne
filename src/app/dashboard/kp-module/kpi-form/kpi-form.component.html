@@ -144,24 +144,22 @@
                       <div *ngIf="mode === 'approver' " class="mt-1">
                         <img src="../../../assets/bx_chat.svg"
                              class="mb-1" style="scale:0.999"
-                             (click)="openObjectiveHistory(obj)" />
+                             (click)="openObjectiveHistory(obj,i);" />
 
-                        <span class="ml-2" (click)="openChangedObjectiveHistory(i)">Changed History</span>
+                        <span class="ml-2 common-purple" (click)="openObjectiveHistory(obj,i);">Changed History</span>
 
-                        <div class="history-popup"
-                             *ngIf="showObjectiveHistoryIndex === i">
+                        <div class="history-popup" *ngIf="showObjectiveHistoryIndex === i">
                           <div class="popup-header">
-                            <strong>History</strong>
+                            <h5>History</h5>
                             <button class="close-btn" (click)="openChangedObjectiveHistory(i)">×</button>
                           </div>
-
-                          <div class="popup-meta">
-                            <span class="user-name">Ashiful Islam</span>
-                            <span class="date">Date: Jan 28</span>
+                          <div *ngFor="let note of changedObjHistory">
+                            <div class="popup-meta">
+                              <span class="common-purple">{{note.created_by}}</span>
+                              <span class="date">Date:{{note.created_at }}</span>
+                            </div>
+                            <p>{{note.key_point}}</p>
                           </div>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          </p>
                         </div>
 
 <!--                        <div class="history-popup" *ngIf="showObjectiveHistory">-->
@@ -223,22 +221,19 @@
                       <img src="../../../assets/bx_chat.svg"
                            class="mb-1" style="scale:0.999"
                            (click)="openPerformanceHistory(obj)" />
-                      <span class="ml-2" (click)="openChangedHistory()">Changed History</span>
+                      <span class="ml-2 common-purple" (click)="openPerformanceHistory(obj)">Changed History</span>
 
                       <div class="history-popup" *ngIf="showHistory">
                         <div class="popup-header">
-                          <strong>History</strong>
+                          <h5>History</h5>
                           <button class="close-btn" (click)="openChangedHistory()">×</button>
                         </div>
-
-                        <div class="popup-body">
+                        <div *ngFor="let note of changedPerformanceHistory">
                           <div class="popup-meta">
-                            <span class="user-name">Ashiful Islam</span>
-                            <span class="date">Date: Jan 28</span>
+                            <span class="common-purple">{{note.created_by}}</span>
+                            <span class="date">Date:{{note.created_at }}</span>
                           </div>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          </p>
+                          <p>{{note.key_point}}</p>
                         </div>
                       </div>
 
@@ -282,22 +277,18 @@
                         <img src="../../../assets/bx_chat.svg"
                              class="mb-1" style="scale:0.999"
                              (click)="openTargetHistory(obj)" />
-                        <span class="ml-2" (click)="openChangedTargetHistory()">Changed History</span>
-
+                        <span class="ml-2 common-purple" (click)="openTargetHistory(obj)">Changed History</span>
                         <div class="history-popup" *ngIf="showTargetHistory">
                           <div class="popup-header">
-                            <strong>History</strong>
+                            <h5>History</h5>
                             <button class="close-btn" (click)="openChangedTargetHistory()">×</button>
                           </div>
-
-                          <div class="popup-body">
+                          <div *ngFor="let note of changedTargetHistory">
                             <div class="popup-meta">
-                              <span class="user-name">Ashiful Islam</span>
-                              <span class="date">Date: Jan 28</span>
+                              <span class="common-purple">{{note.created_by}}</span>
+                              <span class="date">Date:{{note.created_at }}</span>
                             </div>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </p>
+                            <p>{{note.key_point}}</p>
                           </div>
                         </div>
 
@@ -350,12 +341,12 @@
 
 
 <ng-template #actionModal>
-  <div class="modal " id="actionModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<!--  <div class="modal " id="actionModal" tabindex="-1" role="dialog" aria-hidden="true">-->
+    <div role="document">
       <div class="modal-content bg-color">
         <div>
-          <span class="top-left-title-bar">Revert Remarks</span>
-          <span class="close-btn close" data-dismiss="modal"></span>
+          <span class="top-left-title-bar common-purple">Revert Remarks</span>
+          <span class="close-btn close" data-dismiss="modal" (click)="onClose()"></span>
         </div>
         <div class="modal-body modal-message-body text-break">
           <p>
@@ -363,27 +354,30 @@
           </p>
 
           <div  class="form-group form-group-sm">
-            <div style="color:#e2136e">*Remark<small style="color: lightgrey;padding-left: 10px">(250 character
-              max)</small></div>
+            <div style="color:#e2136e"><small style="color: #FFFFFFCC;padding-left: 10px">250 character
+              max</small></div>
             <textarea class="form-control form-control-sm add-input-box" name="" id="" cols="30" rows="3"
                       maxlength="250" [(ngModel)]="remark"></textarea>
           </div>
 
         </div>
         <div class="modal-footer row justify-content-end" style="border:none; margin-top:-20px">
-          <button type="button" class="cancel-button" data-dismiss="modal">
-            Cancel
-          </button>
-          <button
-            [ngClass]=" (remark==''||remark==null)? 'cursor-disabled' : 'cursor-enabled'"
-            [disabled]=" (remark==''||remark==null)"
-            (click)="onRevert()" class="add-btn" data-dismiss="modal">
-            Submit
-          </button>
+          <div class="col-6">
+            <button type="button" class="btn cancel-button" data-dismiss="modal" (click)="onClose()">
+              Cancel
+            </button>
+            <button
+              [ngClass]=" (remark==''||remark==null)? 'cursor-disabled' : 'cursor-enabled'"
+              [disabled]=" (remark==''||remark==null)"
+              (click)="onRevert()" class="btn submit-btn" data-dismiss="modal">
+              Submit
+            </button>
+          </div>
+
 
         </div>
       </div>
     </div>
-  </div>
+<!--  </div>-->
 </ng-template>
 
