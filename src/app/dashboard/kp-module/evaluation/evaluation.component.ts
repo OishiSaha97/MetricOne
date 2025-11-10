@@ -54,19 +54,22 @@ export class EvaluationComponent {
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
-
+  maxStep:any=3;
   ngOnInit(){
-    this.maxStep();
+    this.maxStepData();
     this.currentTable = 'objective';
-    console.log('Received user data:', this.userData);
-    console.log('Current Status:', this.userData.currentStatus);
   }
 
-  maxStep(): number {
-    if (this.currentStatus === 'employee') return 2;
-    if (this.currentStatus === 'manager' || this.currentStatus === 'approver') return 4;
-    if (this.currentStatus === 'hr') return 5;
-    return 2;
+  maxStepData() {
+    if (this.currentStatus === 'employee'){
+      this.maxStep=2;
+    }
+    if (this.currentStatus === 'manager' || this.currentStatus === 'approver'){
+      this.maxStep=4;
+    }
+    if (this.currentStatus === 'hr') {
+      this.maxStep=5;
+    }
   }
 
 
@@ -74,6 +77,7 @@ export class EvaluationComponent {
     this.tables[this.currentTable].selected = false;
     this.currentTable = tab;
     this.currentStep = stepNumber;
+    console.log(this.currentStep)
     this.tables[this.currentTable].selected = true;
   }
 
@@ -108,7 +112,7 @@ export class EvaluationComponent {
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
         this.submitEmployee();
       }else{
-        currentStep = 4;
+        currentStep = 5;
         this.changeTable('hr',currentStep)
       }
 

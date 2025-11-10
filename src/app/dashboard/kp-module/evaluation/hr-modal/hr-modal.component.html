@@ -40,21 +40,108 @@
     <ul class="list-group">
       <div class="work-obj">
         <div class="d-flex justify-content-between">
-          <div class="fw-semibold p-3" style="margin-top: 6px;">HR RATING</div>
+          <div class="fw-semibold p-3" style="margin-top: 6px;">ATTENDANCE</div>
           <div class="dropdown">
             <button class="btn btn-dark dropdown-toggle m-3"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                     style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  hrRating ||'Select HR Rating' }}
+              {{  attendanceRating ||'Select HR Rating' }}
             </button>
 
             <ul class="dropdown-menu dropdown-menu-dark"
                 style="background-color: #33343C;">
               <li *ngFor="let type of rating">
                 <a class="dropdown-item text-light"
-                   (click)="onOverallRating(type)"
+                   (click)="onAttendanceRating(type)"
+                >
+                  {{ type }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </ul>
+    <ul class="list-group">
+      <div class="work-obj">
+        <div class="d-flex justify-content-between">
+          <div class="fw-semibold p-3" style="margin-top: 6px;">LEAVE</div>
+          <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle m-3"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
+              {{  leaveRating ||'Select HR Rating' }}
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-dark"
+                style="background-color: #33343C;">
+              <li *ngFor="let type of rating">
+                <a class="dropdown-item text-light"
+                   (click)="onLeaveRating(type)"
+                >
+                  {{ type }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </ul>
+    <ul class="list-group">
+      <div class="work-obj">
+        <div class="d-flex justify-content-between">
+          <div class="fw-semibold p-3" style="margin-top: 6px;">DISCIPLINARY ISSUE</div>
+          <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle m-3"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
+              {{  issueRating ||'Select HR Rating' }}
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-dark"
+                style="background-color: #33343C;">
+              <li *ngFor="let type of rating">
+                <a class="dropdown-item text-light"
+                   (click)="onIssueRating(type)"
+                >
+                  {{ type }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </ul>
+    <ul class="list-group">
+      <div class="work-obj">
+        <div class="d-flex justify-content-between">
+          <div class="fw-semibold p-3" style="margin-top: 6px;">AWARD/RECOGNITION</div>
+          <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle m-3"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
+              {{  awardRating ||'Select HR Rating' }}
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-dark"
+                style="background-color: #33343C;">
+              <li *ngFor="let type of rating">
+                <a class="dropdown-item text-light"
+                   (click)="onAwardRating(type)"
                 >
                   {{ type }}
                 </a>

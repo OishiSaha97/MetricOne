@@ -20,13 +20,25 @@ export class HrModalComponent {
     { id: 1, name: 'HR’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '' }];
   mode: any;
   rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
-  hrRating: any;
+  attendanceRating: any;
+  leaveRating: any;
+  issueRating: any;
+  awardRating: any;
 
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
   }
-  onOverallRating(type: any) {
-    this.hrRating = type;
+  onAttendanceRating(type: any) {
+    this.attendanceRating = type;
+  }
+  onLeaveRating(type: any) {
+    this.leaveRating = type;
+  }
+  onIssueRating(type: any) {
+    this.issueRating = type;
+  }
+  onAwardRating(type: any) {
+    this.awardRating = type;
   }
   submitData() {
     this.dataSubmitted.emit(this.objectives);
