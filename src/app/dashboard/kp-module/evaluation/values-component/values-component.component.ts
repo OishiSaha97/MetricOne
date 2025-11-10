@@ -51,9 +51,9 @@ export class ValuesComponentComponent {
     obj.isOpen = !obj.isOpen;
   }
 
-  toggleObjectiveEdit(obj: Objective): void {
-    obj.isEditingObjective = !obj.isEditingObjective;
-  }
+  // toggleObjectiveEdit(obj: Objective): void {
+  //   obj.isEditingObjective = !obj.isEditingObjective;
+  // }
 
   onObjectiveChange(type: string, obj: Objective): void {
     obj.selectedRating = type;

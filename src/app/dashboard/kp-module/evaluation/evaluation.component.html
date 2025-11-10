@@ -96,7 +96,7 @@
 
     <div class="col-lg-8 col-md-8">
       <fieldset *ngIf="currentTable=='objective'">
-        <app-objective-set></app-objective-set>
+        <app-objective-set [userData]="userData"></app-objective-set>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='self'">
@@ -110,6 +110,11 @@
       <fieldset *ngIf="currentTable=='manager'">
         <app-manager-insight></app-manager-insight>
       </fieldset>
+
+      <fieldset *ngIf="currentTable=='hr'">
+        <app-hr-modal></app-hr-modal>
+      </fieldset>
+
     </div>
   </div>
 <!--  <div class="d-flex justify-content-end gap-2">-->

@@ -7,16 +7,20 @@ import { Component } from '@angular/core';
 })
 export class EvaluationComponent {
   tables: { [key: string]: { selected: boolean } } = {
-    objective: { selected: false },
+    objective: { selected: true },
     self: { selected: false },
-    values: { selected: true },
+    values: { selected: false },
     manager: { selected: false },
+    hr: { selected: false },
   };
   currentTable: string = 'objective';
+  userData: any;
   currentStep: number = 1;
   mode:any
+
   ngOnInit(){
     this.currentTable = 'objective';
+    console.log('Received user data:', this.userData);
   }
   changeTable(tab: string, stepNumber: number) {
     this.tables[this.currentTable].selected = false;
@@ -24,12 +28,15 @@ export class EvaluationComponent {
     this.currentStep = stepNumber;
     this.tables[this.currentTable].selected = true;
   }
+
   onCancel() {
 
   }
+
   onSubmit(){
 
   }
+
   onNext(){
     let currentStep;
     if (this.currentStep == 1) {
@@ -41,6 +48,9 @@ export class EvaluationComponent {
     }else if(this.currentStep == 3){
       currentStep = 4;
       this.changeTable('manager',currentStep)
+    }else if(this.currentStep == 4){
+      currentStep = 4;
+      this.changeTable('hr',currentStep)
     }
   }
   onBack(){
@@ -54,9 +64,14 @@ export class EvaluationComponent {
     }else if(this.currentStep == 4){
       currentStep = 3;
       this.changeTable('values',currentStep)
+    }else if(this.currentStep == 5){
+      currentStep = 4;
+      this.changeTable('manager',currentStep)
     }
   }
+
   cancel(){
 
   }
+
 }

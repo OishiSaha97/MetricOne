@@ -41,6 +41,7 @@ import {ValuesComponentComponent} from "./dashboard/kp-module/evaluation/values-
 import {ManagerInsightComponent} from "./dashboard/kp-module/evaluation/manager-insight/manager-insight.component";
 import { ObjectiveSetComponent } from './dashboard/kp-module/evaluation/objective-set/objective-set.component';
 import { SelfAssessmentComponent } from './dashboard/kp-module/evaluation/self-assessment/self-assessment.component';
+import { HrModalComponent } from './dashboard/kp-module/evaluation/hr-modal/hr-modal.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { SelfAssessmentComponent } from './dashboard/kp-module/evaluation/self-a
     ValuesComponentComponent,
     ManagerInsightComponent,
     ObjectiveSetComponent,
-    SelfAssessmentComponent
+    SelfAssessmentComponent,
+    HrModalComponent
   ],
   imports: [
     BrowserModule,

@@ -195,8 +195,6 @@ export class KpiFormComponent implements OnInit {
       return item;
     });
 
-    console.log(processedObjectives);
-
     const param =
       this.mode === 'approver'
         ? 'kpi_update_data_by_approver'
