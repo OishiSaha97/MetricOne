@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 interface Objective {
   id: number;
@@ -14,6 +14,8 @@ interface Objective {
   styleUrls: ['./hr-modal.component.css']
 })
 export class HrModalComponent {
+
+  @Output() dataSubmitted = new EventEmitter<any>();
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '' }];
   mode: any;
@@ -26,6 +28,9 @@ export class HrModalComponent {
   onOverallRating(type: any) {
     this.hrRating = type;
   }
-
+  submitData() {
+    this.dataSubmitted.emit(this.objectives);
+    console.log(this.objectives);
+  }
 
 }
