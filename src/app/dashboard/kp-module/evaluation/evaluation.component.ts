@@ -163,6 +163,9 @@ export class EvaluationComponent {
     }else if(item == 'manager'){
       this.managerData = data;
       console.log('Received data from manager:', data);
+    }else if(item == 'hr'){
+      this.hrData = data;
+      console.log('Received data from hr:', data);
     }
 
 
