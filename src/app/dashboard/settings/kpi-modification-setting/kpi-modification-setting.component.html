@@ -1,0 +1,139 @@
+<div style="background-color: #25262C">
+  <div class="row">
+    <div>
+      <p class="description">
+        This settings help you to open modification for already set KPI Targets. You can apply multiple modification settings but you must close all settings before you can move to the KPI Evaluation Process.
+      </p>
+
+    </div>
+    <hr style="width: 90%;margin-left: 40px;color: #717171;">
+
+  </div>
+
+  <div class="d-flex justify-content-between abc" >
+    <div class="tiers-row">
+      <div class="tier-block">
+        <div class="tier-label">
+          {{ 'Activate Modification for: ' }}
+        </div>
+        <div class="dropdown-box"
+             (click)="this.isOpen = !this.isOpen;">
+          <div class="dropdown-selected">
+                <span class="dropdown-text" style="color:#FFFFFF80">
+                  {{ selectedFor?.name || 'Select' }}
+                </span>
+            <span class="arrow" >
+                  <img src="../../../../assets/dropdwon.svg" />
+            </span>
+          </div>
+          <div
+            class="dropdown-options"
+            *ngIf="isOpen">
+            <div
+              *ngFor="let option of filterModificationForList"
+              class="dropdown-option"
+              (click)="selectOption(option);$event.stopPropagation();">
+              {{option.name}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="tier-block">
+        <div class="tier-label">
+          {{ 'Select Team/Individual: ' }}
+        </div>
+        <div class="dropdown-box"
+             (click)="isOpenNew = !isOpenNew">
+          <div class="dropdown-selected">
+                <span class="dropdown-text" style="color:#FFFFFF80">
+                  {{ (selectedFor?.name === 'Teams' ? selectedTeams[0]?.name : selectedIndividuals[0]?.full_name) || 'Select' }}
+                </span>
+            <span class="arrow" >
+                  <img src="../../../../assets/dropdwon.svg" />
+            </span>
+          </div>
+          <div
+            class="dropdown-options"
+            *ngIf="isOpenNew">
+            <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
+              <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+              <input [(ngModel)]="searchTeam" type="text" class="form-control search-input"
+                     placeholder="Search Here" style=""
+                     (input)="selectedFor?.name === 'Teams' ? filterTeam(): filterIndividual()">
+            </div>
+<!--            <div >-->
+              <div
+                class="dropdown-option"
+                *ngFor="let option of (selectedFor?.name === 'Teams'? filterTeams : filterIndividuals)"
+                [class.selected]="isSelected(option)"
+                (click)="selectTeams(option);$event.stopPropagation();">
+                <span class="option-text">
+                  {{ selectedFor?.name === 'Teams' ? option.name : option.full_name }}
+                </span>
+                <span class="checkmark" *ngIf="isSelected(option)">✔</span>
+              </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="tier-block">
+        <div class="tier-label">
+          {{ 'EndDate: ' }}
+        </div>
+        <div class="date-input-container date-input ">
+          <input
+            type="date"
+            id="dateInput"
+            [(ngModel)]="selectedDate"
+            (change)="onDateSelect()"
+            class="custom-date-input"
+          />
+          <span class="calendar-icon"></span>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+        <div class="d-flex justify-content-end gap-2 p-3" style="margin-top: 10px;">
+          <button class="btn active-btn"
+                  [disabled]="!selectedDate"
+                  [ngClass]="{ 'disabled-active-btn': !selectedDate }"
+                  (click)="onActive()"
+          >Active</button>
+          <button class="btn close-btn"
+                  [disabled]="!selectedDate"
+                  [ngClass]="{ 'disabled-close-btn': !selectedDate }"
+                  (click)="closePopup()"
+          >Close</button>
+        </div>
+
+    </div>
+
+  </div>
+  <div class="d-flex justify-content-start" style="font-size: 12px;padding-left: 28px;">
+    <div>
+      <span style="color:#AD94FF">Total Employee:</span><span> {{ totalEmloyee }}</span>
+    </div>
+    <div>
+      <span style="color:#AD94FF">KPI Ongoing:</span><span> {{ totalEmloyee }}</span>
+    </div>
+    <div>
+      <span style="color:#AD94FF">Pending Manager Review:</span><span> {{ totalEmloyee }}</span>
+    </div>
+    <div>
+      <span style="color:#AD94FF">Pending HR Review:</span><span> {{ totalEmloyee }}</span>
+    </div>
+
+  </div>
+
+  <hr style="width: 93%;margin-left: 28px;color: #717171;">
+
+
+</div>
+
+
+

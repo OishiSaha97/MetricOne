@@ -1,0 +1,60 @@
+.kpi-page {
+  background-color: #2A2B2F;
+  color: #fff;
+  min-height: 100vh;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.step-section {
+  cursor: pointer;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+/* Number circle */
+.step-number {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #fff;
+}
+
+
+.active-step .step-number {
+  background-color: #ffffff;
+  color: #00B2B1;
+}
+
+
+.completed-step .step-number {
+  background-color: #00B2B1;
+  color: #fff;
+}
+
+.step-number {
+  background-color: #555;
+  color: #ccc;
+}
+.submit-btn{
+  color:white;
+  background-color: rgba(100, 73, 190, 1);
+  border: 1px solid rgba(100, 73, 190, 1);
+  padding: 8px 30px;
+  border-radius: 4px;
+}
+.cancel-btn{
+  color:white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  background-color: transparent;
+  padding: 8px 30px;
+  border-radius: 4px;
+}
+.cancel-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
+}

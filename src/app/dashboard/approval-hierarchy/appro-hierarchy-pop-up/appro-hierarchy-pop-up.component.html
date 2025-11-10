@@ -1,0 +1,80 @@
+<div class="popup-overlay">
+  <div class="popup">
+    <div class="popup-header">
+      KPI APPROVAL HIERARCHY
+    </div>
+    <div class="popup-body">
+      <label class="team-label"  style="color:white">Team Name</label>
+      <div class="team-box" style="color:white">{{team_name}}</div>
+
+      <div class="tiers-row">
+        <div *ngFor="let tier of tiers; let i = index" class="tier-block">
+
+          <!-- Tier Label -->
+          <div class="tier-label" *ngIf="tier === 1">Approver-{{ tier }} (Manager)</div>
+          <div class="tier-label" *ngIf="tier !== 1 && i !== tiers.length - 1">Approver-{{ tier }}</div>
+          <div class="tier-label" *ngIf="i === tiers.length - 1">Final Approver</div>
+
+          <!-- Dropdown / Fixed Display -->
+          <div
+            class="dropdown-box"
+            [class.disabled]="i === tiers.length - 1"
+            (click)="i !== tiers.length - 1 && toggleDropdown(tier)">
+
+            <div class="dropdown-selected">
+        <span class="dropdown-text" style="color:white">
+
+          <ng-container *ngIf="i === tiers.length - 1; else otherTiers">
+            {{ finalApprover?.full_name || 'Final Approver (Fixed)' }}
+          </ng-container>
+
+
+          <ng-template #otherTiers>
+            {{ selectedValues['tier' + tier]?.full_name ||
+          (tier === 1 ? 'Select Manager' : 'Select Approver') }}
+          </ng-template>
+        </span>
+
+
+              <span *ngIf="i !== tiers.length - 1" class="arrow">
+          <img src="../../../../assets/dropdwon.svg" />
+        </span>
+            </div>
+
+
+            <div
+              class="dropdown-options"
+              *ngIf="i !== tiers.length - 1 && isDropdownOpen(tier)">
+              <div (click)="$event.stopPropagation()" class="search-box bg-color" style="color:white">
+                <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+                <input [(ngModel)]="searchApprover[tier]" type="text" class="form-control"
+                       placeholder="Search Here" style=" padding-left: 13px;height: 35px; background-color: #25262C; color: white;"
+                       (input)="filterApprovers(tier)">
+              </div>
+              <div
+                *ngFor="let option of (filterApproversList[tier] || []);  let i = index;"
+                class="dropdown-option"
+                (click)="$event.stopPropagation();selectOption(tier, option, i)">
+                {{ option.full_name }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div *ngIf="isAddVisible()" class="add-hierarchy-btn" (click)="addTier()">
+          + Add Hierarchy
+        </div>
+      </div>
+
+
+
+    </div>
+    <footer class="footer-section">
+      <div class="d-flex justify-content-end gap-2 p-3">
+        <button class="btn cancel-btn" (click)="closePopup()">Cancel</button>
+        <button class="btn submit-btn" (click)="onSubmit()">Setup</button>
+      </div>
+    </footer>
+  </div>
+</div>

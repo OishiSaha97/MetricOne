@@ -1,0 +1,111 @@
+<!--<div class="d-flex vh-100 ">-->
+<!--  &lt;!&ndash; Sidebar &ndash;&gt;-->
+<!--  <nav class="sidebar text-white p-4 flex-shrink-0">-->
+
+<!--    <div class="mb-3">-->
+<!--      <img src="../../assets/logo-nav.svg" class="img-fluid mb-3 logo-small" alt="Logo" />-->
+<!--      <div class="search-wrapper mb-3">-->
+<!--        <img src="../../../assets/magnifine-bar.svg" class="search-icon" alt="Search icon" />-->
+<!--        <input type="text" class="search-input" placeholder="Search" />-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="logout">-->
+<!--      <img src="../../../assets/avatar.svg" class="avatar"  />-->
+<!--      <div class="info">-->
+<!--        <div class="name">{{ 'kaungkon' }}</div>-->
+<!--        <div class="designation">{{designation}}</div>-->
+<!--      </div>-->
+
+<!--        <img src="../../../assets/logout-icon.svg" class="logout-icon" alt="Logout Icon" (click)="logout()" />-->
+
+<!--    </div>-->
+<!--  </nav>-->
+
+
+<!--</div>-->
+<div class="nav-bar-bg nav-height nav-width">
+  <aside class="main-sidebar elevation-3 d-flex flex-column" style="overflow: hidden;">
+    <div class="flex-shrink-0 " style="padding-top: 30px;">
+      <a class="brand-link shadow-box" #brand style="padding: 18px;line-height: initial">
+
+        <img src="../../assets/logo-nav.svg" class="img-fluid mb-4 logo-small" alt="Logo" style="scale:0.7" />
+
+      </a>
+
+      <div class="search-wrapper d-flex align-items-center"
+           [ngClass]="{ 'home-active': isHomeActive }">
+        <img src="../../assets/Home.svg" class="img-fluid me-2 logo-small" alt="icon" />
+        <div routerLinkActive="active" (click)="navigateTo('home')" >Home</div>
+      </div>
+
+      <nav class="mt-3 flex-grow-1" style="font-size: 12px!important;">
+        <ul class="nav nav-pills pr-1 nav-sidebar flex-column">
+          <ng-container *ngFor="let superTask of superTasks; let i = index">
+            <li class="nav-item" >
+              <div class="nav-link sidebar-item" [class.active-item]="activeIndex === i"
+                   (click)="toggleTask(i)">
+                <div class="left-content" style="font-size:15px;">
+                  <img
+                    class="nav-icon task-icon"
+                    [src]="superTask.name === 'Configuration' ? 'assets/configuration.svg' : 'assets/coolicon.svg'"
+                    alt="icon"
+                  />
+                  {{ superTask.name }}
+                </div>
+                <i class="right top-up " [class.rotated]="active"></i>
+              </div>
+              <div *ngIf="activeIndex === i">
+                <ul class="nav nav-treeview" >
+                  <ng-container *ngFor="let subTask of superTask.subTasks">
+                    <li
+                      class="nav-item sided"
+                      routerLinkActive="active"
+                      *ngIf="
+                            (subTask.name === 'My KPI') ||
+                            (subTask.name === 'Team`s KPI' && (teamKpi || allPermission)) ||
+                            (subTask.name === 'All Employee KPI' && allPermission) ||
+                            (superTask.name === 'Configuration' ) "
+                    >
+                      <div
+                        (click)="navigateTo(subTask.routePath)"
+                        class="mt-2 nav-link subtask"
+                        [class.active-subtask]="activeSubTask === subTask.routePath"
+                      >
+                        <p class="subtask-text">{{ subTask.name }}</p>
+                      </div>
+                    </li>
+                  </ng-container>
+
+                </ul>
+              </div>
+
+            </li>
+
+
+          </ng-container>
+
+        </ul>
+
+
+      </nav>
+
+
+
+    </div>
+    <footer class="sidebar-footer p-2">
+      <div>
+        <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
+      </div>
+      <div>
+        <p style="margin: 0; color: white;">{{ userName }}</p>
+        <p style="margin: 0; font-size: 12px; color: white;">{{ userId }}</p>
+      </div>
+
+      <button class="btn btn-sm btn-outline-light mt-1 ml-1 logout-icon" (click)="logout()"></button>
+    </footer>
+
+  </aside>
+</div>
+
+<!--(superTask.name === 'Configuration' && allPermission)-->

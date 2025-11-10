@@ -1,0 +1,365 @@
+
+<div class="container-fluid kpi-page">
+
+  <!-- Header -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center p-2 header-section" style="background-color: #1C1D21">
+    <div class="d-flex align-items-center">
+      <img src="../../assets/logo-nav.svg" alt="MetricOne Logo" class="logo me-2" />
+    </div>
+
+    <div class="text-end text-light header-info" style="display: flex;justify-content: space-between;align-items: center;">
+      <div><strong class="font-color-system">Year:</strong> 2025 | <strong class="font-color-system">KPI of</strong> Sharmilie Nawar</div>
+      <div>
+        <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
+      </div>
+<!--      <div><strong>Team:</strong> bKash | <strong>Designation:</strong> Business Analyst | <a href="#" class="text-primary">View as: Manager</a></div>-->
+    </div>
+  </div>
+
+  <div class="container-fluid py-2" style="background-color: #25262C">
+    <!-- Header -->
+    <div class="row d-flex flex-wrap justify-content-between align-items-center mb-2 mt-2 header-section">
+      <div class="row d-flex align-items-center">
+        <div class="col-md-3">
+          <span class="font-color-system">Manager's Name: </span>
+          <span>Ashiful Islam</span>
+        </div>
+        <div class="col-md-3">
+          <span class="font-color-system">Team: </span>
+          <span>bKash</span>
+        </div>
+
+        <div class="col-md-3">
+          <span class="font-color-system">Designation: </span>
+          <span>Business Analyst</span>
+        </div>
+
+        <div class="col-md-3">
+          <span class="font-color-system">View as: </span>
+          <span>Self </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Title -->
+  <h5 class=" m-3 fw-bold" style="color:#00B2B1">INITIAL KPI SETTING</h5>
+
+  <!-- Main Content -->
+  <div class="row g-4">
+    <div class="col-lg-4 col-md-4">
+      <div class="d-flex step-section p-3 rounded">
+        <span class="step-number">1</span>
+        <h6 class="mt-2 text-light" style="margin-left: 6%;">Objective Set for the Year</h6>
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-md-8">
+      <div class="objectives-card p-4 rounded">
+        <h5 class="text-light fw-semibold">Objectives Set for Year 2025</h5>
+        <p class="text-secondary small">
+          Please write SMART Objective statements:
+          <span >Stretching</span>,
+          <span >Measurable</span>,
+          <span >Agreed</span>,
+          <span >Realistic</span>,
+          <span >Time-Bound</span>.
+        </p>
+
+        <div class="container mt-3">
+          <ul class="list-group">
+            <div class="work-obj">
+              <div class="fw-semibold p-3">Work Objective</div>
+
+              <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light"
+                   [ngClass]="{ 'bg-open': obj.isOpen }">
+
+                  <div class="d-flex justify-content-between align-items-center"
+
+                       style="cursor:pointer;">
+                    <div class="d-flex justify-content-between"  (click)="toggleObjective(obj)">
+                      <div>
+                        <img src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7"  />
+                      </div>
+                      <span class="fw-semibold">{{ obj.title }}</span>
+                    </div>
+                    <div class="dropdown">
+                      <button class="btn btn-dark btn-sm dropdown-toggle"
+                              type="button"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                              style="background-color:#33343C; border:1px solid #7A7B8299;">
+                        {{ obj.selectedType || 'Select Category' }}
+                      </button>
+
+                      <ul class="dropdown-menu dropdown-menu-dark"
+                          style="background-color: #33343C;">
+                        <li *ngFor="let type of objectiveTypes">
+                          <a class="dropdown-item text-light"
+
+                             (click)="onObjectiveChange(type, obj, i)">
+                            {{ type }}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
+
+                  </div>
+
+                <!-- Collapsible content -->
+                <div *ngIf="obj.isOpen" class="collapse-content">
+                  <hr>
+                  <div>
+                    <div>
+                      <label class="text-secondary small">OBJECTIVE</label>
+                      <div *ngIf="mode == 'approver'">
+                        <img src="../../../assets/fa-regular_edit.svg"
+                             class="mb-1" style="scale:0.7"
+                             (click)="toggleObjectiveEdit(obj)" />
+                      </div>
+                    </div>
+
+                    <input
+                      type="text"
+                      class="obj-input mb-2"
+                      [(ngModel)]="obj.objectiveText"
+                      placeholder="Enter objective..."
+                      [readonly]="mode === 'approver' && !obj.isEditingObjective"
+                    />
+
+                    <div *ngIf="obj.isEditingObjective" class="mt-3">
+                      <h6 style="font-size: 12px;">Key Update Points*</h6>
+                      <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                      <input
+                        type="text"
+                        class="obj-input mb-2"
+                        [(ngModel)]="obj.keyObjective"
+                        placeholder="Enter key point objective..."
+                      />
+                    </div>
+
+                      <div *ngIf="mode === 'approver' " class="mt-1">
+                        <img src="../../../assets/bx_chat.svg"
+                             class="mb-1" style="scale:0.999"
+                             (click)="openObjectiveHistory(obj,i);" />
+
+                        <span class="ml-2 common-purple" (click)="openObjectiveHistory(obj,i);">Changed History</span>
+
+                        <div class="history-popup" *ngIf="showObjectiveHistoryIndex === i">
+                          <div class="popup-header">
+                            <h5>History</h5>
+                            <button class="close-btn" (click)="openChangedObjectiveHistory(i)">×</button>
+                          </div>
+                          <div *ngFor="let note of changedObjHistory">
+                            <div class="popup-meta">
+                              <span class="common-purple">{{note.created_by}}</span>
+                              <span class="date">Date:{{note.created_at }}</span>
+                            </div>
+                            <p>{{note.key_point}}</p>
+                          </div>
+                        </div>
+
+                      </div>
+
+
+                  </div>
+
+
+
+                  <div>
+                    <div>
+                      <label class="text-secondary small">PERFORMANCE MEASURE</label>
+                      <div *ngIf="mode === 'approver'">
+                        <img src="../../../assets/fa-regular_edit.svg"
+                             class="mb-1" style="scale:0.7"
+                             (click)="togglePerformanceEdit(obj)" />
+                      </div>
+                    </div>
+
+                    <input
+                      rows="4"
+                      class="obj-input small"
+                      [(ngModel)]="obj.performanceText"
+                      placeholder="Enter target..."
+                      [readonly]="mode === 'approver' && !obj.isEditingPerformance"
+                    >
+
+                    <div *ngIf="obj.isEditingPerformance" class="mt-3">
+                      <h6 style="font-size: 12px;">Key Update Points*</h6>
+                      <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                      <input
+                        type="text"
+                        class="obj-input mt-2"
+                        [(ngModel)]="obj.keyPerformance"
+                        placeholder="Enter key point target..."
+                      />
+                    </div>
+
+                    <div *ngIf="mode === 'approver' " class="mt-1">
+                      <img src="../../../assets/bx_chat.svg"
+                           class="mb-1" style="scale:0.999"
+                           (click)="openPerformanceHistory(obj)" />
+                      <span class="ml-2 common-purple" (click)="openPerformanceHistory(obj)">Changed History</span>
+
+                      <div class="history-popup" *ngIf="showHistory">
+                        <div class="popup-header">
+                          <h5>History</h5>
+                          <button class="close-btn" (click)="openChangedHistory()">×</button>
+                        </div>
+                        <div *ngFor="let note of changedPerformanceHistory">
+                          <div class="popup-meta">
+                            <span class="common-purple">{{note.created_by}}</span>
+                            <span class="date">Date:{{note.created_at }}</span>
+                          </div>
+                          <p>{{note.key_point}}</p>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="row">
+
+                    <div class="col-md-8">
+                      <div>
+                        <label class="text-secondary small">TARGET</label>
+                        <div *ngIf="mode === 'approver'">
+                          <img src="../../../assets/fa-regular_edit.svg"
+                               class="mb-1" style="scale:0.7"
+                               (click)="toggleTargetEdit(obj)" />
+                        </div>
+                      </div>
+
+                      <input
+                        rows="4"
+                        class="obj-input small"
+                        [(ngModel)]="obj.targetText"
+                        placeholder="Enter target..."
+                        [readonly]="mode === 'approver' && !obj.isEditingTarget"
+                      >
+
+                      <div *ngIf="obj.isEditingTarget" class="mt-3">
+                        <h6 style="font-size: 12px;">Key Update Points*</h6>
+                        <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                        <input
+                          type="text"
+                          class="obj-input mt-2"
+                          [(ngModel)]="obj.keyTarget"
+                          placeholder="Enter key point target..."
+                        />
+                      </div>
+
+                      <div *ngIf="mode === 'approver' " class="mt-1">
+                        <img src="../../../assets/bx_chat.svg"
+                             class="mb-1" style="scale:0.999"
+                             (click)="openTargetHistory(obj)" />
+                        <span class="ml-2 common-purple" (click)="openTargetHistory(obj)">Changed History</span>
+                        <div class="history-popup" *ngIf="showTargetHistory">
+                          <div class="popup-header">
+                            <h5>History</h5>
+                            <button class="close-btn" (click)="openChangedTargetHistory()">×</button>
+                          </div>
+                          <div *ngFor="let note of changedTargetHistory">
+                            <div class="popup-meta">
+                              <span class="common-purple">{{note.created_by}}</span>
+                              <span class="date">Date:{{note.created_at }}</span>
+                            </div>
+                            <p>{{note.key_point}}</p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div>
+                        <label class="text-secondary small">WEIGHTAGE</label>
+                        <div *ngIf="mode === 'approver' ">
+                          <img src="" class="mb-1" style="scale:0.7" />
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        class="obj-input mb-2"
+                        [(ngModel)]="obj.weightage"
+                        placeholder="Enter weightage..."
+                      />
+                    </div>
+
+
+                  </div>
+
+
+
+                </div>
+
+                </div>
+
+            </div>
+
+          </ul>
+
+          <!-- Add new objective -->
+          <button class="btn mt-2 add-obj-btn" (click)="addObjective()">
+            + Add Work Objective
+          </button>
+        </div>
+
+
+        <div class="d-flex justify-content-end gap-2">
+          <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>
+          <button class="btn btn-outline-success" (click)="openModal(actionModal)" *ngIf="mode == 'approver'">Revert</button>
+          <button class="btn submit-btn" (click)="onSubmit()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #actionModal>
+<!--  <div class="modal " id="actionModal" tabindex="-1" role="dialog" aria-hidden="true">-->
+    <div role="document">
+      <div class="modal-content bg-color">
+        <div>
+          <span class="top-left-title-bar common-purple">Revert Remarks</span>
+          <span class="close-btn close" data-dismiss="modal" (click)="onClose()"></span>
+        </div>
+        <div class="modal-body modal-message-body text-break">
+          <p>
+            Are you sure you want to revert the KPI?
+          </p>
+
+          <div  class="form-group form-group-sm">
+            <div style="color:#e2136e"><small style="color: #FFFFFFCC;padding-left: 10px">250 character
+              max</small></div>
+            <textarea class="form-control form-control-sm add-input-box" name="" id="" cols="30" rows="3"
+                      maxlength="250" [(ngModel)]="remark"></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer row justify-content-end" style="border:none; margin-top:-20px">
+          <div class="col-6">
+            <button type="button" class="btn cancel-button" data-dismiss="modal" (click)="onClose()">
+              Cancel
+            </button>
+            <button
+              [ngClass]=" (remark==''||remark==null)? 'cursor-disabled' : 'cursor-enabled'"
+              [disabled]=" (remark==''||remark==null)"
+              (click)="onRevert()" class="btn submit-btn" data-dismiss="modal">
+              Submit
+            </button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+<!--  </div>-->
+</ng-template>
+

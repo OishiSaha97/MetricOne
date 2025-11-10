@@ -1,0 +1,66 @@
+<div class="list-table">
+  <div class="d-flex justify-content-end align-items-center mb-5">
+
+
+    <div class="right-side" style="display: flex; align-items: center; gap: 16px;">
+
+      <div class="logo" style="display: flex; align-items: center;">
+        <img src="../../../assets/logo-datasoft.svg" alt="datasoft logo" style="width: 120px; height: auto;">
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="labels">
+    <div class="kpi">
+      <h5 style="color:#AD94FF;">{{ label }}</h5>
+    </div>
+    <div class="actions">
+      <button style="background-color: #6449BE; height:34px" (click)="add()">+ Add New</button>
+
+
+      <div class="search-wrapper"   (keydown.enter)="search()">
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon" alt="Search icon" (click)="search()" />
+        <input type="text" class="search-input" placeholder="Search"  [(ngModel)]="searchParam" />
+<!--        <img src="../../../assets/search-edit.svg" class="edit-icon" alt="edit icon"/>-->
+      </div>
+    </div>
+  </div>
+
+  <!-- Table scroll wrapper -->
+  <div class="table-scroll-wrapper">
+    <div class="table-x-scroll">
+      <table>
+        <thead>
+        <tr>
+          <th >Sl No</th>
+          <th>Configured Name</th>
+          <th>Configured Type</th>
+          <th>Created By</th>
+          <th>Created On</th>
+          <th>Updated By</th>
+          <th>Updated On</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of resData; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td title="{{ user.kpi_category_name }}">{{ user.kpi_category_name }}</td>
+          <td title="{{ user.kpi_type }}">{{ user.kpi_type }}</td>
+          <td title="{{ user.created_by }}">{{ user.created_by }}</td>
+          <td title="{{ user.created_at }}">{{ user.created_at }}</td>
+          <td title="{{ user.updated_by }}">{{ user.updated_by }}</td>
+          <td title="{{ user.updated_at }}">{{ user.updated_at }}</td>
+          <td class="text-center">
+            <img src="../../../assets/edit.svg" alt="actions" (click)="edit()" />
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

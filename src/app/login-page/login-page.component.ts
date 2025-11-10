@@ -29,6 +29,7 @@ export class LoginPageComponent {
 
 
   signIn() {
+
     if(this.username && this.password){
       let formData = new FormData();
       formData.append('username', this.username);
@@ -38,7 +39,8 @@ export class LoginPageComponent {
           localStorage.setItem('username', this.username);
           localStorage.setItem('fullName', result['Name']);
           localStorage.setItem('token', result['token']);
-          this.router.navigate(['/my-list']);
+          //this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/home']);
           // this.dialogRef.close(true)
         }
       }, ()=>{

@@ -1,0 +1,20 @@
+.flip-clock {
+  text-align: center;
+  perspective: 600px;
+  margin: 0 auto;
+}
+
+.flip-clock *,
+.flip-clock *::before,
+.flip-clock *::after {
+  box-sizing: border-box;
+}
+.flip-clock {
+  display: flex;               /* use flex layout */
+  flex-direction: column;      /* stack vertically */
+  align-items: center;         /* center horizontally */
+  justify-content: center;     /* center vertically (optional if you want) */
+  gap: 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: white;
+}

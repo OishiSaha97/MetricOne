@@ -1,0 +1,9 @@
+<span *ngIf="show" class="flip-clock__piece" [class.flip]="flipActive">
+  <span class="flip-clock__card flip-card">
+    <b class="flip-card__top">{{ current | zerofill }}</b>
+    <b class="flip-card__bottom" [attr.data-value]="current | zerofill"></b>
+    <b class="flip-card__back" [attr.data-value]="previous | zerofill"></b>
+    <b class="flip-card__back-bottom" [attr.data-value]="previous | zerofill"></b>
+  </span>
+  <span class="flip-clock__slot" style="color: #83F7F6">{{ label }}</span>
+</span>

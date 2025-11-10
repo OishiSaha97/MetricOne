@@ -6,23 +6,87 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { MyListComponent } from './my-list/my-list.component';
 import { FormsModule } from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavbarComponent } from './dashboard/navbar/navbar.component';
+import { RouterModule } from '@angular/router';
+import {CommonModule} from "@angular/common";
+import { TeamsKPIComponent } from './dashboard/teams-kpi/teams-kpi.component';
+import { AllEmployeeKPIComponent } from './dashboard/all-employee-kpi/all-employee-kpi.component';
+import {KpiFormComponent} from "./dashboard/kp-module/kpi-form/kpi-form.component";
+import {ListComponent} from "./dashboard/list/list.component";
+import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
+
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { KpiAttributeComponent } from './dashboard/kpi-attribute/kpi-attribute.component';
+import {ApprovalHierarchyComponent} from "./dashboard/approval-hierarchy/approval-hierarchy.component";
+import {SettingsComponent} from "./dashboard/settings/settings.component";
+import {ApproHierarchyPopUpComponent} from "./dashboard/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
+import { FinalApprovalPopUpComponent } from './dashboard/approval-hierarchy/final-approval-pop-up/final-approval-pop-up.component';
+import {
+  ApproAttributePopUpComponent
+} from "./dashboard/kpi-attribute/appro-attribute-pop-up/appro-attribute-pop-up.component";
+import {TooltipModule} from "ngx-bootstrap/tooltip";
+import { HomeComponent } from './dashboard/home/home.component';
+import {InitialComponent} from "./dashboard/settings/initial/initial.component";
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import {
+    KpiModificationSettingComponent
+} from "./dashboard/settings/kpi-modification-setting/kpi-modification-setting.component";
+import {FlipClockComponent} from "./app-flip-tracker/flip-clock/flip-clock.component";
+import {FlipTrackerComponent} from "./app-flip-tracker/app-flip-tracker.component";
+import {ZeroFillPipe} from "./zero-fill.pipe";
+import {EvaluationComponent} from "./dashboard/kp-module/evaluation/evaluation.component";
+import {ValuesComponentComponent} from "./dashboard/kp-module/evaluation/values-component/values-component.component";
+import {ManagerInsightComponent} from "./dashboard/kp-module/evaluation/manager-insight/manager-insight.component";
+import { ObjectiveSetComponent } from './dashboard/kp-module/evaluation/objective-set/objective-set.component';
+import { SelfAssessmentComponent } from './dashboard/kp-module/evaluation/self-assessment/self-assessment.component';
+import { HrModalComponent } from './dashboard/kp-module/evaluation/hr-modal/hr-modal.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    MyListComponent
+    DashboardComponent,
+    NavbarComponent,
+    TeamsKPIComponent,
+    AllEmployeeKPIComponent,
+    KpiFormComponent,
+    ListComponent,
+    ApprovalHierarchyComponent,
+    SettingsComponent,
+    ApproHierarchyPopUpComponent,
+    KpiAttributeComponent,
+    FinalApprovalPopUpComponent,
+    ApproAttributePopUpComponent,
+    HomeComponent,
+    InitialComponent,
+    KpiModificationSettingComponent,
+    FlipClockComponent,
+    FlipClockComponent,
+    FlipTrackerComponent,
+    ZeroFillPipe,
+    EvaluationComponent,
+    ValuesComponentComponent,
+    ManagerInsightComponent,
+    ObjectiveSetComponent,
+    SelfAssessmentComponent,
+    HrModalComponent
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     FormsModule,
     InputTextModule,
     ButtonModule,
     HttpClientModule,
-    FormsModule,
+    RouterModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    TooltipModule
   ],
-  providers: [],
+  providers: [BsModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

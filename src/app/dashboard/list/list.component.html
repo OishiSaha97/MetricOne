@@ -1,0 +1,75 @@
+<div class="list-table">
+  <div class="d-flex justify-content-end align-items-center mb-5">
+
+
+    <div class="right-side" style="display: flex; align-items: center; gap: 16px;">
+
+      <div class="logo" style="display: flex; align-items: center;">
+        <img src="../../../assets/logo-datasoft.svg" alt="datasoft logo" style="width: 120px; height: auto;">
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="labels">
+    <div class="kpi">
+      <h5 style="color:#AD94FF;">{{ label }}</h5>
+    </div>
+    <div class="actions">
+      <button  (click)="onClick()" [disabled]="showEvaluation == true">+ Add New</button>
+      <div class="search-wrapper"  (keydown.enter)="search()" >
+        <input type="text" placeholder="Search Here" class="search-input" >
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Table scroll wrapper -->
+  <div class="table-scroll-wrapper">
+    <div class="table-x-scroll">
+      <table>
+        <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Year</th>
+<!--          <th>Designation</th>-->
+          <th>Team</th>
+<!--          <th>Manager</th>-->
+          <th>Status</th>
+          <th>SBU</th>
+          <th>Remarks</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of resData; let i = index" >
+          <td>{{ i + 1 }}</td>
+          <td title="{{ user.year }}">{{ user.year }}</td>
+<!--          <td title="{{ user.designation }}">{{ user.designation }}</td>-->
+          <td title="{{ user.team }}">{{ user.team }}</td>
+<!--          <td title="{{ user.manager }}">{{ user.manager }}</td>-->
+          <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
+          <td title="{{ user.SBU }}">{{ user.sbu }}</td>
+          <td class="remarks-cell" title="{{ user.Remarks }}">
+           <span class="remarks"> ({{ user.Remarks }})</span>
+            {{" "}} <img src="../../../assets/comment.svg" />
+          </td>
+          <td class="text-center">
+            <img src="../../../assets/clear-eye.svg" alt="actions"
+                 src="../../../assets/clear-eye.svg"
+                 alt="View details"
+                 [ngStyle]="{
+                    cursor: user.status == 'closed' && showEvaluation ? 'pointer' : 'not-allowed',
+                    opacity: user.status == 'closed' && showEvaluation ? 1 : 0.4,
+                    'pointer-events': user.status == 'closed' && showEvaluation ? 'all' : 'none'
+                  }"
+                 (click)="viewClick(user)"
+            />
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

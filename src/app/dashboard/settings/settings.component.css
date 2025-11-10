@@ -1,0 +1,158 @@
+.text-muted-modified{
+  color: #FFFFFF !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  background-color: #1C1D21;
+
+}
+
+.back-title{
+  text-underline-offset: .5em !important;
+  text-decoration-thickness: 0.1em !important;
+  cursor: pointer !important;
+  margin-left: 8px !important;
+  color: #00B2B1 !important;
+}
+
+.kpi-header {
+  background-color: #25262C;
+  padding: 0;
+  width: 786px;
+  padding-left: 12px;
+}
+
+.kpi-tabs {
+  height: 60px;
+  align-items: center;
+  background-color: #25262C;
+}
+
+.tab {
+  color: #00B2B1;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 20px 0;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+}
+.tab.active {
+
+  color: #ffffff;
+  border-bottom: 3px solid transparent;
+  background-color: #1C1D21;
+}
+
+
+.stage {
+  flex: 1;
+  text-align: center;
+  padding: 5px;
+  color: #aaa;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+}
+
+.stage.active {
+  color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.description {
+  font-size: 15px;
+  color: #d1d1d1;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #555;
+  margin: 20px 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #444;
+  padding-top: 15px;
+}
+
+.form-control {
+  width: 200px;
+  cursor: pointer;
+  background-color: #1e1f23;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: white;
+  padding-right: 35px;
+}
+
+
+
+.submit-btn{
+
+  border-radius: 4px !important;
+  padding: 5px 30px
+}
+.submit-btn.hover{
+  color:white;
+  background-color: rgba(100, 73, 190, 1);
+  border: 1px solid rgba(100, 73, 190, 1);
+}
+.cancel-btn{
+  width: 100px !important;
+  border-radius: 4px !important;
+  color: white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  background: transparent;
+  height: 40px;
+}
+.cancel-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
+}
+.disabled-submit-btn{
+  background-color: #6449BE80;
+  color:  #FFFFFF;
+  cursor: not-allowed;
+  border:none;
+}
+
+.disabled-close-btn{
+  background-color: #BE49494D;
+  color:  #FFFFFF;
+  cursor: not-allowed;
+  border:none;
+}
+.active-btn{
+  background-color: #04AC7C;
+  color: #FFFFFF;
+  border:none;
+
+
+}
+.close-btn{
+  background-color: #BE4949;
+  color: #FFFFFF;
+  border:none;
+}
+.custom-modal .modal-dialog {
+  max-width: 450px;
+  height: auto;
+}
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+.modal-backdrop.show {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(8px);
+}
+/* For second modal layering */
+.second-modal {
+  z-index: 1070 !important; /* above the first modal (1050) */
+}
+
+.second-modal + .modal-backdrop {
+  z-index: 1060 !important; /* slightly below modal but above first backdrop */
+}

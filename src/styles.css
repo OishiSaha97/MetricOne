@@ -5,7 +5,151 @@
   box-sizing: border-box;
 }
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  height: 100%;
+  margin: 0;
+  font-color:white;
+  color:white;
+}
+.modal-max {
+  max-width: 98vw !important;
+}
+
+.modal-max-smaller {
+  max-width: 34vw !important;
+}
+.modal-medium {
+  max-width: 54vw !important;
+}
+.big-logo {
+  height: 40px;
+}
+.small-logo {
+  display: none;
+  width: 3.2rem;
+}
+.sidebar-mini.sidebar-collapse .main-sidebar:hover .big-logo {
+  display: inline-block;
+}
+.sidebar-mini.sidebar-collapse .main-sidebar:hover .small-logo {
+  display: none;
+}
+.sidebar-mini.sidebar-collapse .big-logo {
+  display: none;
+}
+.sidebar-mini.sidebar-collapse .small-logo {
+  display: block;
+}
+
+.background{
+  background-color: black;
+  font-color:white;
+  /*color:white;*/
+}
+.bg-color{
+  background:rgba(37, 38, 44, 1);
+}
+.font-color-system {
+  color: #AD94FF;
+}
+.content-wrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.modal-max {
+  max-width: 98vw !important;
+}
+.modal { overflow: auto !important; }
+
+
+
+
+
+
+/* ngx-bootstrap datepicker popup - global styles */
+.bs-datepicker {
+  background-color: #2c2d33 !important;
+  color: #fff !important;
+  border-radius: 12px;
+  border: 1px solid #444;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  font-family: 'Inter', sans-serif;
+  z-index: 100000 !important;
+}
+
+.bs-datepicker .bs-datepicker-head {
+  background-color: #1f2025 !important;
+  border-bottom: 1px solid #444;
+  color: #0d6efd;
+  font-weight: 600;
+}
+
+.bs-datepicker .bs-datepicker-nav button {
+  background: none;
+  border: none;
+  color: #0d6efd;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.bs-datepicker .bs-datepicker-nav button:hover {
+  color: #69b3ff;
+  transform: scale(1.1);
+}
+
+.bs-datepicker .bs-datepicker-body td span {
+  color: #fff;
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 5px 8px;
+  transition: all 0.2s ease;
+}
+
+.bs-datepicker .bs-datepicker-body td span:hover {
+  background-color: #0d6efd;
+  color: #fff;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.bs-datepicker .bs-datepicker-body td span.active {
+  background-color: #0d6efd !important;
+  color: #fff !important;
+  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.7);
+  transform: scale(1.1);
+}
+
+.bs-datepicker .bs-datepicker-body td span.today {
+  border: 1px solid #0d6efd;
+  border-radius: 50%;
+}
+
+.bs-datepicker .bs-datepicker-body thead th {
+  color: #bbb;
+  font-weight: 500;
+}
+
+.cancel-btn{
+  color:white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+}
+.cancel-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
+}
+
+.submit-btn{
+  color:white;
+  background-color: rgba(100, 73, 190, 1);
+  border: 1px solid rgba(100, 73, 190, 1);
+}
+.submit-btn.hover{
+  color:white;
+  background-color: rgba(100, 73, 190, 1);
+  border: 1px solid rgba(100, 73, 190, 1);
+}
+.bs-datepicker-container {
+  z-index: 100000 !important;
+}
+.common-purple{
+  color: #AD94FF !important;
 }

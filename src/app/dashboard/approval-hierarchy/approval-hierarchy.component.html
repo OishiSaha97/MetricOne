@@ -1,0 +1,80 @@
+<div class="list-table">
+  <div class="d-flex justify-content-end align-items-center mb-5">
+    <div class="right-side" style="display: flex; align-items: center; gap: 16px;">
+      <div class="logo" style="display: flex; align-items: center;">
+        <img src="../../../assets/logo-datasoft.svg" alt="datasoft logo" style="width: 120px; height: auto;">
+      </div>
+    </div>
+  </div>
+
+  <div class="labels">
+    <div class="kpi">
+      <h5 style="color:#AD94FF;">{{ label }}</h5>
+    </div>
+    <div >
+      <div style="display: flex;justify-content: space-between;align-items: center;">
+        <div  style="background-color:#25262C; border:1px solid #44454E;width: 250px;border-radius: 5px;height: 35px;" >
+          <button class="btn d-flex align-items-center justify-content-between w-100"
+                  style="padding: 4px 10px; background-color: #25262C; color: white; border: none;"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                 (click)="getFinalApprovers();">
+            <span>{{ finalApprover?.full_name || 'Select Final Approver' }}</span>
+            <img src="../../../assets/approver_icon.svg" alt="icon" style="width: 20px; height: 20px;">
+          </button>
+        </div>
+        <div class="actions">
+          <div class="search-wrapper"  (keydown.enter)="search()" >
+            <input type="text" placeholder="Search Here" class="search-input" [(ngModel)]="searchParam">
+            <img src="../../../assets/magnifine-bar.svg" class="search-icon" (click)="search()" />
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div class="table-scroll-wrapper">
+    <div class="table-x-scroll">
+      <table>
+        <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Team</th>
+          <th>Approval Hierarchy</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of resData; let i = index">
+          <td>
+            <label *ngIf="checkBox[i]==true" [for]="'customCheck'+i"
+                   class="square-checkbox-container">{{pagination.paramOffset+i+1}}
+              <input type="checkbox" [id]="'customCheck'+i"
+                     >
+              <span class="checkmark"></span>
+            </label>
+            <label class="square-checkbox-container"
+                   *ngIf="this.checkBox[i]!=true">
+              {{pagination.paramOffset+i+1}}
+            </label>
+          </td>
+          <td title="{{ user.team }}">{{ user.team_name }}</td>
+          <td title="{{ user.hierarchy_with_final }}">{{ user.hierarchy_with_final }}</td>
+          <td class="text-center">
+            <button
+              class="btn edit-btn"
+              [disabled]="!finalApprover || finalApprover.length === 0"
+              (click)="edit(user)">
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

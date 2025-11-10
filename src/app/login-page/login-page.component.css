@@ -8,9 +8,7 @@ body {
 
 
 
-*{
-  font-family: "Noto Sans", sans-serif;
-}
+
 
 input::placeholder {
   color: rgb(199, 195, 195);    /* Change this to any color you want */

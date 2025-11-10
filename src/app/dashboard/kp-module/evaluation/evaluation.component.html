@@ -1,0 +1,161 @@
+<div class="container-fluid kpi-page">
+
+  <div class="d-flex flex-wrap justify-content-between align-items-center p-2 header-section" style="background-color: #1C1D21">
+    <div class="d-flex align-items-center">
+      <img src="../../assets/logo-nav.svg" alt="MetricOne Logo" class="logo me-2" />
+    </div>
+
+    <div class="text-end text-light header-info" style="display: flex;justify-content: space-between;align-items: center;">
+      <div><strong class="font-color-system">Year:</strong> 2025 | <strong class="font-color-system">KPI of</strong> Sharmilie Nawar</div>
+      <div>
+        <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
+      </div>
+      <!--      <div><strong>Team:</strong> bKash | <strong>Designation:</strong> Business Analyst | <a href="#" class="text-primary">View as: Manager</a></div>-->
+    </div>
+  </div>
+
+  <div class="container-fluid py-2" style="background-color: #25262C">
+    <!-- Header -->
+    <div class="row d-flex flex-wrap justify-content-between align-items-center mb-2 mt-2 header-section">
+      <div class="row d-flex align-items-center">
+        <div class="col-md-3">
+          <span class="font-color-system">Manager's Name: </span>
+          <span>Ashiful Islam</span>
+        </div>
+        <div class="col-md-3">
+          <span class="font-color-system">Team: </span>
+          <span>bKash</span>
+        </div>
+
+        <div class="col-md-3">
+          <span class="font-color-system">Designation: </span>
+          <span>Business Analyst</span>
+        </div>
+
+        <div class="col-md-3">
+          <span class="font-color-system">View as: </span>
+          <span>Self </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-start">
+    <h5 class=" m-3 fw-bold" style="color:#FFFFFF80">INITIAL KPI SETTING -> </h5>
+    <h5 class=" m-3 fw-bold" style="color:#00B2B1">EVALUATION </h5>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-4 col-md-4">
+
+      <!-- Step 1 -->
+      <div class="d-flex step-section p-3 rounded"
+           [ngClass]="{
+           'active-step': currentStep === 1,
+           'completed-step': currentStep > 1,
+           'pending-step': currentStep < 1
+         }">
+        <span class="step-number">1</span>
+        <h6 class="mt-2 text-light ms-2">Objective set For the year</h6>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="d-flex step-section p-3 rounded"
+           [ngClass]="{
+           'active-step': currentStep === 2,
+           'completed-step': currentStep > 2,
+           'pending-step': currentStep < 2
+         }">
+        <span class="step-number">2</span>
+        <h6 class="mt-2 text-light ms-2">Self Assessment</h6>
+      </div>
+
+      <!-- Step 3 -->
+      <div *ngIf="currentStatus !== 'employee'" class="d-flex step-section p-3 rounded"
+           [ngClass]="{
+           'active-step': currentStep === 3,
+           'completed-step': currentStep > 3,
+           'pending-step': currentStep < 3
+         }">
+        <span class="step-number">3</span>
+        <h6 class="mt-2 text-light ms-2">Values</h6>
+      </div>
+
+      <!-- Step 4 -->
+      <div *ngIf="currentStatus !== 'employee'" class="d-flex step-section p-3 rounded"
+           [ngClass]="{
+           'active-step': currentStep === 4,
+           'completed-step': currentStep > 4,
+           'pending-step': currentStep < 4
+         }">
+        <span class="step-number">4</span>
+        <h6 class="mt-2 text-light ms-2">Manager's Insight</h6>
+      </div>
+
+    </div>
+
+    <div class="col-lg-8 col-md-8">
+      <fieldset *ngIf="currentTable=='objective'">
+        <app-objective-set [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-objective-set>
+      </fieldset>
+
+      <fieldset *ngIf="currentTable=='self'">
+        <app-self-assessment (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
+      </fieldset>
+
+      <fieldset *ngIf="currentTable=='values'">
+        <app-values-component (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
+      </fieldset>
+
+      <fieldset *ngIf="currentTable=='manager'">
+        <app-manager-insight (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
+      </fieldset>
+
+<!--      <fieldset *ngIf="currentTable=='hr'">-->
+<!--        <app-hr-modal (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-hr-modal>-->
+<!--      </fieldset>-->
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 col-md-4">
+    </div>
+    <div class="col-lg-8 col-md-8">
+      <div class="container mt-3" *ngIf="currentTable!='manager'">
+        <div class="d-flex justify-content-between">
+          <div>
+            <button class="btn cancel-btn" style="margin-left: 17%;" (click)="cancel()">Cancel</button>
+          </div>
+          <div>
+            <div class="d-flex justify-content-end gap-2 p-3">
+              <button class=" cancel-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
+              <button class=" submit-btn" (click)="onNext()">
+                {{ currentStep == maxStep() ? 'Submit' : 'Next' }}
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+        <div class="container mt-3"  *ngIf="currentTable=='manager'">
+          <div class="d-flex justify-content-between">
+            <div>
+              <button class="btn cancel-btn" style="margin-left: 17%;" (click)="onBack()">Cancel</button>
+            </div>
+            <div>
+              <div class="d-flex justify-content-end gap-2 p-3">
+                <button class=" cancel-btn" (click)="onBack()">Back</button>
+                <button class=" submit-btn" (click)="onNext()">Submit</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+    </div>
+ </div>
+
+</div>
+

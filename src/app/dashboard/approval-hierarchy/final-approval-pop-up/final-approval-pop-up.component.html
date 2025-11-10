@@ -1,0 +1,95 @@
+<div class="popup-overlay">
+  <div class="popup">
+    <div class="popup-header">
+      FINAL APPROVER SETTING
+    </div>
+    <div class="popup-body">
+      <div class="p-4">
+        <div>
+          <div  style="font-size: 14px;color:white">
+            Select the final approver and proceed.
+          </div>
+          <div style="font-size: 14px;color:white">
+            To modify the final approver, you have to return to this section.
+          </div>
+        </div>
+        <hr style="color:whitesmoke">
+        <div>
+          <div class="tiers-row">
+            <div class="tier-block">
+              <div class="tier-label">
+                {{ mode != 'add' ? 'Previous Final Approver' : 'Final Approver' }}
+              </div>
+
+              <div class="dropdown-box"
+              (click)="this.isOpen = !this.isOpen;">
+              <div class="dropdown-selected">
+                <span class="dropdown-text" style="color:#FFFFFF80">
+                  {{ finalApprover?.full_name || 'Select' }}
+                </span>
+                <span class="arrow" *ngIf="mode === 'add'">
+                  <img src="../../../../assets/dropdwon.svg" />
+                </span>
+              </div>
+              <div
+                class="dropdown-options"
+                *ngIf="isOpen && mode == 'add'">
+                <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
+                  <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+                  <input [(ngModel)]="searchApprover" type="text" class="form-control search-input"
+                         placeholder="Search Here" style=""
+                         (input)="filterApprovers()">
+                </div>
+                <div
+                  *ngFor="let option of filterAprroversList"
+                  class="dropdown-option"
+                  (click)="selectOption(option)">
+                  {{option.full_name}}
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="tier-block" *ngIf="mode == 'edit'" >
+              <div class="tier-label" >{{ 'New Final Approver' }}</div>
+              <div class="dropdown-box"
+                   (click)="this.isOpenNew = !this.isOpenNew;">
+                <div class="dropdown-selected">
+                <span class="dropdown-text" style="color:#FFFFFF80">
+                  {{ finalApproverNew?.full_name || 'Select' }}
+                </span>
+                  <span class="arrow">
+                  <img src="../../../../assets/dropdwon.svg" />
+                </span>
+                </div>
+                <div
+                  class="dropdown-options"
+                  *ngIf="isOpenNew">
+                  <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
+                    <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+                    <input [(ngModel)]="searchApprover" type="text" class="form-control search-input"
+                           placeholder="Search Here" style=""
+                           (input)="filterApprovers()">
+                  </div>
+                  <div
+                    *ngFor="let option of filterAprroversList"
+                    class="dropdown-option"
+                    (click)="selectOption(option)">
+                    {{option.full_name}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+      </div>
+
+    </div>
+
+    <footer class="footer-section">
+      <div class="d-flex justify-content-end gap-2 p-3">
+        <button class="btn cancel-btn" (click)="closePopup()">Cancel</button>
+        <button class="btn submit-btn" (click)="isAllowedFinalApprover()">Setup</button>
+      </div>
+    </footer>
+  </div>
+</div>

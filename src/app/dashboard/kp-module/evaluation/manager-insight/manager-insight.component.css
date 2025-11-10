@@ -1,0 +1,77 @@
+.objective-box {
+  background-color: #35363D;
+  border: 1px solid #7A7B8299;
+  transition: background-color 0.3s ease;
+}
+
+.objective-box.bg-open {
+  background-color: #41424C;
+  border-color: #9A9BA3;
+}
+
+.btn-primary {
+  background-color: #6366f1;
+  border: none;
+}
+
+.collapse-content {
+  animation: fadeIn 0.2s ease-in-out;
+
+}
+@media (max-width: 576px) {
+  .objective-box {
+    padding: 1rem;
+  }
+
+  select.form-select-sm {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+.work-obj{
+  background-color: #35363D;
+  border: 1px solid #7A7B8299;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.obj-input{
+  width:100%;
+  height:auto;
+  background-color: #2A2B2F ;
+  display: block;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  appearance: none;
+  background-clip: padding-box;
+  border: 1px solid #7A7B8299;
+  border-radius: 8px;
+  transition: border-color .15s
+  ease-in-out, box-shadow .15s
+  ease-in-out;
+
+}
+.obj-input:focus{
+  border: 1px solid #7A7B8299;
+  outline: none;
+}
+.submit-btn{
+  color:white;
+  background-color: rgba(100, 73, 190, 1);
+  border: 1px solid rgba(100, 73, 190, 1);
+  padding: 8px 30px;
+  border-radius: 4px;
+}
+.cancel-btn{
+  color:white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  background-color: transparent;
+  padding: 8px 30px;
+  border-radius: 4px;
+}
+.cancel-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
+}
