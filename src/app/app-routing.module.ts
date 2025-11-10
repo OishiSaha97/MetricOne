@@ -17,7 +17,7 @@ import {HomeComponent} from "./dashboard/home/home.component";
 import {EvaluationComponent} from "./dashboard/kp-module/evaluation/evaluation.component";
 
 const routes: Routes = [
-  { path: '', component: EvaluationComponent },
+  { path: '', component: LoginPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'my-form', component:KpiFormComponent},
   { path:'dashboard', component:DashboardComponent},
