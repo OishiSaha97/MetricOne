@@ -11,6 +11,7 @@ export class EvaluationComponent {
     self: { selected: false },
     values: { selected: false },
     manager: { selected: false },
+    hr: { selected: false },
   };
   currentTable: string = 'objective';
   userData: any;
@@ -27,12 +28,15 @@ export class EvaluationComponent {
     this.currentStep = stepNumber;
     this.tables[this.currentTable].selected = true;
   }
+
   onCancel() {
 
   }
+
   onSubmit(){
 
   }
+
   onNext(){
     let currentStep;
     if (this.currentStep == 1) {
@@ -44,6 +48,9 @@ export class EvaluationComponent {
     }else if(this.currentStep == 3){
       currentStep = 4;
       this.changeTable('manager',currentStep)
+    }else if(this.currentStep == 4){
+      currentStep = 4;
+      this.changeTable('hr',currentStep)
     }
   }
   onBack(){
@@ -57,8 +64,12 @@ export class EvaluationComponent {
     }else if(this.currentStep == 4){
       currentStep = 3;
       this.changeTable('values',currentStep)
+    }else if(this.currentStep == 5){
+      currentStep = 4;
+      this.changeTable('manager',currentStep)
     }
   }
+
   cancel(){
 
   }

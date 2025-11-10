@@ -134,6 +134,10 @@ export class ObjectiveSetComponent {
   //   });
   // }
   isOpen: boolean[] = [];
+  showHistory = false;
+  changedPerformanceHistory: any = [];
+  showObjectiveHistoryIndex: number | null = null;
+  showTargetHistory = false;
 
   validateObjectives(): boolean {
     for (let i = 0; i < this.objectives.length; i++) {
@@ -248,12 +252,12 @@ export class ObjectiveSetComponent {
       );
   }
 
-  openObjectiveHistory(obj: any) {
-    console.log(obj)
+  openObjectiveHistory(obj: any,i:any) {
+    this.showObjectiveHistoryIndex = null;
     this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
       .subscribe(res => {
           this.changedObjHistory = Array.isArray(res?.['changed-objective-history']) ? res?.['changed-objective-history'] : res?.['changed-objective-history']
-          console.log(this.changedObjHistory);
+          this.openChangedObjectiveHistory(i);
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -274,4 +278,37 @@ export class ObjectiveSetComponent {
       );
   }
 
+  togglePerformanceEdit(obj: any) {
+    obj.isEditingPerformance = !obj.isEditingPerformance;
+  }
+
+
+
+  openPerformanceHistory(obj: any) {
+    console.log(obj)
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+      .subscribe(res => {
+          this.changedPerformanceHistory = Array.isArray(res?.['changed-performance-history']) ? res?.['changed-performance-history'] : res?.['changed-performance-history']
+          this.openChangedHistory();
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+        }
+      );
+  }
+
+
+
+
+  openChangedHistory() {
+    this.showHistory = !this.showHistory;
+  }
+
+  openChangedTargetHistory() {
+
+  }
+
+  openChangedObjectiveHistory(i: number) {
+
+  }
 }
