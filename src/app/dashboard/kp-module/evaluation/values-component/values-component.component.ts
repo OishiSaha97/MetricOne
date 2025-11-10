@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 interface Objective {
   id: number;
   name: string;
@@ -24,9 +24,10 @@ export class ValuesComponentComponent {
     { id: 7, name: 'INTERPERSONAL RELATIONSHIPS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
   ];
 
+  @Output() dataSubmitted = new EventEmitter<any>();
   isOpen: boolean[] = [];
   mode:any;
-  // objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
+
   rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
   overAllRating: any;
 
@@ -73,4 +74,10 @@ export class ValuesComponentComponent {
   }
 
 
+  submitData() {
+    setTimeout(() => {
+      this.dataSubmitted.emit(this.objectives);
+    }, 500);
+    console.log(this.objectives)
+  }
 }

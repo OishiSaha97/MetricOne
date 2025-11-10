@@ -16,6 +16,7 @@ interface Objective {
   isOpen: boolean;
   keyObjective?: string;
   keyTarget?: string;
+  keyPerformance?: string;
 }
 
 @Component({

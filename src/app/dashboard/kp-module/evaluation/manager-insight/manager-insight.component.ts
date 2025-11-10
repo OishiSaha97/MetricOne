@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 
 interface Objective {
@@ -22,6 +22,9 @@ export class ManagerInsightComponent {
     { id: 3, name: 'PROPOSED INCREMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '' }
   ];
 
+  @Output() dataSubmitted = new EventEmitter<any>();
+
+
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
   }
@@ -38,5 +41,11 @@ export class ManagerInsightComponent {
     // Example: log full data to see stored input
     console.log('Saved objectives:', this.objectives);
   }
+
+  submitData() {
+    this.dataSubmitted.emit(this.objectives);
+    console.log(this.objectives);
+  }
+
 
 }

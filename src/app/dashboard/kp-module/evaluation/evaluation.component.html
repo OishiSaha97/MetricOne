@@ -164,32 +164,28 @@
 
     <div class="col-lg-8 col-md-8">
       <fieldset *ngIf="currentTable=='objective'">
-        <app-objective-set [userData]="userData"></app-objective-set>
+        <app-objective-set [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-objective-set>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='self'">
-        <app-self-assessment></app-self-assessment>
+        <app-self-assessment (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='values'">
-        <app-values-component></app-values-component>
+        <app-values-component (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='manager'">
-        <app-manager-insight></app-manager-insight>
+        <app-manager-insight (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
       </fieldset>
 
-      <fieldset *ngIf="currentTable=='hr'">
-        <app-hr-modal></app-hr-modal>
-      </fieldset>
+<!--      <fieldset *ngIf="currentTable=='hr'">-->
+<!--        <app-hr-modal (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-hr-modal>-->
+<!--      </fieldset>-->
 
     </div>
   </div>
-<!--  <div class="d-flex justify-content-end gap-2">-->
-<!--    <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>-->
-<!--    <button class="btn btn-outline-success" *ngIf="mode == 'approver'">Revert</button>-->
-<!--    <button class="btn submit-btn" (click)="onSubmit()">Submit</button>-->
-<!--  </div>-->
+
   <div class="row">
     <div class="col-lg-4 col-md-4">
     </div>
@@ -202,7 +198,9 @@
           <div>
             <div class="d-flex justify-content-end gap-2 p-3">
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
-              <button class=" submit-btn" (click)="onNext()">Next</button>
+              <button class=" submit-btn" (click)="onNext()">
+                {{ currentStep == maxStep() ? 'Submit' : 'Next' }}
+              </button>
             </div>
           </div>
 
