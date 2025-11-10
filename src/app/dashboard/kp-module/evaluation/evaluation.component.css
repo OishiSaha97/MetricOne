@@ -58,3 +58,42 @@
   border: 1px solid rgba(100, 73, 190, 0.41);
   color:white;
 }
+.back-btn{
+  color:white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  background-color: #6449BE69;
+  padding: 8px 30px;
+  border-radius: 4px;
+}
+
+.back-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
+}
+.arrow_right{
+  content: "→";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 6px solid #00B2B1;
+  border-bottom: 6px solid #00B2B1;
+  border-left: 8px solid #00B2B1;
+  margin-left: 6px;
+}
+
+.remark-icon{
+  position: absolute;
+
+  height:39px;
+  width: 39px;
+  background : url(src/assets/remak_icon.svg) center center no-repeat;
+  right:10px;
+
+}
+
+.remark-count2 {
+
+  position: absolute;
+  right: 43px;
+  top: 140px;
+}

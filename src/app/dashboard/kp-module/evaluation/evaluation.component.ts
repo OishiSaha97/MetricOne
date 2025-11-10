@@ -17,6 +17,12 @@ export class EvaluationComponent {
   userData: any;
   currentStep: number = 1;
   mode:any
+  remarkList: any;
+  remark: any;
+
+  isOpenRemark: boolean[] = [];
+
+
 
   ngOnInit(){
     this.currentTable = 'objective';
@@ -49,7 +55,7 @@ export class EvaluationComponent {
       currentStep = 4;
       this.changeTable('manager',currentStep)
     }else if(this.currentStep == 4){
-      currentStep = 4;
+      currentStep = 5;
       this.changeTable('hr',currentStep)
     }
   }
@@ -71,6 +77,15 @@ export class EvaluationComponent {
   }
 
   cancel(){
+
+  }
+
+  onDropdownOpen(): void {
+    this.isOpenRemark.fill(true);
+  }
+
+  onToggle(index: number): void {
+    this.isOpenRemark[index] = !this.isOpenRemark[index];
 
   }
 
