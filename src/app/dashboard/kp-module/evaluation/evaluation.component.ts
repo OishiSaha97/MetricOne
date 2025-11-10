@@ -150,7 +150,7 @@ export class EvaluationComponent {
       console.log('Received data from objective:', data);
     }else if(item == 'self'){
       this.selfAssessment = data;
-      console.log('Received data from self:', data);
+      console.log('Received data from self:', this.selfAssessment);
     }else if(item == 'values'){
       this.valuesData = data;
       console.log('Received data from value:', data);

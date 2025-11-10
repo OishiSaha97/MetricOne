@@ -1,7 +1,9 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 
-interface Objective {
 
+
+interface Objective {
+  id: number;
   title: string;
   selfText: string;
   isOpen: boolean;
@@ -18,16 +20,19 @@ export class SelfAssessmentComponent {
 
   objectives: Objective[] = [
     {
+      id: 1,
       title: 'If any, list your accomplishments that do not specifically pertain to work objectives but may pertain to your ongoing job responsibilities.',
       selfText: '',
       isOpen: false
     },
     {
+      id:2,
       title: 'If any, list areas where you faced challenges that relate to your work objectives or ongoing job responsibilities.',
       selfText: '',
       isOpen: false
     },
     {
+      id:3,
       title: 'List areas where you feel you need to improve or where you feel you require more support (i.e., training, guidance and mentoring).',
       selfText: '',
       isOpen: false
@@ -53,7 +58,6 @@ export class SelfAssessmentComponent {
   }
 
   onNext() {
-    // collect all the entered data
     const answers = this.objectives.map((obj, index) => ({
       index: index + 1,
       title: obj.title,
@@ -78,9 +82,7 @@ export class SelfAssessmentComponent {
 
 
   submitData() {
-    setTimeout(() => {
-      this.dataSubmitted.emit(this.objectives);
-    }, 500);
+    this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives)
   }
 }
