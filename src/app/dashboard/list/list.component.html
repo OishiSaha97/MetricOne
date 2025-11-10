@@ -56,7 +56,16 @@
             {{" "}} <img src="../../../assets/comment.svg" />
           </td>
           <td class="text-center">
-            <img src="../../../assets/clear-eye.svg" alt="actions" />
+            <img src="../../../assets/clear-eye.svg" alt="actions"
+                 src="../../../assets/clear-eye.svg"
+                 alt="View details"
+                 [ngStyle]="{
+                    cursor: user.status == 'closed' && showEvaluation ? 'pointer' : 'not-allowed',
+                    opacity: user.status == 'closed' && showEvaluation ? 1 : 0.4,
+                    'pointer-events': user.status == 'closed' && showEvaluation ? 'all' : 'none'
+                  }"
+                 (click)="viewClick(user)"
+            />
           </td>
         </tr>
         </tbody>

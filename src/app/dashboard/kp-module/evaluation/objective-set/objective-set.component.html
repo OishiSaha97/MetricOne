@@ -56,9 +56,12 @@
           <div *ngIf="obj.isOpen" class="collapse-content">
             <hr>
             <div>
-              <div>
-                <label class="text-secondary small">OBJECTIVE</label>
-                <div *ngIf="mode == 'approver'">
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="text-secondary small">OBJECTIVE</label>
+                </div>
+
+                <div class="col-md-6" style="text-align:end">
                   <img src="../../../assets/fa-regular_edit.svg"
                        class="mb-1" style="scale:0.7"
                        (click)="toggleObjectiveEdit(obj)" />
@@ -70,7 +73,7 @@
                 class="obj-input mb-2"
                 [(ngModel)]="obj.objectiveText"
                 placeholder="Enter objective..."
-                [readonly]="mode === 'approver' && !obj.isEditingObjective"
+                [readonly]=" !obj.isEditingObjective"
               />
 
               <div *ngIf="obj.isEditingObjective" class="mt-3">
@@ -84,7 +87,7 @@
                 />
               </div>
 
-              <div *ngIf="mode === 'approver' " class="mt-1">
+              <div  class="mt-3 mb-2">
                 <img src="../../../assets/bx_chat.svg"
                      class="mb-1" style="scale:0.999"
                      (click)="openObjectiveHistory(obj)" />
@@ -98,9 +101,12 @@
 
 
             <div>
-              <div>
-                <label class="text-secondary small">TARGET</label>
-                <div *ngIf="mode === 'approver'">
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="text-secondary small">TARGET</label>
+                </div>
+
+                <div class="col-md-6" style="text-align: end;">
                   <img src="../../../assets/fa-regular_edit.svg"
                        class="mb-1" style="scale:0.7"
                        (click)="toggleTargetEdit(obj)" />
@@ -112,7 +118,7 @@
                 class="obj-input small"
                 [(ngModel)]="obj.targetText"
                 placeholder="Enter target..."
-                [readonly]="mode === 'approver' && !obj.isEditingTarget"
+                [readonly]=" !obj.isEditingTarget"
               ></textarea>
 
               <div *ngIf="obj.isEditingTarget" class="mt-3">
@@ -126,7 +132,7 @@
                 />
               </div>
 
-              <div *ngIf="mode === 'approver' " class="mt-1">
+              <div  class="mt-3 mb-2">
                 <img src="../../../assets/bx_chat.svg"
                      class="mb-1" style="scale:0.999"
                      (click)="openTargetHistory(obj)" />
@@ -144,10 +150,7 @@
 
     </ul>
 
-    <!-- Add new objective -->
-    <button class="btn mt-2 add-obj-btn" (click)="addObjective()">
-      + Add Work Objective
-    </button>
+
   </div>
 
 

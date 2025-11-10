@@ -7,22 +7,22 @@ import { Component } from '@angular/core';
 })
 export class EvaluationComponent {
   tables: { [key: string]: { selected: boolean } } = {
-    objetive: { selected: false },
+    objective: { selected: true },
     self: { selected: false },
-    values: { selected: true },
+    values: { selected: false },
     manager: { selected: false },
   };
-  currentTable: string = 'values';
+  currentTable: string = 'objective';
+  userData: any;
 
   ngOnInit(){
-    this.currentTable = 'values';
+    this.currentTable = 'objective';
+    console.log('Received user data:', this.userData);
   }
+
   changeTable(tab: string) {
     this.tables[this.currentTable].selected = false;
-
-
     this.currentTable = tab;
-
     this.tables[this.currentTable].selected = true;
   }
 }

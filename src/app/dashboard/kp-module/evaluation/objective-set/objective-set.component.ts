@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
 
@@ -27,7 +27,7 @@ export class ObjectiveSetComponent {
   }
 
 
-
+  @Input() userData: any;
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
   data: any = [];
@@ -45,6 +45,8 @@ export class ObjectiveSetComponent {
   kpiId:any;
 
   ngOnInit(): void {
+
+    console.log(this.userData)
     for (let i = 1; i <= 3; i++) {
       this.addObjective();
     }
@@ -52,12 +54,10 @@ export class ObjectiveSetComponent {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
 
-
-    if(this.mode == 'approver'){
-      this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
+      this.kpi.getLogData({userIdKPI:this.userData.employee_id,param: 'evalution-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
         .subscribe(res => {
             // this.data = res?.['kpi-list'];
-            this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list']
+            this.data = Array.isArray(res?.['evalution-kpi-list']) ? res?.['evalution-kpi-list'] : res?.['evalution-kpi-list']
             console.log(this.data);
             this.objectives = this.data.map((item:any, index:any) => ({
               id: item.id,
@@ -72,19 +72,19 @@ export class ObjectiveSetComponent {
           (error) => {
             console.error("Error fetching permission list", error);
           }
-        );
 
-      this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
-        .subscribe(res => {
-
-            this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
-            console.log(this.changedHistory);
-          },
-          (error) => {
-            console.error("Error fetching permission list", error);
-          }
-        );
-    }
+   );
+      // this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+      //   .subscribe(res => {
+      //
+      //       this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
+      //       console.log(this.changedHistory);
+      //     },
+      //     (error) => {
+      //       console.error("Error fetching permission list", error);
+      //     }
+      //   );
+    // }
 
   }
 

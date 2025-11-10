@@ -3,6 +3,7 @@ import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
 import {Router} from "@angular/router";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {CommonServiceService} from "../common-service.service";
+import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
 
 @Component({
   selector: 'app-list',
@@ -31,6 +32,7 @@ export class ListComponent {
   orderType: any = '';
   rowNo: any = 0;
   resData: any = [];
+  viewDetails: any = [];
   resDataDup: any = [];
   scrollStatus: any = true;
   check_kpi:any =[];
@@ -152,4 +154,23 @@ export class ListComponent {
   search() {
 
   }
+
+  viewClick(user: any): void {
+    if (user.status == 'closed' && this.showEvaluation) {
+      // this.viewDetails(user);
+      const initialState = {
+        userData: user,
+        title: 'Employee Evaluation',
+      };
+      this.modalService.show(EvaluationComponent, {
+        initialState:initialState,
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-dialog modal-dialog-centered modal-xl'
+      });
+    } else {
+      console.log('View disabled — conditions not met');
+    }
+  }
+
 }
