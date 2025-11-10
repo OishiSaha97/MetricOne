@@ -74,7 +74,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of userList; let i = index">
+        <tr *ngFor="let data of userList; let i = index">
           <td>
             <div class="checkbox-cell ">
               <label class="custom-checkbox">
@@ -84,14 +84,13 @@
               <span class="sl-no">{{ i + 1 }}</span>
             </div>
           </td>
-
-          <td title="{{ user.year }}">{{ user.year }}</td>
-          <td title="{{ user.employeeName }}">{{ user.employeeName }}</td>
-          <td title="{{ user.team }}">{{ user.team }}</td>
-          <td title="{{ user.employeeId }}">{{ user.employeeId }}</td>
-          <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }}</td>
-          <td title="{{ user.designation }}">{{ user.designation }}</td>
-          <td title="{{ user.SBU }}">{{ user.SBU }}</td>
+          <td>{{ data?.year }}</td>
+          <td>{{ data.employee_name }}</td>
+          <td>{{ data.employee_id }}</td>
+          <td>{{ data.team_name }}</td>
+          <td [ngClass]="getStatusClass(data.status)">{{ data.status }}</td>
+          <td>{{ data.desg }}</td>
+          <td>{{ data.sbu }}</td>
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"/>
           </td>
