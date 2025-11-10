@@ -40,9 +40,66 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-start">
-    <h5 class=" m-3 fw-bold" style="color:#FFFFFF80">INITIAL KPI SETTING -> </h5>
-    <h5 class=" m-3 fw-bold" style="color:#00B2B1">EVALUATION </h5>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-start">
+      <div>
+        <h5 class=" m-3 fw-bold" style="color:#FFFFFF80">INITIAL KPI SETTING </h5>
+      </div>
+      <div>
+        <h5 class="fw-bold" style="color:#00B2B1; scale: 1.8;margin-top: 14px;"> → </h5>
+      </div>
+      <div>
+        <h5 class=" m-3 fw-bold" style="color:#00B2B1">  KPI EVALUATION </h5>
+      </div>
+    </div>
+
+    <div>
+      <div class="" >
+        <span class="remark-icon" data-toggle="dropdown"
+                  [style.pointer-events]="remark ? 'all': 'none'"
+                  aria-haspopup="true" aria-expanded="false"></span>
+        <span class="remark-count2 text-right">{{'(' + (remark || 0) + ')'}}</span>
+        <div class="dropdown-menu d-large p-4"
+             aria-labelledby="dropdownMenu2"
+             style="word-wrap: break-word; overflow-wrap: break-word;">
+          <div style="font-size: 14px" class="tr-header"> Remark History</div>
+          <div class="m_datatable m-datatable m-datatable--default m-datatable--loaded w-100"
+               style="height:200px;overflow-x: hidden">
+            <div *ngFor="let r of remarkList; let i = index;">
+              <div style="color:#E2266E;font-size:14px">
+                <div class="row">
+                  <div class="col-md-10">{{r?.createdBy}}</div>
+                  <div class="col-md-2 text-right collapse-remark-i"
+                       *ngIf="!isOpenRemark[i]"
+                       data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                       aria-controls="collapseExample"
+                       (click)="onToggle(i); $event.stopPropagation()">
+                  </div>
+                  <div class="col-md-2 text-right collapse-remark-i-rotate"
+                       *ngIf="isOpenRemark[i]"
+                       data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                       aria-controls="collapseExample"
+                       (click)="onToggle(i); $event.stopPropagation()">
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="isOpenRemark[i]">
+                <div style="color:lightgrey;font-size:small;display: flex">{{r?.action}}</div>
+                <p>{{r?.remark}}</p>
+                <div class="row">
+                  <div class="col-md-12">
+                    <p style="color:lightgrey; float: left; font-size:small"> {{r?.createdAt}}</p>
+                  </div>
+                </div>
+                <div class="dropdown-divider"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 
   <div class="row g-4">
@@ -71,7 +128,7 @@
       </div>
 
       <!-- Step 3 -->
-      <div *ngIf="currentStatus !== 'employee'" class="d-flex step-section p-3 rounded"
+      <div class="d-flex step-section p-3 rounded"
            [ngClass]="{
            'active-step': currentStep === 3,
            'completed-step': currentStep > 3,
@@ -82,7 +139,7 @@
       </div>
 
       <!-- Step 4 -->
-      <div *ngIf="currentStatus !== 'employee'" class="d-flex step-section p-3 rounded"
+      <div class="d-flex step-section p-3 rounded"
            [ngClass]="{
            'active-step': currentStep === 4,
            'completed-step': currentStep > 4,
@@ -90,6 +147,17 @@
          }">
         <span class="step-number">4</span>
         <h6 class="mt-2 text-light ms-2">Manager's Insight</h6>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="d-flex step-section p-3 rounded"
+           [ngClass]="{
+           'active-step': currentStep === 5,
+           'completed-step': currentStep > 5,
+           'pending-step': currentStep < 5
+         }">
+        <span class="step-number">5</span>
+        <h6 class="mt-2 text-light ms-2">HR's Insight</h6>
       </div>
 
     </div>
@@ -122,14 +190,14 @@
     <div class="col-lg-4 col-md-4">
     </div>
     <div class="col-lg-8 col-md-8">
-      <div class="container mt-3" *ngIf="currentTable!='manager'">
+      <div class="container mt-3" *ngIf="(currentTable !== 'manager')  && (currentTable !== 'hr')">
         <div class="d-flex justify-content-between">
           <div>
             <button class="btn cancel-btn" style="margin-left: 17%;" (click)="cancel()">Cancel</button>
           </div>
           <div>
             <div class="d-flex justify-content-end gap-2 p-3">
-              <button class=" cancel-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
+              <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
               <button class=" submit-btn" (click)="onNext()">
                 {{ currentStep == maxStep() ? 'Submit' : 'Next' }}
               </button>
@@ -139,14 +207,14 @@
         </div>
 
       </div>
-        <div class="container mt-3"  *ngIf="currentTable=='manager'">
+        <div class="container mt-3"  *ngIf="(currentTable === 'manager') || (currentTable === 'hr') ">
           <div class="d-flex justify-content-between">
             <div>
               <button class="btn cancel-btn" style="margin-left: 17%;" (click)="onBack()">Cancel</button>
             </div>
             <div>
               <div class="d-flex justify-content-end gap-2 p-3">
-                <button class=" cancel-btn" (click)="onBack()">Back</button>
+                <button class=" back-btn" (click)="onBack()">Back</button>
                 <button class=" submit-btn" (click)="onNext()">Submit</button>
               </div>
             </div>

@@ -27,7 +27,13 @@ export class EvaluationComponent {
   currentTable: string = 'objective';
   userData: any;
   currentStep: number = 1;
-  mode:any;
+  mode:any
+  remarkList: any;
+  remark: any;
+
+  isOpenRemark: boolean[] = [];
+
+
   currentStatus:any='';
   objectiveSet:any = [];
   selfAssessment:any = [];
@@ -96,7 +102,7 @@ export class EvaluationComponent {
       currentStep = 4;
       this.changeTable('manager',currentStep)
     }else if(this.currentStep == 4){
-      this.managerComp.submitData();
+     this.managerComp.submitData();
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
         this.submitEmployee();
       }else{
@@ -126,6 +132,15 @@ export class EvaluationComponent {
   }
 
   cancel(){
+
+  }
+
+  onDropdownOpen(): void {
+    this.isOpenRemark.fill(true);
+  }
+
+  onToggle(index: number): void {
+    this.isOpenRemark[index] = !this.isOpenRemark[index];
 
   }
 
