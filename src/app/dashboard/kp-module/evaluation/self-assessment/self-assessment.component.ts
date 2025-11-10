@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 interface Objective {
 
@@ -13,11 +13,8 @@ interface Objective {
   styleUrls: ['./self-assessment.component.css']
 })
 export class SelfAssessmentComponent {
-  // objectives: any = [
-  //   {name:'If any, list your accomplishments that do not specifically pertain to work objectives but may pertain to your ongoing job responsibilities.',isOpen: false, isEditingObjective:false},
-  //   {name:'If any, list areas where you faced challenges that relate to your work objectives or ongoing job responsiblities.',isOpen: false, isEditingObjective:false},
-  //   {name:'List areas where you feel you need to improve or where you feel you require more support (i.e., training, guidance and mentoring.',isOpen: false, isEditingObjective:false},
-  // ];
+
+  @Output() dataSubmitted = new EventEmitter<any>();
 
   objectives: Objective[] = [
     {
@@ -80,4 +77,10 @@ export class SelfAssessmentComponent {
   }
 
 
+  submitData() {
+    setTimeout(() => {
+      this.dataSubmitted.emit(this.objectives);
+    }, 500);
+    console.log(this.objectives)
+  }
 }
