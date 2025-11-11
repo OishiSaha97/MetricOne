@@ -88,11 +88,11 @@
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"
                  [ngStyle]="{
-                    cursor: user.status === 'Submitted for Reviewer' || user.editPermission ? 'pointer' : 'default',
-                    opacity: user.status === 'Submitted for Reviewer' || user.editPermission ? 1 : 0.4,
-                    'pointer-events': user.status === 'Submitted for Reviewer' || user.editPermission ? 'all' : 'none'
-                  }"
-                 (click)="viewDetails(user)"
+                      cursor: isClickable(user) ? 'pointer' : 'default',
+                      opacity: isClickable(user) ? 1 : 0.4,
+                      'pointer-events': isClickable(user) ? 'all' : 'none'
+                    }"
+                 (click)="isClickable(user) && viewDetails(user)"
             />
           </td>
         </tr>

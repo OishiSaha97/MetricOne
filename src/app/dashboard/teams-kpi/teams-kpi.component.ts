@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
+import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
 
 @Component({
   selector: 'app-teams-kpi',
@@ -103,22 +104,41 @@ export class TeamsKPIComponent {
   }
 
   viewDetails(user: any) {
-    const initialState = {
-      kpiUserId: user.user_id,
-      status: user.status,
-      team: user.team,
-      name: user.name,
-      year: user.year,
-      mode:"approver",
-      kpiId: user.id,
-    };
-    this.modalService.show(KpiFormComponent, {
-      backdrop: 'static',
-      keyboard: false,
-      class: 'modal-dialog modal-dialog-centered modal-xl',
-      initialState: initialState
-    });
+    if(user.editPermission == true){
+      const initialState = {
+        userData: user,
+        title: 'Manager Evaluation',
+        currentStatus:'manager',
+      };
+      this.modalService.show(EvaluationComponent, {
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-dialog modal-dialog-centered modal-xl',
+        initialState: initialState
+      });
+    }else{
+      const initialState = {
+        kpiUserId: user.user_id,
+        status: user.status,
+        team: user.team,
+        name: user.name,
+        year: user.year,
+        mode:"approver",
+        kpiId: user.id,
+      };
+      this.modalService.show(KpiFormComponent, {
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-dialog modal-dialog-centered modal-xl',
+        initialState: initialState
+      });
+    }
+
   }
 
+
+  isClickable(user: any): boolean {
+    return user.status === 'Submitted for Reviewer' || user.editPermission;
+  }
 
 }

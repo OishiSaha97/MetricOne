@@ -32,6 +32,13 @@ export class EvaluationComponent {
   remarkList: any;
   remark: any;
 
+  kpiUserId:any;
+  status: any;
+  team: any;
+  name: any;
+  year: any;
+  kpiId: any;
+
   isOpenRemark: boolean[] = [];
 
 
@@ -110,7 +117,7 @@ export class EvaluationComponent {
     }else if(this.currentStep == 4){
      this.managerComp.submitData();
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
-        this.submitEmployee();
+        this.submitManager();
       }else{
         currentStep = 5;
         this.changeTable('hr',currentStep)
@@ -151,7 +158,6 @@ export class EvaluationComponent {
 
   onToggle(index: number): void {
     this.isOpenRemark[index] = !this.isOpenRemark[index];
-
   }
 
   onChildDataSubmitted(data: any,item:any) {
@@ -222,5 +228,56 @@ export class EvaluationComponent {
     });
 
   }
+
+  submitManager() {
+    console.log(this.objectiveSet);
+    console.log(this.selfAssessment);
+    console.log(this.valuesData);
+    console.log(this.managerData);
+
+    let processedObjectives = this.objectiveSet.map((obj: any ) => {
+      const escapeText = (text: string | undefined) => {
+        return text
+          ? text
+            .replace(/\r/g, '\\r')
+            .replace(/\n/g, '\\n')
+            .replace(/\t/g, '\\t')
+          : '';
+      };
+      let item: any = {
+        title: obj.title,
+        selectedType: obj.selectedType,
+        objectiveText: escapeText(obj.objectiveText),
+        targetText: escapeText(obj.targetText),
+        performanceText: escapeText(obj.performanceText),
+        weightage: escapeText(obj.weightage),
+        keyObjective: escapeText(obj.keyObjective),
+        keyTarget: escapeText(obj.keyTarget),
+      };
+      return item;
+    });
+
+    let obj: any = {
+      userIdKPI: this.userData.user_id,
+      year: this.userData.year,
+      objectiveData: JSON.stringify(processedObjectives),
+      selfData: JSON.stringify(this.selfAssessment),
+      valuesData: JSON.stringify(this.valuesData),
+      managerData: JSON.stringify(this.managerData),
+      pid: this.userData.id,
+      param: 'manager_evaluation_insert_data'
+    };
+
+    this.kpi.evaluationDataInsert(obj).subscribe({
+      next: (response: any) => {
+        console.log('KPI saved successfully:', response);
+      },
+      error: (error: any) => {
+        console.error('Error saving KPI:', error);
+        this.onCancel();
+      }
+    });
+  }
+
 
 }
