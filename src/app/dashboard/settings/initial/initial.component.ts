@@ -37,7 +37,6 @@ export class InitialComponent {
     };
 
     this.completed = 250;
-
     this.checkEndDate();
     if(this.mode=='edit'){
       this.getData();
@@ -60,11 +59,26 @@ export class InitialComponent {
   }
 
   checkEndDate() {
-    this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
+    let param;
+    if(this.tabs==='evaluation'){
+      param='EvaEndDate';
+    }
+    else{
+      param='KPIendDate';
+    }
+    this.kpi.getLogData({ param: param, userIdKPI: this.userId })
       .subscribe(res => {
-        this.resData = res?.['KPIendDate'][0] || [];
+        if(this.tabs==='evaluation'){
+          this.resData = res?.['EvaEndDate'][0] || [];
+          this.selectedDateEva = this.formatDateForInput(this.resData.kpi_last_date);
+        }
+        else{
+          this.resData = res?.['KPIendDate'][0] || [];
 
-        this.selectedDate = this.formatDateForInput(this.resData.kpi_last_date);
+          this.selectedDate = this.formatDateForInput(this.resData.kpi_last_date);
+        }
+
+
       });
   }
   formatDateForInput(dateString: string): string {
