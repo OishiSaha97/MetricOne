@@ -48,7 +48,7 @@ export class EvaluationComponent {
   valuesData:any = [];
   managerData:any = [];
   hrData:any = [];
-
+  userId:any;
 
 
   @ViewChild(ObjectiveSetComponent) objectiveComp!: ObjectiveSetComponent;
@@ -62,9 +62,12 @@ export class EvaluationComponent {
               private kpi: CommonServiceService) {
   }
   maxStep:any=3;
+
+
   ngOnInit(){
     this.maxStepData();
     this.currentTable = 'objective';
+    this.userId = localStorage.getItem('username');
   }
 
   maxStepData() {
@@ -265,6 +268,7 @@ export class EvaluationComponent {
       valuesData: JSON.stringify(this.valuesData),
       managerData: JSON.stringify(this.managerData),
       pid: this.userData.id,
+      objectId:this.userId,
       param: 'manager_evaluation_insert_data'
     };
 
