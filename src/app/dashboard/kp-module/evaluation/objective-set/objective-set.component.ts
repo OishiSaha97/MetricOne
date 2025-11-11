@@ -8,9 +8,12 @@ interface Objective {
   selectedType: string;
   objectiveText: string;
   targetText: string;
+  performanceText: string;
+  weightage: string;
   isOpen: boolean;
   keyObjective?: string;
   keyTarget?: string;
+  keyPerformance?: string;
 }
 
 
@@ -110,8 +113,6 @@ export class ObjectiveSetComponent {
   submitData() {
     console.log(this.objectives);
     this.dataSubmitted.emit(this.objectives);
-
-
   }
 
 
@@ -122,6 +123,8 @@ export class ObjectiveSetComponent {
       selectedType: '',
       objectiveText: '',
       targetText: '',
+      performanceText: '',
+      weightage: '',
       isOpen: false
     };
     this.objectives.push(newObjective);

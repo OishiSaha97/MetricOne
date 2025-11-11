@@ -166,6 +166,8 @@ export class EvaluationComponent {
         selectedType: obj.selectedType,
         objectiveText: escapeText(obj.objectiveText),
         targetText: escapeText(obj.targetText),
+        performanceText: escapeText(obj.performanceText),
+        weightage: escapeText(obj.weightage),
         keyObjective: escapeText(obj.keyObjective),
         keyTarget: escapeText(obj.keyTarget),
       };
@@ -176,9 +178,9 @@ export class EvaluationComponent {
       userIdKPI: this.userData.user_id,
       year: this.userData.year,
       objectiveData: JSON.stringify(processedObjectives),
-      selfAssessment: JSON.stringify(this.selfAssessment),
+      selfData: JSON.stringify(this.selfAssessment),
       pid: this.userData.id,
-      param: 'evaluation-employee-data'
+      param: 'employee_evaluation_insert_data'
     };
 
     this.kpi.evaluationDataInsert(obj).subscribe({
