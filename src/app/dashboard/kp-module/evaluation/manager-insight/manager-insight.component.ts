@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 
 interface Objective {
@@ -23,7 +23,7 @@ export class ManagerInsightComponent {
   ];
 
   @Output() dataSubmitted = new EventEmitter<any>();
-
+  @Input() userData: any;
 
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;

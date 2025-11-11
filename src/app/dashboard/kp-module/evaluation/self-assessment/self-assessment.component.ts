@@ -1,4 +1,6 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {CommonServiceService} from "../../../common-service.service";
 
 
 
@@ -17,7 +19,8 @@ interface Objective {
 export class SelfAssessmentComponent {
 
   @Output() dataSubmitted = new EventEmitter<any>();
-
+  @Input() userData: any;
+  @Input() currentStatus: any;
   objectives: Objective[] = [
     {
       id: 1,
@@ -40,12 +43,37 @@ export class SelfAssessmentComponent {
   ];
 
 
-
+  data:any = [];
   isOpen: boolean[] = [];
   mode:any;
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
   overAllRating: any;
+
+  constructor(public modalRef: BsModalRef,
+              private modalService: BsModalService,
+              private kpi: CommonServiceService) {
+  }
+
+
+
+  ngOnInit(): void {
+    this.kpi.getLogData({param: 'evalution-self-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
+      .subscribe(res => {
+          // this.data = res?.['kpi-list'];
+          this.data = Array.isArray(res?.['evalution-self-kpi-list']) ? res?.['evalution-self-kpi-list'] : res?.['evalution-self-kpi-list']
+          console.log(this.data);
+          this.objectives = this.objectives.map((obj, index) => ({
+            ...obj,
+            selfText: this.data[index]?.remark || ''
+          }));
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+        }
+
+      );
+  }
 
 
   toggleObjective(obj: Objective): void {

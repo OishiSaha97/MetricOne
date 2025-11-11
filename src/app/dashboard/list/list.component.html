@@ -60,9 +60,9 @@
                  src="../../../assets/clear-eye.svg"
                  alt="View details"
                  [ngStyle]="{
-                    cursor: user.status == 'closed' && showEvaluation ? 'pointer' : 'not-allowed',
-                    opacity: user.status == 'closed' && showEvaluation ? 1 : 0.4,
-                    'pointer-events': user.status == 'closed' && showEvaluation ? 'all' : 'none'
+                    cursor: user.status == 'closed'  ? 'pointer' : 'not-allowed',
+                    opacity: user.status == 'closed'  ? 1 : 0.4,
+                    'pointer-events': user.status == 'closed'  ? 'all' : 'none'
                   }"
                  (click)="viewClick(user)"
             />
@@ -73,3 +73,9 @@
     </div>
   </div>
 </div>
+
+<!--                 [ngStyle]="{-->
+<!--                    cursor: user.status == 'closed' && showEvaluation ? 'pointer' : 'not-allowed',-->
+<!--                    opacity: user.status == 'closed' && showEvaluation ? 1 : 0.4,-->
+<!--                    'pointer-events': user.status == 'closed' && showEvaluation ? 'all' : 'none'-->
+<!--                  }"-->

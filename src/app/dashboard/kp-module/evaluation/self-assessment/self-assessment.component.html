@@ -48,6 +48,7 @@
               class="obj-input mb-2 mt-2"
               [(ngModel)]="obj.selfText"
               placeholder="Type Here"
+              [readonly]="currentStatus === 'manager' || currentStatus === 'approver'"
             />
 
 
