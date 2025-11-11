@@ -74,6 +74,9 @@ export class ObjectiveSetComponent {
               selectedType: item.category_name,
               objectiveText: item.objective,
               targetText: item.target,
+              performanceText: item.performanceText,
+              weightage: item.weightage,
+              //targetText: item.target,
               isOpen: false
             }));
           },
