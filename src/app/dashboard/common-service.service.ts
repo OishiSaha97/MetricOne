@@ -51,6 +51,10 @@ export class CommonServiceService {
     return this.http.post(`${this.ApiEndpoint}/dashboard/save/endDate`, obj);
   }
 
+  saveEvaEndDate(obj: any) {
+    return this.http.post(`${this.ApiEndpoint}/dashboard/save/evalutionDate`, obj);
+  }
+
   saveModifiedData(obj: any) {
     return this.http.post(`${this.ApiEndpoint}/dashboard/modified/info`, obj);
   }

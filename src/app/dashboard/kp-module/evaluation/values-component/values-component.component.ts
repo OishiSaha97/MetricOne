@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 interface Objective {
   id: number;
   name: string;
@@ -25,6 +25,7 @@ export class ValuesComponentComponent {
   ];
 
   @Output() dataSubmitted = new EventEmitter<any>();
+  @Input() userData: any;
   isOpen: boolean[] = [];
   mode:any;
 
@@ -75,9 +76,9 @@ export class ValuesComponentComponent {
 
 
   submitData() {
-    setTimeout(() => {
-      this.dataSubmitted.emit(this.objectives);
-    }, 500);
+    this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives)
   }
+
+
 }

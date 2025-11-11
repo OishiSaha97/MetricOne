@@ -168,19 +168,19 @@
       </fieldset>
 
       <fieldset *ngIf="currentTable=='self'">
-        <app-self-assessment (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
+        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='values'">
-        <app-values-component (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
+        <app-values-component [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='manager'">
-        <app-manager-insight (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
+        <app-manager-insight [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='hr'">
-        <app-hr-modal (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-hr-modal>
+        <app-hr-modal [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-hr-modal>
       </fieldset>
 
     </div>

@@ -138,11 +138,11 @@ export class SettingsComponent {
     const formData = new FormData();
 
     formData.append('userId', this.userId);
-    formData.append('date', formattedDate);
-    formData.append('forDate', (this.tab === 'initiation'? 'initiation' : 'evaluation')  );
+    formData.append('date', formattedDate.toString());
+    formData.append('forDate', 'evaluation');
 
     console.log('Submitting EndDate:', formData);
-    this.kpi.saveEndDate(formData).subscribe({
+    this.kpi.saveEvaEndDate(formData).subscribe({
       next: (response) => {
         // this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
         if (this.modalRef) {

@@ -156,22 +156,24 @@ export class ListComponent {
   }
 
   viewClick(user: any): void {
-    if (user.status == 'closed' && this.showEvaluation) {
-      // this.viewDetails(user);
-      const initialState = {
-        userData: user,
-        title: 'Employee Evaluation',
-        currentStatus:'employee',
-      };
-      this.modalService.show(EvaluationComponent, {
-        initialState:initialState,
-        backdrop: 'static',
-        keyboard: false,
-        class: 'modal-dialog modal-dialog-centered modal-xl'
-      });
-    } else {
-      console.log('View disabled — conditions not met');
+    // if (user.status == 'closed' && this.showEvaluation) {
+      if (user.status == 'closed' ) {
+        // this.viewDetails(user);
+        const initialState = {
+          userData: user,
+          title: 'Employee Evaluation',
+          currentStatus:'employee',
+        };
+        this.modalService.show(EvaluationComponent, {
+          initialState:initialState,
+          backdrop: 'static',
+          keyboard: false,
+          class: 'modal-dialog modal-dialog-centered modal-xl'
+        });
+      } else {
+        console.log('View disabled — conditions not met');
+      }
     }
-  }
+
 
 }

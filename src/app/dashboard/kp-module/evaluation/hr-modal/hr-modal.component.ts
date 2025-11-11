@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 interface Objective {
   id: number;
@@ -16,6 +16,7 @@ interface Objective {
 export class HrModalComponent {
 
   @Output() dataSubmitted = new EventEmitter<any>();
+  @Input() userData: any;
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '' }];
   mode: any;
