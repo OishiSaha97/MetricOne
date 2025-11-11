@@ -29,18 +29,23 @@ export class HrModalComponent {
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
   }
+
   onAttendanceRating(type: any) {
     this.attendanceRating = type;
   }
+
   onLeaveRating(type: any) {
     this.leaveRating = type;
   }
+
   onIssueRating(type: any) {
     this.issueRating = type;
   }
+
   onAwardRating(type: any) {
     this.awardRating = type;
   }
+
   submitData() {
     this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives);

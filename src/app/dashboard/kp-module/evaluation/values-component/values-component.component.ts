@@ -63,10 +63,8 @@ export class ValuesComponentComponent {
   }
 
   onNext(): void {
-    // log or save full data
     console.log('All Objectives:', this.objectives);
 
-    // Example: show unsaved ones
     const incomplete = this.objectives.filter(o => !o.objectiveText || !o.selectedRating);
     if (incomplete.length > 0) {
       console.warn('Incomplete objectives:', incomplete);

@@ -126,7 +126,7 @@ export class EvaluationComponent {
 
     }else if(this.currentStep == 5){
       this.hrComp.submitData();
-      this.submitEmployee();
+      this.submitHr();
     }
 
 
@@ -275,6 +275,61 @@ export class EvaluationComponent {
       }
     });
   }
+
+
+  submitHr() {
+    console.log(this.objectiveSet);
+    console.log(this.selfAssessment);
+    console.log(this.valuesData);
+    console.log(this.managerData);
+    console.log(this.hrData);
+
+    let processedObjectives = this.objectiveSet.map((obj: any ) => {
+      const escapeText = (text: string | undefined) => {
+        return text
+          ? text
+            .replace(/\r/g, '\\r')
+            .replace(/\n/g, '\\n')
+            .replace(/\t/g, '\\t')
+          : '';
+      };
+      let item: any = {
+        title: obj.title,
+        selectedType: obj.selectedType,
+        objectiveText: escapeText(obj.objectiveText),
+        targetText: escapeText(obj.targetText),
+        performanceText: escapeText(obj.performanceText),
+        weightage: escapeText(obj.weightage),
+        keyObjective: escapeText(obj.keyObjective),
+        keyTarget: escapeText(obj.keyTarget),
+      };
+      return item;
+    });
+
+    let obj: any = {
+      userIdKPI: this.userData.user_id,
+      year: this.userData.year,
+      objectiveData: JSON.stringify(processedObjectives),
+      selfData: JSON.stringify(this.selfAssessment),
+      valuesData: JSON.stringify(this.valuesData),
+      managerData: JSON.stringify(this.managerData),
+      hrData: JSON.stringify(this.hrData),
+      pid: this.userData.id,
+      objectId:this.userId,
+      param: 'hr_evaluation_insert_data'
+    };
+
+    this.kpi.evaluationDataInsert(obj).subscribe({
+      next: (response: any) => {
+        console.log('KPI saved successfully:', response);
+      },
+      error: (error: any) => {
+        console.error('Error saving KPI:', error);
+        this.onCancel();
+      }
+    });
+  }
+
 
 
 }
