@@ -164,7 +164,7 @@
 
     <div class="col-lg-8 col-md-8">
       <fieldset *ngIf="currentTable=='objective'">
-        <app-objective-set [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-objective-set>
+        <app-objective-set [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-objective-set>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='self'">

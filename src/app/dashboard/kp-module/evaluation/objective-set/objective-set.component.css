@@ -317,3 +317,35 @@
   background-color: rgba(100, 73, 190, 1);
   border: 1px solid rgba(100, 73, 190, 1);
 }
+.obj-input-weightage {
+  width: 64%;
+  height: 30px;
+  background-color: #2A2B2F;
+  padding: 0 .75rem 0 0;
+  padding-right: 25px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  border: 1px solid #7A7B8299;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+}
+.obj-input-weightage:focus{
+  border: 1px solid #7A7B8299;
+  outline: none;
+}
+.input-with-percent {
+  position: relative;
+  width: 60%;
+}
+
+.percentage-icon {
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffffcc;
+  pointer-events: none;
+}

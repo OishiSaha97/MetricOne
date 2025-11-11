@@ -6,6 +6,7 @@ interface Objective {
   id: number;
   title: string;
   selectedType: string;
+  rating: string;
   objectiveText: string;
   targetText: string;
   performanceText: string;
@@ -30,7 +31,7 @@ export class ObjectiveSetComponent {
   }
 
   @Output() dataSubmitted = new EventEmitter<any>();
-
+  @Input() currentStatus: any;
 
 
 
@@ -38,6 +39,7 @@ export class ObjectiveSetComponent {
   @Input() userData: any;
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
+  ratings: string[] = ['Exceeded', 'Achieved All Aspect', 'Achieved All Essentials', 'Did Not Achieve'];
   data: any = [];
   check_kpi: any = [];
   changedHistory: any = [];
@@ -124,6 +126,7 @@ export class ObjectiveSetComponent {
       id: this.objectives.length + 1,
       title: `Work Objective ${this.objectives.length + 1}`,
       selectedType: '',
+      rating: '',
       objectiveText: '',
       targetText: '',
       performanceText: '',
@@ -141,6 +144,11 @@ export class ObjectiveSetComponent {
     obj.selectedType = type;
     this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
+  }
+  onRating(type: any, obj: Objective,i:number): void {
+    obj.rating = type;
+    this.isOpen[i] = false;
+    console.log(`Objective ${obj.id} selected rating:`, obj.rating);
   }
 
   // removeObjective(index: number): void {
