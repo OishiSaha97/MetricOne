@@ -4,6 +4,14 @@
   border-radius: 10px;
   color: #fff;
 }
+.card-measure {
+  background-color: #232F3A !important;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  height: 215px;
+  margin: 20px 7px 14px;
+}
 
 .notifications .user {
   display: flex;
@@ -82,33 +90,55 @@ thead {
 }
 
 .progress-circle {
+  position: relative;
   width: 120px;
   height: 120px;
-  border-radius: 50%;
-  background: linear-gradient(109.74deg, #83F7F6 14.73%, #00B2B1 89.22%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  color: #fff;
-  font-size: 20px;
-  position: relative;
+  margin: 0 auto;
 }
 
-.progress-circle::before {
-  content: '';
+svg {
+  width: 120px;
+  height: 120px;
+  transform: rotate(-90deg);
+}
+
+circle {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.bg {
+  stroke: #3a3f47;
+}
+
+.progress {
+  stroke: #00c6b7;
+  stroke-dasharray: 314; /* 2πr (r=50) */
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.percentage {
   position: absolute;
-  width: 90px;
-  height: 90px;
-  background-color: #1C1D21;
-  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
 }
 
-.progress-circle span {
-  position: relative;
-  font-weight: bold;
-  z-index: 1;
+.completed-text {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #a0b3c0;
 }
+
+.completed-text span {
+  color: #00c6b7;
+  font-weight: 600;
+}
+
 
 
 .kpi-header {
@@ -225,8 +255,8 @@ thead {
 
 .kpi-card {
   background-color: #232F3A;
-  width: 130px;
-  height: 130px;
+  width: 150px;
+  height: 100px;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
