@@ -1,4 +1,4 @@
-import {Component, Inject, Input, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
 import {DOCUMENT} from "@angular/common";
@@ -10,6 +10,7 @@ declare var $: any;
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent {
+  requestEmitter: EventEmitter<any> = new EventEmitter<any>();
   currentStage = 0;
   selectedDate: string | null = null;
   selectedDateEva: string | null = null;
@@ -124,6 +125,7 @@ export class SettingsComponent {
         // this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
         if (this.modalRef) {
           this.modalRef.hide();
+          this.requestEmitter.emit(true);
         }
         this.bsModalRef.hide();
 
@@ -147,6 +149,7 @@ export class SettingsComponent {
         // this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
         if (this.modalRef) {
           this.modalRef.hide();
+          this.requestEmitter.emit(true);
         }
         this.bsModalRef.hide();
 

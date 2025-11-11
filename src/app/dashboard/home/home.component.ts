@@ -15,13 +15,14 @@ export class HomeComponent {
   minutes: number = 0;
   modalRef?: BsModalRef;
   resData: any;
-  initialtionDate: string | null = null;
+  initialtionDate: string | Date | undefined = undefined;
   userId:any;
   dashBoardData: any;
   pendingHR: any;
   totalEmloyee: any;
    settingTitle: any;
    mode: any;
+   completed: number = 101;
 
   constructor(private modalService: BsModalService,
               private kpi: CommonServiceService) {
@@ -36,6 +37,7 @@ export class HomeComponent {
     { name: 'Sohail Rahman', designation: 'Software Engineer', team: 'QA', measure: 'KPI Review Session', date: 'Nov 2, 2025' },
     { name: 'Arafat Alam', designation: 'SQA Engineer', team: 'QA', measure: 'Performance Review', date: 'Nov 1, 2025' },
   ];
+  progressValue: number =75;
 
   ngOnInit() {
     this.userId = localStorage.getItem('username');
@@ -43,8 +45,20 @@ export class HomeComponent {
     this.getData();
     this.updateCountdown();
     setInterval(() => this.updateCountdown(), 60000); // Update every minute
+    this.progressValue = 75;
+    this.completed = 101;
+    this.updateProgress();
 
+  }
+  get dashOffset() {
+    const circumference = 2 * Math.PI * 50;
+    let progress = circumference - (this.progressValue / 100) * circumference;
+    return progress;
+  }
 
+  updateProgress() {
+    this.progressValue = 65;
+    this.completed = 180;
   }
 
   getData() {
@@ -74,10 +88,19 @@ export class HomeComponent {
         this.resData = res?.['KPIendDate'][0] || [];
 
         this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
-        console.log("this.initialtionDate" , this.initialtionDate)
-        if(this.initialtionDate){
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const [year, month, day] = this.initialtionDate.split('-').map(Number);
+        const kpiDate = new Date(year, month - 1, day);
+        if(this.initialtionDate && (kpiDate >= today)){
           this.settingTitle = "Initiation";
           this.mode = "edit";
+        }
+        else if (kpiDate < today) {
+          this.settingTitle = "Evaluation";
+          this.checkEvaEndDate();
+          this.mode = "add";
         }
         else {
           this.settingTitle = "Setting";
@@ -106,13 +129,34 @@ export class HomeComponent {
       class: 'modal-dialog modal-dialog-centered modal-lg',
       initialState: {
         mode: this.mode,
-
       },
-
     });
+
+    if (this.modalRef) {
+      const modalContent = this.modalRef.content as SettingsComponent;
+
+      const subscription = modalContent.requestEmitter.subscribe(() => {
+        this.checkEndDate();
+      });
+
+      this.modalRef.onHidden?.subscribe(() => {
+        subscription.unsubscribe();
+      });
+    }
   }
+
 
   onDone() {
 
+  }
+
+
+  checkEvaEndDate() {
+    this.kpi.getLogData({ param: 'EvaEndDate', userIdKPI: this.userId })
+      .subscribe(res => {
+        this.resData = res?.['EvaEndDate'][0] || [];
+
+        this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
+      });
   }
 }
