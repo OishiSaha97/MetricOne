@@ -78,6 +78,7 @@ export class ObjectiveSetComponent {
               targetText: item.target,
               performanceText: item.performanceText,
               weightage: item.weightage,
+              rating: item.rating,
               //targetText: item.target,
               isOpen: false
             }));

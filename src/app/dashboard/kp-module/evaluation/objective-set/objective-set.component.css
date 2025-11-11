@@ -115,7 +115,7 @@
 .work-obj{
   background-color: #35363D;
   border: 1px solid #7A7B8299;
-  border-radius: 10px;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
 .obj-input{
@@ -275,7 +275,7 @@
 .work-obj{
   background-color: #35363D;
   border: 1px solid #7A7B8299;
-  border-radius: 10px;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
 .obj-input{
@@ -318,7 +318,7 @@
   border: 1px solid rgba(100, 73, 190, 1);
 }
 .obj-input-weightage {
-  width: 64%;
+  width: 70px;
   height: 30px;
   background-color: #2A2B2F;
   padding: 0 .75rem 0 0;
@@ -331,6 +331,7 @@
   border-radius: 4px;
   outline: none;
   box-sizing: border-box;
+  margin-left: 40%;
 }
 .obj-input-weightage:focus{
   border: 1px solid #7A7B8299;
@@ -343,7 +344,7 @@
 
 .percentage-icon {
   position: absolute;
-  right: 50px;
+  right: 30px;
   top: 50%;
   transform: translateY(-50%);
   color: #ffffffcc;
