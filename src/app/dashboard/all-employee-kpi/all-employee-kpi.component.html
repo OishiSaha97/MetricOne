@@ -87,12 +87,19 @@
           <td>{{ data?.year }}</td>
           <td>{{ data.employee_name }}</td>
           <td>{{ data.employee_id }}</td>
-          <td>{{ data.team_name }}</td>
+          <td>{{ data.team }}</td>
           <td [ngClass]="getStatusClass(data.status)">{{ data.status }}</td>
           <td>{{ data.desg }}</td>
           <td>{{ data.sbu }}</td>
           <td class="text-center">
-            <img src="../../../assets/clear-eye.svg" alt="actions"/>
+            <img src="../../../assets/clear-eye.svg" alt="actions"
+                 [ngStyle]="{
+                      cursor: isClickable(data) ? 'pointer' : 'default',
+                      opacity: isClickable(data) ? 1 : 0.4,
+                      'pointer-events': isClickable(data) ? 'all' : 'none'
+                    }"
+                 (click)="isClickable(data) && viewDetails(data)"
+            />
           </td>
         </tr>
         </tbody>

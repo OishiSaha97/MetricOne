@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
+import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
+import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
 
 @Component({
   selector: 'app-all-employee-kpi',
@@ -90,5 +92,47 @@ export class AllEmployeeKPIComponent {
 
 
   }
+
+  isClickable(user: any): boolean {
+    return user.status === 'closed' ;
+    // return user.status === 'closed' || user.editPermission;
+  }
+
+
+  viewDetails(user: any) {
+    // if(user.editPermission == true){
+    if(user.status === 'closed'){
+      const initialState = {
+        userData: user,
+        title: 'HR Evaluation',
+        currentStatus:'hr',
+      };
+      this.modalService.show(EvaluationComponent, {
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-dialog modal-dialog-centered modal-xl',
+        initialState: initialState
+      });
+    }else{
+      const initialState = {
+        kpiUserId: user.user_id,
+        status: user.status,
+        team: user.team,
+        name: user.name,
+        year: user.year,
+        mode:"approver",
+        kpiId: user.id,
+      };
+      this.modalService.show(KpiFormComponent, {
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-dialog modal-dialog-centered modal-xl',
+        initialState: initialState
+      });
+    }
+
+  }
+
+
 
 }
