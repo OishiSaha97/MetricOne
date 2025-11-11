@@ -172,7 +172,7 @@
       </fieldset>
 
       <fieldset *ngIf="currentTable=='values'">
-        <app-values-component [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
+        <app-values-component [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='manager'">

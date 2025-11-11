@@ -26,6 +26,7 @@ export class ValuesComponentComponent {
 
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
+  @Input() currentStatus: any;
   isOpen: boolean[] = [];
   mode:any;
 
