@@ -24,7 +24,7 @@ export class ValuesComponentComponent {
     { id: 5, name: 'ADAPTABILITY', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
     { id: 6, name: 'DECISIVENESS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
     { id: 7, name: 'INTERPERSONAL RELATIONSHIPS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
-  ];
+    { id: 8, name: 'OVERALL RATING', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },];
 
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
@@ -44,9 +44,33 @@ export class ValuesComponentComponent {
   ngOnInit(): void {
     this.kpi.getLogData({param: 'evalution-values-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
       .subscribe(res => {
-          // this.data = res?.['kpi-list'];
-          this.data = Array.isArray(res?.['evalution-values-kpi-list']) ? res?.['evalution-values-kpi-list'] : res?.['evalution-values-kpi-list']
-          console.log(this.data);
+          const data = res?.['evalution-values-kpi-list']?.[0];
+          if (!data) return;
+          let ratingArray: string[] = [];
+          try {
+            ratingArray = data.rating ? JSON.parse(data.rating) : [];
+          } catch (e) {
+            console.warn("Rating parse failed, using empty array");
+          }
+          this.objectives = this.objectives.map((obj, index) => {
+            let rating = '';
+
+            switch (obj.name.toUpperCase()) {
+              case 'DEPENDABILITY': rating = data.dependability; break;
+              case 'JOB KNOWLEDGE AND SKILLS': rating = data.job_knowledge; break;
+              case 'INITIATIVE AND RESOURCEFULNESS': rating = data.initiative; break;
+              case 'JUDGEMENT': rating = data.judgement; break;
+              case 'ADAPTABILITY': rating = data.adaptability; break;
+              case 'DECISIVENESS': rating = data.decidiveness; break;
+              case 'INTERPERSONAL RELATIONSHIPS': rating = data.interpersonal_relation; break;
+              case 'OVERALL RATING': rating = data.overall_rating; break;
+              default: rating = ratingArray[index] || '';
+            }
+
+            return { ...obj, selectedRating: rating };
+          });
+
+          console.log("this.objectives : ", this.objectives);
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -65,9 +89,9 @@ export class ValuesComponentComponent {
 
   }
 
-  onOverallRating(type: any) {
-    this.overAllRating = type;
-  }
+  // onOverallRating(type: any,) {
+  //   obj.selectedRating = type;
+  // }
 
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;

@@ -35,7 +35,7 @@
               <button class="btn btn-dark dropdown-toggle"
                       type="button"
                       data-bs-toggle="dropdown"
-                      style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px;">
+                      style="background-color:#33343C; border:1px solid #7A7B8299;width: 150px;">
                 {{ obj.selectedRating || 'Select' }}
               </button>
 
@@ -50,44 +50,50 @@
             </div>
           </div>
 
+
         </div>
 
 
-      </div>
+        <div  class="container mt-3"  *ngIf="objectives[7] && (currentStatus === 'manager' || currentStatus === 'approver' || currentStatus === 'hr')">
+            <ul class="list-group">
+              <div class="work-obj">
+                <div class="d-flex justify-content-between">
+                  <div class="fw-semibold p-3" style="margin-top: 6px;">OVERALL RATING</div>
+                  <div class="dropdown">
+                    <button class="btn btn-dark dropdown-toggle m-3"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
+                      {{  objectives[7].selectedRating ||'Select Overall Rating' }}
+                    </button>
 
-    </ul>
-  </div>
+                    <ul class="dropdown-menu dropdown-menu-dark"
+                        style="background-color: #33343C;">
+                      <li *ngFor="let type of rating">
+                        <a class="dropdown-item text-light"
+                           (click)="onObjectiveChange(type, objectives[7])"
+                        >
+                          {{ type }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
 
-  <div class="container mt-3" *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' ">
-    <ul class="list-group">
-      <div class="work-obj">
-        <div class="d-flex justify-content-between">
-          <div class="fw-semibold p-3" style="margin-top: 6px;">OVERALL RATING</div>
-          <div class="dropdown">
-            <button class="btn btn-dark dropdown-toggle m-3"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  overAllRating ||'Select Overall Rating' }}
-            </button>
+              </div>
 
-            <ul class="dropdown-menu dropdown-menu-dark"
-                style="background-color: #33343C;">
-              <li *ngFor="let type of rating">
-                <a class="dropdown-item text-light"
-                   (click)="onOverallRating(type)"
-                >
-                  {{ type }}
-                </a>
-              </li>
             </ul>
           </div>
-        </div>
+
+
+
 
       </div>
 
     </ul>
   </div>
+
+
 
 </div>

@@ -42,6 +42,8 @@ export class ManagerInsightComponent {
             ...obj,
             objectiveText: this.data[index]?.remark || ''
           }));
+
+          console.log("this.objectives : ", this.objectives);
         },
         (error) => {
           console.error("Error fetching permission list", error);
