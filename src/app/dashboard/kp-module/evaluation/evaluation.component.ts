@@ -48,7 +48,7 @@ export class EvaluationComponent {
   valuesData:any = [];
   managerData:any = [];
   hrData:any = [];
-
+  userId:any;
 
 
   @ViewChild(ObjectiveSetComponent) objectiveComp!: ObjectiveSetComponent;
@@ -62,9 +62,12 @@ export class EvaluationComponent {
               private kpi: CommonServiceService) {
   }
   maxStep:any=3;
+
+
   ngOnInit(){
     this.maxStepData();
     this.currentTable = 'objective';
+    this.userId = localStorage.getItem('username');
   }
 
   maxStepData() {
@@ -89,11 +92,9 @@ export class EvaluationComponent {
   }
 
   onCancel() {
-
   }
 
   onSubmit(){
-
   }
 
   onNext(){
@@ -125,7 +126,6 @@ export class EvaluationComponent {
 
     }else if(this.currentStep == 5){
       this.hrComp.submitData();
-      this.submitEmployee();
     }
 
 
@@ -149,7 +149,7 @@ export class EvaluationComponent {
   }
 
   cancel(){
-
+    this.modalService.hide();
   }
 
   onDropdownOpen(): void {
@@ -163,19 +163,16 @@ export class EvaluationComponent {
   onChildDataSubmitted(data: any,item:any) {
     if(item == 'objective'){
       this.objectiveSet = data;
-      console.log('Received data from objective:', data);
     }else if(item == 'self'){
       this.selfAssessment = data;
-      console.log('Received data from self:', this.selfAssessment);
     }else if(item == 'values'){
       this.valuesData = data;
-      console.log('Received data from value:', data);
     }else if(item == 'manager'){
       this.managerData = data;
-      console.log('Received data from manager:', data);
     }else if(item == 'hr'){
       this.hrData = data;
       console.log('Received data from hr:', data);
+      this.submitHr();
     }
 
 
@@ -265,6 +262,7 @@ export class EvaluationComponent {
       valuesData: JSON.stringify(this.valuesData),
       managerData: JSON.stringify(this.managerData),
       pid: this.userData.id,
+      objectId:this.userId,
       param: 'manager_evaluation_insert_data'
     };
 
@@ -278,6 +276,61 @@ export class EvaluationComponent {
       }
     });
   }
+
+
+  submitHr() {
+    console.log(this.objectiveSet);
+    console.log(this.selfAssessment);
+    console.log(this.valuesData);
+    console.log(this.managerData);
+    console.log(this.hrData);
+
+    let processedObjectives = this.objectiveSet.map((obj: any ) => {
+      const escapeText = (text: string | undefined) => {
+        return text
+          ? text
+            .replace(/\r/g, '\\r')
+            .replace(/\n/g, '\\n')
+            .replace(/\t/g, '\\t')
+          : '';
+      };
+      let item: any = {
+        title: obj.title,
+        selectedType: obj.selectedType,
+        objectiveText: escapeText(obj.objectiveText),
+        targetText: escapeText(obj.targetText),
+        performanceText: escapeText(obj.performanceText),
+        weightage: escapeText(obj.weightage),
+        keyObjective: escapeText(obj.keyObjective),
+        keyTarget: escapeText(obj.keyTarget),
+      };
+      return item;
+    });
+
+    let obj: any = {
+      userIdKPI: this.userData.user_id,
+      year: this.userData.year,
+      objectiveData: JSON.stringify(processedObjectives),
+      selfData: JSON.stringify(this.selfAssessment),
+      valuesData: JSON.stringify(this.valuesData),
+      managerData: JSON.stringify(this.managerData),
+      hrData: JSON.stringify(this.hrData),
+      pid: this.userData.id,
+      objectId:this.userId,
+      param: 'hr_evaluation_insert_data'
+    };
+
+    this.kpi.evaluationDataInsert(obj).subscribe({
+      next: (response: any) => {
+        console.log('KPI saved successfully:', response);
+      },
+      error: (error: any) => {
+        console.error('Error saving KPI:', error);
+        this.onCancel();
+      }
+    });
+  }
+
 
 
 }
