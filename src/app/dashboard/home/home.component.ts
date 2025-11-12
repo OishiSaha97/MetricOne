@@ -24,7 +24,7 @@ export class HomeComponent {
    settingTitle: any;
    mode: any;
    completed: number = 101;
-
+  anncText:any='';
   constructor(private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
@@ -38,17 +38,7 @@ export class HomeComponent {
     { name: 'Sohail Rahman', designation: 'Software Engineer', team: 'QA', measure: 'KPI Review Session', date: 'Nov 2, 2025' },
     { name: 'Arafat Alam', designation: 'SQA Engineer', team: 'QA', measure: 'Performance Review', date: 'Nov 1, 2025' },
   ];
-  announcements = [
-    {
-      text: 'The Human Resources Division is pleased to inform all staff of the official implementation of the Employee KPI & Evaluation System, effective immediately.',
-      date: 'November 31, 2025 at 11:00 am'
-    },
-    {
-      text: 'The Human Resources Division is pleased to inform all staff of the official implementation of the Employee KPI & Evaluation System, effective immediately.',
-      date: 'November 31, 2025 at 11:00 am'
-    },
-    // add more objects here...
-  ];
+  announcements:any[] = [];
   progressValue: number =75;
 
   ngOnInit() {
@@ -171,5 +161,19 @@ export class HomeComponent {
 
         this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
       });
+  }
+
+  publishAnnoc() {
+    const formData = new FormData();
+    formData.append('userId', this.userId);
+    formData.append('remarkData', this.anncText);
+    this.kpi.saveAnnouncement(formData).subscribe({
+      next: (response) => {
+       this.anncText='';
+      },
+      error: (error) => {
+
+      }
+    });
   }
 }
