@@ -178,6 +178,7 @@ export class KpiFormComponent implements OnInit {
       let item: any = {
         title: obj.title,
         selectedType: obj.selectedType,
+        weightage: obj.weightage,
         objectiveText: escapeText(obj.objectiveText),
         targetText: escapeText(obj.targetText)
       };

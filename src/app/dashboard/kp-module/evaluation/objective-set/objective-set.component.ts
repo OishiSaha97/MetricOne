@@ -139,7 +139,6 @@ export class ObjectiveSetComponent {
       targetText: '',
       performanceText: '',
       weightage: '',
-      selectedRating:'',
       isOpen: false
     };
     this.objectives.push(newObjective);
@@ -156,7 +155,6 @@ export class ObjectiveSetComponent {
   }
   onRating(type: any, obj: Objective,i:number): void {
     obj.rating = type;
-    obj.selectedRating = type;
     this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected rating:`, obj.rating);
   }
@@ -174,8 +172,6 @@ export class ObjectiveSetComponent {
   changedPerformanceHistory: any = [];
   showObjectiveHistoryIndex: number | null = null;
   showTargetHistory = false;
-  changedAchievedHistory: any = [];
-  showAchievedHistory = false;
 
   validateObjectives(): boolean {
     for (let i = 0; i < this.objectives.length; i++) {
@@ -271,10 +267,6 @@ export class ObjectiveSetComponent {
     obj.isEditingTarget = !obj.isEditingTarget;
   }
 
-  toggleAchievedEdit(obj: any) {
-    obj.isEditingAchieved = !obj.isEditingAchieved;
-  }
-
   onCancel() {
     this.modalRef.hide();
   }
@@ -355,11 +347,4 @@ export class ObjectiveSetComponent {
   }
 
 
-  openAchievedHistory(obj: any) {
-
-  }
-
-  openChangedAchievedHistory() {
-
-  }
 }

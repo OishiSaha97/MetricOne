@@ -38,7 +38,9 @@
 }
 
 .objectives-card {
-  /*background-color: #1f2937;*/
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 23px;
 }
 .objective-box {
   background-color: #35363D;
@@ -115,7 +117,7 @@
 .work-obj{
   background-color: #35363D;
   border: 1px solid #7A7B8299;
-  border-radius: 10px;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
 .obj-input{
@@ -323,4 +325,36 @@
 .cursor-enabled {
   opacity: 1;
   cursor: pointer;
+}
+.obj-input-weightage {
+  width: 100px;
+  height: 30px;
+  background-color: #2A2B2F;
+  padding: 0 .75rem 0 0;
+  padding-right: 25px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  border: 1px solid #7A7B8299;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  margin-left: 40%;
+}
+.obj-input-weightage:focus{
+  border: 1px solid #7A7B8299;
+  outline: none;
+}
+.input-with-percent {
+  position: relative;
+  width: 60%;
+}
+.percentage-icon {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffffcc;
+  pointer-events: none;
 }
