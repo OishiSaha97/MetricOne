@@ -4,13 +4,15 @@
   <div class="col-md-8 d-flex flex-column">
     <div class="row g-3">
       <div class="col-md-6">
-        <div class="card p-3 notifications">
+        <div class="card p-3 announcement-panel">
           <h5>Notifications</h5>
-          <div class="user" *ngFor="let note of notifications">
-            <img [src]="note.image" alt="user">
-            <div>
-              <strong>{{ note.name }}</strong><br>
-              <small>{{ note.message }}</small>
+          <div class=" announcement-list">
+            <div class="user" *ngFor="let note of notifications">
+              <div>
+                <strong>{{ note.created_by }}</strong><br>
+                <small>{{ note.notification }}</small>
+                <hr>
+              </div>
             </div>
           </div>
         </div>

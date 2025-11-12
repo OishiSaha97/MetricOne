@@ -27,15 +27,11 @@ export class HomeComponent {
   anncText:any='';
   allPermission: any = [];
   teamKpi: any = [];
+   notifications: any;
   constructor(private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
 
-  notifications = [
-    { name: 'Jaber Alom', message: 'KPI review session announced.', image: 'https://i.pravatar.cc/40?img=1' },
-    { name: 'Asif Islam', message: 'Reminder for self-assessment.', image: 'https://i.pravatar.cc/40?img=2' },
-    { name: 'Mehedi Hasan', message: 'Team evaluation due soon.', image: 'https://i.pravatar.cc/40?img=3' },
-  ];
   employees = [
     { name: 'Sohail Rahman', designation: 'Software Engineer', team: 'QA', measure: 'KPI Review Session', date: 'Nov 2, 2025' },
     { name: 'Arafat Alam', designation: 'SQA Engineer', team: 'QA', measure: 'Performance Review', date: 'Nov 1, 2025' },
@@ -51,6 +47,7 @@ export class HomeComponent {
     this.checkEndDate();
     this.getData();
     this.getAnnouncements();
+    this.getNotification();
     this.getPermission();
     this.updateCountdown();
     setInterval(() => this.updateCountdown(), 60000); // Update every minute
@@ -109,7 +106,7 @@ export class HomeComponent {
 
   updateCountdown() {
     const now = new Date().getTime();
-    const date = new Date(this.resData.kpi_last_date);
+    const date = new Date(this.resData?.kpi_last_date);
     const distance = date.getTime() - now;
 
     this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -215,6 +212,14 @@ export class HomeComponent {
       .subscribe(res => {
         this.announcements = res?.['announcement-list'] || [];
         console.log("this.announcements  : ", this.announcements );
+      });
+  }
+
+  getNotification() {
+    this.kpi.getNotification({ param: 'notification-list', userIdKPI: this.userId })
+      .subscribe(res => {
+        this.notifications =  res?.result?.content || [];
+        console.log("this.announcements  : ", this.notifications );
       });
   }
 }
