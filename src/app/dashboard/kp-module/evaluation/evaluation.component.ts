@@ -92,11 +92,9 @@ export class EvaluationComponent {
   }
 
   onCancel() {
-
   }
 
   onSubmit(){
-
   }
 
   onNext(){
@@ -128,7 +126,6 @@ export class EvaluationComponent {
 
     }else if(this.currentStep == 5){
       this.hrComp.submitData();
-
     }
 
 
@@ -152,7 +149,7 @@ export class EvaluationComponent {
   }
 
   cancel(){
-
+    this.modalService.hide();
   }
 
   onDropdownOpen(): void {
@@ -166,16 +163,12 @@ export class EvaluationComponent {
   onChildDataSubmitted(data: any,item:any) {
     if(item == 'objective'){
       this.objectiveSet = data;
-      console.log('Received data from objective:', data);
     }else if(item == 'self'){
       this.selfAssessment = data;
-      console.log('Received data from self:', this.selfAssessment);
     }else if(item == 'values'){
       this.valuesData = data;
-      console.log('Received data from value:', data);
     }else if(item == 'manager'){
       this.managerData = data;
-      console.log('Received data from manager:', data);
     }else if(item == 'hr'){
       this.hrData = data;
       console.log('Received data from hr:', data);

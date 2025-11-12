@@ -36,7 +36,7 @@
 
     </ul>
   </div>
-  <div class="container mt-3" >
+  <div class="container mt-3" *ngFor="let obj of objectives; let i = index;">
     <ul class="list-group">
       <div class="work-obj">
         <div class="d-flex justify-content-between">
@@ -47,14 +47,14 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                     style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  attendanceRating ||'Select HR Rating' }}
+              {{  obj.attendanceRating ||'Select HR Rating' }}
             </button>
 
             <ul class="dropdown-menu dropdown-menu-dark"
                 style="background-color: #33343C;">
               <li *ngFor="let type of rating">
                 <a class="dropdown-item text-light"
-                   (click)="onAttendanceRating(type)"
+                   (click)="onAttendanceRating(obj,type)"
                 >
                   {{ type }}
                 </a>
@@ -76,14 +76,14 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                     style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  leaveRating ||'Select HR Rating' }}
+              {{  obj.leaveRating ||'Select HR Rating' }}
             </button>
 
             <ul class="dropdown-menu dropdown-menu-dark"
                 style="background-color: #33343C;">
               <li *ngFor="let type of rating">
                 <a class="dropdown-item text-light"
-                   (click)="onLeaveRating(type)"
+                   (click)="onLeaveRating(obj,type)"
                 >
                   {{ type }}
                 </a>
@@ -105,14 +105,14 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                     style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  issueRating ||'Select HR Rating' }}
+              {{  obj.issueRating ||'Select HR Rating' }}
             </button>
 
             <ul class="dropdown-menu dropdown-menu-dark"
                 style="background-color: #33343C;">
               <li *ngFor="let type of rating">
                 <a class="dropdown-item text-light"
-                   (click)="onIssueRating(type)"
+                   (click)="onIssueRating(obj,type)"
                 >
                   {{ type }}
                 </a>
@@ -134,14 +134,14 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                     style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  awardRating ||'Select HR Rating' }}
+              {{  obj.awardRating ||'Select HR Rating' }}
             </button>
 
             <ul class="dropdown-menu dropdown-menu-dark"
                 style="background-color: #33343C;">
               <li *ngFor="let type of rating">
                 <a class="dropdown-item text-light"
-                   (click)="onAwardRating(type)"
+                   (click)="onAwardRating(obj,type)"
                 >
                   {{ type }}
                 </a>
