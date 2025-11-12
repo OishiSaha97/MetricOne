@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, TemplateRef, ViewChild} from '@angular/core';
 import {ObjectiveSetComponent} from "./objective-set/objective-set.component";
 import {SelfAssessmentComponent} from "./self-assessment/self-assessment.component";
 import {ManagerInsightComponent} from "./manager-insight/manager-insight.component";
@@ -56,6 +56,8 @@ export class EvaluationComponent {
   @ViewChild(ValuesComponentComponent) valuesComp!: ValuesComponentComponent;
   @ViewChild(ManagerInsightComponent) managerComp!: ManagerInsightComponent;
   @ViewChild(HrModalComponent) hrComp!: HrModalComponent;
+  role: any = '';
+  timePeriod:any = '';
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -68,6 +70,8 @@ export class EvaluationComponent {
     this.maxStepData();
     this.currentTable = 'objective';
     this.userId = localStorage.getItem('username');
+    this.role = localStorage.getItem('role');
+    this.timePeriod = localStorage.getItem('timePeriod');
   }
 
   maxStepData() {
@@ -339,6 +343,38 @@ export class EvaluationComponent {
       error: (error: any) => {
         console.error('Error saving KPI:', error);
         this.cancel();
+      }
+    });
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
+  revert() {
+
+    let requestPayload: any = {
+      userIdKPI: this.userId,
+      year: this.year,
+      param: "revert_kpi_evaluation_data",
+      objectId: this.kpiId ,
+      remarks:this.remark
+    };
+
+
+    this.kpi.revertKpi(requestPayload).subscribe({
+      next: (response) => {
+        console.log('KPI saved successfully:', response);
+        alert('KPI data submitted successfully!');
+        this.cancel();
+      },
+      error: (error) => {
+        console.error('Error saving KPI:', error);
+        alert('Something went wrong while saving KPI.');
       }
     });
   }
