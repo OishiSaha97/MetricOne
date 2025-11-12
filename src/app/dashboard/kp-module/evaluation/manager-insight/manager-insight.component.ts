@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {CommonServiceService} from "../../../common-service.service";
 
 
 interface Objective {
@@ -24,6 +26,31 @@ export class ManagerInsightComponent {
 
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
+  data: any =[];
+
+  constructor(public modalRef: BsModalRef,
+              private modalService: BsModalService,
+              private kpi: CommonServiceService) {
+  }
+
+  ngOnInit(): void {
+    this.kpi.getLogData({param: 'evalution-manager-insight-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
+      .subscribe(res => {
+          this.data = Array.isArray(res?.['evalution-manager-insight-kpi-list']) ? res?.['evalution-manager-insight-kpi-list'] : res?.['evalution-manager-insight-kpi-list']
+          console.log(this.data);
+          this.objectives = this.objectives.map((obj, index) => ({
+            ...obj,
+            objectiveText: this.data[index]?.remark || ''
+          }));
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+        }
+
+      );
+  }
+
+
 
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;

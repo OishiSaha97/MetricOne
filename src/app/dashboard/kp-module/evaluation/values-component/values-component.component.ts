@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {CommonServiceService} from "../../../common-service.service";
 interface Objective {
   id: number;
   name: string;
@@ -32,9 +34,26 @@ export class ValuesComponentComponent {
 
   rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
   overAllRating: any;
+  data: any =[];
+  constructor(public modalRef: BsModalRef,
+              private modalService: BsModalService,
+              private kpi: CommonServiceService) {
+  }
 
 
+  ngOnInit(): void {
+    this.kpi.getLogData({param: 'evalution-values-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
+      .subscribe(res => {
+          // this.data = res?.['kpi-list'];
+          this.data = Array.isArray(res?.['evalution-values-kpi-list']) ? res?.['evalution-values-kpi-list'] : res?.['evalution-values-kpi-list']
+          console.log(this.data);
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+        }
 
+      );
+  }
   // onObjectiveChange(type: any, obj: Objective,i:number): void {
   //   obj.selectedRating = type;
   //   this.isOpen[i] = false;
