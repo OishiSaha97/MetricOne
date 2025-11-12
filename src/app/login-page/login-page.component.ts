@@ -53,7 +53,10 @@ export class LoginPageComponent {
 
     }
   }
+  showPassword: boolean = false;
 
-
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
 
 }
