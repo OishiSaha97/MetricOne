@@ -78,6 +78,7 @@ export class NavbarComponent {
           }else {
             localStorage.setItem('role', "employee");
           }
+          this.checkEndDate();
 
         },
         (error) => {
@@ -85,6 +86,59 @@ export class NavbarComponent {
           // optionally show a toast or alert
         }
       );
+  }
+  initialtionDate: string | Date | undefined = undefined;
+  resData: any;
+  checkEndDate() {
+    this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
+      .subscribe(res => {
+        this.resData = res?.['KPIendDate'][0] || [];
+
+        this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const [year, month, day] = this.initialtionDate.split('-').map(Number);
+        const kpiDate = new Date(year, month - 1, day);
+        if(this.initialtionDate && (kpiDate >= today)){
+          localStorage.setItem('timePeriod', "initiation");
+        }
+        else if (kpiDate < today) {
+          this.checkEvaEndDate();
+
+
+        }
+      });
+  }
+  formatDateForInput(dateString: string): string {
+    if (!dateString) return '';
+
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+
+    const formattedYear = date.getFullYear();
+    const formattedMonth = ('0' + (date.getMonth() + 1)).slice(-2);
+    const formattedDay = ('0' + date.getDate()).slice(-2);
+
+    return `${formattedYear}-${formattedMonth}-${formattedDay}`;
+  }
+
+  checkEvaEndDate() {
+    this.kpi.getLogData({ param: 'EvaEndDate', userIdKPI: this.userId })
+      .subscribe(res => {
+        this.resData = res?.['EvaEndDate'][0] || [];
+
+        this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const [year, month, day] = this.initialtionDate.split('-').map(Number);
+        const kpiDate = new Date(year, month - 1, day);
+        if(this.initialtionDate && (kpiDate > today)){
+          localStorage.setItem('timePeriod', "evaluation");
+        }
+
+      });
   }
 
 }
