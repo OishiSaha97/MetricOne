@@ -27,6 +27,7 @@ export class AllEmployeeKPIComponent {
   scrollStatus: any = true;
   userName:any;
   userId:any;
+  timePeriod:any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -36,6 +37,7 @@ export class AllEmployeeKPIComponent {
   ngOnInit() {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
+    this.timePeriod = localStorage.getItem('timePeriod');
     this.loadData('');
 
   }
@@ -108,7 +110,7 @@ export class AllEmployeeKPIComponent {
 
   viewDetails(user: any) {
     // if(user.editPermission == true){
-    if(user.status === 'closed'){
+    if(this.timePeriod == 'evaluation'){
       const initialState = {
         userData: user,
         title: 'HR Evaluation',
