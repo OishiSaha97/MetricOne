@@ -71,6 +71,7 @@ export class InitialComponent {
         if(this.tabs==='evaluation'){
           this.resData = res?.['EvaEndDate'][0] || [];
           this.selectedDateEva = this.formatDateForInput(this.resData.kpi_last_date);
+
         }
         else{
           this.resData = res?.['KPIendDate'][0] || [];
