@@ -15,6 +15,10 @@ interface Objective {
   keyObjective?: string;
   keyTarget?: string;
   keyPerformance?: string;
+  keyAchieved?: string;
+  selectedRating?:string;
+  achievedText?:string;
+  achievedInt?:string;
 }
 
 
@@ -76,8 +80,12 @@ export class ObjectiveSetComponent {
               selectedType: item.category_name,
               objectiveText: item.objective,
               targetText: item.target,
-              performanceText: item.performanceText,
+              performanceText: item.performance,
               weightage: item.weightage,
+              selectedRating: item.overall_rating,
+              rating: item.overall_rating,
+              achievedText: item.achieved_text,
+              achievedInt: item.achieved_int,
               //targetText: item.target,
               isOpen: false
             }));
@@ -131,6 +139,7 @@ export class ObjectiveSetComponent {
       targetText: '',
       performanceText: '',
       weightage: '',
+      selectedRating:'',
       isOpen: false
     };
     this.objectives.push(newObjective);
@@ -147,6 +156,7 @@ export class ObjectiveSetComponent {
   }
   onRating(type: any, obj: Objective,i:number): void {
     obj.rating = type;
+    obj.selectedRating = type;
     this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected rating:`, obj.rating);
   }
@@ -164,6 +174,8 @@ export class ObjectiveSetComponent {
   changedPerformanceHistory: any = [];
   showObjectiveHistoryIndex: number | null = null;
   showTargetHistory = false;
+  changedAchievedHistory: any = [];
+  showAchievedHistory = false;
 
   validateObjectives(): boolean {
     for (let i = 0; i < this.objectives.length; i++) {
@@ -259,6 +271,10 @@ export class ObjectiveSetComponent {
     obj.isEditingTarget = !obj.isEditingTarget;
   }
 
+  toggleAchievedEdit(obj: any) {
+    obj.isEditingAchieved = !obj.isEditingAchieved;
+  }
+
   onCancel() {
     this.modalRef.hide();
   }
@@ -339,4 +355,11 @@ export class ObjectiveSetComponent {
   }
 
 
+  openAchievedHistory(obj: any) {
+
+  }
+
+  openChangedAchievedHistory() {
+
+  }
 }

@@ -201,6 +201,9 @@ export class EvaluationComponent {
         weightage: escapeText(obj.weightage),
         keyObjective: escapeText(obj.keyObjective),
         keyTarget: escapeText(obj.keyTarget),
+        selectedRating: escapeText(obj.selectedRating),
+        achievedText: escapeText(obj.achievedText),
+        achievedInt: escapeText(obj.achievedInt),
       };
       return item;
     });
@@ -217,10 +220,11 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
+        this.cancel();
       },
       error: (error: any) => {
         console.error('Error saving KPI:', error);
-        this.onCancel();
+        this.cancel();
       }
     });
 
@@ -250,6 +254,9 @@ export class EvaluationComponent {
         weightage: escapeText(obj.weightage),
         keyObjective: escapeText(obj.keyObjective),
         keyTarget: escapeText(obj.keyTarget),
+        selectedRating: escapeText(obj.selectedRating),
+        achievedText: escapeText(obj.achievedText),
+        achievedInt: escapeText(obj.achievedInt),
       };
       return item;
     });
@@ -269,10 +276,11 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
+        this.cancel();
       },
       error: (error: any) => {
         console.error('Error saving KPI:', error);
-        this.onCancel();
+        this.cancel();
       }
     });
   }
@@ -303,6 +311,9 @@ export class EvaluationComponent {
         weightage: escapeText(obj.weightage),
         keyObjective: escapeText(obj.keyObjective),
         keyTarget: escapeText(obj.keyTarget),
+        selectedRating: escapeText(obj.selectedRating),
+        achievedText: escapeText(obj.achievedText),
+        achievedInt: escapeText(obj.achievedInt),
       };
       return item;
     });
@@ -323,10 +334,11 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
+        this.cancel();
       },
       error: (error: any) => {
         console.error('Error saving KPI:', error);
-        this.onCancel();
+        this.cancel();
       }
     });
   }

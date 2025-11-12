@@ -218,7 +218,7 @@
 
             <div class="row">
 
-              <div class="col-md-8">
+              <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-6">
                     <label class="text-secondary small">TARGET</label>
@@ -235,7 +235,7 @@
                   class="obj-input small"
                   [(ngModel)]="obj.targetText"
                   placeholder="Enter target..."
-                  [readonly]="mode === 'approver' && !obj.isEditingTarget"
+                  [readonly]=" !obj.isEditingTarget"
                 >
 
                 <div *ngIf="obj.isEditingTarget" class="mt-3">
@@ -271,15 +271,73 @@
                 </div>
               </div>
 
+            </div>
+
+
+            <div class="row">
+
+              <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="text-secondary small">ACHIEVED</label>
+                  </div>
+                  <div class="col-md-6" style="text-align:end">
+                    <img src="../../../assets/fa-regular_edit.svg"
+                         class="mb-1" style="scale:0.7"
+                         (click)="toggleAchievedEdit(obj)" />
+                  </div>
+                </div>
+
+                <input
+                  rows="4"
+                  class="obj-input small"
+                  [(ngModel)]="obj.achievedText"
+                  placeholder="Enter target..."
+                  [readonly]="currentStatus == 'manager' && !obj.isEditingAchieved"
+                >
+
+                <div *ngIf="obj.isEditingAchieved" class="mt-3">
+                  <h6 style="font-size: 12px;">Key Update Points*</h6>
+                  <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                  <input
+                    type="text"
+                    class="obj-input mt-2"
+                    [(ngModel)]="obj.keyAchieved"
+                    placeholder="Enter key point target..."
+                  />
+                </div>
+
+                <div  class="mt-3 mb-3">
+                  <img src="../../../assets/bx_chat.svg"
+                       class="mb-1" style="scale:0.999"
+                       (click)="openAchievedHistory(obj)" />
+                  <span class="ml-2 common-purple" (click)="openAchievedHistory(obj)">Changed History</span>
+                  <div class="history-popup" *ngIf="showAchievedHistory">
+                    <div class="popup-header">
+                      <h5>History</h5>
+                      <button class="close-btn" (click)="openChangedAchievedHistory()">×</button>
+                    </div>
+                    <div *ngFor="let note of changedAchievedHistory">
+                      <div class="popup-meta">
+                        <span class="common-purple">{{note.created_by}}</span>
+                        <span class="date">Date:{{note.created_at }}</span>
+                      </div>
+                      <p>{{note.key_point}}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
               <div class="col-md-4">
                 <div>
-                  <label class="text-secondary small">WEIGHTAGE</label>
+                  <label class="text-secondary small">ACHIEVED</label>
                 </div>
                 <input
                   type="text"
                   class="obj-input mb-2"
-                  [(ngModel)]="obj.weightage"
-                  placeholder="Enter weightage..."
+                  [(ngModel)]="obj.achievedInt"
+                  placeholder="Enter achieved..."
                 />
               </div>
 
