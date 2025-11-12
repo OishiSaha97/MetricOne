@@ -128,7 +128,7 @@
       </div>
 
       <!-- Step 3 -->
-      <div class="d-flex step-section p-3 rounded"
+      <div class="d-flex step-section p-3 rounded" *ngIf="maxStep>3"
            [ngClass]="{
            'active-step': currentStep === 3,
            'completed-step': currentStep > 3,
@@ -139,7 +139,7 @@
       </div>
 
       <!-- Step 4 -->
-      <div class="d-flex step-section p-3 rounded"
+      <div class="d-flex step-section p-3 rounded" *ngIf="maxStep>3"
            [ngClass]="{
            'active-step': currentStep === 4,
            'completed-step': currentStep > 4,
@@ -150,7 +150,7 @@
       </div>
 
       <!-- Step 5 -->
-      <div class="d-flex step-section p-3 rounded"
+      <div class="d-flex step-section p-3 rounded"  *ngIf="maxStep>4"
            [ngClass]="{
            'active-step': currentStep === 5,
            'completed-step': currentStep > 5,
