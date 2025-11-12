@@ -25,13 +25,19 @@ export class AllEmployeeKPIComponent {
     paramOffset: 0,
   };
   scrollStatus: any = true;
+  userName:any;
+  userId:any;
 
-  ngOnInit() {
-    this.loadData('');
-  }
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
+  }
+
+  ngOnInit() {
+    this.userName = localStorage.getItem('fullName');
+    this.userId = localStorage.getItem('username');
+    this.loadData('');
+
   }
 
   getStatusClass(status: string): string {
@@ -71,6 +77,7 @@ export class AllEmployeeKPIComponent {
 
     this.rowNo = 0;
     this.kpi.getAllEmpKpiList({
+      userIdKPI:this.userId,
       filterParam: this.filterParam,
       searchParam: this.searchParam,
       orderParam: this.orderParam,
