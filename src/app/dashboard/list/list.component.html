@@ -60,9 +60,9 @@
                  src="../../../assets/clear-eye.svg"
                  alt="View details"
                  [ngStyle]="{
-                    cursor: user.status == 'closed'  ? 'pointer' : 'not-allowed',
-                    opacity: user.status == 'closed'  ? 1 : 0.4,
-                    'pointer-events': user.status == 'closed'  ? 'all' : 'none'
+                    cursor: user.edit_permission == true  ? 'pointer' : 'not-allowed',
+                    opacity: user.edit_permission == true  ? 1 : 0.4,
+                    'pointer-events': user.edit_permission == true  ? 'all' : 'none'
                   }"
                  (click)="viewClick(user)"
             />

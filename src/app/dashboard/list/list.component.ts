@@ -49,7 +49,7 @@ export class ListComponent {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.loadData('');
-    this.checkInitiationDate();
+    //this.checkInitiationDate();
     // this.kpi.getLogData({param: 'check_kpi_my',objectId:this.year,extraParam:this.userId})
     //   .subscribe(res => {
     //
@@ -64,15 +64,15 @@ export class ListComponent {
 
   }
 
-  checkInitiationDate() {
-    this.kpi.getLogData({ param: 'initiationCheck', userIdKPI: this.userId })
-      .subscribe(res => {
-        this.isInitCrossed = res?.['initiationCheck'][0].deadline_crossed;
-        if(this.isInitCrossed){
-          this.showEvaluation = true;
-        }
-      });
-  }
+  // checkInitiationDate() {
+  //   this.kpi.getLogData({ param: 'initiationCheck', userIdKPI: this.userId })
+  //     .subscribe(res => {
+  //       this.isInitCrossed = res?.['initiationCheck'][0].deadline_crossed;
+  //       if(this.isInitCrossed){
+  //         this.showEvaluation = true;
+  //       }
+  //     });
+  // }
 
 
   loadData(obj:any){
@@ -156,9 +156,7 @@ export class ListComponent {
   }
 
   viewClick(user: any): void {
-    // if (user.status == 'closed' && this.showEvaluation) {
-      if (user.status == 'closed' ) {
-        // this.viewDetails(user);
+      if (user.edit_permission == true ) {
         const initialState = {
           userData: user,
           title: 'Employee Evaluation',
@@ -170,8 +168,6 @@ export class ListComponent {
           keyboard: false,
           class: 'modal-dialog modal-dialog-centered modal-xl'
         });
-      } else {
-        console.log('View disabled — conditions not met');
       }
     }
 
