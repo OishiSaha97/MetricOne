@@ -128,7 +128,7 @@ export class EvaluationComponent {
 
     }else if(this.currentStep == 5){
       this.hrComp.submitData();
-      this.submitHr();
+
     }
 
 
@@ -179,6 +179,7 @@ export class EvaluationComponent {
     }else if(item == 'hr'){
       this.hrData = data;
       console.log('Received data from hr:', data);
+      this.submitHr();
     }
 
 
