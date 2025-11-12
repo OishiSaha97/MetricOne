@@ -20,6 +20,7 @@ export class ListComponent {
 
   userName:any;
   userId:any;
+  timePeriod:any;
   pagination: any = {
     paramLimit: 100,
     paramOffset: 0,
@@ -48,6 +49,7 @@ export class ListComponent {
   ngOnInit() {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
+    this.timePeriod = localStorage.getItem('timePeriod');
     this.loadData('');
     //this.checkInitiationDate();
     // this.kpi.getLogData({param: 'check_kpi_my',objectId:this.year,extraParam:this.userId})
@@ -156,7 +158,8 @@ export class ListComponent {
   }
 
   viewClick(user: any): void {
-      if (user.edit_permission == true ) {
+
+      if (this.timePeriod === 'evaluation' ) {
         const initialState = {
           userData: user,
           title: 'Employee Evaluation',
@@ -167,6 +170,22 @@ export class ListComponent {
           backdrop: 'static',
           keyboard: false,
           class: 'modal-dialog modal-dialog-centered modal-xl'
+        });
+      }
+      else if(this.timePeriod === 'initiation'){
+        const initialState = {
+          kpiUserId: user.user_id,
+          status: user.status,
+          team: user.team,
+          name: user.name,
+          year: user.year,
+          kpiId: user.id,
+        };
+        this.modalService.show(KpiFormComponent, {
+          backdrop: 'static',
+          keyboard: false,
+          class: 'modal-dialog modal-dialog-centered modal-xl',
+          initialState: initialState
         });
       }
     }

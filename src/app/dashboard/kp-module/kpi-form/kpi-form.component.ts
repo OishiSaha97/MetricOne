@@ -93,20 +93,6 @@ export class KpiFormComponent implements OnInit {
 
   }
 
-  // addObjectivesFromData(): void {
-  //   this.data.forEach((item:any, index:any) => {
-  //     const newObjective: Objective = {
-  //       id: this.objectives.length + 1,
-  //       title: `Work Objective ${this.objectives.length + 1}`,
-  //       selectedType: item.category_name,
-  //       objectiveText: item.objective,
-  //       targetText: item.target,
-  //       isOpen: false
-  //     };
-  //     this.objectives.push(newObjective);
-  //   });
-  // }
-
 
   addObjective(): void {
     const newObjective: Objective = {

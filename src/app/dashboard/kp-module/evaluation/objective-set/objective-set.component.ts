@@ -334,8 +334,6 @@ export class ObjectiveSetComponent {
   }
 
 
-
-
   openChangedHistory() {
     this.showHistory = !this.showHistory;
   }
@@ -358,6 +356,8 @@ export class ObjectiveSetComponent {
   }
 
   toggleAchievedEdit(obj: any) {
-    
+
   }
+
+
 }

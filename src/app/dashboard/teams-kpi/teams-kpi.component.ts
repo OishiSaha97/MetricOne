@@ -29,6 +29,7 @@ export class TeamsKPIComponent {
   scrollStatus: any = true;
   userName:any;
   userId:any;
+  timePeriod:any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -38,6 +39,7 @@ export class TeamsKPIComponent {
   ngOnInit() {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
+    this.timePeriod = localStorage.getItem('timePeriod');
     this.loadData('');
 
   }
@@ -104,19 +106,7 @@ export class TeamsKPIComponent {
   }
 
   viewDetails(user: any) {
-    if(user.editPermission == true){
-      const initialState = {
-        userData: user,
-        title: 'Manager Evaluation',
-        currentStatus:'manager',
-      };
-      this.modalService.show(EvaluationComponent, {
-        backdrop: 'static',
-        keyboard: false,
-        class: 'modal-dialog modal-dialog-centered modal-xl',
-        initialState: initialState
-      });
-    }else{
+    if(this.timePeriod === 'initiation'){
       const initialState = {
         kpiUserId: user.user_id,
         status: user.status,
@@ -133,7 +123,19 @@ export class TeamsKPIComponent {
         initialState: initialState
       });
     }
-
+    else if(this.timePeriod === 'evaluation'){
+      const initialState = {
+        userData: user,
+        title: 'Manager Evaluation',
+        currentStatus:'manager',
+      };
+      this.modalService.show(EvaluationComponent, {
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-dialog modal-dialog-centered modal-xl',
+        initialState: initialState
+      });
+    }
   }
 
 
