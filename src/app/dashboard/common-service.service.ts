@@ -68,4 +68,7 @@ export class CommonServiceService {
   getAllEmpKpiList(obj:any): Observable<any> {
     return this.http.post(`${this.ApiEndpoint}/list/allEmp`, obj);
   }
+  saveAnnouncement(obj: any) {
+    return this.http.post(`${this.ApiEndpoint}/dashboard/save/announcement`, obj);
+  }
 }

@@ -25,13 +25,21 @@ export class AllEmployeeKPIComponent {
     paramOffset: 0,
   };
   scrollStatus: any = true;
+  userName:any;
+  userId:any;
+  timePeriod:any;
 
-  ngOnInit() {
-    this.loadData('');
-  }
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
+  }
+
+  ngOnInit() {
+    this.userName = localStorage.getItem('fullName');
+    this.userId = localStorage.getItem('username');
+    this.timePeriod = localStorage.getItem('timePeriod');
+    this.loadData('');
+
   }
 
   getStatusClass(status: string): string {
@@ -71,6 +79,7 @@ export class AllEmployeeKPIComponent {
 
     this.rowNo = 0;
     this.kpi.getAllEmpKpiList({
+      userIdKPI:this.userId,
       filterParam: this.filterParam,
       searchParam: this.searchParam,
       orderParam: this.orderParam,
@@ -101,7 +110,7 @@ export class AllEmployeeKPIComponent {
 
   viewDetails(user: any) {
     // if(user.editPermission == true){
-    if(user.status === 'closed'){
+    if(this.timePeriod == 'evaluation'){
       const initialState = {
         userData: user,
         title: 'HR Evaluation',

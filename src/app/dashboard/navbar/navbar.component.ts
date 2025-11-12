@@ -10,8 +10,8 @@ import {CommonServiceService} from "../common-service.service";
 })
 export class NavbarComponent {
 
-   name = "Skipper";
-   designation = "full stack web-mobile-ml dev";
+   name = "";
+   designation = "";
   userName:any = '';
   userId:any='';
   active : boolean= false;
@@ -53,6 +53,7 @@ export class NavbarComponent {
     }
 
   logout() {
+    localStorage.clear();
     this.router.navigate(['']);
   }
 
@@ -71,13 +72,13 @@ export class NavbarComponent {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
           }
-          if(data.allPermission && data.teamKpi) {
-            localStorage.setItem('role', "hr");
-          }else if(data.teamKpi){
-            localStorage.setItem('role', "manager");
-          }else {
-            localStorage.setItem('role', "employee");
-          }
+          // if(data.allPermission && data.teamKpi) {
+          //   localStorage.setItem('role', "hr");
+          // }else if(data.teamKpi){
+          //   localStorage.setItem('role', "manager");
+          // }else {
+          //   localStorage.setItem('role', "employee");
+          // }
           this.checkEndDate();
 
         },
