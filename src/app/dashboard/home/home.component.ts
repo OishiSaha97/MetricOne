@@ -17,6 +17,7 @@ export class HomeComponent {
   resData: any;
   initialtionDate: string | Date | undefined = undefined;
   userId:any;
+  role:any;
   dashBoardData: any;
   pendingHR: any;
   totalEmloyee: any;
@@ -37,10 +38,22 @@ export class HomeComponent {
     { name: 'Sohail Rahman', designation: 'Software Engineer', team: 'QA', measure: 'KPI Review Session', date: 'Nov 2, 2025' },
     { name: 'Arafat Alam', designation: 'SQA Engineer', team: 'QA', measure: 'Performance Review', date: 'Nov 1, 2025' },
   ];
+  announcements = [
+    {
+      text: 'The Human Resources Division is pleased to inform all staff of the official implementation of the Employee KPI & Evaluation System, effective immediately.',
+      date: 'November 31, 2025 at 11:00 am'
+    },
+    {
+      text: 'The Human Resources Division is pleased to inform all staff of the official implementation of the Employee KPI & Evaluation System, effective immediately.',
+      date: 'November 31, 2025 at 11:00 am'
+    },
+    // add more objects here...
+  ];
   progressValue: number =75;
 
   ngOnInit() {
     this.userId = localStorage.getItem('username');
+    this.role = localStorage.getItem('role');
     this.checkEndDate();
     this.getData();
     this.updateCountdown();
