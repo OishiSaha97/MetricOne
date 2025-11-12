@@ -53,6 +53,9 @@ export class SettingsComponent {
         if(this.isInitCrossed){
           this.showEvaluation = true;
         }
+        else{
+          this.showEvaluation = false;
+        }
       });
   }
 

@@ -40,6 +40,7 @@ export class HomeComponent {
   progressValue: number =75;
 
   ngOnInit() {
+    console.log("initialtionDate :", this.initialtionDate);
     this.userId = localStorage.getItem('username');
     this.checkEndDate();
     this.getData();
