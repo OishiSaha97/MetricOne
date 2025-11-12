@@ -30,10 +30,23 @@
                 placeholder="Email" required>
             </div>
             <div class="password-wrapper mb-3">
-              <input type="password" name="password" [(ngModel)]="password" class="password-input"
-                placeholder="Password" required>
-              <img src="assets/closed-eye.svg" class="password-icon" alt="Password icon" />
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                name="password"
+                [(ngModel)]="password"
+                class="password-input"
+                placeholder="Password"
+                required
+              >
+
+              <img
+                [src]="showPassword ? 'assets/open-eye.svg' : 'assets/closed-eye.svg'"
+                class="password-icon"
+                alt="Toggle password visibility"
+                (click)="togglePassword()"
+              />
             </div>
+
             <button type="button" class="btn btn-gradient w-100 mb-0" (click)="signIn()">Login</button>
             <div class="text-center text-white mt-1">
               <a href="#" class="text-white " style="text-decoration: none; color: white;">Forgot Password?</a>
