@@ -173,6 +173,7 @@ export class ObjectiveSetComponent {
   showObjectiveHistoryIndex: number | null = null;
   showTargetHistory = false;
   changedAchievedHistory: any =[];
+  showAchievedHistory:boolean =  false;
 
   validateObjectives(): boolean {
     for (let i = 0; i < this.objectives.length; i++) {
@@ -354,5 +355,9 @@ export class ObjectiveSetComponent {
 
   openChangedAchievedHistory() {
 
+  }
+
+  toggleAchievedEdit(obj: any) {
+    
   }
 }
