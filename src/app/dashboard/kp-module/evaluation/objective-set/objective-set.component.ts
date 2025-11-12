@@ -172,6 +172,7 @@ export class ObjectiveSetComponent {
   changedPerformanceHistory: any = [];
   showObjectiveHistoryIndex: number | null = null;
   showTargetHistory = false;
+  changedAchievedHistory: any =[];
 
   validateObjectives(): boolean {
     for (let i = 0; i < this.objectives.length; i++) {
@@ -347,4 +348,11 @@ export class ObjectiveSetComponent {
   }
 
 
+  openAchievedHistory(obj: any) {
+
+  }
+
+  openChangedAchievedHistory() {
+
+  }
 }
