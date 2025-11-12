@@ -68,9 +68,17 @@ export class NavbarComponent {
       .subscribe(res => {
           const data = res?.['permission-list']?.[0];
           if (data) {
-            this.allPermission = !!data.allPermission;
-            this.teamKpi = !!data.teamKpi;
+            this.allPermission = data.allPermission;
+            this.teamKpi = data.teamKpi;
           }
+          if(data.allPermission && data.teamKpi) {
+            localStorage.setItem('role', "hr");
+          }else if(data.teamKpi){
+            localStorage.setItem('role', "manager");
+          }else {
+            localStorage.setItem('role', "employee");
+          }
+
         },
         (error) => {
           console.error("Error fetching permission list", error);
