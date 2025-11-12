@@ -31,6 +31,7 @@ export class FlipClockComponent implements OnInit, OnDestroy {
   private i = 0;
 
   ngOnInit(): void {
+    console.log("date: ", this.date);
     if (!this.showDays) {
       this.trackers = ['Hours', 'Minutes'];
     }
@@ -98,10 +99,14 @@ export class FlipClockComponent implements OnInit, OnDestroy {
       this.time.Total = total;
     } else {
       // Clock mode (no target date): show current time
-      this.time.Days = undefined;
-      this.time.Hours = now.getHours();            // 24h; change to (now.getHours()%12 || 12) for 12h
-      this.time.Minutes = now.getMinutes();
-      this.time.Total = now.getTime();
+      // this.time.Days = undefined;
+      // this.time.Hours = now.getHours();
+      // this.time.Minutes = now.getMinutes();
+      // this.time.Total = now.getTime();
+      this.time.Days = 0;
+      this.time.Hours = 0;
+      this.time.Minutes = 0;
+      this.time.Total = 0;
     }
 
     // Angular will push @Input() updates to children
