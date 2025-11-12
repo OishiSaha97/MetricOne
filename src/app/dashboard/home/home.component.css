@@ -293,10 +293,11 @@ circle {
   color: #83F7F6;
 }
 .announcement-panel {
-  background: #181b25;
+  background: #35363D;
   border-radius: 18px;
   border: 1px solid #252736;
   color: #f5f5f7;
+  height:620px;
 }
 
 /* Title */
@@ -329,7 +330,6 @@ circle {
   display: inline-block;
   padding: 6px 18px;
   font-size: 12px;
-  border-radius: 999px;
   border: none;
   background: #6c5dd3; /* purple */
   color: #fff;
@@ -339,7 +339,7 @@ circle {
 
 /* List of announcements */
 .announcement-list {
-  max-height: 360px;
+  max-height: 500px;
   overflow-y: auto;
   margin-top: 16px;
   padding-right: 4px; /* room for scrollbar */
@@ -358,14 +358,15 @@ circle {
 
 .announcement-text {
   margin: 0 0 6px;
-  color: #e3e4f0;
+  color: #FFFFFFCC;
+  font-size: 12px;
 }
 
 .announcement-date {
   margin: 0;
-  font-weight: 600;
-  color: #ffffff;
-  font-size: 12px;
+  font-size:14px;
+  color: #FFFFFF;
+
 }
 
 /* Optional: thin custom scrollbar */

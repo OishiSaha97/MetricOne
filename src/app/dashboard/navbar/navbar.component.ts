@@ -52,9 +52,22 @@ export class NavbarComponent {
       this.router.navigate(['dashboard', path]);
     }
 
+  // logout() {
+  //   localStorage.clear();
+  //   this.router.navigate(['']);
+  // }
+
   logout() {
+
     localStorage.clear();
-    this.router.navigate(['']);
+
+    sessionStorage.clear();
+
+    // this.authService.clearUser();
+
+    this.router.navigate([''], { replaceUrl: true });
+
+
   }
 
   activeIndex: number | null = null;
@@ -88,6 +101,7 @@ export class NavbarComponent {
         }
       );
   }
+
   initialtionDate: string | Date | undefined = undefined;
   resData: any;
   checkEndDate() {

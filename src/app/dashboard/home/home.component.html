@@ -17,17 +17,20 @@
       </div>
 
       <div class="col-md-6">
-      <div class="announcement-panel card p-3">
+      <div class="announcement-panel card p-3" style="margin-top:10px;">
         <h5 class="announcement-title">Announcements</h5>
 
-        <div *ngIf="role === 'hr'">
+        <div *ngIf="role == 'hr'">
           <textarea [(ngModel)]="anncText"
             rows="4"
             class="announcement-input"
             placeholder="Type Here"
           ></textarea>
 
-          <button class="btn btn-announce mt-2" (click)="publishAnnoc()">Publish</button>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-announce mt-2 text-right" (click)="publishAnnoc()">Publish</button>
+          </div>
+
         </div>
 
 
@@ -35,11 +38,11 @@
           <div *ngFor="let a of announcements"
           >
             <hr>
-            <p class="announcement-text">
-              {{ a.text }}
+            <p class="announcement-text" >
+              {{ a.announcement }}
             </p>
             <p class="announcement-date">
-              {{ a.date }}
+              {{ a.created_at }}
             </p>
           </div>
         </div>
