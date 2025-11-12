@@ -97,3 +97,16 @@
   right: 43px;
   top: 140px;
 }
+.cross-icon{
+  height: 27.99px;
+  width: 36px;
+  border: none;
+  margin-right: 7px;
+  /*position: absolute;*/
+  margin-top:13px;
+  /*float: right;*/
+  /*margin-right:20px;*/
+  gap: 0;
+  background :  url(src/assets/cross_icon.svg)no-repeat;
+  scale:0.5;
+}

@@ -222,26 +222,29 @@
 <ng-template #actionModal>
   <div role="document">
     <div class="modal-content bg-color">
-      <div>
-        <span class="top-left-title-bar common-purple">Revert Remarks</span>
-        <span class="close-btn close" data-dismiss="modal" (click)="cancel()"></span>
+      <div class="d-flex justify-content-between">
+        <div class=" common-purple" style="padding-top: 20px;padding-left: 20px;">Revert Remarks</div>
+        <div class=" common-purple" style="padding-top: 20px;padding-left: 20px;">
+          <button aria-hidden="true" data-toggle="tooltip" data-title="Cancel"
+                              style="margin-top: 23%;margin-right: 20%"
+                              (click)="cancel()" class="cross-icon ">
+        </button></div>
       </div>
-      <div class="modal-body modal-message-body text-break">
-        <p>
+      <div class="modal-body modal-message-body text-break" >
+        <p style="color:#FFFFFF">
           Are you sure you want to revert the KPI?
         </p>
 
         <div  class="form-group form-group-sm">
-          <div style="color:#e2136e"><small style="color: #FFFFFFCC;padding-left: 10px">250 character
-            max</small></div>
-          <textarea class="form-control form-control-sm add-input-box" name="" id="" cols="30" rows="3"
+          <div style="font-size:10px;color:#FFFFFFCC">250 character limit</div>
+          <textarea class="form-control form-control-sm add-input-box" name="" id="" cols="30" rows="3" style="background:#2A2B2F; border:1px solid #C6C5CA; color:white;"
                     maxlength="250" [(ngModel)]="remark"></textarea>
         </div>
 
       </div>
-      <div class="modal-footer row justify-content-end" style="border:none; margin-top:-20px">
-        <div class="col-6">
-          <button type="button" class="btn cancel-button" data-dismiss="modal" (click)="cancel()">
+      <div class="modal-footer d-flex justify-content-end" style="border:none; margin-top:-20px">
+        <div >
+          <button type="button" class="btn cancel-btn" style="margin-right: 10px;" data-dismiss="modal" (click)="cancel()">
             Cancel
           </button>
           <button
