@@ -195,6 +195,12 @@
           <div>
             <button class="btn cancel-btn" style="margin-left: 17%;" (click)="cancel()">Cancel</button>
           </div>
+
+          <div>
+            <button class="btn cancel-btn" style="margin-left: 17%;" *ngIf="this.role == 'manager'"
+                    (click)="openModal(actionModal)">Revert</button>
+          </div>
+
           <div>
             <div class="d-flex justify-content-end gap-2 p-3">
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
@@ -211,4 +217,48 @@
  </div>
 
 </div>
+
+
+<ng-template #actionModal>
+  <div role="document">
+    <div class="modal-content bg-color">
+      <div>
+        <span class="top-left-title-bar common-purple">Revert Remarks</span>
+        <span class="close-btn close" data-dismiss="modal" (click)="cancel()"></span>
+      </div>
+      <div class="modal-body modal-message-body text-break">
+        <p>
+          Are you sure you want to revert the KPI?
+        </p>
+
+        <div  class="form-group form-group-sm">
+          <div style="color:#e2136e"><small style="color: #FFFFFFCC;padding-left: 10px">250 character
+            max</small></div>
+          <textarea class="form-control form-control-sm add-input-box" name="" id="" cols="30" rows="3"
+                    maxlength="250" [(ngModel)]="remark"></textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer row justify-content-end" style="border:none; margin-top:-20px">
+        <div class="col-6">
+          <button type="button" class="btn cancel-button" data-dismiss="modal" (click)="cancel()">
+            Cancel
+          </button>
+          <button
+            [ngClass]=" (remark==''||remark==null)? 'cursor-disabled' : 'cursor-enabled'"
+            [disabled]=" (remark==''||remark==null)"
+            (click)="revert()" class="btn submit-btn" data-dismiss="modal">
+            Submit
+          </button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <!--  </div>-->
+</ng-template>
+
+
+
 
