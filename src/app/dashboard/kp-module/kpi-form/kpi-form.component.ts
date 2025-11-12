@@ -57,11 +57,9 @@ export class KpiFormComponent implements OnInit {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
 
-
       if(this.mode == 'approver'){
         this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
           .subscribe(res => {
-              // this.data = res?.['kpi-list'];
               this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list']
               console.log(this.data);
               this.objectives = this.data.map((item:any, index:any) => ({
