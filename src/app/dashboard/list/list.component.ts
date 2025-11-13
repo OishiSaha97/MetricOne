@@ -146,10 +146,15 @@ export class ListComponent {
 
 
   onClick() {
-    this.modalService.show(KpiFormComponent, {
+    this.modalRef =  this.modalService.show(KpiFormComponent, {
       backdrop: 'static',
       keyboard: false,
       class: 'modal-dialog modal-dialog-centered modal-xl'
+    });
+
+    let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+      this.loadData({});
+      dataLoader.unsubscribe();
     });
 
     // this.router.navigate(['', 'my-form']);
@@ -160,6 +165,8 @@ export class ListComponent {
 
   }
 
+  // modalRef: BsModalRef ;
+
   viewClick(user: any): void {
 
       if (this.timePeriod === 'evaluation' ) {
@@ -168,11 +175,17 @@ export class ListComponent {
           title: 'Employee Evaluation',
           currentStatus:'employee',
         };
-        this.modalService.show(EvaluationComponent, {
+
+        this.modalRef = this.modalService.show(EvaluationComponent, {
           initialState:initialState,
           backdrop: 'static',
           keyboard: false,
           class: 'modal-dialog modal-dialog-centered modal-xl'
+        });
+
+        let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+          this.loadData({});
+          dataLoader.unsubscribe();
         });
       }
       else if(this.timePeriod === 'initiation'){
@@ -184,11 +197,16 @@ export class ListComponent {
           year: user.year,
           kpiId: user.id,
         };
-        this.modalService.show(KpiFormComponent, {
+        this.modalRef = this.modalService.show(KpiFormComponent, {
           backdrop: 'static',
           keyboard: false,
           class: 'modal-dialog modal-dialog-centered modal-xl',
           initialState: initialState
+        });
+
+        let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+          this.loadData({});
+          dataLoader.unsubscribe();
         });
       }
     }

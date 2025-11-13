@@ -6,6 +6,7 @@ import { ValuesComponentComponent } from './values-component/values-component.co
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
 import {HrModalComponent} from "./hr-modal/hr-modal.component";
+import {Subject} from "rxjs";
 
 
 
@@ -58,6 +59,7 @@ export class EvaluationComponent {
   @ViewChild(HrModalComponent) hrComp!: HrModalComponent;
   role: any = '';
   timePeriod:any = '';
+  saveEmitter = new Subject<any>();
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -224,6 +226,7 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
+        this.saveEmitter.next(true);
         this.cancel();
       },
       error: (error: any) => {
@@ -280,6 +283,7 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
+        this.saveEmitter.next(true);
         this.cancel();
       },
       error: (error: any) => {
@@ -338,6 +342,7 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
+        this.saveEmitter.next(true);
         this.cancel();
       },
       error: (error: any) => {
