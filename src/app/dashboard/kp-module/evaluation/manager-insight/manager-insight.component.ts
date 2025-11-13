@@ -26,6 +26,7 @@ export class ManagerInsightComponent {
 
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
+  @Input() currentStatus: any;
   data: any =[];
 
   constructor(public modalRef: BsModalRef,

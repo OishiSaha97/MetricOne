@@ -39,11 +39,9 @@ export class LoginPageComponent {
       formData.append('password', this.password);
       this.client.post(`${environment.baseUrl}/authenticate`, formData).subscribe((result:any)=>{
         if(result){
-          // this.getPermission();
           localStorage.setItem('username', this.username);
           localStorage.setItem('fullName', result['Name']);
           localStorage.setItem('token', result['token']);
-          //this.router.navigate(['/dashboard']);
 
           this.router.navigate(['/dashboard/home']);
           // this.dialogRef.close(true)
@@ -63,6 +61,7 @@ export class LoginPageComponent {
   togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
+
   // getPermission() {
   //   this.kpi.getLogData({param: 'permission-list',objectId:this.username})
   //     .subscribe(res => {

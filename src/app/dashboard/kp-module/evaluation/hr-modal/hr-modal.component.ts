@@ -23,10 +23,14 @@ export class HrModalComponent {
 
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
+  @Input() currentStatus: any;
+
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''}];
   mode: any;
-  userId:any;
+  userName: any;
+  userId: any;
+  role: any;
   ratings: any = [];
   // attendanceRating: any;
   // leaveRating: any;

@@ -38,11 +38,15 @@ export class NavbarComponent {
   ];
 
   permissionList:any='';
+  isHr: boolean = false;
+  role: any;
     constructor(private router: Router,private kpi: CommonServiceService){}
 
     ngOnInit() {
       this.userId = localStorage.getItem('username');
       this.userName = localStorage.getItem('fullName');
+
+
       this.getPermission();
     }
 
@@ -62,8 +66,6 @@ export class NavbarComponent {
     localStorage.clear();
 
     sessionStorage.clear();
-
-    // this.authService.clearUser();
 
     this.router.navigate([''], { replaceUrl: true });
 
@@ -85,13 +87,19 @@ export class NavbarComponent {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
           }
-          // if(data.allPermission && data.teamKpi) {
-          //   localStorage.setItem('role', "hr");
-          // }else if(data.teamKpi){
-          //   localStorage.setItem('role', "manager");
-          // }else {
-          //   localStorage.setItem('role', "employee");
-          // }
+          if(data.allPermission && data.teamKpi) {
+            localStorage.setItem('role', "hr");
+            this.role = "hr";
+            this.isHr = true;
+          }else if(data.teamKpi){
+            localStorage.setItem('role', "manager");
+            this.role = "manager";
+            this.isHr = false;
+          }else {
+            localStorage.setItem('role', "employee");
+            this.role = "employee";
+            this.isHr = false;
+          }
           this.checkEndDate();
 
         },
@@ -102,68 +110,11 @@ export class NavbarComponent {
       );
   }
 
-  // initialtionDate: string | Date | undefined = undefined;
-  // resData: any;
-  // checkEndDate() {
-  //   this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
-  //     .subscribe(res => {
-  //       this.resData = res?.['KPIendDate'][0] || [];
-  //
-  //       this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
-  //       const today = new Date();
-  //       today.setHours(0, 0, 0, 0);
-  //
-  //       const [year, month, day] = this.initialtionDate.split('-').map(Number);
-  //       const kpiDate = new Date(year, month - 1, day);
-  //       if(this.initialtionDate && (kpiDate >= today)){
-  //         localStorage.setItem('timePeriod', "initiation");
-  //       }
-  //       else if (kpiDate < today) {
-  //         this.checkEvaEndDate();
-  //       }
-  //       else if(this.initialtionDate === ''){
-  //         localStorage.setItem('timePeriod', "new year");
-  //       }
-  //
-  //     });
-  // }
-  // formatDateForInput(dateString: string): string {
-  //   if (!dateString) return '';
-  //
-  //   const [year, month, day] = dateString.split('-').map(Number);
-  //   const date = new Date(year, month - 1, day);
-  //
-  //   const formattedYear = date.getFullYear();
-  //   const formattedMonth = ('0' + (date.getMonth() + 1)).slice(-2);
-  //   const formattedDay = ('0' + date.getDate()).slice(-2);
-  //
-  //   return `${formattedYear}-${formattedMonth}-${formattedDay}`;
-  // }
-  //
-  // checkEvaEndDate() {
-  //   this.kpi.getLogData({ param: 'EvaEndDate', userIdKPI: this.userId })
-  //     .subscribe(res => {
-  //       this.resData = res?.['EvaEndDate'][0] || [];
-  //
-  //       this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
-  //       const today = new Date();
-  //       today.setHours(0, 0, 0, 0);
-  //
-  //       const [year, month, day] = this.initialtionDate.split('-').map(Number);
-  //       const kpiDate = new Date(year, month - 1, day);
-  //       if(this.initialtionDate && (kpiDate > today)){
-  //         localStorage.setItem('timePeriod', "evaluation");
-  //       }
-  //       else if(this.initialtionDate === ''){
-  //         localStorage.setItem('timePeriod', "new year");
-  //       }
-  //
-  //     });
-  // }
-  initialtionDate?: string;
+  initialtionDate: string | Date | undefined = undefined;
   resData: any;
 
-  checkEndDate(): void {
+
+  checkEndDate() {
     this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
       .subscribe({
         next: (res) => {
@@ -216,6 +167,8 @@ export class NavbarComponent {
         }
       });
   }
+
+
 
   formatDate(dateString?: string): string {
     if (!dateString) return '';

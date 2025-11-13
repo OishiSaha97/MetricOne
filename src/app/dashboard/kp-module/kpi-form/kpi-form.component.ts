@@ -2,6 +2,7 @@
 import {NgModule, Component, OnInit, TemplateRef, EventEmitter} from '@angular/core';
 import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {Subject} from "rxjs";
 
 declare var $: any;
 
@@ -48,6 +49,7 @@ export class KpiFormComponent implements OnInit {
   team:any;
   kpiUserId:any;
   kpiId:any;
+  saveEmitter = new Subject<any>();
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
@@ -130,6 +132,9 @@ export class KpiFormComponent implements OnInit {
   isOpen: boolean[] = [];
 
   validateObjectives(): boolean {
+    let totalWeightage = 0;
+    const titleSet = new Set<string>();
+
     for (let i = 0; i < this.objectives.length; i++) {
       const obj = this.objectives[i];
 
@@ -141,10 +146,53 @@ export class KpiFormComponent implements OnInit {
         alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
         return false;
       }
+
+      const title = obj.title?.trim();
+      if (!title) {
+        alert(`Please enter a title for Objective ${i + 1}`);
+        return false;
+      }
+
+      if (titleSet.has(title.toLowerCase())) {
+        alert(`Duplicate title found: "${title}". Each objective title must be unique.`);
+        return false;
+      }
+      titleSet.add(title.toLowerCase());
+
+      const weight = Number(obj.weightage || 0);
+      if (isNaN(weight) || weight <= 0) {
+        alert(`Please enter a valid weightage for "${title}"`);
+        return false;
+      }
+
+      totalWeightage += weight;
+    }
+
+    if (totalWeightage !== 100) {
+      alert(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
+      return false;
     }
 
     return true;
   }
+
+  // validateObjectives(): boolean {
+  //   for (let i = 0; i < this.objectives.length; i++) {
+  //     const obj = this.objectives[i];
+  //
+  //     if (
+  //       !obj.selectedType?.trim() ||
+  //       !obj.objectiveText?.trim() ||
+  //       !obj.targetText?.trim()
+  //     ) {
+  //       alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
+  //       return false;
+  //     }
+  //   }
+  //
+  //   return true;
+  // }
+
 
   onSubmit(): void {
     if (!this.validateObjectives()) {
@@ -167,6 +215,7 @@ export class KpiFormComponent implements OnInit {
         selectedType: obj.selectedType,
         weightage: obj.weightage,
         objectiveText: escapeText(obj.objectiveText),
+        performanceText: escapeText(obj.performanceText),
         targetText: escapeText(obj.targetText)
       };
 
@@ -176,6 +225,9 @@ export class KpiFormComponent implements OnInit {
         }
         if (obj.keyTarget?.trim()) {
           item.keyTarget = escapeText(obj.keyTarget.trim());
+        }
+        if (obj.keyPerformance?.trim()) {
+          item.keyPerformance = escapeText(obj.keyPerformance.trim());
         }
       }
 
@@ -204,6 +256,7 @@ export class KpiFormComponent implements OnInit {
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
         console.log('KPI saved successfully:', response);
+        this.saveEmitter.next(true);
         this.onCancel();
         this.requestEmitter.emit(true);
 

@@ -41,6 +41,7 @@ export class ListComponent {
   year:any = '2025';
   isInitCrossed: boolean = false;
   showEvaluation: boolean = false;
+  isShowAdd: boolean = false;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -102,6 +103,7 @@ export class ListComponent {
           this.pagination.paramOffset=offset
           this.resData = res.result['content'];
           this.resDataDup = res.result['content'];
+          this.isShowAdd = res.result['addPermission']?.[0]?.addPermission;
 
           this.scrollStatus = false;
           // document.getElementById('dataTable').scrollTo(0, 0);
@@ -162,6 +164,11 @@ export class ListComponent {
       });
     }
 
+    let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+      this.loadData({});
+      dataLoader.unsubscribe();
+    });
+
     // this.router.navigate(['', 'my-form']);
   }
 
@@ -170,22 +177,30 @@ export class ListComponent {
 
   }
 
+  // modalRef: BsModalRef ;
+
   viewClick(user: any): void {
 
-      if (this.timePeriod === 'evaluation' ) {
+      if (this.timePeriod === 'evaluation' && user.edit_permission ) {
         const initialState = {
           userData: user,
           title: 'Employee Evaluation',
           currentStatus:'employee',
         };
-        this.modalService.show(EvaluationComponent, {
+
+        this.modalRef = this.modalService.show(EvaluationComponent, {
           initialState:initialState,
           backdrop: 'static',
           keyboard: false,
           class: 'modal-dialog modal-dialog-centered modal-xl'
         });
+
+        let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+          this.loadData({});
+          dataLoader.unsubscribe();
+        });
       }
-      else if(this.timePeriod === 'initiation'){
+      else if(this.timePeriod === 'initiation' && user.edit_permission){
         const initialState = {
           kpiUserId: user.user_id,
           status: user.status,
@@ -194,11 +209,16 @@ export class ListComponent {
           year: user.year,
           kpiId: user.id,
         };
-        this.modalService.show(KpiFormComponent, {
+        this.modalRef = this.modalService.show(KpiFormComponent, {
           backdrop: 'static',
           keyboard: false,
           class: 'modal-dialog modal-dialog-centered modal-xl',
           initialState: initialState
+        });
+
+        let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+          this.loadData({});
+          dataLoader.unsubscribe();
         });
       }
     }

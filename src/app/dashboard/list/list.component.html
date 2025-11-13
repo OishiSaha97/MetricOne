@@ -17,7 +17,7 @@
       <h5 style="color:#AD94FF;">{{ label }}</h5>
     </div>
     <div class="actions">
-      <button  (click)="onClick()" [disabled]="showEvaluation == true">+ Add New</button>
+      <button  (click)="onClick()" *ngIf="isShowAdd">+ Add New</button>
       <div class="search-wrapper"  (keydown.enter)="search()" >
         <input type="text" placeholder="Search Here" class="search-input" >
         <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
