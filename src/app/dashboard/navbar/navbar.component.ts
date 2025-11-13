@@ -38,11 +38,15 @@ export class NavbarComponent {
   ];
 
   permissionList:any='';
+  isHr: boolean = false;
+  role: any;
     constructor(private router: Router,private kpi: CommonServiceService){}
 
     ngOnInit() {
       this.userId = localStorage.getItem('username');
       this.userName = localStorage.getItem('fullName');
+
+
       this.getPermission();
     }
 
@@ -62,8 +66,6 @@ export class NavbarComponent {
     localStorage.clear();
 
     sessionStorage.clear();
-
-    // this.authService.clearUser();
 
     this.router.navigate([''], { replaceUrl: true });
 
@@ -85,13 +87,19 @@ export class NavbarComponent {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
           }
-          // if(data.allPermission && data.teamKpi) {
-          //   localStorage.setItem('role', "hr");
-          // }else if(data.teamKpi){
-          //   localStorage.setItem('role', "manager");
-          // }else {
-          //   localStorage.setItem('role', "employee");
-          // }
+          if(data.allPermission && data.teamKpi) {
+            localStorage.setItem('role', "hr");
+            this.role = "hr";
+            this.isHr = true;
+          }else if(data.teamKpi){
+            localStorage.setItem('role', "manager");
+            this.role = "manager";
+            this.isHr = false;
+          }else {
+            localStorage.setItem('role', "employee");
+            this.role = "employee";
+            this.isHr = false;
+          }
           this.checkEndDate();
 
         },
@@ -104,6 +112,8 @@ export class NavbarComponent {
 
   initialtionDate: string | Date | undefined = undefined;
   resData: any;
+
+
   checkEndDate() {
     this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
       .subscribe(res => {
@@ -127,6 +137,8 @@ export class NavbarComponent {
 
       });
   }
+
+
   formatDateForInput(dateString: string): string {
     if (!dateString) return '';
 
