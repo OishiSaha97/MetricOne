@@ -50,7 +50,7 @@ export class ListComponent {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.timePeriod = localStorage.getItem('timePeriod');
-    if(this.timePeriod==''){
+    if(this.timePeriod=='initiation'){
       this.isShowAdd=true;
     }
     this.loadData('');
