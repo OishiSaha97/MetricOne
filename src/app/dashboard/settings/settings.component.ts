@@ -164,8 +164,11 @@ export class SettingsComponent {
   }
 
   getSelectedEndDate($event: any) {
+    console.log("this.tab" , this.tab)
     if(this.tab === 'evaluation'){
       this.selectedDateEva = $event;
+
+      console.log("this.selectedDateEva :", this.selectedDateEva);
     }
     else{
       this.selectedDate = $event;

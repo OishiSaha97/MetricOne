@@ -62,6 +62,9 @@ export class CommonServiceService {
   getLogData(obj:any): Observable<any>{
     return this.http.post(`${this.ApiEndpoint}/hierarchy/config/data`, obj);
   }
+  getNotification(obj:any): Observable<any>{
+    return this.http.post(`${this.ApiEndpoint}/dashboard/notification`, obj);
+  }
   saveKPIAttribute(obj: any) {
     return this.http.post(`${this.ApiEndpoint}/attribute/save`, obj);
   }

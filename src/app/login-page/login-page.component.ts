@@ -39,11 +39,12 @@ export class LoginPageComponent {
       formData.append('password', this.password);
       this.client.post(`${environment.baseUrl}/authenticate`, formData).subscribe((result:any)=>{
         if(result){
+          // this.getPermission();
           localStorage.setItem('username', this.username);
           localStorage.setItem('fullName', result['Name']);
           localStorage.setItem('token', result['token']);
           //this.router.navigate(['/dashboard']);
-          this.getPermission();
+
           this.router.navigate(['/dashboard/home']);
           // this.dialogRef.close(true)
         }
@@ -62,26 +63,28 @@ export class LoginPageComponent {
   togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
-  getPermission() {
-    this.kpi.getLogData({param: 'permission-list',objectId:this.username})
-      .subscribe(res => {
-          const data = res?.['permission-list']?.[0];
-          if (data) {
-            this.allPermission = data.allPermission;
-            this.teamKpi = data.teamKpi;
-          }
-          if(data.allPermission && data.teamKpi) {
-            localStorage.setItem('role', "hr");
-          }else if(data.teamKpi){
-            localStorage.setItem('role', "manager");
-          }else {
-            localStorage.setItem('role', "employee");
-          }
-        },
-        (error) => {
-          console.error("Error fetching permission list", error);
-          // optionally show a toast or alert
-        }
-      );
-  }
+  // getPermission() {
+  //   this.kpi.getLogData({param: 'permission-list',objectId:this.username})
+  //     .subscribe(res => {
+  //         const data = res?.['permission-list']?.[0];
+  //         if (data) {
+  //           this.allPermission = data.allPermission;
+  //           this.teamKpi = data.teamKpi;
+  //         }
+  //         if(data.allPermission && data.teamKpi) {
+  //           localStorage.setItem('role', "hr");
+  //         }else if(data.teamKpi){
+  //           localStorage.setItem('role', "manager");
+  //         }else {
+  //           localStorage.setItem('role', "employee");
+  //         }
+  //       },
+  //       (error) => {
+  //         console.error("Error fetching permission list", error);
+  //         // optionally show a toast or alert
+  //       }
+  //     );
+  // }
+
+
 }
