@@ -36,13 +36,9 @@
       <h5 style="color:#AD94FF;">{{ label }}</h5>
     </div>
     <div class="actions">
-      <img src="../../../assets/download.svg" style="background-color:#6449BE ; padding: 10px; border-radius: 5px"/>
-      <img src="../../../assets/upload.svg" style="background-color:#6449BE ; padding: 10px; border-radius: 5px"/>
-
-<!--      <button style="background-color: #6449BE;">+ Add New</button>-->
-      <div class="search-wrapper">
-        <input type="text" placeholder="Search Here" class="search-input" />
-        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+      <div class="search-wrapper" (keyup.enter)="search()">
+        <input type="text" placeholder="Search Here" [(ngModel)]="searchParam" class="search-input" />
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon"  (click)="search()" />
       </div>
     </div>
   </div>
@@ -60,6 +56,7 @@
           <th>Employee Id</th>
           <th>Status</th>
           <th>Designation</th>
+          <th>Hierarchy</th>
           <th>Remarks</th>
           <th>Action</th>
         </tr>
@@ -80,7 +77,8 @@
           <td title="{{ user.team }}">{{ user.team }}</td>
                     <td title="{{ user.employee_id }}">{{ user.employee_id }}</td>
           <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
-          <td title="{{ user.SBU }}">{{ user.sbu }}</td>
+          <td>{{ user.desg }}</td>
+          <td title="{{ user.hieCount }}" style="cursor:pointer"><ul style="color: #fff">{{ user.hieCount }}</ul></td>
           <td title="{{ user.remarks }}">
             <span class="remarks"> ({{ user.remarks }})</span>
             {{" "}} <img src="../../../assets/comment.svg" />

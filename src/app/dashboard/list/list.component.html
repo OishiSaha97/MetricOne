@@ -19,8 +19,8 @@
     <div class="actions">
       <button  (click)="onClick()" *ngIf="isShowAdd">+ Add New</button>
       <div class="search-wrapper"  (keydown.enter)="search()" >
-        <input type="text" placeholder="Search Here" class="search-input" >
-        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+        <input type="text" placeholder="Search Here" [(ngModel)]="searchParam" class="search-input" >
+        <img src="../../../assets/magnifine-bar.svg" (click)="search()" class="search-icon" />
       </div>
     </div>
   </div>
@@ -38,6 +38,7 @@
 <!--          <th>Manager</th>-->
           <th>Status</th>
           <th>SBU</th>
+          <th>Hierarchy</th>
           <th>Remarks</th>
           <th>Action</th>
         </tr>
@@ -51,9 +52,9 @@
 <!--          <td title="{{ user.manager }}">{{ user.manager }}</td>-->
           <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
           <td title="{{ user.SBU }}">{{ user.sbu }}</td>
-          <td class="remarks-cell" title="{{ user.Remarks }}">
-           <span class="remarks"> ({{ user.Remarks }})</span>
-            {{" "}} <img src="../../../assets/comment.svg" />
+          <td title="{{ user.hieCount }}" style="cursor:pointer"><ul style="color: #fff">{{ user.hieCount }}</ul></td>
+          <td class="remarks-cell" title="{{ user.remarks }}">
+           <span class="remarks"> ({{ user.remarks }})</span><img src="../../../assets/comment.svg" />
           </td>
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"
