@@ -70,7 +70,7 @@
     <ul class="list-group">
       <div class="work-obj" *ngIf="objectives[7] && (currentStatus === 'manager' || currentStatus === 'approver' || currentStatus === 'hr')">
         <div class="d-flex justify-content-between">
-          <div class="fw-semibold p-3" style="margin-top: 6px;">OVERALL RATING</div>
+          <div class="fw-semibold p-3" style="margin-top: 6px;">{{ objectives[7].name }}</div>
           <div class="dropdown"
                [class.disabled-dropdown]="userData.status === 'Published' || userData.status === 'Closed'">
             <button class="btn btn-dark dropdown-toggle m-3"

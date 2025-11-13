@@ -181,6 +181,9 @@ export class ListComponent {
 
   viewClick(user: any): void {
 
+    console.log("user.edit_permission : ", user.edit_permission);
+    console.log("this.timePeriod : ", this.timePeriod);
+
       if (this.timePeriod === 'evaluation' && user.edit_permission ) {
         const initialState = {
           userData: user,
@@ -200,7 +203,8 @@ export class ListComponent {
           dataLoader.unsubscribe();
         });
       }
-      else if(this.timePeriod === 'initiation' && user.edit_permission){
+      else if(this.timePeriod === 'initiation' && user.edit_permission ){
+      //
         const initialState = {
           kpiUserId: user.user_id,
           status: user.status,
