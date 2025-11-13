@@ -16,12 +16,32 @@
       <div class="work-obj">
         <div class="d-flex justify-content-between align-items-center">
           <div class="fw-semibold p-3">Work Objective</div>
-          <div class="d-flex justify-content-between align-items-center gap-4">
-            <div class="fw-semibold p-3" style="margin-right: -38px;" >WEIGHTAGE</div>
-            <div class="fw-semibold p-3">Objective Name</div>
-<!--            *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
-            <div class="fw-semibold p-3" style="margin-right: 40px;" >Rating</div>
+<!--          <div class="d-flex justify-content-between align-items-center gap-4">-->
+<!--            <div class="fw-semibold p-3" style="margin-right: -38px;" >WEIGHTAGE</div>-->
+<!--            <div class="fw-semibold p-3">Objective Name</div>-->
+<!--&lt;!&ndash;            *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "&ndash;&gt;-->
+<!--            <div class="fw-semibold p-3" style="margin-right: 40px;"-->
+<!--                 *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' " >Rating</div>-->
 
+<!--          </div>-->
+
+
+
+          <div
+            class="d-flex justify-content-between align-items-center gap-4 flex-grow-1"
+            [ngClass]="{
+        'justify-content-end': !['manager','hr','approver'].includes(currentStatus)
+      }"
+          >
+            <div class="fw-semibold p-3" style="margin-right: -38px;">WEIGHTAGE</div>
+            <div class="fw-semibold p-3">Objective Name</div>
+            <div
+              class="fw-semibold p-3"
+              style="margin-right: 40px;"
+              *ngIf="['manager','hr','approver'].includes(currentStatus)"
+            >
+              Rating
+            </div>
           </div>
         </div>
 
@@ -75,7 +95,8 @@
                   </ul>
                 </div>
                 <div class="dropdown"
-                     [class.disabled-dropdown]="userData.status === 'Published' || userData.status === 'Closed'">
+                     [class.disabled-dropdown]="userData.status === 'Published' || userData.status === 'Closed'"
+                     *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' ">
 <!--                  *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
                   <button class="btn btn-dark btn-sm dropdown-toggle"
                           type="button"
@@ -92,7 +113,7 @@
                       <a class="dropdown-item text-light"
                          [class.disabled-item]="userData.status === 'Published' || userData.status === 'Closed'"
                          (click)="onRating(type, obj, i)">
-                        {{ type }}
+                        {{ type.kpi_category_name }}
                       </a>
                     </li>
                   </ul>
