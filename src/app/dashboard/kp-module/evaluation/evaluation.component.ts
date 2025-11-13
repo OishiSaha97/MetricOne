@@ -167,7 +167,7 @@ export class EvaluationComponent {
     let currentStep;
     if(item == 'objective'){
       this.objectiveSet = data;
-      if(this.objectiveSet.length > 0){
+      if(this.objectiveSet?.objectives?.length > 0){
         currentStep = 2;
         this.changeTable('self',currentStep)
       }
@@ -198,7 +198,7 @@ export class EvaluationComponent {
     console.log(this.objectiveSet);
     console.log(this.selfAssessment);
 
-    let processedObjectives = this.objectiveSet.map((obj: any ) => {
+    let processedObjectives = this.objectiveSet?.objectives.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
         return text
           ? text
@@ -247,14 +247,9 @@ export class EvaluationComponent {
   }
 
   submitManager() {
-    let processedObjectives = this.objectiveSet.map((obj: any ) => {
+    let processedObjectives = this.objectiveSet?.objectives.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
         return text;
-          // ? text
-          //   .replace(/\r/g, '\\r')
-          //   .replace(/\n/g, '\\n')
-          //   .replace(/\t/g, '\\t')
-          // : '';
       };
       let item: any = {
         title: obj.title,
