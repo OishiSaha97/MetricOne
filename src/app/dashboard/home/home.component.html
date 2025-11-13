@@ -80,15 +80,16 @@
   </div>
   <div class="col-md-4" style="background-color:#1C1D21; height:100%">
     <div class="kpi-box mb-1">
-      <div class="kpi-header d-flex justify-content-between align-items-center mb-1" (click)="openSetting();">
+      <div class="kpi-header d-flex justify-content-between align-items-center mb-1"
+           [class.disabled]="role !== 'hr'"
+           [class.pointer]="role === 'hr'"
+           (click)="(role === 'hr') && openSetting();">
         <div class="d-flex justify-content-center align-items-center">
           <h6 class="mb-0 text-center" >{{ settingTitle }}</h6>
         </div>
         <div>
           <span class="setting-icon"></span>
         </div>
-
-
       </div>
 
       <div class="row align-items-center mb-1">

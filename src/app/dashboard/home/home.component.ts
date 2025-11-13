@@ -73,7 +73,7 @@ export class HomeComponent {
             this.role = "employee";
           }
 
-          console.log(this.role)
+          console.log("role",this.role)
         },
         (error) => {
           console.error("Error fetching permission list", error);

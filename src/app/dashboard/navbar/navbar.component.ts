@@ -102,63 +102,147 @@ export class NavbarComponent {
       );
   }
 
-  initialtionDate: string | Date | undefined = undefined;
+  // initialtionDate: string | Date | undefined = undefined;
+  // resData: any;
+  // checkEndDate() {
+  //   this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
+  //     .subscribe(res => {
+  //       this.resData = res?.['KPIendDate'][0] || [];
+  //
+  //       this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
+  //       const today = new Date();
+  //       today.setHours(0, 0, 0, 0);
+  //
+  //       const [year, month, day] = this.initialtionDate.split('-').map(Number);
+  //       const kpiDate = new Date(year, month - 1, day);
+  //       if(this.initialtionDate && (kpiDate >= today)){
+  //         localStorage.setItem('timePeriod', "initiation");
+  //       }
+  //       else if (kpiDate < today) {
+  //         this.checkEvaEndDate();
+  //       }
+  //       else if(this.initialtionDate === ''){
+  //         localStorage.setItem('timePeriod', "new year");
+  //       }
+  //
+  //     });
+  // }
+  // formatDateForInput(dateString: string): string {
+  //   if (!dateString) return '';
+  //
+  //   const [year, month, day] = dateString.split('-').map(Number);
+  //   const date = new Date(year, month - 1, day);
+  //
+  //   const formattedYear = date.getFullYear();
+  //   const formattedMonth = ('0' + (date.getMonth() + 1)).slice(-2);
+  //   const formattedDay = ('0' + date.getDate()).slice(-2);
+  //
+  //   return `${formattedYear}-${formattedMonth}-${formattedDay}`;
+  // }
+  //
+  // checkEvaEndDate() {
+  //   this.kpi.getLogData({ param: 'EvaEndDate', userIdKPI: this.userId })
+  //     .subscribe(res => {
+  //       this.resData = res?.['EvaEndDate'][0] || [];
+  //
+  //       this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
+  //       const today = new Date();
+  //       today.setHours(0, 0, 0, 0);
+  //
+  //       const [year, month, day] = this.initialtionDate.split('-').map(Number);
+  //       const kpiDate = new Date(year, month - 1, day);
+  //       if(this.initialtionDate && (kpiDate > today)){
+  //         localStorage.setItem('timePeriod', "evaluation");
+  //       }
+  //       else if(this.initialtionDate === ''){
+  //         localStorage.setItem('timePeriod', "new year");
+  //       }
+  //
+  //     });
+  // }
+  initialtionDate?: string;
   resData: any;
-  checkEndDate() {
+
+  checkEndDate(): void {
     this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
-      .subscribe(res => {
-        this.resData = res?.['KPIendDate'][0] || [];
+      .subscribe({
+        next: (res) => {
+          this.resData = res?.['KPIendDate']?.[0] || {};
+          this.initialtionDate = this.formatDate(this.resData.kpi_last_date);
 
-        this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+          if (!this.initialtionDate) {
+            this.setTimePeriod('new year');
+            return;
+          }
 
-        const [year, month, day] = this.initialtionDate.split('-').map(Number);
-        const kpiDate = new Date(year, month - 1, day);
-        if(this.initialtionDate && (kpiDate >= today)){
-          localStorage.setItem('timePeriod', "initiation");
-        }
-        else if (kpiDate < today) {
-          this.checkEvaEndDate();
-        }
-        else if(this.initialtionDate === ''){
-          localStorage.setItem('timePeriod', "new year");
-        }
+          const today = this.getToday();
+          const kpiDate = this.parseDate(this.initialtionDate);
 
+          if (kpiDate >= today) {
+            this.setTimePeriod('initiation');
+          } else {
+            this.checkEvaluationEndDate();
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching KPI end date:', err);
+        }
       });
   }
-  formatDateForInput(dateString: string): string {
+
+  checkEvaluationEndDate(): void {
+    this.kpi.getLogData({ param: 'EvaEndDate', userIdKPI: this.userId })
+      .subscribe({
+        next: (res) => {
+          this.resData = res?.['EvaEndDate']?.[0] || {};
+          this.initialtionDate = this.formatDate(this.resData.kpi_last_date);
+
+          if (!this.initialtionDate) {
+            this.setTimePeriod('new year');
+            return;
+          }
+
+          const today = this.getToday();
+          const kpiDate = this.parseDate(this.initialtionDate);
+
+          if (kpiDate > today) {
+            this.setTimePeriod('evaluation');
+          } else {
+            this.setTimePeriod('new year');
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching evaluation end date:', err);
+        }
+      });
+  }
+
+  formatDate(dateString?: string): string {
     if (!dateString) return '';
 
     const [year, month, day] = dateString.split('-').map(Number);
     const date = new Date(year, month - 1, day);
 
     const formattedYear = date.getFullYear();
-    const formattedMonth = ('0' + (date.getMonth() + 1)).slice(-2);
-    const formattedDay = ('0' + date.getDate()).slice(-2);
+    const formattedMonth = String(date.getMonth() + 1).padStart(2, '0');
+    const formattedDay = String(date.getDate()).padStart(2, '0');
 
     return `${formattedYear}-${formattedMonth}-${formattedDay}`;
   }
 
-  checkEvaEndDate() {
-    this.kpi.getLogData({ param: 'EvaEndDate', userIdKPI: this.userId })
-      .subscribe(res => {
-        this.resData = res?.['EvaEndDate'][0] || [];
+  private parseDate(dateStr: string): Date {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
 
-        this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+  private getToday(): Date {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today;
+  }
 
-        const [year, month, day] = this.initialtionDate.split('-').map(Number);
-        const kpiDate = new Date(year, month - 1, day);
-        if(this.initialtionDate && (kpiDate > today)){
-          localStorage.setItem('timePeriod', "evaluation");
-        }
-        else if(this.initialtionDate === ''){
-          localStorage.setItem('timePeriod', "new year");
-        }
-
-      });
+  private setTimePeriod(period: 'initiation' | 'evaluation' | 'new year'): void {
+    localStorage.setItem('timePeriod', period);
   }
 
 }

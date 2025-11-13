@@ -43,7 +43,8 @@ export class ObjectiveSetComponent {
   @Input() userData: any;
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
-  ratings: string[] = ['Exceeded', 'Achieved All Aspect', 'Achieved All Essentials', 'Did Not Achieve'];
+  // ratings: string[] = ['Exceeded', 'Achieved All Aspect', 'Achieved All Essentials', 'Did Not Achieve'];
+  ratings: any = [];
   data: any = [];
   check_kpi: any = [];
   changedHistory: any = [];
@@ -64,6 +65,7 @@ export class ObjectiveSetComponent {
     for (let i = 1; i <= 3; i++) {
       this.addObjective();
     }
+    this.getRating();
     this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
@@ -154,7 +156,7 @@ export class ObjectiveSetComponent {
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
   }
   onRating(type: any, obj: Objective,i:number): void {
-    obj.rating = type;
+    obj.rating = type.kpi_category_name;
     this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected rating:`, obj.rating);
   }
@@ -360,4 +362,14 @@ export class ObjectiveSetComponent {
   }
 
 
+  getRating() {
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'get_ratings',extraParam:'KPI Objective'})
+      .subscribe(res => {
+          this.ratings = Array.isArray(res?.['get_ratings']) ? res?.['get_ratings'] : res?.['get_ratings']
+        },
+        (error) => {
+          console.error("Error fetching ratings", error);
+        }
+      );
+  }
 }
