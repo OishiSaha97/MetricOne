@@ -28,6 +28,7 @@ interface Objective {
   styleUrls: ['./objective-set.component.css']
 })
 export class ObjectiveSetComponent {
+  objOverallRating: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -371,5 +372,11 @@ export class ObjectiveSetComponent {
           console.error("Error fetching ratings", error);
         }
       );
+  }
+
+  onOverallRating(type: any) {
+    this.objOverallRating= type.kpi_category_name;
+
+
   }
 }

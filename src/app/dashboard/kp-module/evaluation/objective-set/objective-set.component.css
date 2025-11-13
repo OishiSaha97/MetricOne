@@ -344,10 +344,11 @@
 
 .percentage-icon {
   position: absolute;
-  right: 30px;
   top: 50%;
+  right:33px;
   transform: translateY(-50%);
   color: #ffffffcc;
+  font-size: 0.9rem;
   pointer-events: none;
 }
 .disabled-dropdown button {
@@ -359,4 +360,28 @@
 .disabled-item {
   pointer-events: none;
   opacity: 0.5;
+}
+.justify-content-end .obj-input-weightage {
+  width: 70px;
+  height: 30px;
+  background-color: #2A2B2F;
+  padding-right: 25px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  border: 1px solid #7A7B8299;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  text-align: center;
+  margin-left: 0;
+}
+.justify-content-end .input-with-percent {
+  position: relative;
+  display: inline-block;
+  margin-left: 221px;
+}
+.justify-content-end .percentage-icon {
+  right: 8px;
 }
