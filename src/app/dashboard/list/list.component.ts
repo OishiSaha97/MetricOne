@@ -39,7 +39,6 @@ export class ListComponent {
   check_kpi:any =[];
   year:any = '2025';
   isShowAdd: boolean = false;
-  showEvaluation: boolean = false;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -104,6 +103,7 @@ export class ListComponent {
           this.pagination.paramOffset=offset
           this.resData = res.result['content'];
           this.resDataDup = res.result['content'];
+          this.isShowAdd = res.result['addPermission']?.[0]?.addPermission;
 
           this.scrollStatus = false;
           // document.getElementById('dataTable').scrollTo(0, 0);
