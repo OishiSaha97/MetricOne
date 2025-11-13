@@ -295,3 +295,12 @@ tbody td:nth-child(9) { width: 50px; text-align: center; }        /* Action */
     max-width: 50vh;
   }
 }
+
+
+.dropdown-menu {
+  position: absolute !important;
+  z-index: 9999 !important;
+  background-color: black !important;
+  transform: translate3d(0, 30px, 0) !important;
+  min-width: 200px;
+}

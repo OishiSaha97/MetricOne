@@ -78,7 +78,34 @@
                     <td title="{{ user.employee_id }}">{{ user.employee_id }}</td>
           <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
           <td>{{ user.desg }}</td>
-          <td title="{{ user.hieCount }}" style="cursor:pointer"><ul style="color: #fff">{{ user.hieCount }}</ul></td>
+          <td title="{{ user.hieCount }}" style="cursor:pointer">
+<!--            <div >-->
+                <span class="text-white"
+                      role="button" class="dropdown"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false" (click)="openHierarchy(user)" >
+              <ul  style="color: #fff"> {{ user.hieCount }}</ul>
+            </span>
+              <div class="dropdown-menu p-4"
+                   aria-labelledby="dropdownMenu2"
+                   style="word-wrap: break-word; overflow-wrap: break-word;overflow-x: auto;background-color: #0d6efd">
+                <div style="font-size: 16px;color:white;font-weight: bold;position:sticky; height: 48px;">
+                  Hierarchy
+                </div>
+                <div class="w-100" style="">
+                  <div *ngFor="let user of fullHierarchy; let i = index;">
+                    <div style="font-size:14px; color:white;">
+                      {{ user.user_name }}
+                    </div>
+                    <div class="dropdown-divider"></div>
+                  </div>
+                </div>
+              </div>
+
+<!--            </div>-->
+
+
+          </td>
           <td title="{{ user.remarks }}">
             <span class="remarks"> ({{ user.remarks }})</span>
             {{" "}} <img src="../../../assets/comment.svg" />

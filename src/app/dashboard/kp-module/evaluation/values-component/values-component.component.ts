@@ -9,6 +9,7 @@ interface Objective {
   keyObjective: string;
   isOpen: boolean;
   isEditingObjective: boolean;
+  overAllRating: string;
 }
 @Component({
   selector: 'app-values-component',
@@ -17,14 +18,14 @@ interface Objective {
 })
 export class ValuesComponentComponent {
   objectives: Objective[] = [
-    { id: 1, name: 'DEPENDABILITY', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
-    { id: 2, name: 'JOB KNOWLEDGE AND SKILLS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
-    { id: 3, name: 'INITIATIVE AND RESOURCEFULNESS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
-    { id: 4, name: 'JUDGEMENT', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
-    { id: 5, name: 'ADAPTABILITY', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
-    { id: 6, name: 'DECISIVENESS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
-    { id: 7, name: 'INTERPERSONAL RELATIONSHIPS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
-    { id: 8, name: 'OVERALL RATING', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false }];
+    { id: 1, name: 'DEPENDABILITY', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false, overAllRating: '' },
+    { id: 2, name: 'JOB KNOWLEDGE AND SKILLS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false, overAllRating: '' },
+    { id: 3, name: 'INITIATIVE AND RESOURCEFULNESS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false, overAllRating: '' },
+    { id: 4, name: 'JUDGEMENT', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false , overAllRating: ''},
+    { id: 5, name: 'ADAPTABILITY', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false, overAllRating: '' },
+    { id: 6, name: 'DECISIVENESS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false, overAllRating: '' },
+    { id: 7, name: 'INTERPERSONAL RELATIONSHIPS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false, overAllRating: '' },
+    { id: 8, name: 'OVERALL RATING', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false, overAllRating: '' }];
 
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
@@ -105,6 +106,9 @@ export class ValuesComponentComponent {
 
   onObjectiveChange(type: any, obj: Objective): void {
     obj.selectedRating = type.kpi_category_name;
+  }
+  onOverAllRating(type: any, obj: Objective): void {
+    obj.overAllRating = type.kpi_category_name;
   }
 
   onNext(): void {
