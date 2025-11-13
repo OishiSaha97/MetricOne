@@ -38,7 +38,7 @@ export class ListComponent {
   scrollStatus: any = true;
   check_kpi:any =[];
   year:any = '2025';
-  isInitCrossed: boolean = false;
+  isShowAdd: boolean = false;
   showEvaluation: boolean = false;
 
   constructor(public modalRef: BsModalRef,
@@ -50,6 +50,9 @@ export class ListComponent {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.timePeriod = localStorage.getItem('timePeriod');
+    if(this.timePeriod==''){
+      this.isShowAdd=true;
+    }
     this.loadData('');
     //this.checkInitiationDate();
     // this.kpi.getLogData({param: 'check_kpi_my',objectId:this.year,extraParam:this.userId})
