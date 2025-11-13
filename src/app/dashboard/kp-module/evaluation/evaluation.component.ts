@@ -247,11 +247,6 @@ export class EvaluationComponent {
   }
 
   submitManager() {
-    console.log(this.objectiveSet);
-    console.log(this.selfAssessment);
-    console.log(this.valuesData);
-    console.log(this.managerData);
-
     let processedObjectives = this.objectiveSet.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
         return text;

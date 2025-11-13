@@ -48,7 +48,7 @@ export class KpiFormComponent implements OnInit {
   mode:any
   team:any;
   kpiUserId:any;
-  kpiId:any;
+  kpiId:any='';
   saveEmitter = new Subject<any>();
 
   ngOnInit(): void {
@@ -247,7 +247,7 @@ export class KpiFormComponent implements OnInit {
       param: param
     };
 
-    if (this.mode === 'approver') {
+    if (this.kpiId != '') {
       obj.objectId = this.kpiId;
     }else{
       obj.objectId = '';
