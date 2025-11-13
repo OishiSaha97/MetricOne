@@ -49,6 +49,9 @@ export class SelfAssessmentComponent {
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
   overAllRating: any;
+  userName: any;
+  userId: any;
+  role: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -58,6 +61,9 @@ export class SelfAssessmentComponent {
 
 
   ngOnInit(): void {
+    this.userName = localStorage.getItem('fullName');
+    this.userId = localStorage.getItem('username');
+    this.role = localStorage.getItem('role');
     this.kpi.getLogData({param: 'evalution-self-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
       .subscribe(res => {
           // this.data = res?.['kpi-list'];
@@ -110,7 +116,37 @@ export class SelfAssessmentComponent {
 
 
   submitData() {
+    if (!this.validateObjectives()) {
+      return;
+    }
     this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives)
   }
+
+  validateObjectives(): boolean {
+    for (let i = 0; i < this.objectives.length; i++) {
+      const obj = this.objectives[i];
+
+      // if(this.currentStatus != 'employee' && (this.role == 'hr' || this.role == 'manager')){
+        if (
+          !obj.selfText?.trim()
+        ) {
+          alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
+          return false;
+        }
+      // }else{
+        if ((this.currentStatus == 'employee') &&
+          !obj.selfText?.trim()
+        ) {
+          console.log(obj)
+          alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
+          return false;
+        }
+      }
+
+    // }
+
+    return true;
+  }
+
 }

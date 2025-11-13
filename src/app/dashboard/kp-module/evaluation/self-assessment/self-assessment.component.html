@@ -49,7 +49,7 @@
               [(ngModel)]="obj.selfText"
               placeholder="Type Here"
               [readonly]="currentStatus === 'manager' || currentStatus === 'approver'"
-              [disabled]="userData.status === 'Published' || userData.status === 'Closed'"
+              [disabled]=" userData.status === 'Closed'"
             />
 
 

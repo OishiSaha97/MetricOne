@@ -107,16 +107,11 @@ export class EvaluationComponent {
     let currentStep;
     if (this.currentStep == 1) {
       this.objectiveComp.submitData();
-      currentStep = 2;
-      this.changeTable('self',currentStep)
+      // currentStep = 2;
+      // this.changeTable('self',currentStep)
     }else if(this.currentStep == 2) {
       this.selfComp.submitData();
-      if(this.currentStatus == 'employee'){
-        this.submitEmployee();
-      }else{
-        currentStep = 3;
-        this.changeTable('values',currentStep)
-      }
+
     }else if(this.currentStep == 3){
       this.valuesComp.submitData();
       currentStep = 4;
@@ -167,10 +162,22 @@ export class EvaluationComponent {
   }
 
   onChildDataSubmitted(data: any,item:any) {
+    let currentStep;
     if(item == 'objective'){
       this.objectiveSet = data;
+      if(this.objectiveSet.length > 0){
+        currentStep = 2;
+        this.changeTable('self',currentStep)
+      }
     }else if(item == 'self'){
       this.selfAssessment = data;
+      if(this.selfAssessment.length > 0){
+        if(this.currentStatus == 'employee'){
+          this.submitEmployee();
+        }
+          currentStep = 3;
+          this.changeTable('values',currentStep)
+      }
     }else if(item == 'values'){
       this.valuesData = data;
     }else if(item == 'manager'){

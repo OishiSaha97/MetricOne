@@ -28,6 +28,7 @@ interface Objective {
   styleUrls: ['./objective-set.component.css']
 })
 export class ObjectiveSetComponent {
+   role: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -58,6 +59,15 @@ export class ObjectiveSetComponent {
   team:any;
   kpiUserId:any;
   kpiId:any;
+  isOpen: boolean[] = [];
+  showHistory = false;
+  changedPerformanceHistory: any = [];
+  showObjectiveHistoryIndex: number | null = null;
+  showTargetHistory = false;
+  changedAchievedHistory: any =[];
+  showAchievedHistory:boolean =  false;
+
+
 
   ngOnInit(): void {
 
@@ -69,6 +79,7 @@ export class ObjectiveSetComponent {
     this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
+    this.role = localStorage.getItem('role');
 
       this.kpi.getLogData({userIdKPI:this.userData.employee_id,param: 'evalution-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
         .subscribe(res => {
@@ -97,35 +108,15 @@ export class ObjectiveSetComponent {
           }
 
    );
-      // this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
-      //   .subscribe(res => {
-      //
-      //       this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
-      //       console.log(this.changedHistory);
-      //     },
-      //     (error) => {
-      //       console.error("Error fetching permission list", error);
-      //     }
-      //   );
-    // }
+
 
   }
 
-  // addObjectivesFromData(): void {
-  //   this.data.forEach((item:any, index:any) => {
-  //     const newObjective: Objective = {
-  //       id: this.objectives.length + 1,
-  //       title: `Work Objective ${this.objectives.length + 1}`,
-  //       selectedType: item.category_name,
-  //       objectiveText: item.objective,
-  //       targetText: item.target,
-  //       isOpen: false
-  //     };
-  //     this.objectives.push(newObjective);
-  //   });
-  // }
 
   submitData() {
+    if (!this.validateObjectives()) {
+      return;
+    }
     console.log(this.objectives);
     this.dataSubmitted.emit(this.objectives);
   }
@@ -161,34 +152,41 @@ export class ObjectiveSetComponent {
     console.log(`Objective ${obj.id} selected rating:`, obj.rating);
   }
 
-  // removeObjective(index: number): void {
-  //   this.objectives.splice(index, 1);
-  //   // reassign ids/titles if you want sequential ids
-  //   this.objectives.forEach((o, i) => {
-  //     o.id = i + 1;
-  //     o.title = `Work Objective ${i + 1}`;
-  //   });
-  // }
-  isOpen: boolean[] = [];
-  showHistory = false;
-  changedPerformanceHistory: any = [];
-  showObjectiveHistoryIndex: number | null = null;
-  showTargetHistory = false;
-  changedAchievedHistory: any =[];
-  showAchievedHistory:boolean =  false;
 
   validateObjectives(): boolean {
     for (let i = 0; i < this.objectives.length; i++) {
       const obj = this.objectives[i];
 
-      if (
-        !obj.selectedType?.trim() ||
-        !obj.objectiveText?.trim() ||
-        !obj.targetText?.trim()
-      ) {
-        alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
-        return false;
+      if(this.currentStatus != 'employee' && (this.role == 'hr' || this.role == 'manager')){
+        if (
+          !obj.selectedType?.trim() ||
+          !obj.objectiveText?.trim() ||
+          !obj.targetText?.trim() ||
+          !obj.performanceText?.trim() ||
+          !obj.achievedText?.trim() ||
+          !obj.achievedInt?.trim() ||
+          !obj.weightage?.trim() ||
+          !obj.selectedRating?.trim() ||
+          !obj.overAllRating?.trim()
+        ) {
+          alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
+          return false;
+        }
+      }else{
+        if ((this.currentStatus == 'employee') &&
+          !obj.selectedType?.trim() ||
+          !obj.objectiveText?.trim() ||
+          !obj.targetText?.trim() ||
+          !obj.weightage?.trim() ||
+          !obj.performanceText?.trim() ||
+          !obj.achievedText?.trim()
+        ) {
+          console.log(obj)
+          alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
+          return false;
+        }
       }
+
     }
 
     return true;

@@ -143,6 +143,7 @@ export class ListComponent {
 
 
   onClick() {
+
     this.modalRef =  this.modalService.show(KpiFormComponent, {
       backdrop: 'static',
       keyboard: false,
@@ -166,7 +167,7 @@ export class ListComponent {
 
   viewClick(user: any): void {
 
-      if (this.timePeriod === 'evaluation' ) {
+      if (this.timePeriod === 'evaluation' && user.edit_permission ) {
         const initialState = {
           userData: user,
           title: 'Employee Evaluation',
@@ -185,7 +186,7 @@ export class ListComponent {
           dataLoader.unsubscribe();
         });
       }
-      else if(this.timePeriod === 'initiation'){
+      else if(this.timePeriod === 'initiation' && user.edit_permission){
         const initialState = {
           kpiUserId: user.user_id,
           status: user.status,

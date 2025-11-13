@@ -176,11 +176,11 @@
       </fieldset>
 
       <fieldset *ngIf="currentTable=='manager'">
-        <app-manager-insight [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
+        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='hr'">
-        <app-hr-modal [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'hr')"></app-hr-modal>
+        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'hr')"></app-hr-modal>
       </fieldset>
 
     </div>

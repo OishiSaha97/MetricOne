@@ -214,6 +214,7 @@ export class KpiFormComponent implements OnInit {
         selectedType: obj.selectedType,
         weightage: obj.weightage,
         objectiveText: escapeText(obj.objectiveText),
+        performanceText: escapeText(obj.performanceText),
         targetText: escapeText(obj.targetText)
       };
 
@@ -223,6 +224,9 @@ export class KpiFormComponent implements OnInit {
         }
         if (obj.keyTarget?.trim()) {
           item.keyTarget = escapeText(obj.keyTarget.trim());
+        }
+        if (obj.keyPerformance?.trim()) {
+          item.keyPerformance = escapeText(obj.keyPerformance.trim());
         }
       }
 

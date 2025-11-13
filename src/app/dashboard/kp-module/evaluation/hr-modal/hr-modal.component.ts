@@ -21,14 +21,21 @@ export class HrModalComponent {
 
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
+  @Input() currentStatus: any;
+
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''}];
   mode: any;
   rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
-  // attendanceRating: any;
-  // leaveRating: any;
-  // issueRating: any;
-  // awardRating: any;
+  userName: any;
+  userId: any;
+  role: any;
+
+  ngOnInit(): void {
+    this.userName = localStorage.getItem('fullName');
+    this.userId = localStorage.getItem('username');
+    this.role = localStorage.getItem('role');
+  }
 
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
