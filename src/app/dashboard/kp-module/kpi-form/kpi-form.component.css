@@ -58,9 +58,12 @@
   border: none;
 }
 
-.btn-outline-success {
-  border-color: #22c55e;
-  color: #22c55e;
+.revert-btn {
+  padding: 5px 20px;
+  border: 1px solid #3CA895;
+  background-color: #3CA895;
+  color: white;
+  border-radius: 4px;
 }
 
 /* 📱 Mobile Responsive */

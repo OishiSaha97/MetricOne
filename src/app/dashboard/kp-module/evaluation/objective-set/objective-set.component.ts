@@ -139,8 +139,10 @@ export class ObjectiveSetComponent {
     if (!this.validateObjectives()) {
       return;
     }
-    console.log(this.objectives);
-    this.dataSubmitted.emit(this.objectives);
+    this.dataSubmitted.emit({
+      objectives: this.objectives,
+      objOverallRating: this.objOverallRating
+    });
   }
 
 
@@ -398,6 +400,9 @@ export class ObjectiveSetComponent {
   }
 
 
+  onOverallRating(type: any) {
+    this.objOverallRating  = type.kpi_category_name;
 
 
+  }
 }

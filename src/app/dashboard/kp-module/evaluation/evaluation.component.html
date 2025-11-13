@@ -187,9 +187,9 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-3 col-md-3">
     </div>
-    <div class="col-lg-8 col-md-8">
+    <div class="col-lg-9 col-md-9">
       <div class="container mt-3">
         <div class="d-flex justify-content-between">
           <div>
@@ -198,7 +198,7 @@
           <div>
             <div class="d-flex justify-content-end gap-2 p-3">
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
-              <button class="btn btn-outline-success" (click)="openModal(actionModal)"
+              <button class="revert-btn" (click)="openModal(actionModal)"
                       *ngIf="role == 'manager' || role == 'hr'">Revert</button>
               <button class=" submit-btn" (click)="onNext()">
                 {{ currentStep == maxStep ? 'Submit' : 'Next' }}
