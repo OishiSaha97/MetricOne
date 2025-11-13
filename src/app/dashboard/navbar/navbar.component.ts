@@ -154,6 +154,9 @@ export class NavbarComponent {
         if(this.initialtionDate && (kpiDate > today)){
           localStorage.setItem('timePeriod', "evaluation");
         }
+        else if(this.initialtionDate === ''){
+          localStorage.setItem('timePeriod', "new year");
+        }
 
       });
   }
