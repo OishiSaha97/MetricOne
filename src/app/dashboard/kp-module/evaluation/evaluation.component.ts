@@ -74,7 +74,7 @@ export class EvaluationComponent {
     this.userId = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
     this.timePeriod = localStorage.getItem('timePeriod');
-
+    this.kpiId = this.userData.id;
     console.log("Role:", this.role);
   }
 
@@ -216,7 +216,7 @@ export class EvaluationComponent {
         weightage: escapeText(obj.weightage),
         keyObjective: escapeText(obj.keyObjective),
         keyTarget: escapeText(obj.keyTarget),
-        selectedRating: escapeText(obj.selectedRating),
+        selectedRating: escapeText(obj.rating),
         achievedText: escapeText(obj.achievedText),
         achievedInt: escapeText(obj.achievedInt),
       };
@@ -270,7 +270,7 @@ export class EvaluationComponent {
         weightage: escapeText(obj.weightage),
         keyObjective: escapeText(obj.keyObjective),
         keyTarget: escapeText(obj.keyTarget),
-        selectedRating: escapeText(obj.selectedRating),
+        selectedRating: escapeText(obj.rating),
         achievedText: escapeText(obj.achievedText),
         achievedInt: escapeText(obj.achievedInt),
       };
@@ -328,7 +328,7 @@ export class EvaluationComponent {
         weightage: escapeText(obj.weightage),
         keyObjective: escapeText(obj.keyObjective),
         keyTarget: escapeText(obj.keyTarget),
-        selectedRating: escapeText(obj.selectedRating),
+        selectedRating: escapeText(obj.rating),
         achievedText: escapeText(obj.achievedText),
         achievedInt: escapeText(obj.achievedInt),
       };

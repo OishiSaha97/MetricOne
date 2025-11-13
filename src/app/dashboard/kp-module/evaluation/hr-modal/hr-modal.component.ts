@@ -42,10 +42,14 @@ export class HrModalComponent {
               private kpi: CommonServiceService) {
   }
 
+
   ngOnInit(): void {
+    this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
+    this.role = localStorage.getItem('role');
     this.getRating();
   }
+
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
   }

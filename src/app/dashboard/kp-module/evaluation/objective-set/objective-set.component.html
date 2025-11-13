@@ -103,7 +103,7 @@
                 </div>
                 <div class="dropdown"
                      [class.disabled-dropdown]=" userData.status === 'Closed'"
-                     *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' ">
+                     *ngIf="['manager','hr','approver'].includes(currentStatus)">
 <!--                  *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
                   <button class="btn btn-dark btn-sm dropdown-toggle"
                           type="button"
@@ -393,5 +393,7 @@
     </ul>
 
   </div>
+
+
 
 </div>

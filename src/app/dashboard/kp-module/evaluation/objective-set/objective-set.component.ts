@@ -16,7 +16,6 @@ interface Objective {
   keyTarget?: string;
   keyPerformance?: string;
   keyAchieved?: string;
-  selectedRating?:string;
   achievedText?:string;
   achievedInt?:string;
 }
@@ -96,7 +95,6 @@ export class ObjectiveSetComponent {
               targetText: item.target,
               performanceText: item.performance,
               weightage: item.weightage,
-              selectedRating: item.overall_rating,
               rating: item.overall_rating,
               achievedText: item.achieved_text,
               achievedInt: item.achieved_int,
@@ -170,6 +168,8 @@ export class ObjectiveSetComponent {
     this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
   }
+
+
   onRating(type: any, obj: Objective,i:number): void {
     obj.rating = type.kpi_category_name;
     this.isOpen[i] = false;
@@ -188,11 +188,13 @@ export class ObjectiveSetComponent {
           !obj.targetText?.trim() ||
           !obj.performanceText?.trim() ||
           !obj.achievedText?.trim() ||
-          !obj.achievedInt?.trim() ||
+          !obj.achievedInt ||
           !obj.weightage?.trim() ||
-          !obj.selectedRating?.trim() ||
-          !obj.overAllRating?.trim()
+          !obj.rating?.trim()
+          // ||
+          // !obj.overAllRating?.trim()
         ) {
+          console.log(obj)
           alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
           return false;
         }
@@ -394,4 +396,8 @@ export class ObjectiveSetComponent {
         }
       );
   }
+
+
+
+
 }

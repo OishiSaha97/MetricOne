@@ -39,14 +39,11 @@
       <h5 style="color:#AD94FF;">{{ label }}</h5>
     </div>
     <div class="actions">
-      <img src="../../../assets/download.svg" style="background-color:#6449BE ; padding: 10px; border-radius: 5px"/>
-      <img src="../../../assets/upload.svg" style="background-color:#6449BE ; padding: 10px; border-radius: 5px"/>
-      <button style="background-color: #6449BE;">+ Add New</button>
-      <div class="search-wrapper">
-        <input type="text" placeholder="Search Here" class="search-input"/>
-        <img src="../../../assets/magnifine-bar.svg" class="search-icon"/>
+      <div class="search-wrapper"  (keyup.enter)="search()">
+        <input type="text" placeholder="Search Here" [(ngModel)]="searchParam" class="search-input"/>
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon" (click)="search()"/>
       </div>
-      <img src="../../../assets/column_picker.svg" style="background-color:#6449BE ; padding: 8px; border-radius: 5px"/>
+<!--      <img src="../../../assets/column_picker.svg" style="background-color:#6449BE ; padding: 8px; border-radius: 5px"/>-->
     </div>
   </div>
 

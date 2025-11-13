@@ -35,24 +35,65 @@ export class ManagerInsightComponent {
   }
 
   ngOnInit(): void {
-    this.kpi.getLogData({param: 'evalution-manager-insight-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
-      .subscribe(res => {
-          this.data = Array.isArray(res?.['evalution-manager-insight-kpi-list']) ? res?.['evalution-manager-insight-kpi-list'] : res?.['evalution-manager-insight-kpi-list']
-          console.log(this.data);
-          this.objectives = this.objectives.map((obj, index) => ({
-            ...obj,
-            objectiveText: this.data[index]?.remark || ''
-          }));
-
-          console.log("this.objectives : ", this.objectives);
-        },
-        (error) => {
-          console.error("Error fetching permission list", error);
-        }
-
-      );
+    this.loadManagerInsight();
+    // this.kpi.getLogData({param: 'evalution-manager-insight-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
+    //   .subscribe(res => {
+    //       this.data = Array.isArray(res?.['evalution-manager-insight-kpi-list']) ? res?.['evalution-manager-insight-kpi-list'] : res?.['evalution-manager-insight-kpi-list']
+    //       const mapFields: any = {
+    //         "MANAGER’S COMMENT": "managers_comment",
+    //         "OVERALL PERFORMANCE": "overall_performance",
+    //         "PROPOSED INCREMENT": "proposed_increment"
+    //       };
+    //
+    //       this.objectives = this.objectives.map(obj => ({
+    //         ...obj,
+    //         objectiveText: this.data[mapFields[obj.name]] || ''
+    //       }));
+    //       console.log("this.objectives : ", this.objectives);
+    //     },
+    //     (error) => {
+    //       console.error("Error fetching permission list", error);
+    //     }
+    //
+    //   );
   }
 
+
+  loadManagerInsight() {
+    this.kpi.getLogData({
+      param: 'evalution-manager-insight-kpi-list',
+      objectId: this.userData.user_id,
+      parameter: this.userData.team,
+      pid: this.userData.year,
+      extraParam: this.userData.id
+    }).subscribe(
+      (res: any) => {
+        const dataArray = res?.['evalution-manager-insight-kpi-list'];
+        const data = Array.isArray(dataArray) ? dataArray[0] : null;
+
+        if (!data) {
+          console.warn("No manager insight data found");
+          return;
+        }
+
+        const mapFields: any = {
+          "MANAGER’S COMMENT": "managers_comment",
+          "OVERALL PERFORMANCE": "overall_performance",
+          "PROPOSED INCREMENT": "proposed_increment"
+        };
+
+        this.objectives = this.objectives.map(obj => ({
+          ...obj,
+          objectiveText: data[mapFields[obj.name]] || ''
+        }));
+
+        console.log("Updated objectives:", this.objectives);
+      },
+      (error) => {
+        console.error(" Error fetching manager insight:", error);
+      }
+    );
+  }
 
 
   toggleObjective(obj: Objective): void {
