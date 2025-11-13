@@ -43,7 +43,7 @@ export class NavbarComponent {
     ngOnInit() {
       this.userId = localStorage.getItem('username');
       this.userName = localStorage.getItem('fullName');
-      // this.getPermission();
+      this.getPermission();
     }
 
     navigateTo(path: string) {
@@ -77,30 +77,30 @@ export class NavbarComponent {
     this.isHomeActive = false;
   }
 
-  // getPermission() {
-  //   this.kpi.getLogData({param: 'permission-list',objectId:this.userId,})
-  //     .subscribe(res => {
-  //         const data = res?.['permission-list']?.[0];
-  //         if (data) {
-  //           this.allPermission = data.allPermission;
-  //           this.teamKpi = data.teamKpi;
-  //         }
-  //         // if(data.allPermission && data.teamKpi) {
-  //         //   localStorage.setItem('role', "hr");
-  //         // }else if(data.teamKpi){
-  //         //   localStorage.setItem('role', "manager");
-  //         // }else {
-  //         //   localStorage.setItem('role', "employee");
-  //         // }
-  //         this.checkEndDate();
-  //
-  //       },
-  //       (error) => {
-  //         console.error("Error fetching permission list", error);
-  //         // optionally show a toast or alert
-  //       }
-  //     );
-  // }
+  getPermission() {
+    this.kpi.getLogData({param: 'permission-list',objectId:this.userId,})
+      .subscribe(res => {
+          const data = res?.['permission-list']?.[0];
+          if (data) {
+            this.allPermission = data.allPermission;
+            this.teamKpi = data.teamKpi;
+          }
+          // if(data.allPermission && data.teamKpi) {
+          //   localStorage.setItem('role', "hr");
+          // }else if(data.teamKpi){
+          //   localStorage.setItem('role', "manager");
+          // }else {
+          //   localStorage.setItem('role', "employee");
+          // }
+          this.checkEndDate();
+
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+          // optionally show a toast or alert
+        }
+      );
+  }
 
   initialtionDate: string | Date | undefined = undefined;
   resData: any;

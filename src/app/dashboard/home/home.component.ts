@@ -25,6 +25,8 @@ export class HomeComponent {
    mode: any;
    completed: number = 101;
   anncText:any='';
+  allPermission: any = [];
+  teamKpi: any = [];
   constructor(private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
@@ -43,10 +45,12 @@ export class HomeComponent {
 
   ngOnInit() {
     this.userId = localStorage.getItem('username');
-    this.role = localStorage.getItem('role');
+    // this.role = localStorage.getItem('role');
+    // console.log(this.role);
     this.checkEndDate();
     this.getData();
     this.getAnnouncements();
+    this.getPermission();
     this.updateCountdown();
     setInterval(() => this.updateCountdown(), 60000); // Update every minute
     this.progressValue = 75;
@@ -54,6 +58,33 @@ export class HomeComponent {
     this.updateProgress();
 
   }
+
+  getPermission() {
+    this.kpi.getLogData({param: 'permission-list',objectId:this.userId})
+      .subscribe(res => {
+          const data = res?.['permission-list']?.[0];
+          if (data) {
+            this.allPermission = data.allPermission;
+            this.teamKpi = data.teamKpi;
+          }
+          if(data.allPermission && data.teamKpi) {
+            this.role = "hr";
+          }else if(data.teamKpi){
+            this.role = "manager";
+          }else {
+            this.role = "employee";
+          }
+
+          console.log(this.role)
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+          // optionally show a toast or alert
+        }
+      );
+  }
+
+
   get dashOffset() {
     const circumference = 2 * Math.PI * 50;
     let progress = circumference - (this.progressValue / 100) * circumference;
