@@ -31,7 +31,6 @@ export class FlipClockComponent implements OnInit, OnDestroy {
   private i = 0;
 
   ngOnInit(): void {
-    console.log("date: ", this.date);
     if (!this.showDays) {
       this.trackers = ['Hours', 'Minutes'];
     }
