@@ -116,12 +116,18 @@ export class TeamsKPIComponent {
         mode:"approver",
         kpiId: user.id,
       };
-      this.modalService.show(KpiFormComponent, {
+      this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',
         keyboard: false,
         class: 'modal-dialog modal-dialog-centered modal-xl',
         initialState: initialState
       });
+
+      let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+        this.loadData({});
+        dataLoader.unsubscribe();
+      });
+
     }
     else if(this.timePeriod === 'evaluation'){
       const initialState = {
@@ -129,12 +135,19 @@ export class TeamsKPIComponent {
         title: 'Manager Evaluation',
         currentStatus:'manager',
       };
-      this.modalService.show(EvaluationComponent, {
+      this.modalRef = this.modalService.show(EvaluationComponent, {
         backdrop: 'static',
         keyboard: false,
         class: 'modal-dialog modal-dialog-centered modal-xl',
         initialState: initialState
       });
+
+      let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+        this.loadData({});
+        dataLoader.unsubscribe();
+      });
+
+
     }
   }
 
