@@ -15,6 +15,7 @@ export class SettingsComponent {
   selectedDate: string | null = null;
   selectedDateEva: string | null = null;
   userId:any;
+  timePeriod:any;
   stages = ['KPI Initiation', 'KPI Modification', 'KPI Evaluation'];
   tables = {
     initiation: {
@@ -39,6 +40,7 @@ export class SettingsComponent {
               private kpi: CommonServiceService) {}
   ngOnInit(){
     this.userId = localStorage.getItem('username');
+    this.timePeriod = localStorage.getItem('timePeriod');
     this.currentTable = 'initiation';
     this.tab='initiation';
 

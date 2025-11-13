@@ -24,15 +24,15 @@ export class ValuesComponentComponent {
     { id: 5, name: 'ADAPTABILITY', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
     { id: 6, name: 'DECISIVENESS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
     { id: 7, name: 'INTERPERSONAL RELATIONSHIPS', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },
-    { id: 8, name: 'OVERALL RATING', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false },];
+    { id: 8, name: 'OVERALL RATING', selectedRating: '', objectiveText: '', keyObjective: '', isOpen: false, isEditingObjective: false }];
 
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
   @Input() currentStatus: any;
   isOpen: boolean[] = [];
   mode:any;
-
-  rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
+  userId:any;
+  ratings: any = [];
   overAllRating: any;
   data: any =[];
   constructor(public modalRef: BsModalRef,
@@ -42,6 +42,8 @@ export class ValuesComponentComponent {
 
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('username');
+    this.getRating();
     this.kpi.getLogData({param: 'evalution-values-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
       .subscribe(res => {
           const data = res?.['evalution-values-kpi-list']?.[0];
@@ -101,8 +103,8 @@ export class ValuesComponentComponent {
   //   obj.isEditingObjective = !obj.isEditingObjective;
   // }
 
-  onObjectiveChange(type: string, obj: Objective): void {
-    obj.selectedRating = type;
+  onObjectiveChange(type: any, obj: Objective): void {
+    obj.selectedRating = type.kpi_category_name;
   }
 
   onNext(): void {
@@ -120,6 +122,16 @@ export class ValuesComponentComponent {
   submitData() {
     this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives)
+  }
+  getRating() {
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'get_ratings',extraParam:'KPI Values'})
+      .subscribe(res => {
+          this.ratings = Array.isArray(res?.['get_ratings']) ? res?.['get_ratings'] : res?.['get_ratings']
+        },
+        (error) => {
+          console.error("Error fetching ratings", error);
+        }
+      );
   }
 
 

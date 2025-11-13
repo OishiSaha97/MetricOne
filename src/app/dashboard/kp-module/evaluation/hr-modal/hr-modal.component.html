@@ -52,11 +52,11 @@
 
             <ul class="dropdown-menu dropdown-menu-dark"
                 style="background-color: #33343C;">
-              <li *ngFor="let type of rating">
+              <li *ngFor="let type of ratings">
                 <a class="dropdown-item text-light"
                    (click)="onAttendanceRating(obj,type)"
                 >
-                  {{ type }}
+                  {{ type.kpi_category_name }}
                 </a>
               </li>
             </ul>
@@ -81,11 +81,11 @@
 
             <ul class="dropdown-menu dropdown-menu-dark"
                 style="background-color: #33343C;">
-              <li *ngFor="let type of rating">
+              <li *ngFor="let type of ratings">
                 <a class="dropdown-item text-light"
                    (click)="onLeaveRating(obj,type)"
                 >
-                  {{ type }}
+                  {{ type.kpi_category_name }}
                 </a>
               </li>
             </ul>
@@ -110,11 +110,11 @@
 
             <ul class="dropdown-menu dropdown-menu-dark"
                 style="background-color: #33343C;">
-              <li *ngFor="let type of rating">
+              <li *ngFor="let type of ratings">
                 <a class="dropdown-item text-light"
                    (click)="onIssueRating(obj,type)"
                 >
-                  {{ type }}
+                  {{ type.kpi_category_name }}
                 </a>
               </li>
             </ul>
@@ -139,11 +139,11 @@
 
             <ul class="dropdown-menu dropdown-menu-dark"
                 style="background-color: #33343C;">
-              <li *ngFor="let type of rating">
+              <li *ngFor="let type of ratings">
                 <a class="dropdown-item text-light"
                    (click)="onAwardRating(obj,type)"
                 >
-                  {{ type }}
+                  {{ type.kpi_category_name }}
                 </a>
               </li>
             </ul>
@@ -155,3 +155,5 @@
     </ul>
   </div>
 </div>
+
+

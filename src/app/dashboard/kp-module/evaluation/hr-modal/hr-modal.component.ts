@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {CommonServiceService} from "../../../common-service.service";
 
 interface Objective {
   id: number;
@@ -24,38 +26,59 @@ export class HrModalComponent {
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''}];
   mode: any;
-  rating: any[] = ['Role Model', 'Very Good', 'Good', 'Improvement Required', 'Unacceptable'];
+  userId:any;
+  ratings: any = [];
   // attendanceRating: any;
   // leaveRating: any;
   // issueRating: any;
   // awardRating: any;
 
+  constructor(public modalRef: BsModalRef,
+              private modalService: BsModalService,
+              private kpi: CommonServiceService) {
+  }
+
+  ngOnInit(): void {
+    this.userId = localStorage.getItem('username');
+    this.getRating();
+  }
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
   }
 
   onAttendanceRating(obj: Objective,type: any) {
     // this.attendanceRating = type;
-    obj.attendanceRating=type;
+    obj.attendanceRating=type.kpi_category_name;
   }
 
   onLeaveRating(obj: Objective,type: any) {
     // this.leaveRating = type;
-    obj.leaveRating=type;
+    obj.leaveRating=type.kpi_category_name;
   }
 
   onIssueRating(obj: Objective,type: any) {
     // this.issueRating = type;
-    obj.issueRating=type;
+    obj.issueRating=type.kpi_category_name;
   }
 
   onAwardRating(obj: Objective,type: any) {
     // this.awardRating = type;
-    obj.awardRating=type;
+    obj.awardRating=type.kpi_category_name;
   }
 
   submitData() {
     this.dataSubmitted.emit(this.objectives);
+  }
+
+  getRating() {
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'get_ratings',extraParam:'KPI HR'})
+      .subscribe(res => {
+          this.ratings = Array.isArray(res?.['get_ratings']) ? res?.['get_ratings'] : res?.['get_ratings']
+        },
+        (error) => {
+          console.error("Error fetching ratings", error);
+        }
+      );
   }
 
 }
