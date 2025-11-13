@@ -169,7 +169,6 @@ export class NavbarComponent {
   }
 
 
-  formatDateForInput(dateString: string): string {
 
   formatDate(dateString?: string): string {
     if (!dateString) return '';
