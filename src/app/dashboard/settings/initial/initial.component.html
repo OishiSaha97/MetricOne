@@ -27,7 +27,9 @@
            [(ngModel)]="selectedDate"
            (change)="onDateSelect()"
            class="custom-date-input"
+           [disabled]="timePeriod==='evaluation'"
          />
+<!--         [disabled]="timePeriod==='evaluation'"-->
          <span class="calendar-icon"></span>
        </div>
        <div class="date-input-container date-input " *ngIf="tabs === 'evaluation'">

@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {CommonServiceService} from "../common-service.service";
 import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
+import {SettingsComponent} from "../settings/settings.component";
 
 @Component({
   selector: 'app-list',
@@ -143,12 +144,23 @@ export class ListComponent {
 
 
   onClick() {
-
-    this.modalRef =  this.modalService.show(KpiFormComponent, {
+    this.modalRef = this.modalService.show(KpiFormComponent, {
       backdrop: 'static',
       keyboard: false,
       class: 'modal-dialog modal-dialog-centered modal-xl'
     });
+
+    if (this.modalRef) {
+      const modalContent = this.modalRef.content as SettingsComponent;
+
+      const subscription = modalContent.requestEmitter.subscribe(() => {
+        this.loadData('');
+      });
+
+      this.modalRef.onHidden?.subscribe(() => {
+        subscription.unsubscribe();
+      });
+    }
 
     let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
       this.loadData({});

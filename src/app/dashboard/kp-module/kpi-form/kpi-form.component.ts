@@ -1,5 +1,5 @@
 
-import {NgModule, Component, OnInit, TemplateRef} from '@angular/core';
+import {NgModule, Component, OnInit, TemplateRef, EventEmitter} from '@angular/core';
 import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {Subject} from "rxjs";
@@ -32,7 +32,7 @@ export class KpiFormComponent implements OnInit {
               private kpi: CommonServiceService) {
   }
 
-
+  requestEmitter: EventEmitter<any> = new EventEmitter<any>();
   objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
   objectives: any = [];
   data: any = [];
@@ -92,6 +92,7 @@ export class KpiFormComponent implements OnInit {
             }
           );
       }
+
 
   }
 
@@ -257,6 +258,8 @@ export class KpiFormComponent implements OnInit {
         console.log('KPI saved successfully:', response);
         this.saveEmitter.next(true);
         this.onCancel();
+        this.requestEmitter.emit(true);
+
       },
       error: (error) => {
         console.error('Error saving KPI:', error);

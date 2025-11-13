@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {ApproAttributePopUpComponent} from "./appro-attribute-pop-up/appro-attribute-pop-up.component";
 import {CommonServiceService} from "../common-service.service";
+import {SettingsComponent} from "../settings/settings.component";
 
 @Component({
   selector: 'app-kpi-attribute',
@@ -54,16 +55,30 @@ export class KpiAttributeComponent {
   ];
 
 
-  edit()
+  edit(attribute:any)
   {
     this.modalRef = this.modalService.show(ApproAttributePopUpComponent,{
       class: 'modal-dialog modal-dialog-centered modal-medium',
       backdrop: 'static',
       keyboard: false,
       initialState: {
+        selectedAttribute:attribute,
         mode: this.mode = 'edit',
       },
     });
+
+    if (this.modalRef) {
+      const modalContent = this.modalRef.content as SettingsComponent;
+
+      const subscription = modalContent.requestEmitter.subscribe(() => {
+        this.loadData('');
+      });
+
+      this.modalRef.onHidden?.subscribe(() => {
+        subscription.unsubscribe();
+      });
+    }
+
   }
 
 
@@ -76,6 +91,18 @@ export class KpiAttributeComponent {
         mode: this.mode = 'add',
       },
     });
+
+    if (this.modalRef) {
+      const modalContent = this.modalRef.content as SettingsComponent;
+
+      const subscription = modalContent.requestEmitter.subscribe(() => {
+        this.loadData('');
+      });
+
+      this.modalRef.onHidden?.subscribe(() => {
+        subscription.unsubscribe();
+      });
+    }
 
   }
 

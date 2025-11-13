@@ -18,6 +18,7 @@ export class InitialComponent {
   @Output() selectedDatesEva: EventEmitter<string | null> = new EventEmitter<string | null>();
   totalEmloyee: any;
   userId:any;
+  timePeriod:any;
   @Input() tabs: any;
    resData: any;
    dashBoardData: any;
@@ -28,6 +29,7 @@ export class InitialComponent {
               private kpi: CommonServiceService) {}
   ngOnInit() {
     this.userId = localStorage.getItem('username');
+    this.timePeriod = localStorage.getItem('timePeriod');
     this.today = new Date();
     this.bsConfig = {
       adaptivePosition: false,

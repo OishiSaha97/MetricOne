@@ -44,12 +44,18 @@
   <footer class="footer-section">
     <div class="d-flex justify-content-end gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
       <button class="cancel-btn" (click)="closePopup()">Cancel</button>
-      <button class="submit-btn" *ngIf="!showProceedButton"
-              [disabled]="!selectedDate"
-              [ngClass]="{ 'disabled-submit-btn': !selectedDate }"
+      <button class="submit-btn"
+              [disabled]="
+                (currentTable === 'initiation' && (!selectedDate || timePeriod === 'evaluation')) ||
+                (currentTable === 'evaluation' && !selectedDateEva)
+              "
+              [ngClass]="{
+                'disabled-submit-btn':
+                  (currentTable === 'initiation' && (!selectedDate || timePeriod === 'evaluation')) ||
+                  (currentTable === 'evaluation' && !selectedDateEva)
+              }"
               (click)="statusAction(actionModal)"
       >Active</button>
-<!--      onActive();-->
     </div>
   </footer>
 
