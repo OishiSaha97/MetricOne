@@ -120,9 +120,11 @@ export class NavbarComponent {
         }
         else if (kpiDate < today) {
           this.checkEvaEndDate();
-
-
         }
+        else if(this.initialtionDate === ''){
+          localStorage.setItem('timePeriod', "new year");
+        }
+
       });
   }
   formatDateForInput(dateString: string): string {

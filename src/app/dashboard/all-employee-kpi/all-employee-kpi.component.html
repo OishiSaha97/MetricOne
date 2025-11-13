@@ -94,11 +94,11 @@
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"
                  [ngStyle]="{
-                      cursor: isClickable(data) ? 'pointer' : 'default',
-                      opacity: isClickable(data) ? 1 : 0.4,
-                      'pointer-events': isClickable(data) ? 'all' : 'none'
+                      cursor: data.editPermission ? 'pointer' : 'default',
+                      opacity:  data.editPermission ? 1 : 0.4,
+                      'pointer-events':  data.editPermission ? 'all' : 'none'
                     }"
-                 (click)="isClickable(data) && viewDetails(data)"
+                 (click)="viewDetails(data)"
             />
           </td>
         </tr>
