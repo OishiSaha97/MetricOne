@@ -398,6 +398,8 @@ export class ObjectiveSetComponent {
   }
 
 
+  onOverallRating(type: any) {
+    this.objOverallRating = type.kpi_category_name;
 
-
+  }
 }
