@@ -72,6 +72,8 @@ export class EvaluationComponent {
     this.userId = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
     this.timePeriod = localStorage.getItem('timePeriod');
+
+    console.log("Role:", this.role);
   }
 
   maxStepData() {
