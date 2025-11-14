@@ -27,6 +27,7 @@ interface Objective {
   styleUrls: ['./objective-set.component.css']
 })
 export class ObjectiveSetComponent {
+  objOverallRating: any;
    role: any;
 
   constructor(public modalRef: BsModalRef,
@@ -106,10 +107,33 @@ export class ObjectiveSetComponent {
           }
 
    );
-
+      // this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+      //   .subscribe(res => {
+      //
+      //       this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
+      //       console.log(this.changedHistory);
+      //     },
+      //     (error) => {
+      //       console.error("Error fetching permission list", error);
+      //     }
+      //   );
+    // }
 
   }
 
+  // addObjectivesFromData(): void {
+  //   this.data.forEach((item:any, index:any) => {
+  //     const newObjective: Objective = {
+  //       id: this.objectives.length + 1,
+  //       title: `Work Objective ${this.objectives.length + 1}`,
+  //       selectedType: item.category_name,
+  //       objectiveText: item.objective,
+  //       targetText: item.target,
+  //       isOpen: false
+  //     };
+  //     this.objectives.push(newObjective);
+  //   });
+  // }
 
   submitData() {
     if (!this.validateObjectives()) {

@@ -28,10 +28,14 @@ export class HrModalComponent {
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''}];
   mode: any;
-  ratings: any = [];
   userName: any;
   userId: any;
   role: any;
+  ratings: any = [];
+  // attendanceRating: any;
+  // leaveRating: any;
+  // issueRating: any;
+  // awardRating: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,

@@ -39,6 +39,8 @@ export class ListComponent {
   scrollStatus: any = true;
   check_kpi:any =[];
   year:any = '2025';
+  isInitCrossed: boolean = false;
+  showEvaluation: boolean = false;
   isShowAdd: boolean = false;
 
   constructor(public modalRef: BsModalRef,
