@@ -56,7 +56,7 @@
           <th>Employee Id</th>
           <th>Status</th>
           <th>Designation</th>
-          <th>Hierarchy</th>
+<!--          <th>Hierarchy</th>-->
           <th>Remarks</th>
           <th>Action</th>
         </tr>
@@ -78,7 +78,7 @@
                     <td title="{{ user.employee_id }}">{{ user.employee_id }}</td>
           <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
           <td>{{ user.desg }}</td>
-          <td title="{{ user.hieCount }}" style="cursor:pointer"><ul style="color: #fff">{{ user.hieCount }}</ul></td>
+<!--          <td title="{{ user.hieCount }}" style="cursor:pointer"><ul style="color: #fff">{{ user.hieCount }}</ul></td>-->
           <td title="{{ user.remarks }}">
             <span class="remarks"> ({{ user.remarks }})</span>
             {{" "}} <img src="../../../assets/comment.svg" />

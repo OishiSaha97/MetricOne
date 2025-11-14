@@ -50,6 +50,8 @@ export class KpiFormComponent implements OnInit {
   kpiUserId:any;
   kpiId:any;
   saveEmitter = new Subject<any>();
+  approvalStatus:any;
+
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
@@ -58,7 +60,9 @@ export class KpiFormComponent implements OnInit {
     this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
-
+      if(this.approvalStatus == 'Reverted' ){
+        this.getData();
+      }
       if(this.mode == 'approver'){
         this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
           .subscribe(res => {
@@ -402,6 +406,7 @@ export class KpiFormComponent implements OnInit {
         console.log('KPI saved successfully:', response);
         alert('KPI data submitted successfully!');
         this.onCancel();
+        this.onClose();
       },
       error: (error) => {
         console.error('Error saving KPI:', error);
@@ -422,5 +427,29 @@ export class KpiFormComponent implements OnInit {
   onClose(): void {
     this.modalRef?.hide();
   }
+
+   getData() {
+     this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-reverted-list',extraParam:this.kpiId,objectId:this.kpiUserId,parameter:this.team,pid:this.year})
+       .subscribe(res => {
+           this.data = Array.isArray(res?.['kpi-reverted-list']) ? res?.['kpi-reverted-list'] : res?.['kpi-reverted-list']
+           console.log(this.data);
+           this.objectives = this.data.map((item:any, index:any) => ({
+             id: item.id,
+             workId: item.work_id,
+             title: `Work Objective ${index + 1}`,
+             selectedType: item.category_name,
+             objectiveText: item.objective,
+             targetText: item.target,
+             performanceText: item.performance,
+             weightage: item.weightage,
+             isOpen: false
+           }));
+         },
+         (error) => {
+           console.error("Error fetching permission list", error);
+         }
+       );
+  }
+
 
 }
