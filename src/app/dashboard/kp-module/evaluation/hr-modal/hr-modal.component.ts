@@ -33,21 +33,19 @@ export class HrModalComponent {
   userId: any;
   role: any;
 
-  ngOnInit(): void {
-    this.userName = localStorage.getItem('fullName');
-    this.userId = localStorage.getItem('username');
-    this.role = localStorage.getItem('role');
-  }
-
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
 
+
   ngOnInit(): void {
+    this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
+    this.role = localStorage.getItem('role');
     this.getRating();
   }
+
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
   }
