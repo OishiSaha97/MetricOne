@@ -74,7 +74,7 @@ export class EvaluationComponent {
     this.userId = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
     this.timePeriod = localStorage.getItem('timePeriod');
-
+    this.kpiId = this.userData.id;
     console.log("Role:", this.role);
   }
 
