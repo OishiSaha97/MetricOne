@@ -172,7 +172,7 @@ export class ListComponent {
 
 
   search() {
-
+     this.loadData({})
   }
 
   // modalRef: BsModalRef ;

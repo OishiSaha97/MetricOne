@@ -156,4 +156,8 @@ export class TeamsKPIComponent {
     return user.status === 'Submitted for Reviewer' || user.editPermission;
   }
 
+  search() {
+    this.loadData({});
+  }
+
 }

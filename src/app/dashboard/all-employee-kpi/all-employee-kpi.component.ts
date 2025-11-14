@@ -156,5 +156,7 @@ export class AllEmployeeKPIComponent {
   }
 
 
-
+  search() {
+   this.loadData({});
+  }
 }
