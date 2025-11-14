@@ -295,3 +295,29 @@ tbody td:nth-child(9) { width: 50px; text-align: center; }        /* Action */
     max-width: 50vh;
   }
 }
+/* Ensure table and cells don't clip absolutely positioned content */
+table, tr, td {
+  overflow: visible !important;
+  position: relative !important;
+}
+
+.hierarchy-dropdown {
+  position: absolute !important;
+  bottom: 100% !important;
+  left: 0 !important;
+  z-index: 9999 !important;
+  background-color: black !important;
+  min-width: 200px;
+  transform: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  padding: 10px 15px !important;
+  height: 200px;
+  max-height: 250px;
+}
+
+.hierarchy-dropdown .w-100 {
+  max-height: 250px;
+  overflow-y: auto;
+}
+

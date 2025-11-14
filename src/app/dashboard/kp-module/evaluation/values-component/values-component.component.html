@@ -87,7 +87,7 @@
               <li *ngFor="let type of ratings">
                 <a class="dropdown-item text-light"
                    [class.disabled-item]="userData.status === 'Published' || userData.status === 'Closed'"
-                   (click)="onObjectiveChange(type, objectives[7])"
+                   (click)="onOverAllRating(type, objectives[7])"
                 >
                   {{ type.kpi_category_name }}
                 </a>

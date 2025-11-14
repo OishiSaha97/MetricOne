@@ -139,10 +139,11 @@ export class ObjectiveSetComponent {
     if (!this.validateObjectives()) {
       return;
     }
-    this.dataSubmitted.emit({
-      objectives: this.objectives,
-      objOverallRating: this.objOverallRating
-    });
+    this.dataSubmitted.emit(this.objectives);
+    // this.dataSubmitted.emit({
+    //   objectives: this.objectives,
+    //   objOverallRating: this.objOverallRating
+    // });
   }
 
 
