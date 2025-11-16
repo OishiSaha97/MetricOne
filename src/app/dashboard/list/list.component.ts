@@ -253,12 +253,21 @@ export class ListComponent {
 
 
 
-    openRemarks(user: any) {
+    openRemarks(user: any, event: MouseEvent) {
       this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
         .subscribe(res => {
           this.remarkList = res?.['reverted_remark_list'] || [];
 
         });
+      const dropdown = (event.target as HTMLElement)
+        .closest('.dropdown')!
+        .querySelector('hierarchy-dropdown-remark') as HTMLElement;
+
+      const rect = (event.target as HTMLElement).getBoundingClientRect();
+
+      dropdown.style.display = 'block';
+      dropdown.style.top = (rect.top + 20) + 'px';
+      dropdown.style.left = rect.left + 'px';
     }
 
 

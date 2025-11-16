@@ -61,7 +61,7 @@
                 data-bs-toggle="dropdown"
                 data-bs-display="static"
                 aria-expanded="false"
-                (click)="openHierarchy(user, $event)">
+                (click)="$event.stopPropagation();openHierarchy(user, $event)">
                 <ul style="color:#fff;">{{ user.hieCount }}</ul>
               </span>
 
@@ -69,7 +69,14 @@
                 <div style="font-size:16px; color:white; font-weight:bold;">Hierarchy</div>
                 <div class="w-100">
                   <div *ngFor="let u of fullHierarchy" >
-                    <div style="font-size:14px; color:white;">{{ u.user_name }}</div>
+                    <div style="font-size:14px; color:white; display:flex; justify-content:space-between; align-items:center; padding:10px;">
+                      <span>{{ u.user_name }}</span>
+                      <span
+                        [style.color]="u.status === 'Pending' ? 'yellow' : (u.status === 'Approved' ? 'lightgreen' : 'white')"
+                          >
+                        {{ u.status }}
+                      </span>
+                    </div>
                     <div class="dropdown-divider"></div>
                   </div>
                 </div>
@@ -79,8 +86,43 @@
 
 
           </td>
-          <td class="remarks-cell" title="{{ user.remarks }}">
-           <span class="remarks"> ({{ user.remarks }})</span><img src="../../../assets/comment.svg" />
+          <td  title="{{ user.remarks }}">
+            <div class="dropdown" style="position: relative;">
+             <span
+             class="text-white dropdown"
+             role="button"
+             data-bs-toggle="dropdown"
+             data-bs-display="static"
+             aria-expanded="false"
+             (click)="$event.stopPropagation();openRemarks(user, $event)">
+              {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />
+            </span>
+            <div #dropdownMenuRemark
+              class="dropdown-menu hierarchy-dropdown-remark p-4"
+              aria-labelledby="dropdownMenu2" style="left: -189px !important;">
+              <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
+                Remarks
+              </div>
+              <div *ngFor="let note of remarkList">
+                <div class="popup-meta">
+                  <span class="common-purple"
+                        [title]="note.created_by">
+                          {{ note.created_by?.length > 15 ? (note.created_by | slice:0:15) + '...' : note.created_by }}
+                        </span>
+                  <span class="date" style="margin-left: 34px;">Date:{{note.created_at }}</span>
+                </div>
+                <p>{{note.obj_remark}}</p>
+              </div>
+              <!--              <div class="w-100">-->
+              <!--                <div *ngFor="let user of remarkList; let i = index;">-->
+              <!--                  <div style="font-size:14px; color:white;">-->
+              <!--                    {{ user.obj_remark }}-->
+              <!--                  </div>-->
+              <!--                  <div class="dropdown-divider"></div>-->
+              <!--                </div>-->
+              <!--              </div>-->
+            </div>
+            </div>
           </td>
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"
