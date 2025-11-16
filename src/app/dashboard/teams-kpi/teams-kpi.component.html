@@ -84,20 +84,29 @@
             <div
               class="dropdown-menu hierarchy-dropdown p-4"
               aria-labelledby="dropdownMenu2">
+
               <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
                 Hierarchy
               </div>
+
               <div class="w-100">
                 <div *ngFor="let user of fullHierarchy; let i = index;">
-                  <div style="font-size:14px; color:white;">
-                    {{ user.user_name }}
+                  <div style="font-size:14px; color:white; display:flex; justify-content:space-between; align-items:center;">
+                    <span>{{ user.user_name }}</span>
+                    <span
+                      [style.color]="user.status === 'Pending' ? 'yellow' : (user.status === 'Approved' ? 'lightgreen' : 'white')"
+                    >
+                    {{ user.status }}
+                  </span>
                   </div>
                   <div class="dropdown-divider"></div>
                 </div>
+
               </div>
             </div>
 
-<!--            </div>-->
+
+            <!--            </div>-->
 
 
           </td>
