@@ -62,14 +62,6 @@
         </tr>
         </thead>
         <tbody>
-<!--        <tr *ngFor="let user of userList; let i = index">-->
-<!--          <td>{{ i + 1 }}</td>-->
-<!--          <td title="{{ user.year }}">{{ user.year }}</td>-->
-<!--          <td title="{{ user.employeeName }}">{{ user.employeeName }}</td>-->
-<!--          <td title="{{ user.team }}">{{ user.team }}</td>-->
-<!--          <td title="{{ user.employeeId }}">{{ user.employeeId }}</td>-->
-<!--          <td title="{{ user.status }} " [ngClass]="getStatusClass(user.status)">{{ user.status }}</td>-->
-<!--          <td title="{{ user.designation }}">{{ user.designation }}</td>-->
         <tr *ngFor="let user of resData; let i = index" >
           <td>{{ i + 1 }}</td>
           <td title="{{ user.year }}">{{ user.year }}</td>

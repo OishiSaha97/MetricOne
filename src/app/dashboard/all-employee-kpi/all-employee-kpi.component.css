@@ -183,6 +183,8 @@ tbody td[title]:hover::after {
   overflow: hidden auto;
   overflow-x: auto;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #6c6d74 black !important;
 }
 
 
@@ -388,6 +390,8 @@ table, tr, td {
   max-height: 250px;
   overflow-y: auto;
   display: none;
+  scrollbar-width: thin;
+  scrollbar-color: #6c6d74 black !important;
 }
 
 .hierarchy-dropdown .w-100 {

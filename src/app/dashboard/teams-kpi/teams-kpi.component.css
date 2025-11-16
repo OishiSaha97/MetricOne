@@ -182,6 +182,8 @@ tbody td[title]:hover::after {
   overflow: hidden auto;
   overflow-x: auto;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #6c6d74 black !important;
 }
 
 
