@@ -30,6 +30,7 @@ export class TeamsKPIComponent {
   userName:any;
   userId:any;
   timePeriod:any;
+  fullHierarchy: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -160,4 +161,12 @@ export class TeamsKPIComponent {
     this.loadData({});
   }
 
+  openHierarchy(user: any) {
+    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
+      .subscribe(res => {
+        this.fullHierarchy = res?.['get_hierarchy'] || [];
+
+      });
+
+  }
 }
