@@ -70,7 +70,6 @@ export class ApproHierarchyPopUpComponent {
       full_name: option.full_name
     };
     this.dropdownOpen[tier] = false;
-    console.log("selectedValues: ", this.selectedValues);
   }
 
 
@@ -96,6 +95,8 @@ export class ApproHierarchyPopUpComponent {
 
       tierArray.push(finalApproverWithIndex);
     }
+
+    console.log("tierArray to submit:", tierArray);
     let obj = {
       userIdKPI:this.userId,
       hierarchyData: JSON.stringify(tierArray),
@@ -171,7 +172,39 @@ export class ApproHierarchyPopUpComponent {
     console.log("selectedValues:", this.selectedValues);
   }
 
-  removeTier(i: number) {
-    
+  removeTier(tierNumber: number) {
+    console.log("Before selectedValues:", this.selectedValues);
+
+    if (tierNumber === 1) {
+      return;
+    }
+
+    this.tiers = this.tiers.filter(t => t !== tierNumber);
+
+    const deleteKey = 'tier' + tierNumber;
+    delete this.selectedValues[deleteKey];
+
+    const newSelectedValues: { [key: string]: any } = {};
+    const newTiers: number[] = [];
+
+    let newIndex = 1;
+    Object.keys(this.selectedValues)
+      .sort((a, b) => this.selectedValues[a].index - this.selectedValues[b].index)
+      .forEach(key => {
+        newSelectedValues['tier' + newIndex] = {
+          ...this.selectedValues[key],
+          index: newIndex
+        };
+        newIndex++;
+      });
+
+    this.selectedValues = newSelectedValues;
+
+
+    console.log("Updated selectedValues:", this.selectedValues);
+    console.log("Updated this.tiers:", this.tiers);
   }
+
+
+
 }

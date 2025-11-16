@@ -17,11 +17,11 @@
               <div>
                 Approver-{{ tier }}
               </div>
-              <div>
+              <div class="delete-icon">
                 <img
                   src="../../../../assets/delete-icon.svg"
-                  class="delete-icon cursor-enabled"
-                  (click)="removeTier(i)"
+                  class="cursor-enabled"
+                  (click)="removeTier(tier)"
                   alt="Delete Icon"
                 />
               </div>
@@ -75,6 +75,9 @@
             </div>
           </div>
         </div>
+
+
+
 
 
         <div *ngIf="isAddVisible()" class="add-hierarchy-btn" (click)="addTier()">

@@ -175,3 +175,8 @@ input::placeholder {
   background-color: rgba(100, 73, 190, 1);
   border: 1px solid rgba(100, 73, 190, 1);
 }
+
+.delete-icon{
+  cursor: pointer;
+  margin-right: 20px;
+}

@@ -52,7 +52,32 @@
 <!--          <td title="{{ user.manager }}">{{ user.manager }}</td>-->
           <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
           <td title="{{ user.SBU }}">{{ user.sbu }}</td>
-          <td title="{{ user.hieCount }}" style="cursor:pointer"><ul style="color: #fff">{{ user.hieCount }}</ul></td>
+          <td title="{{ user.hieCount }}" style="cursor:pointer;position: relative;">
+            <div class="dropdown" style="position: relative;">
+              <span
+                class="text-white"
+                role="button"
+                data-bs-toggle="dropdown"
+                data-bs-display="static"
+                aria-expanded="false"
+                (click)="openHierarchy(user, $event)">
+                <ul style="color:#fff;">{{ user.hieCount }}</ul>
+              </span>
+
+              <div #dropdownMenu class="dropdown-menu hierarchy-dropdown p-4">
+                <div style="font-size:16px; color:white; font-weight:bold;">Hierarchy</div>
+                <div class="w-100">
+                  <div *ngFor="let u of fullHierarchy">
+                    <div style="font-size:14px; color:white;">{{ u.user_name }}</div>
+                    <div class="dropdown-divider"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </td>
           <td class="remarks-cell" title="{{ user.remarks }}">
            <span class="remarks"> ({{ user.remarks }})</span><img src="../../../assets/comment.svg" />
           </td>
