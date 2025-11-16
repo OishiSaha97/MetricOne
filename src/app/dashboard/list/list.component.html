@@ -64,10 +64,10 @@
                 <ul style="color:#fff;">{{ user.hieCount }}</ul>
               </span>
 
-              <div #dropdownMenu class="dropdown-menu hierarchy-dropdown p-4">
+              <div #dropdownMenu class="dropdown-menu hierarchy-dropdown dropdown-options p-4">
                 <div style="font-size:16px; color:white; font-weight:bold;">Hierarchy</div>
                 <div class="w-100">
-                  <div *ngFor="let u of fullHierarchy">
+                  <div *ngFor="let u of fullHierarchy" >
                     <div style="font-size:14px; color:white;">{{ u.user_name }}</div>
                     <div class="dropdown-divider"></div>
                   </div>

@@ -314,5 +314,13 @@ table, tr, td {
   max-height: 250px;
   overflow-y: auto;
   margin-top: 20px;
+  overflow-x: hidden;
+}
+.dropdown-options{
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #6c6d74 black !important;
 }
 
