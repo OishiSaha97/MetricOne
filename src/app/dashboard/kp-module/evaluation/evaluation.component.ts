@@ -44,6 +44,7 @@ export class EvaluationComponent {
 
 
   currentStatus:any='';
+  rateOverall:any = '';
   objectiveSet:any = [];
   selfAssessment:any = [];
   valuesData:any = [];
@@ -276,6 +277,7 @@ export class EvaluationComponent {
       managerData: JSON.stringify(this.managerData),
       pid: this.userData.id,
       objectId:this.userId,
+      otherParam:this.rateOverall,
       param: 'manager_evaluation_insert_data'
     };
 
@@ -383,6 +385,10 @@ export class EvaluationComponent {
     });
   }
 
+
+  onClickRate(event: any) {
+    this.rateOverall = event;
+  }
 
 
 }

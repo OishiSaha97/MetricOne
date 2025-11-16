@@ -154,7 +154,7 @@ export class TeamsKPIComponent {
 
 
   isClickable(user: any): boolean {
-    return user.status === 'Submitted for Reviewer' || user.editPermission;
+    return user.editPermission;
   }
 
   search() {
