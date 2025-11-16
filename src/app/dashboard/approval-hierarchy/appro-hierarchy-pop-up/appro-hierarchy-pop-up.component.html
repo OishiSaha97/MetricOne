@@ -12,7 +12,22 @@
 
           <!-- Tier Label -->
           <div class="tier-label" *ngIf="tier === 1">Approver-{{ tier }} (Manager)</div>
-          <div class="tier-label" *ngIf="tier !== 1 && i !== tiers.length - 1">Approver-{{ tier }}</div>
+          <div class="tier-label" *ngIf="tier !== 1 && i !== tiers.length - 1">
+            <div class="d-flex justify-content-between">
+              <div>
+                Approver-{{ tier }}
+              </div>
+              <div>
+                <img
+                  src="../../../../assets/delete-icon.svg"
+                  class="delete-icon cursor-enabled"
+                  (click)="removeTier(i)"
+                  alt="Delete Icon"
+                />
+              </div>
+
+            </div>
+            </div>
           <div class="tier-label" *ngIf="i === tiers.length - 1">Final Approver</div>
 
           <!-- Dropdown / Fixed Display -->

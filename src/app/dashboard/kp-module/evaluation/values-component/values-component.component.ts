@@ -124,7 +124,7 @@ export class ValuesComponentComponent {
 
 
   submitData() {
-    // this.dataSubmitted.emit(this.objectives);
+    this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives)
   }
 
