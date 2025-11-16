@@ -170,4 +170,8 @@ export class ApproHierarchyPopUpComponent {
 
     console.log("selectedValues:", this.selectedValues);
   }
+
+  removeTier(i: number) {
+    
+  }
 }
