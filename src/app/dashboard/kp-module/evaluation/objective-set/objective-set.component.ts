@@ -27,7 +27,7 @@ interface Objective {
   styleUrls: ['./objective-set.component.css']
 })
 export class ObjectiveSetComponent {
-  objOverallRating: any;
+    objOverallRating: any;
    role: any;
 
   constructor(public modalRef: BsModalRef,
@@ -36,6 +36,7 @@ export class ObjectiveSetComponent {
   }
 
   @Output() dataSubmitted = new EventEmitter<any>();
+  @Output() rateSubmit = new EventEmitter<any>();
   @Input() currentStatus: any;
 
 
@@ -139,6 +140,7 @@ export class ObjectiveSetComponent {
     if (!this.validateObjectives()) {
       return;
     }
+    this.rateSubmit.emit(this.objOverallRating);
     this.dataSubmitted.emit(this.objectives);
     // this.dataSubmitted.emit({
     //   objectives: this.objectives,
@@ -403,7 +405,7 @@ export class ObjectiveSetComponent {
 
   onOverallRating(type: any) {
     this.objOverallRating  = type.kpi_category_name;
-
-
   }
+
+
 }

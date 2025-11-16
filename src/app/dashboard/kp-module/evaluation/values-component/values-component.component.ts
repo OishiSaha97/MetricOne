@@ -127,6 +127,7 @@ export class ValuesComponentComponent {
     // this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives)
   }
+
   getRating() {
     this.kpi.getLogData({userIdKPI:this.userId,param: 'get_ratings',extraParam:'KPI Values'})
       .subscribe(res => {
