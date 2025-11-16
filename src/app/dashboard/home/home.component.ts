@@ -193,6 +193,10 @@ export class HomeComponent {
   }
 
   publishAnnoc() {
+    if (!this.anncText || this.anncText.trim() === '') {
+      alert("Announcement text cannot be empty!");
+      return;
+    }
     const formData = new FormData();
     formData.append('userId', this.userId);
     formData.append('remarkData', this.anncText);

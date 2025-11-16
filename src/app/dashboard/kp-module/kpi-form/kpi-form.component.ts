@@ -28,6 +28,7 @@ interface Objective {
 export class KpiFormComponent implements OnInit {
 
   constructor(public modalRef: BsModalRef,
+              public modalRefRemark: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
@@ -286,13 +287,13 @@ export class KpiFormComponent implements OnInit {
   }
 
   onCancel() {
-    this.modalRef.hide();
+    this.modalRefRemark.hide();
   }
 
 
   openPerformanceHistory(obj: any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
       .subscribe(res => {
           this.changedPerformanceHistory = Array.isArray(res?.['changed-performance-history']) ? res?.['changed-performance-history'] : res?.['changed-performance-history']
           this.openChangedHistory();
@@ -305,7 +306,7 @@ export class KpiFormComponent implements OnInit {
 
   openTargetHistory(obj: any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
       .subscribe(res => {
 
           this.changedTargetHistory = Array.isArray(res?.['changed-target-history']) ? res?.['changed-target-history'] : res?.['changed-target-history']
@@ -417,7 +418,7 @@ export class KpiFormComponent implements OnInit {
 
 
   openModal(template: TemplateRef<any>) {
-      this.modalRef = this.modalService.show(template, {
+      this.modalRefRemark = this.modalService.show(template, {
         backdrop: 'static',
         keyboard: false,
         class: 'modal-md'

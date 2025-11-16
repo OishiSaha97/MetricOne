@@ -47,9 +47,10 @@
         <tr *ngFor="let user of resData; let i = index" >
           <td>{{ i + 1 }}</td>
           <td title="{{ user.year }}">{{ user.year }}</td>
-<!--          <td title="{{ user.designation }}">{{ user.designation }}</td>-->
-          <td title="{{ user.team }}">{{ user.team }}</td>
-<!--          <td title="{{ user.manager }}">{{ user.manager }}</td>-->
+<!--          <td title="{{ user.team }}">{{ user.team }}</td>-->
+          <td [title]="user.team">
+            {{ user.team.length > 15 ? (user.team | slice:0:15) + '...' : user.team }}
+          </td>
           <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
           <td title="{{ user.SBU }}">{{ user.sbu }}</td>
           <td title="{{ user.hieCount }}" style="cursor:pointer"><ul style="color: #fff">{{ user.hieCount }}</ul></td>

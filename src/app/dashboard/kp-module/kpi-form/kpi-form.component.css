@@ -361,3 +361,6 @@
   color: #ffffffcc;
   pointer-events: none;
 }
+.container,.container-fluid{
+  max-width: 100% !important;
+}

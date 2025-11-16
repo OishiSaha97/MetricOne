@@ -110,3 +110,6 @@
   background :  url(src/assets/cross_icon.svg)no-repeat;
   scale:0.5;
 }
+.container,.container-fluid{
+  max-width: 100% !important;
+}

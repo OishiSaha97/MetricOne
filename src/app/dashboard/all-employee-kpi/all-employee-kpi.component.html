@@ -82,9 +82,14 @@
             </div>
           </td>
           <td>{{ data?.year }}</td>
-          <td>{{ data.employee_name }}</td>
+          <td [title]="data.employee_name">
+            {{ data.employee_name.length > 15 ? (data.employee_name | slice:0:15) + '...' : data.employee_name }}
+          </td>
+          <td [title]="data.team">
+            {{ data.team.length > 15 ? (data.team | slice:0:15) + '...' : data.team }}
+          </td>
           <td>{{ data.employee_id }}</td>
-          <td>{{ data.team }}</td>
+
           <td [ngClass]="getStatusClass(data.status)">{{ data.status }}</td>
           <td>{{ data.desg }}</td>
           <td>{{ data.sbu }}</td>

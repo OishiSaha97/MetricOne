@@ -159,3 +159,7 @@ body {
 .common-purple{
   color: #AD94FF !important;
 }
+
+.container,.container-fluid{
+  max-width: 82%!important;
+}

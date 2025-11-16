@@ -62,24 +62,18 @@
         </tr>
         </thead>
         <tbody>
-<!--        <tr *ngFor="let user of userList; let i = index">-->
-<!--          <td>{{ i + 1 }}</td>-->
-<!--          <td title="{{ user.year }}">{{ user.year }}</td>-->
-<!--          <td title="{{ user.employeeName }}">{{ user.employeeName }}</td>-->
-<!--          <td title="{{ user.team }}">{{ user.team }}</td>-->
-<!--          <td title="{{ user.employeeId }}">{{ user.employeeId }}</td>-->
-<!--          <td title="{{ user.status }} " [ngClass]="getStatusClass(user.status)">{{ user.status }}</td>-->
-<!--          <td title="{{ user.designation }}">{{ user.designation }}</td>-->
         <tr *ngFor="let user of resData; let i = index" >
           <td>{{ i + 1 }}</td>
           <td title="{{ user.year }}">{{ user.year }}</td>
-                    <td title="{{ user.name }}">{{ user.name }}</td>
+<!--                    <td title="{{ user.name }}">{{ user.name }}</td>-->
+          <td [title]="user.name">
+            {{ user.name.length > 15 ? (user.name | slice:0:15) + '...' : user.name }}
+          </td>
           <td title="{{ user.team }}">{{ user.team }}</td>
                     <td title="{{ user.employee_id }}">{{ user.employee_id }}</td>
           <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
           <td>{{ user.desg }}</td>
           <td title="{{ user.hieCount }}" style="cursor:pointer;position: relative;">
-<!--            <div >-->
             <span
               class="text-white dropdown"
               role="button"
@@ -110,8 +104,35 @@
 
           </td>
           <td title="{{ user.remarks }}">
-            <span class="remarks"> ({{ user.remarks }})</span>
-            {{" "}} <img src="../../../assets/comment.svg" />
+<!--            <span class="remarks"> ({{ user.remarks }})</span>-->
+
+
+            <span
+              class="text-white dropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              aria-expanded="false"
+              (click)="openHierarchy(user)">
+              <ul style="color: #fff;">{{ user.remarks }}</ul>
+            </span>{{" "}} <img src="../../../assets/comment.svg" />
+            <div
+              class="dropdown-menu hierarchy-dropdown p-4"
+              aria-labelledby="dropdownMenu2">
+              <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
+                Remarks
+              </div>
+              <div class="w-100">
+                <div *ngFor="let user of fullHierarchy; let i = index;">
+                  <div style="font-size:14px; color:white;">
+                    {{ user.user_name }}
+                  </div>
+                  <div class="dropdown-divider"></div>
+                </div>
+              </div>
+            </div>
+
+
           </td>
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"
