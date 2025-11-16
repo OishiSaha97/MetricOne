@@ -372,3 +372,27 @@ thead th:first-child{
     max-width: 50vh;
   }
 }
+table, tr, td {
+  overflow: visible !important;
+  position: relative !important;
+}
+.hierarchy-dropdown {
+  position: fixed !important;
+  z-index: 99999 !important;
+  background-color: black !important;
+  min-width: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  padding: 10px 15px !important;
+  height: 200px;
+  max-height: 250px;
+  overflow-y: auto;
+  display: none;
+}
+
+.hierarchy-dropdown .w-100 {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-top: 20px;
+}
+
