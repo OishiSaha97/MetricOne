@@ -65,7 +65,7 @@ export class ApproHierarchyPopUpComponent {
   selectOption(tier: number, option: { username: string; full_name: string }, i: number) {
 
     this.selectedValues[tier-1] = {
-      index: i,
+      index: tier,
       username: option.username,
       full_name: option.full_name
     };
@@ -152,6 +152,8 @@ export class ApproHierarchyPopUpComponent {
       .subscribe(res => {
         this.resData = res?.['getPrevHierarchy'] || [];
         this.hierarchyLength = this.resData.length;
+        this.tiers = [];
+        this.selectedValues = [];
         this.setViewHierarchy();
       });
   }
