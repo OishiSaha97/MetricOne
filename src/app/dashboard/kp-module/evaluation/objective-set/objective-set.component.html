@@ -393,7 +393,7 @@
     </ul>
 
   </div>
-  <div class="mt-3">
+  <div class="mt-3" *ngIf="['manager','hr','approver'].includes(currentStatus)">
     <ul class="list-group">
       <div class="work-obj">
         <div class="objective-box p-3 text-light">

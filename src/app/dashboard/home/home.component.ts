@@ -129,7 +129,7 @@ export class HomeComponent {
           this.settingTitle = "Initiation";
           this.mode = "edit";
         }
-        else if (kpiDate < today) {
+        else if (kpiDate <= today) {
           this.settingTitle = "Evaluation";
           this.checkEvaEndDate();
           this.mode = "add";
