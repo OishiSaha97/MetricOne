@@ -13,7 +13,7 @@ export class ApproAttributePopUpComponent {
   dropdownOpen = false;
   selectedKpiType = '';
   mode:any = '';
-  kpiType = ['KPI Objective', 'KPI Values', 'HR Rating'];
+  kpiType = ['KPI Objective', 'KPI Values', 'KPI HR'];
   attributeName: any = '';
   resData: any;
   constructor(public modalRef: BsModalRef,

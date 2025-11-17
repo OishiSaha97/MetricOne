@@ -261,7 +261,7 @@ export class ListComponent {
         });
       const dropdown = (event.target as HTMLElement)
         .closest('.dropdown')!
-        .querySelector('hierarchy-dropdown-remark') as HTMLElement;
+        .querySelector('.hierarchy-dropdown-remark') as HTMLElement;
 
       const rect = (event.target as HTMLElement).getBoundingClientRect();
 

@@ -86,10 +86,10 @@
 
 
           </td>
-          <td  title="{{ user.remarks }}">
+          <td  title="{{ user.remarks }}" style="cursor:pointer;position: relative;">
             <div class="dropdown" style="position: relative;">
              <span
-             class="text-white dropdown"
+             class="text-white"
              role="button"
              data-bs-toggle="dropdown"
              data-bs-display="static"
@@ -97,9 +97,8 @@
              (click)="$event.stopPropagation();openRemarks(user, $event)">
               {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />
             </span>
-            <div #dropdownMenuRemark
-              class="dropdown-menu hierarchy-dropdown-remark p-4"
-              aria-labelledby="dropdownMenu2" style="left: -189px !important;">
+            <div #dropdownMenu
+              class="dropdown-menu hierarchy-dropdown-remark dropdown-options p-4">
               <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
                 Remarks
               </div>

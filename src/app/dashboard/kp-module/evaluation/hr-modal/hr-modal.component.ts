@@ -75,6 +75,7 @@ export class HrModalComponent {
   }
 
   submitData() {
+    console.log("objectives : ", this.objectives);
     this.dataSubmitted.emit(this.objectives);
   }
 
