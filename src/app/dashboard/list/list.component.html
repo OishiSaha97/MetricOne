@@ -53,7 +53,33 @@
           </td>
           <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
           <td title="{{ user.SBU }}">{{ user.sbu }}</td>
-          <td title="{{ user.hieCount }}" style="cursor:pointer"><ul style="color: #fff">{{ user.hieCount }}</ul></td>
+          <td title="{{ user.hieCount }}" style="cursor:pointer;position: relative;">
+            <span
+              class="text-white dropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              aria-expanded="false"
+              (click)="openHierarchy(user)">
+              <ul style="color: #fff;">{{ user.hieCount }}</ul>
+            </span>
+            <div
+              class="dropdown-menu hierarchy-dropdown p-4"
+              aria-labelledby="dropdownMenu2">
+              <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
+                Hierarchy
+              </div>
+              <div class="w-100">
+                <div *ngFor="let user of fullHierarchy; let i = index;">
+                  <div style="font-size:14px; color:white;">
+                    {{ user.user_name }}
+                  </div>
+                  <div class="dropdown-divider"></div>
+                </div>
+              </div>
+            </div>
+          </td>
+<!--          <td title="{{ user.hieCount }}" style="cursor:pointer"><ul style="color: #fff">{{ user.hieCount }}</ul></td>-->
 <!--          <td class="remarks-cell" title="{{ user.remarks }}">-->
 <!--           <span class="remarks"> ({{ user.remarks }})</span><img src="../../../assets/comment.svg" />-->
 <!--          </td>-->
@@ -68,8 +94,8 @@
               {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />
             </span>
             <div
-              class="dropdown-menu hierarchy-dropdown p-4"
-              aria-labelledby="dropdownMenu2" style="left: -189px !important;">
+              class="dropdown dropdown-menu hierarchy-dropdown p-4"
+              aria-labelledby="dropdownMenu2" >
               <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
                 Remarks
               </div>

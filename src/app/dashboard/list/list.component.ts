@@ -179,6 +179,7 @@ export class ListComponent {
   }
 
   // modalRef: BsModalRef ;
+  fullHierarchy: any;
 
   viewClick(user: any): void {
 
@@ -238,6 +239,16 @@ export class ListComponent {
 
         });
     }
+
+
+  openHierarchy(user: any) {
+    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
+      .subscribe(res => {
+        this.fullHierarchy = res?.['get_hierarchy'] || [];
+
+      });
+
+  }
 
 
 }
