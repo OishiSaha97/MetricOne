@@ -53,6 +53,7 @@ export class KpiFormComponent implements OnInit {
   saveEmitter = new Subject<any>();
   approvalStatus:any;
   currentStatus:any='';
+  name:any='';
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
