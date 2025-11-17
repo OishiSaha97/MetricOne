@@ -168,7 +168,7 @@ export class EvaluationComponent {
     let currentStep;
     if(item == 'objective'){
       this.objectiveSet = data;
-      if(this.objectiveSet?.objectives?.length > 0){
+      if(this.objectiveSet?.objectives?.length > 0 || this.objectiveSet?.length > 0){
         currentStep = 2;
         this.changeTable('self',currentStep)
       }
@@ -198,8 +198,14 @@ export class EvaluationComponent {
   submitEmployee() {
     console.log(this.objectiveSet);
     console.log(this.selfAssessment);
+    let objectiveData;
+    if(this.objectiveSet?.objectives){
+      objectiveData = this.objectiveSet?.objectives;
+    }else {
+      objectiveData = this.objectiveSet;
+    }
 
-    let processedObjectives = this.objectiveSet?.objectives.map((obj: any ) => {
+    let processedObjectives = objectiveData.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
         return text
           ? text
@@ -248,7 +254,14 @@ export class EvaluationComponent {
   }
 
   submitManager() {
-    let processedObjectives = this.objectiveSet?.objectives.map((obj: any ) => {
+    let objectiveData;
+    if(this.objectiveSet?.objectives){
+      objectiveData = this.objectiveSet?.objectives;
+    }else {
+      objectiveData = this.objectiveSet;
+    }
+
+    let processedObjectives = objectiveData.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
         return text;
       };
@@ -302,7 +315,14 @@ export class EvaluationComponent {
     console.log(this.managerData);
     console.log(this.hrData);
 
-    let processedObjectives = this.objectiveSet.map((obj: any ) => {
+    let objectiveData;
+    if(this.objectiveSet?.objectives){
+      objectiveData = this.objectiveSet?.objectives;
+    }else {
+      objectiveData = this.objectiveSet;
+    }
+
+    let processedObjectives = objectiveData.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
         return text
           ? text
