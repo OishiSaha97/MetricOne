@@ -42,6 +42,7 @@ export class ListComponent {
   isInitCrossed: boolean = false;
   showEvaluation: boolean = false;
   isShowAdd: boolean = false;
+ remarkList: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -226,6 +227,16 @@ export class ListComponent {
           dataLoader.unsubscribe();
         });
       }
+    }
+
+
+
+    openRemarks(user: any) {
+      this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+        .subscribe(res => {
+          this.remarkList = res?.['reverted_remark_list'] || [];
+
+        });
     }
 
 

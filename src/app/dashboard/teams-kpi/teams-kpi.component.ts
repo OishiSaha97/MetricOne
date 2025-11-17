@@ -31,6 +31,7 @@ export class TeamsKPIComponent {
   userId:any;
   timePeriod:any;
   fullHierarchy: any;
+  remarkList: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -169,4 +170,14 @@ export class TeamsKPIComponent {
       });
 
   }
+
+  openRemarks(user: any) {
+    this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+      .subscribe(res => {
+        this.remarkList = res?.['reverted_remark_list'] || [];
+
+      });
+  }
+
+
 }
