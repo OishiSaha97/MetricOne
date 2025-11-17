@@ -229,7 +229,9 @@ export class ListComponent {
         });
       }
     }
-  fullHierarchy: any;
+
+  // fullHierarchy: any;
+
   openHierarchy(user: any, event: MouseEvent) {
     this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
       .subscribe(res => {
@@ -259,15 +261,6 @@ export class ListComponent {
         });
     }
 
-
-  openHierarchy(user: any) {
-    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
-      .subscribe(res => {
-        this.fullHierarchy = res?.['get_hierarchy'] || [];
-
-      });
-
-  }
 
 
 }
