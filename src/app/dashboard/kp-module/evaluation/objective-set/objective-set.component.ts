@@ -77,7 +77,7 @@ export class ObjectiveSetComponent {
       this.addObjective();
     }
     this.getRating();
-    this.getAttribute();
+    // this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
@@ -142,10 +142,6 @@ export class ObjectiveSetComponent {
     }
     this.rateSubmit.emit(this.objOverallRating);
     this.dataSubmitted.emit(this.objectives);
-    // this.dataSubmitted.emit({
-    //   objectives: this.objectives,
-    //   objOverallRating: this.objOverallRating
-    // });
   }
 
 
@@ -333,17 +329,17 @@ export class ObjectiveSetComponent {
   }
 
 
-  getAttribute() {
-    this.kpi.getLogData({param: 'attributeType'})
-      .subscribe(res => {
-          this.attributeType = Array.isArray(res?.['attributeType']) ? res?.['attributeType'] : res?.['attributeType']
-          console.log(this.attributeType);
-        },
-        (error) => {
-          console.error("Error fetching permission list", error);
-        }
-      );
-  }
+  // getAttribute() {
+  //   this.kpi.getLogData({param: 'attributeType'})
+  //     .subscribe(res => {
+  //         this.attributeType = Array.isArray(res?.['attributeType']) ? res?.['attributeType'] : res?.['attributeType']
+  //         console.log(this.attributeType);
+  //       },
+  //       (error) => {
+  //         console.error("Error fetching permission list", error);
+  //       }
+  //     );
+  // }
 
   togglePerformanceEdit(obj: any) {
     obj.isEditingPerformance = !obj.isEditingPerformance;
