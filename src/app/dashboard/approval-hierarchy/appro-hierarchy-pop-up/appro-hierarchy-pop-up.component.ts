@@ -11,7 +11,7 @@ export class ApproHierarchyPopUpComponent {
   finalApprover: any=[];
   userId:any;
   mode:any;
-
+  @Output() clickOutside = new EventEmitter<MouseEvent>();
   @Output() hierarchySaved = new EventEmitter<void>();
   resData: any;
   constructor(public bsModalRef: BsModalRef,
@@ -56,7 +56,7 @@ export class ApproHierarchyPopUpComponent {
   toggleDropdown(tier: number) {
 
 
-    Object.keys(this.dropdownOpen).forEach(key => this.dropdownOpen[+key] = false);
+    // Object.keys(this.dropdownOpen).forEach(key => this.dropdownOpen[+key] = false);
 
     this.dropdownOpen[tier] = !this.dropdownOpen[tier];
     this.filterApproversList[tier] = [...this.approvers];
@@ -75,6 +75,9 @@ export class ApproHierarchyPopUpComponent {
 
   isDropdownOpen(tier: number) {
     return this.dropdownOpen[tier];
+  }
+  closeDropdown(tier: number){
+    this.dropdownOpen[tier] = false;
   }
 
   closeModal() {

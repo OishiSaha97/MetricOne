@@ -23,7 +23,7 @@ export class HomeComponent {
   totalEmloyee: any;
    settingTitle: any;
    mode: any;
-   completed: number = 101;
+   completed: number = 0;
   anncText:any='';
   allPermission: any = [];
   teamKpi: any = [];
@@ -37,7 +37,7 @@ export class HomeComponent {
     { name: 'Arafat Alam', designation: 'SQA Engineer', team: 'QA', measure: 'Performance Review', date: 'Nov 1, 2025' },
   ];
   announcements:any[] = [];
-  progressValue: number =75;
+  progressValue: number =0;
 
   ngOnInit() {
     console.log("initialtionDate :", this.initialtionDate);
@@ -51,10 +51,9 @@ export class HomeComponent {
     this.getPermission();
     this.updateCountdown();
     setInterval(() => this.updateCountdown(), 60000); // Update every minute
-    this.progressValue = 75;
-    this.completed = 101;
-    this.updateProgress();
-
+    // this.progressValue = 0;
+    // this.completed = 101;
+    this.progressData();
   }
 
   getPermission() {
@@ -87,11 +86,6 @@ export class HomeComponent {
     const circumference = 2 * Math.PI * 50;
     let progress = circumference - (this.progressValue / 100) * circumference;
     return progress;
-  }
-
-  updateProgress() {
-    this.progressValue = 65;
-    this.completed = 180;
   }
 
   getData() {
@@ -225,5 +219,13 @@ export class HomeComponent {
         this.notifications =  res?.result?.content || [];
         console.log("this.announcements  : ", this.notifications );
       });
+  }
+
+ progressData() {
+   this.kpi.getLogData({ param: 'dashboardProgress', userIdKPI: this.userId })
+     .subscribe(res => {
+       this.progressValue = res?.dashboardProgress?.[0]?.progessCount;
+       this.completed =  res?.dashboardProgress?.[0]?.totalComplete;
+     });
   }
 }

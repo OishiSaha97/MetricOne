@@ -51,7 +51,8 @@
     <footer class="footer-section">
       <div class="d-flex justify-content-end gap-2 p-4">
         <button class="btn cancel-btn" (click)="closePopup()">Cancel</button>
-        <button class="btn submit-btn" (click)="save()">Save</button>
+        <button class="btn submit-btn" (click)="save()"
+                [disabled]="isSaveDisabled()">Save</button>
       </div>
     </footer>
 

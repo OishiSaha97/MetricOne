@@ -51,6 +51,13 @@ export class ApproAttributePopUpComponent {
   requestEmitter: EventEmitter<any> = new EventEmitter<any>();
   save() {
 
+    const name = this.attributeName ? this.attributeName.trim() : '';
+    const type = this.selectedKpiType ? this.selectedKpiType.trim() : '';
+
+    if (!name || !type) {
+      // optionally show a message / toast here
+      return;
+    }
     const formData = new FormData();
 
     formData.append('userId', this.userId);
@@ -74,5 +81,12 @@ export class ApproAttributePopUpComponent {
   closePopup() {
     this.modalRef.hide();
   }
+
+  isSaveDisabled(){
+    const name = this.attributeName ? this.attributeName.trim() : '';
+    const type = this.selectedKpiType ? this.selectedKpiType.trim() : '';
+    return !name || !type;
+  }
+
 
 }

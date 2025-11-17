@@ -26,9 +26,11 @@
           <div class="tier-label" *ngIf="i === tiers.length - 1">Final Approver</div>
           <div class="dropdown-box"
                         [class.disabled]="i === tiers.length - 1"
-                        (click)="i !== tiers.length - 1 && toggleDropdown(tier)">
+                        (click)="i !== tiers.length - 1 && toggleDropdown(tier)"
+               clickOutside
+               (clickOutside)="i !== tiers.length - 1 && closeDropdown(tier)">
 
-            <div class="dropdown-selected">
+            <div class="dropdown-selected" >
               <span class="dropdown-text" style="color:white">
 
                 <ng-container *ngIf="i === tiers.length - 1; else otherTiers">
