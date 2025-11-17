@@ -32,7 +32,7 @@ export class ApproHierarchyPopUpComponent {
   hierarchyLength:any=0;
   tiers: number[] = [1, 2];
   maxTiers = 4;
-  selectedValues: any = {};
+  selectedValues: any = [];
   dropdownOpen: { [tier: number]: boolean } = {};
   userList:any='';
   filterUserList:any='';
@@ -64,13 +64,12 @@ export class ApproHierarchyPopUpComponent {
 
   selectOption(tier: number, option: { username: string; full_name: string }, i: number) {
 
-    this.selectedValues['tier' + tier] = {
+    this.selectedValues[tier-1] = {
       index: tier,
       username: option.username,
       full_name: option.full_name
     };
     this.dropdownOpen[tier] = false;
-    console.log("selectedValues: ", this.selectedValues);
   }
 
 
@@ -96,6 +95,8 @@ export class ApproHierarchyPopUpComponent {
 
       tierArray.push(finalApproverWithIndex);
     }
+
+    console.log("tierArray to submit:", tierArray);
     let obj = {
       userIdKPI:this.userId,
       hierarchyData: JSON.stringify(tierArray),
@@ -151,23 +152,55 @@ export class ApproHierarchyPopUpComponent {
       .subscribe(res => {
         this.resData = res?.['getPrevHierarchy'] || [];
         this.hierarchyLength = this.resData.length;
+        this.tiers = [];
+        this.selectedValues = [];
         this.setViewHierarchy();
       });
   }
 
   setViewHierarchy() {
-    this.tiers = Array.from({ length: this.hierarchyLength + 1 }, (_, i) => i + 1);
+    this.tiers = Array.from({ length: this.hierarchyLength+1}, (_, i) => i);
     this.resData.forEach((element: any) => {
-      this.selectedValues['tier' + element.index] = {
+      this.selectedValues.push({
         index: element.index,
         username: element.username,
         full_name: element.full_name
-      };
+      }) ;
       if (!this.tiers.includes(element.index)) {
-        this.tiers.push(element.index);
+        this.tiers.push(element.index+1);
       }
+      console.log(this.selectedValues)
     });
 
-    console.log("selectedValues:", this.selectedValues);
   }
+
+  removeTier(index: number) {
+
+    this.tiers.pop();
+
+    // delete this.selectedValues[tierNumber];
+
+    this.selectedValues.splice(index, 1);
+// and if each item has its own index field:
+    this.selectedValues = this.selectedValues.map((v:any, i:any) => ({ ...v, index: i }));
+
+    // const newSelectedValues: { [key: string]: any } = {};
+    // const newTiers: number[] = [];
+    //
+    // let newIndex = 1;
+    // Object.keys(this.selectedValues)
+    //   .sort((a, b) => this.selectedValues[a].index - this.selectedValues[b].index)
+    //   .forEach(key => {
+    //     newSelectedValues[newIndex] = {
+    //       ...this.selectedValues[key],
+    //       index: newIndex
+    //     };
+    //     newIndex++;
+    //   });
+    //
+    // this.selectedValues = newSelectedValues;
+  }
+
+
+
 }

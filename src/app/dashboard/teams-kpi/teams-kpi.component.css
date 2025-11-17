@@ -179,6 +179,8 @@ tbody td[title]:hover::after {
   overflow: hidden auto;
   overflow-x: auto;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #6c6d74 black !important;
 }
 
 
@@ -318,3 +320,19 @@ table, tr, td {
   overflow-y: auto;
 }
 
+.status-pill {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pending {
+  background-color: yellow;
+  color: black;
+}
+
+.status-approved {
+  background-color: #28a745; /* green */
+  color: white;
+}

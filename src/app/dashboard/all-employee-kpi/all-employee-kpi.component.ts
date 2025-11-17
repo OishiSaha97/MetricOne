@@ -159,4 +159,24 @@ export class AllEmployeeKPIComponent {
   search() {
    this.loadData({});
   }
+
+  fullHierarchy: any;
+  openHierarchy(user: any, event: MouseEvent) {
+    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
+      .subscribe(res => {
+        this.fullHierarchy = res?.['get_hierarchy'] || [];
+
+      });
+
+    const dropdown = (event.target as HTMLElement)
+      .closest('.dropdown')!
+      .querySelector('.hierarchy-dropdown') as HTMLElement;
+
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+
+    dropdown.style.display = 'block';
+    dropdown.style.top = (rect.top + 30) + 'px';
+    dropdown.style.left = rect.left + 'px';
+
+  }
 }
