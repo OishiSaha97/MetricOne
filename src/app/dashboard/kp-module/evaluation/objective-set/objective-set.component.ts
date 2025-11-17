@@ -77,6 +77,7 @@ export class ObjectiveSetComponent {
       this.addObjective();
     }
     this.getRating();
+
     // this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
@@ -108,33 +109,12 @@ export class ObjectiveSetComponent {
           }
 
    );
-      // this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
-      //   .subscribe(res => {
-      //
-      //       this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
-      //       console.log(this.changedHistory);
-      //     },
-      //     (error) => {
-      //       console.error("Error fetching permission list", error);
-      //     }
-      //   );
-    // }
+      if(['manager','hr','approver'].includes(this.currentStatus)){
+        this.getOverallRating();
+      }
+
 
   }
-
-  // addObjectivesFromData(): void {
-  //   this.data.forEach((item:any, index:any) => {
-  //     const newObjective: Objective = {
-  //       id: this.objectives.length + 1,
-  //       title: `Work Objective ${this.objectives.length + 1}`,
-  //       selectedType: item.category_name,
-  //       objectiveText: item.objective,
-  //       targetText: item.target,
-  //       isOpen: false
-  //     };
-  //     this.objectives.push(newObjective);
-  //   });
-  // }
 
   submitData() {
     if (!this.validateObjectives()) {
@@ -401,6 +381,18 @@ export class ObjectiveSetComponent {
 
   onOverallRating(type: any) {
     this.objOverallRating  = type.kpi_category_name;
+  }
+
+  getOverallRating(){
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'get_overAllRating',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
+      .subscribe(res => {
+          this.objOverallRating = Array.isArray(res?.['get_overAllRating']) ? res?.['get_overAllRating'][0].over_all_rating : res?.['get_overAllRating'][0].over_all_rating
+          console.log("Overall Rating :", this.objOverallRating);
+        },
+        (error) => {
+          console.error("Error fetching ratings", error);
+        }
+      );
   }
 
 

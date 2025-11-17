@@ -162,7 +162,13 @@
   background-color: rgba(100, 73, 190, 1);
   border: 1px solid rgba(100, 73, 190, 1);
 }
-
+.forward-btn{
+  padding:5px 16px;
+  color:white;
+  background-color: #8164E2;
+  border: 1px solid #8164E2;
+  border-radius: 4px;
+}
 .changed-history {
   position: relative;
   display: inline-block;

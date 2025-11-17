@@ -215,6 +215,7 @@ export class ListComponent {
           year: user.year,
           kpiId: user.id,
           approvalStatus: user.approval_status,
+          currentStatus:'employee',
         };
         this.modalRef = this.modalService.show(KpiFormComponent, {
           backdrop: 'static',
