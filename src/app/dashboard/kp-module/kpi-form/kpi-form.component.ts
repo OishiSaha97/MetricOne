@@ -52,7 +52,8 @@ export class KpiFormComponent implements OnInit {
   kpiId:any='';
   saveEmitter = new Subject<any>();
   approvalStatus:any;
-
+  currentStatus:any='';
+  name:any='';
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
@@ -239,11 +240,15 @@ export class KpiFormComponent implements OnInit {
       return item;
     });
 
-    const param =
-      this.mode === 'approver'
-        ? 'kpi_update_data_by_approver'
-        : 'kpi_insert_data';
+    let param: string;
 
+    if (this.currentStatus === 'manager') {
+      param = 'kpi_initiation_final_approver';
+    } else if (this.mode === 'approver') {
+      param = 'kpi_update_data_by_approver';
+    } else {
+      param = 'kpi_insert_data';
+    }
     let obj: any = {
       userIdKPI: this.userId,
       userName: this.userName,

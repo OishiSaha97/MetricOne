@@ -77,6 +77,7 @@ export class EvaluationComponent {
     this.timePeriod = localStorage.getItem('timePeriod');
     this.kpiId = this.userData.id;
     console.log("Role:", this.role);
+    console.log("user:", this.userData);
   }
 
   maxStepData() {
@@ -324,12 +325,12 @@ export class EvaluationComponent {
 
     let processedObjectives = objectiveData.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
-        return text
-          ? text
-            .replace(/\r/g, '\\r')
-            .replace(/\n/g, '\\n')
-            .replace(/\t/g, '\\t')
-          : '';
+        return text;
+          // ? text
+          //   .replace(/\r/g, '\\r')
+          //   .replace(/\n/g, '\\n')
+          //   .replace(/\t/g, '\\t')
+          // : '';
       };
       let item: any = {
         title: obj.title,

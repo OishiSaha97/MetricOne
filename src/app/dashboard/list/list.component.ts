@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
 import {Router} from "@angular/router";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -43,6 +43,7 @@ export class ListComponent {
   showEvaluation: boolean = false;
   isShowAdd: boolean = false;
  remarkList: any;
+  isHierarchyOpen: boolean = false;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -215,6 +216,7 @@ export class ListComponent {
           year: user.year,
           kpiId: user.id,
           approvalStatus: user.approval_status,
+          currentStatus:'employee',
         };
         this.modalRef = this.modalService.show(KpiFormComponent, {
           backdrop: 'static',
@@ -231,8 +233,10 @@ export class ListComponent {
     }
 
   // fullHierarchy: any;
-
+  // @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
   openHierarchy(user: any, event: MouseEvent) {
+    event.stopPropagation();
+    this.isHierarchyOpen = !this.isHierarchyOpen;
     this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
       .subscribe(res => {
         this.fullHierarchy = res?.['get_hierarchy'] || [];
@@ -250,15 +254,31 @@ export class ListComponent {
     dropdown.style.left = rect.left + 'px';
 
   }
+  //
+  // @HostListener('document:click', ['$event'])
+  // onDocumentClick(event: MouseEvent) {
+  //   this.isHierarchyOpen = {};
+  // }
 
 
 
-    openRemarks(user: any) {
+
+
+  openRemarks(user: any, event: MouseEvent) {
       this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
         .subscribe(res => {
           this.remarkList = res?.['reverted_remark_list'] || [];
 
         });
+      const dropdown = (event.target as HTMLElement)
+        .closest('.dropdown')!
+        .querySelector('.hierarchy-dropdown-remark') as HTMLElement;
+
+      const rect = (event.target as HTMLElement).getBoundingClientRect();
+
+      dropdown.style.display = 'block';
+      dropdown.style.top = (rect.top + 20) + 'px';
+      dropdown.style.left = rect.left + 'px';
     }
 
 

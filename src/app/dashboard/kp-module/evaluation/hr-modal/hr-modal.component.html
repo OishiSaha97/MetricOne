@@ -1,7 +1,7 @@
 <div class="objectives-card p-4 rounded">
   <h5 class="text-light fw-semibold">HR's Insight</h5>
 
-  <div class="container mt-3">
+  <div class=" mt-3">
     <ul class="list-group">
       <div class="work-obj">
       <div class="d-flex justify-content-start">
@@ -36,7 +36,7 @@
 
     </ul>
   </div>
-  <div class="container mt-3" *ngFor="let obj of objectives; let i = index;">
+  <div class=" mt-3" *ngFor="let obj of objectives; let i = index;">
     <ul class="list-group">
       <div class="work-obj">
         <div class="d-flex justify-content-between">
@@ -46,8 +46,8 @@
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-                    style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  obj.attendanceRating ||'Select HR Rating' }}
+                    style="background-color:#33343C; border:1px solid #7A7B8299;width: 170px;">
+              {{  obj.attendanceRating ||'Select' }}
             </button>
 
             <ul class="dropdown-menu dropdown-menu-dark"
@@ -75,8 +75,8 @@
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-                    style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  obj.leaveRating ||'Select HR Rating' }}
+                    style="background-color:#33343C; border:1px solid #7A7B8299;width: 170px;">
+              {{  obj.leaveRating ||'Select' }}
             </button>
 
             <ul class="dropdown-menu dropdown-menu-dark"
@@ -104,8 +104,8 @@
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-                    style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  obj.issueRating ||'Select HR Rating' }}
+                    style="background-color:#33343C; border:1px solid #7A7B8299;width: 170px;">
+              {{  obj.issueRating ||'Select' }}
             </button>
 
             <ul class="dropdown-menu dropdown-menu-dark"
@@ -133,8 +133,8 @@
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-                    style="background-color:#33343C; border:1px solid #7A7B8299;padding: 6px 44px">
-              {{  obj.awardRating ||'Select HR Rating' }}
+                    style="background-color:#33343C; border:1px solid #7A7B8299;width: 170px;">
+              {{  obj.awardRating ||'Select' }}
             </button>
 
             <ul class="dropdown-menu dropdown-menu-dark"
