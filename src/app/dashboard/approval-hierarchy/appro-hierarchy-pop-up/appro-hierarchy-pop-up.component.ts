@@ -178,30 +178,10 @@ export class ApproHierarchyPopUpComponent {
   }
 
   removeTier(index: number) {
-
     this.tiers.pop();
-
-    // delete this.selectedValues[tierNumber];
-
     this.selectedValues.splice(index, 1);
-// and if each item has its own index field:
-    this.selectedValues = this.selectedValues.map((v:any, i:any) => ({ ...v, index: i }));
+    this.selectedValues = this.selectedValues.map((v:any, i:any) => ({ ...v, index: i+1 }));
 
-    // const newSelectedValues: { [key: string]: any } = {};
-    // const newTiers: number[] = [];
-    //
-    // let newIndex = 1;
-    // Object.keys(this.selectedValues)
-    //   .sort((a, b) => this.selectedValues[a].index - this.selectedValues[b].index)
-    //   .forEach(key => {
-    //     newSelectedValues[newIndex] = {
-    //       ...this.selectedValues[key],
-    //       index: newIndex
-    //     };
-    //     newIndex++;
-    //   });
-    //
-    // this.selectedValues = newSelectedValues;
   }
 
 

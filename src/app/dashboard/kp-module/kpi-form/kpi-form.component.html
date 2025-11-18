@@ -68,7 +68,7 @@
           <span >Time-Bound</span>.
         </p>
 
-        <div class="mt-3">
+        <div class="mt-3 mb-3">
           <ul class="list-group">
             <div class="work-obj">
               <div class="d-flex justify-content-between align-items-center">
@@ -103,6 +103,7 @@
                           class="obj-input-weightage text-center"
                           [(ngModel)]="obj.weightage"
                         />
+
                         <span class="percentage-icon">%</span>
                       </div>
                       <div class="dropdown">
@@ -111,18 +112,29 @@
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                                 style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right:10px;">
-                          {{ obj.selectedType || 'Select' }}
+                          {{ obj.selectedType ? (obj.selectedType.length > 11 ? (obj.selectedType | slice:0:11) + '...' : obj.selectedType) : 'Select' }}
                         </button>
+                        <small class="text-danger" *ngIf="objectiveErrors[i]?.selectedType">
+                          {{ objectiveErrors[i].selectedType }}
+                        </small>
 
-                        <ul class="dropdown-menu dropdown-menu-dark"
-                            style="background-color: #33343C;">
-                          <li *ngFor="let type of objectiveTypes">
-                            <a class="dropdown-item text-light"
-
-                               (click)="onObjectiveChange(type, obj, i)">
-                              {{ type }}
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll">
+                          <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
+                            <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+                            <input [(ngModel)]="searchType" type="text" class="form-control search-input"
+                                   placeholder="Search Here" style=""
+                                   (input)="filterTypes()">
+                          </div>
+                          <li *ngFor="let type of filterObjectiveTypes">
+                            <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
+                              <span class="custom-tooltip"
+                                    [attr.title]="type.name"
+                                    >
+                                {{ type.name.length > 11 ? (type.name | slice:0:11) + '...' : type.name }}
+                              </span>
                             </a>
                           </li>
+
                         </ul>
                       </div>
                     </div>
@@ -153,6 +165,9 @@
                       placeholder="Enter objective..."
                       [readonly]="mode === 'approver' && !obj.isEditingObjective"
                     />
+                    <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">
+                      {{ objectiveErrors[i].objectiveText }}
+                    </small>
 
                     <div *ngIf="obj.isEditingObjective" class="mt-3">
                       <h6 style="font-size: 12px;">Key Update Points*</h6>
@@ -163,6 +178,10 @@
                         [(ngModel)]="obj.keyObjective"
                         placeholder="Enter key point objective..."
                       />
+                      <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyObjectiveText">
+                        {{ objectiveErrors[i].keyObjectiveText }}
+                      </small>
+
                     </div>
 
                       <div *ngIf="mode === 'approver' " class="mt-1">
@@ -211,6 +230,9 @@
                       placeholder="Enter target..."
                       [readonly]="mode === 'approver' && !obj.isEditingPerformance"
                     >
+                    <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
+                      {{ objectiveErrors[i].performanceText }}
+                    </small>
 
                     <div *ngIf="obj.isEditingPerformance" class="mt-3">
                       <h6 style="font-size: 12px;">Key Update Points*</h6>
@@ -219,8 +241,11 @@
                         type="text"
                         class="obj-input mt-2"
                         [(ngModel)]="obj.keyPerformance"
-                        placeholder="Enter key point target..."
+                        placeholder="Enter key point..."
                       />
+                      <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyPerformanceText">
+                        {{ objectiveErrors[i].keyPerformanceText }}
+                      </small>
                     </div>
 
                     <div *ngIf="mode === 'approver' " class="mt-1">
@@ -267,6 +292,9 @@
                         placeholder="Enter target..."
                         [readonly]="mode === 'approver' && !obj.isEditingTarget"
                       >
+                      <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.targetText">
+                        {{ objectiveErrors[i].targetText }}
+                      </small>
 
                       <div *ngIf="obj.isEditingTarget" class="mt-3">
                         <h6 style="font-size: 12px;">Key Update Points*</h6>
@@ -277,6 +305,9 @@
                           [(ngModel)]="obj.keyTarget"
                           placeholder="Enter key point target..."
                         />
+                        <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyTargetText">
+                          {{ objectiveErrors[i].keyTargetText }}
+                        </small>
                       </div>
 
                       <div *ngIf="mode === 'approver' " class="mt-1">
@@ -300,21 +331,6 @@
 
                       </div>
                     </div>
-
-<!--                    <div class="col-md-4">-->
-<!--                      <div>-->
-<!--                        <label class="text-secondary small">WEIGHTAGE</label>-->
-<!--                        <div *ngIf="mode === 'approver' ">-->
-<!--                          <img src="" class="mb-1" style="scale:0.7" />-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                      <input-->
-<!--                        type="text"-->
-<!--                        class="obj-input mb-2"-->
-<!--                        [(ngModel)]="obj.weightage"-->
-<!--                        placeholder="Enter weightage..."-->
-<!--                      />-->
-<!--                    </div>-->
 
 
                   </div>
@@ -343,9 +359,14 @@
           <div>
             <div class="d-flex justify-content-end gap-2">
               <button class="revert-btn" (click)="openModal(actionModal)" *ngIf="mode == 'approver'" >Revert</button>
-
-              <button class="forward-btn " (click)="onSubmit()">Forward</button>
-              <button class="btn submit-btn" *ngIf="currentStatus == 'manager'" (click)="onSubmit()" >Publish</button>
+              <button class="forward-btn"
+                      (click)="(currentStatus == 'manager' || currentStatus === 'approver') ? onSubmit('forward'): onSubmit('submit')"
+                      [ngClass]="{
+                          'forward-btn': true
+                        }">
+                {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}
+              </button>
+              <button class="btn submit-btn" *ngIf="currentStatus == 'manager' || currentStatus === 'approver' || currentStatus === 'hr'" (click)="onSubmit('publish')" >Publish</button>
             </div>
           </div>
 

@@ -29,6 +29,9 @@
               [(ngModel)]="obj.objectiveText"
               placeholder="Type Here"
             />
+            <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">
+              {{ objectiveErrors[i].objectiveText }}
+            </small>
           </div>
         </div>
 
