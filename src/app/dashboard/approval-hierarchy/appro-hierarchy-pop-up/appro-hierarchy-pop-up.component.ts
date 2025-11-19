@@ -109,8 +109,6 @@ export class ApproHierarchyPopUpComponent {
   }
 
   onSubmit() {
-    console.log("selectedValues to submit:", this.selectedValues);
-
 
     let tierArray: TierUser[] = Object.values(this.selectedValues) as TierUser[];
 
@@ -118,21 +116,11 @@ export class ApproHierarchyPopUpComponent {
       tierArray.push(this.finalApprover as TierUser);
     }
 
-    // Reassign index = 1,2,3,4,...
     tierArray = tierArray.map((item: TierUser, i: number) => ({
       ...item,
       index: i + 1
     }));
-    // const tierArray = Object.values(this.selectedValues);
-    // if (this.finalApprover) {
-    //   const finalApproverWithIndex = {
-    //     index: tierArray.length + 1,
-    //     ...this.finalApprover
-    //   };
-    //
-    //   tierArray.push(finalApproverWithIndex);
-    // }
-    //
+
     console.log("tierArray to submit:", tierArray);
     let obj = {
       userIdKPI:this.userId,
