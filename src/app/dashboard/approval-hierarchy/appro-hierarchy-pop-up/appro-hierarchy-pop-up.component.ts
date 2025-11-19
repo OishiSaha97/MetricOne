@@ -64,13 +64,24 @@ export class ApproHierarchyPopUpComponent {
 
   selectOption(tier: number, option: { username: string; full_name: string }, i: number) {
 
-    this.selectedValues[tier-1] = {
-      index: tier,
-      username: option.username,
-      full_name: option.full_name
-    };
-    this.dropdownOpen[tier] = false;
-    this.searchApprover[tier] = '';
+      if(this.mode === 'edit'){
+        this.selectedValues[tier] = {
+          index: tier,
+          username: option.username,
+          full_name: option.full_name
+        };
+        this.dropdownOpen[tier] = false;
+        this.searchApprover[tier] = '';
+      }else {
+        this.selectedValues[tier] = {
+          index: tier,
+          username: option.username,
+          full_name: option.full_name
+        };
+        this.dropdownOpen[tier] = false;
+        this.searchApprover[tier] = '';
+      }
+
   }
 
 
