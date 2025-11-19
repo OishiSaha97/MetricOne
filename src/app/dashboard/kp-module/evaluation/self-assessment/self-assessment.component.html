@@ -51,6 +51,9 @@
               [readonly]="currentStatus === 'manager' || currentStatus === 'approver'"
               [disabled]=" userData.status === 'Closed'"
             />
+            <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.selfText">
+              {{ objectiveErrors[i].selfText }}
+            </small>
 
 
           </div>

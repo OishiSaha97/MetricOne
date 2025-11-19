@@ -75,8 +75,27 @@ export class HrModalComponent {
   }
 
   submitData() {
+    if (!this.validateObjectives()) {
+      return;
+    }
     console.log("objectives : ", this.objectives);
     this.dataSubmitted.emit(this.objectives);
+  }
+  objectiveErrors: { [key: number]:
+      {
+        objectiveText?: string;
+      } } = {};
+  validateObjectives(): boolean {
+    let hasError = false;
+    for (let i = 0; i < this.objectives.length; i++) {
+      const obj = this.objectives[i];
+      this.objectiveErrors[i] = {};
+      if (!obj.objectiveText?.trim()) {
+        this.objectiveErrors[i].objectiveText = '*Objective is required';
+        hasError = true;
+      }
+    }
+    return !hasError;
   }
 
   getRating() {

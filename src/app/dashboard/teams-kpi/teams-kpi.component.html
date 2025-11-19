@@ -1,5 +1,5 @@
 <div class="list-table">
-  <div class="d-flex justify-content-between align-items-center mb-5">
+  <div class="d-flex justify-content-end align-items-center mb-5">
 
 
     <div class="right-side" style="display: flex; align-items: center; gap: 16px;">
@@ -55,13 +55,18 @@
           <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
           <td>{{ user.desg }}</td>
           <td title="{{ user.hieCount }}" style="cursor:pointer;position: relative;">
-            <span
+            <span *ngIf="user.hieCount > 0"
               class="text-white dropdown"
               role="button"
               data-bs-toggle="dropdown"
               data-bs-display="static"
               aria-expanded="false"
               (click)="openHierarchy(user)">
+              <ul style="color: #fff;">{{ user.hieCount }}</ul>
+            </span>
+            <span *ngIf="user.hieCount <= 0"
+              class="text-white dropdown"
+              role="button">
               <ul style="color: #fff;">{{ user.hieCount }}</ul>
             </span>
             <div
@@ -94,13 +99,18 @@
 
           </td>
           <td title="{{ user.remarks }}">
-            <span
+            <span *ngIf="user.remarks > 0"
               class="text-white dropdown"
               role="button"
               data-bs-toggle="dropdown"
               data-bs-display="static"
               aria-expanded="false"
-              (click)="openRemarks(user)">
+              (click)="user.remarks > 0 ? openRemarks(user): ''">
+              {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />
+            </span>
+            <span *ngIf="user.remarks <= 0"
+              class="text-white dropdown"
+              role="button">
               {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />
             </span>
             <div

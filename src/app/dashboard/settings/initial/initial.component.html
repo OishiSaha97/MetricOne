@@ -18,7 +18,7 @@
    <div class="d-flex justify-content-between abc">
      <div class="tier-block">
        <div class="tier-label">
-         {{ tabs === 'initiation'? 'Initiation EndDate: ': 'Evaluation EndDate: ' }}
+         {{ 'EndDate:'  }}
        </div>
        <div class="date-input-container date-input " *ngIf="tabs === 'initiation'">
          <input
@@ -64,23 +64,23 @@
      </div>
 
    </div>
-   <div *ngIf="mode==='edit' && tabs === 'initiation'">
-     <div class="d-flex justify-content-start gap-3" style="font-size: 12px;padding-left: 28px;" >
-       <div>
-         <span style="color:#AD94FF">Total Employee:</span><span style="color: white"> {{ totalEmloyee }}</span>
-       </div>
-       <div>
-         <span style="color:#AD94FF">KPI Ongoing:</span><span style="color: white"> {{ totalEmloyee }}</span>
-       </div>
-       <div>
-         <span style="color:#AD94FF">Pending Manager Review:</span><span style="color: white"> {{ totalEmloyee }}</span>
-       </div>
-       <div>
-         <span style="color:#AD94FF">Completed:</span><span style="color: white"> {{ completed }}</span>
-       </div>
+<!--   <div *ngIf="mode==='edit' && tabs === 'initiation'">-->
+<!--     <div class="d-flex justify-content-start gap-3" style="font-size: 12px;padding-left: 28px;" >-->
+<!--       <div>-->
+<!--         <span style="color:#AD94FF">Total Employee:</span><span style="color: white"> {{ totalEmloyee }}</span>-->
+<!--       </div>-->
+<!--       <div>-->
+<!--         <span style="color:#AD94FF">KPI Ongoing:</span><span style="color: white"> {{ totalEmloyee }}</span>-->
+<!--       </div>-->
+<!--       <div>-->
+<!--         <span style="color:#AD94FF">Pending Manager Review:</span><span style="color: white"> {{ totalEmloyee }}</span>-->
+<!--       </div>-->
+<!--       <div>-->
+<!--         <span style="color:#AD94FF">Completed:</span><span style="color: white"> {{ completed }}</span>-->
+<!--       </div>-->
 
-     </div>
-   </div>
+<!--     </div>-->
+<!--   </div>-->
    <div *ngIf="mode==='edit' && tabs === 'evaluation'">
      <div class="d-flex justify-content-start gap-3" style="font-size: 12px;padding-left: 28px;" >
 

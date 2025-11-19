@@ -123,7 +123,9 @@ export class EvaluationComponent {
     }else if(this.currentStep == 4){
      this.managerComp.submitData();
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
-        this.submitManager();
+        if(this.managerData && this.managerData.length > 0){
+          this.submitManager();
+        }
       }else{
         currentStep = 5;
         this.changeTable('hr',currentStep)

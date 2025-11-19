@@ -123,30 +123,35 @@ export class SelfAssessmentComponent {
     console.log(this.objectives)
   }
 
+  objectiveErrors: { [key: number]:
+      {
+        selfText?: string;
+        rating?: string;
+      } } = {};
+
   validateObjectives(): boolean {
+    let hasError = false;
     for (let i = 0; i < this.objectives.length; i++) {
       const obj = this.objectives[i];
+      this.objectiveErrors[i] = {};
 
-      // if(this.currentStatus != 'employee' && (this.role == 'hr' || this.role == 'manager')){
-        if (
-          !obj.selfText?.trim()
-        ) {
-          alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
-          return false;
-        }
-      // }else{
-        if ((this.currentStatus == 'employee') &&
-          !obj.selfText?.trim()
-        ) {
-          console.log(obj)
-          alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
-          return false;
-        }
+      if (!obj.selfText?.trim()) {
+        this.objectiveErrors[i].selfText = '*Text is required';
+        hasError = true;
+      }
+        //
+        // if ((this.currentStatus == 'employee') &&
+        //   !obj.selfText?.trim()
+        // ) {
+        //   console.log(obj)
+        //   alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
+        //   return false;
+        // }
       }
 
     // }
 
-    return true;
+    return !hasError;
   }
 
 }

@@ -26,6 +26,7 @@ interface Objective {
   styleUrls: ['./kpi-form.component.css']
 })
 export class KpiFormComponent implements OnInit {
+  filterObjectiveTypes: any[]=[];
 
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
@@ -34,7 +35,31 @@ export class KpiFormComponent implements OnInit {
   }
 
   requestEmitter: EventEmitter<any> = new EventEmitter<any>();
-  objectiveTypes: string[] = ['Production', 'Support', 'Innovation', 'People', 'Other'];
+  objectiveTypes: any[] = [{id:1,name:'Production'},
+                        {id:2,name: 'Support'},
+                        {id:3,name: 'Innovation'},
+                        {id:4,name: 'People'},
+                        {id:5,name: 'Recruitment'},
+                        {id:6,name: 'Performance Management'},
+                        {id:7,name: 'Compensation & Benefits '},
+                        {id:8,name: 'Training & Development'},
+                        {id:9,name: 'Employee Engagement'},
+                        {id:10,name: 'Record Keeping'},
+                        {id:11,name: 'Financial Reporting/Analysis'},
+                        {id:12,name: 'Budgeting & Forecasting'},
+                        {id:13,name: 'Compliance & Tax Management'},
+                        {id:14,name: 'Financial Statement Preparation'},
+                        {id:15,name: 'Network & Server Management'},
+                        {id:16,name: 'Device Management'},
+                        {id:17,name: 'Trouble Shooting'},
+                        {id:18,name: 'User Assistance'},
+                        {id:19,name: 'Cyber Security & Data Protection'},
+                        {id:20,name: 'Software & Application Management'},
+                        {id:21,name: 'IT Governance & Strategy'},
+                        {id:22,name: 'Policy Implementation'},
+                        {id:23,name: 'Facility Management'},
+                        {id:24,name: 'Stationery Management'},
+                        {id:25,name:'Other'}];
   objectives: any = [];
   data: any = [];
   check_kpi: any = [];
@@ -55,6 +80,10 @@ export class KpiFormComponent implements OnInit {
   currentStatus:any='';
   currentIndex:any='';
   name:any='';
+
+  showObjectiveHistoryIndex: number | null = null;
+  remark: string = '';
+  searchType: any;
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
@@ -99,7 +128,7 @@ export class KpiFormComponent implements OnInit {
             }
           );
       }
-
+    this.filterObjectiveTypes = [...this.objectiveTypes];
 
   }
 
@@ -123,65 +152,85 @@ export class KpiFormComponent implements OnInit {
   }
 
   onObjectiveChange(type: any, obj: Objective,i:number): void {
-    obj.selectedType = type;
+    obj.selectedType = type.name;
     this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
-  }
 
-  // removeObjective(index: number): void {
-  //   this.objectives.splice(index, 1);
-  //   // reassign ids/titles if you want sequential ids
-  //   this.objectives.forEach((o, i) => {
-  //     o.id = i + 1;
-  //     o.title = `Work Objective ${i + 1}`;
-  //   });
-  // }
+    this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
+      (t: any) => t.name !== obj.selectedType
+    );
+    this.filterTypes();
+  }
+  selectedTypes: string[] = [];
+
+
   isOpen: boolean[] = [];
 
+  objectiveErrors: { [key: number]:
+      {
+          selectedType?: string;
+          objectiveText?: string;
+          targetText?: string;
+          performanceText?: string;
+          keyObjectiveText?:string;
+          keyPerformanceText?:string;
+          keyTargetText?:string;
+          weightage?: string
+      } } = {};
   validateObjectives(): boolean {
     let totalWeightage = 0;
     const titleSet = new Set<string>();
+    this.objectiveErrors = {}; // Reset previous errors
 
     for (let i = 0; i < this.objectives.length; i++) {
       const obj = this.objectives[i];
+      this.objectiveErrors[i] = {};
 
-      if (
-        !obj.selectedType?.trim() ||
-        !obj.objectiveText?.trim() ||
-        !obj.targetText?.trim()
-      ) {
-        alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
-        return false;
+      if (!obj.selectedType?.trim()) {
+        this.objectiveErrors[i].selectedType = '*Type is required';
       }
 
-      const title = obj.title?.trim();
-      if (!title) {
-        alert(`Please enter a title for Objective ${i + 1}`);
-        return false;
+      if (!obj.objectiveText?.trim()) {
+        this.objectiveErrors[i].objectiveText = '*Objective is required';
       }
 
-      if (titleSet.has(title.toLowerCase())) {
-        alert(`Duplicate title found: "${title}". Each objective title must be unique.`);
-        return false;
+      if (!obj.targetText?.trim()) {
+        this.objectiveErrors[i].targetText = '*Target is required';
       }
-      titleSet.add(title.toLowerCase());
+      if (!obj.performanceText?.trim()) {
+        this.objectiveErrors[i].performanceText = '*Performance Text is required';
+      }
 
-      const weight = Number(obj.weightage || 0);
+      const weight = parseFloat((obj.weightage || '0').toString().trim());
       if (isNaN(weight) || weight <= 0) {
-        alert(`Please enter a valid weightage for "${title}"`);
-        return false;
+        this.objectiveErrors[i].weightage = '*Weightage must be > 0';
+      }
+      totalWeightage += weight;
+
+      if (obj.isEditingObjective && !obj.keyObjective?.trim()) {
+        this.objectiveErrors[i].keyObjectiveText = '*Key Update Points required';
+      }
+      if (obj.isEditingPerformance && !obj.keyPerformance?.trim()) {
+        this.objectiveErrors[i].keyPerformanceText = '*Key Update Points required';
+      }
+      if (obj.isEditingTarget && !obj.keyTarget?.trim()) {
+        this.objectiveErrors[i].keyTargetText = '*Key Update Points required';
       }
 
-      totalWeightage += weight;
+
+
     }
 
-    if (totalWeightage !== 100) {
+    if (Math.round(totalWeightage) !== 100) {
       alert(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
       return false;
     }
 
-    return true;
+    // Return false if any errors exist
+    return !Object.values(this.objectiveErrors).some(err => Object.keys(err).length > 0);
   }
+
+
 
   blockDecimal(event: KeyboardEvent) {
     const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
@@ -193,9 +242,52 @@ export class KpiFormComponent implements OnInit {
       event.preventDefault();
     }
   }
+  // validateObjectives(): boolean {
+  //   let totalWeightage = 0;
+  //   const titleSet = new Set<string>();
+  //
+  //   for (let i = 0; i < this.objectives.length; i++) {
+  //     const obj = this.objectives[i];
+  //
+  //     if (
+  //       !obj.selectedType?.trim() ||
+  //       !obj.objectiveText?.trim() ||
+  //       !obj.targetText?.trim()
+  //     ) {
+  //       alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
+  //       return false;
+  //     }
+  //
+  //     const title = obj.title?.trim();
+  //     if (!title) {
+  //       alert(`Please enter a title for Objective ${i + 1}`);
+  //       return false;
+  //     }
+  //
+  //     if (titleSet.has(title.toLowerCase())) {
+  //       alert(`Duplicate title found: "${title}". Each objective title must be unique.`);
+  //       return false;
+  //     }
+  //     titleSet.add(title.toLowerCase());
+  //
+  //     const weight = Number(obj.weightage || 0);
+  //     if (isNaN(weight) || weight <= 0) {
+  //       alert(`Please enter a valid weightage for "${title}"`);
+  //       return false;
+  //     }
+  //
+  //     totalWeightage += weight;
+  //   }
+  //
+  //   if (totalWeightage !== 100) {
+  //     alert(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
+  //     return false;
+  //   }
+  //
+  //   return true;
+  // }
 
-
-  onSubmit(): void {
+  onSubmit(type:any): void {
     if (!this.validateObjectives()) {
       return;
     }
@@ -235,15 +327,18 @@ export class KpiFormComponent implements OnInit {
       return item;
     });
 
-    let param: string;
+    let param: string ='';
 
-    if (this.currentStatus === 'manager') {
+    if(type === 'publish'){
       param = 'kpi_initiation_final_approver';
-    } else if (this.mode === 'approver') {
-      param = 'kpi_update_data_by_approver';
-    } else {
+    }
+    else if(type === 'submit' ){
       param = 'kpi_insert_data';
     }
+    else if (type === 'forward') {
+      param = 'kpi_update_data_by_approver';
+    }
+
     let obj: any = {
       userIdKPI: this.userId,
       userName: this.userName,
@@ -356,8 +451,7 @@ export class KpiFormComponent implements OnInit {
     this.showTargetHistory = !this.showTargetHistory;
   }
 
-  showObjectiveHistoryIndex: number | null = null;
-  remark: string = '';
+
 
   openChangedObjectiveHistory(index: number): void {
     if (this.showObjectiveHistoryIndex === index) {
@@ -452,5 +546,14 @@ export class KpiFormComponent implements OnInit {
        );
   }
 
+  filterTypes() {
+    const search = this.searchType.trim().toLowerCase();
+
+    this.filterObjectiveTypes = this.objectiveTypes.filter((apr: any) =>
+      // Type obj explicitly as Objective
+      !this.objectives.some((obj: Objective) => obj.selectedType === apr.name) &&
+      apr.name.toLowerCase().includes(search)
+    );
+  }
 
 }

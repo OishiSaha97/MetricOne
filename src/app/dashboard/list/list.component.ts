@@ -232,54 +232,155 @@ export class ListComponent {
       }
     }
 
-  // fullHierarchy: any;
-  // @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
-  openHierarchy(user: any, event: MouseEvent) {
-    event.stopPropagation();
-    this.isHierarchyOpen = !this.isHierarchyOpen;
-    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
-      .subscribe(res => {
-        this.fullHierarchy = res?.['get_hierarchy'] || [];
-
-      });
-
-    const dropdown = (event.target as HTMLElement)
-      .closest('.dropdown')!
-      .querySelector('.hierarchy-dropdown') as HTMLElement;
-
-    const rect = (event.target as HTMLElement).getBoundingClientRect();
-
-    dropdown.style.display = 'block';
-    dropdown.style.top = (rect.top + 30) + 'px';
-    dropdown.style.left = rect.left + 'px';
-
-  }
+  // activeDropdown: HTMLElement | null = null;
+  // openHierarchy(user: any, event: MouseEvent) {
+  //   event.stopPropagation();
+  //   if (this.isHierarchyOpen) {
+  //     this.closeAllDropdowns();
+  //     return;
+  //   }
+  //   this.isHierarchyOpen = true;
+  //   this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
+  //     .subscribe(res => {
+  //       this.fullHierarchy = res?.['get_hierarchy'] || [];
   //
-  // @HostListener('document:click', ['$event'])
-  // onDocumentClick(event: MouseEvent) {
-  //   this.isHierarchyOpen = {};
+  //     });
+  //
+  //   const dropdown = (event.target as HTMLElement)
+  //     .closest('.dropdown')!
+  //     .querySelector('.hierarchy-dropdown') as HTMLElement;
+  //
+  //   this.activeDropdown = dropdown;
+  //
+  //   const rect = (event.target as HTMLElement).getBoundingClientRect();
+  //
+  //   dropdown.style.display = 'block';
+  //   dropdown.style.top = (rect.top + 30) + 'px';
+  //   dropdown.style.left = rect.left + 'px';
+  //   dropdown.classList.add('show');
+  //
+  // }
+  // @HostListener('document:click')
+  // closeAllDropdowns() {
+  //   if (this.activeDropdown) {
+  //     this.activeDropdown.classList.remove('show');
+  //   }
+  //   this.isHierarchyOpen = false;
   // }
 
 
+  openHierarchyIndex: number | null = null;
+  activeDropdown: HTMLElement | null = null;
 
+  openHierarchy(user: any, event: MouseEvent, index: number) {
+    event.stopPropagation();
 
-
-  openRemarks(user: any, event: MouseEvent) {
-      this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
-        .subscribe(res => {
-          this.remarkList = res?.['reverted_remark_list'] || [];
-
-        });
-      const dropdown = (event.target as HTMLElement)
-        .closest('.dropdown')!
-        .querySelector('.hierarchy-dropdown-remark') as HTMLElement;
-
-      const rect = (event.target as HTMLElement).getBoundingClientRect();
-
-      dropdown.style.display = 'block';
-      dropdown.style.top = (rect.top + 20) + 'px';
-      dropdown.style.left = rect.left + 'px';
+    // Toggle logic
+    if (this.openHierarchyIndex === index) {
+      this.closeDropdown();
+      return;
     }
+
+    this.openHierarchyIndex = index;
+
+    // Load API
+    this.kpi.getLogData({
+      param: 'get_hierarchy',
+      userIdKPI: this.userId,
+      extraParam: user.team
+    }).subscribe(res => {
+      this.fullHierarchy = res?.['get_hierarchy'] || [];
+    });
+
+    // Position dropdown
+    const dropdown = (event.target as HTMLElement)
+      .closest('.dropdown')
+      ?.querySelector('.hierarchy-dropdown') as HTMLElement;
+
+    this.activeDropdown = dropdown;
+
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+    dropdown.style.top = rect.top + 30 + 'px';
+    dropdown.style.left = rect.left + 'px';
+
+    dropdown.classList.add('show');
+  }
+
+  closeDropdown() {
+    if (this.activeDropdown) {
+      this.activeDropdown.classList.remove('show');
+    }
+    this.openHierarchyIndex = null;
+  }
+
+  @HostListener('document:click')
+  onOutsideClick() {
+    this.closeDropdown();
+    this.closeRemarksDropdown();
+  }
+
+
+  openRemarksIndex: number | null = null;
+  activeRemarksDropdown: HTMLElement | null = null;
+
+
+
+  // openRemarks(user: any, event: MouseEvent, index: number) {
+  //     this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+  //       .subscribe(res => {
+  //         this.remarkList = res?.['reverted_remark_list'] || [];
+  //
+  //       });
+  //     const dropdown = (event.target as HTMLElement)
+  //       .closest('.dropdown')!
+  //       .querySelector('.hierarchy-dropdown-remark') as HTMLElement;
+  //
+  //     const rect = (event.target as HTMLElement).getBoundingClientRect();
+  //
+  //     dropdown.style.display = 'block';
+  //     dropdown.style.top = (rect.top + 20) + 'px';
+  //     dropdown.style.left = rect.left + 'px';
+  //   }
+
+  openRemarks(user: any, event: MouseEvent, index: number) {
+    event.stopPropagation();
+
+    // If clicking same index → toggle close
+    if (this.openRemarksIndex === index) {
+      this.closeRemarksDropdown();
+      return;
+    }
+
+    this.openRemarksIndex = index;
+
+    this.kpi.getLogData({
+      param: 'get_remarks',
+      userIdKPI: this.userId,
+      extraParam: user.team
+    }).subscribe(res => {
+      this.remarkList = res?.['get_remarks'] || [];
+    });
+
+
+    const dropdown = (event.target as HTMLElement)
+      .closest('.dropdown')
+      ?.querySelector('.hierarchy-dropdown-remark') as HTMLElement;
+
+    this.activeRemarksDropdown = dropdown;
+
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+    dropdown.style.top = rect.top + 30 + 'px';
+    dropdown.style.left = rect.left + 'px';
+
+    dropdown.classList.add('show');
+  }
+
+  closeRemarksDropdown() {
+    if (this.activeRemarksDropdown) {
+      this.activeRemarksDropdown.classList.remove('show');
+    }
+    this.openRemarksIndex = null;
+  }
 
 
 

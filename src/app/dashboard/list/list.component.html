@@ -58,14 +58,11 @@
               <span
                 class="text-white"
                 role="button"
-                data-bs-toggle="dropdown"
-                data-bs-display="static"
-                aria-expanded="false"
-                (click)="$event.stopPropagation();openHierarchy(user, $event)">
+                (click)="user.hieCount>0 ? openHierarchy(user, $event,i): ''">
                 <ul style="color:#fff;">{{ user.hieCount }}</ul>
               </span>
 
-              <div #dropdownMenu class="dropdown-menu hierarchy-dropdown dropdown-options p-4">
+              <div #dropdownMenu class="dropdown-menu hierarchy-dropdown dropdown-options p-4"  [class.show]="openHierarchyIndex === i">
                 <div style="font-size:16px; color:white; font-weight:bold;">Hierarchy</div>
                 <div class="w-100">
                   <div *ngFor="let u of fullHierarchy" >
@@ -91,14 +88,11 @@
              <span
              class="text-white"
              role="button"
-             data-bs-toggle="dropdown"
-             data-bs-display="static"
-             aria-expanded="false"
-             (click)="$event.stopPropagation();openRemarks(user, $event)">
+             (click)="user.remarks>0 ? openRemarks(user, $event,i): ''">
               {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />
             </span>
-            <div #dropdownMenu
-              class="dropdown-menu hierarchy-dropdown-remark dropdown-options p-4">
+            <div #dropdownMenu [class.show]="openRemarksIndex === i"
+                 class="dropdown-menu hierarchy-dropdown-remark dropdown-options p-4">
               <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
                 Remarks
               </div>

@@ -68,7 +68,7 @@
           <span >Time-Bound</span>.
         </p>
 
-        <div class="mt-3">
+        <div class="mt-3 mb-3">
           <ul class="list-group">
             <div class="work-obj">
               <div class="d-flex justify-content-between align-items-center">
@@ -104,6 +104,7 @@
                           [(ngModel)]="obj.weightage"
                           (keydown)="blockDecimal($event)"
                         />
+
                         <span class="percentage-icon">%</span>
                       </div>
                       <div class="dropdown">
@@ -152,9 +153,11 @@
                       class="obj-input mb-2"
                       [(ngModel)]="obj.objectiveText"
                       placeholder="Enter objective..."
-                      [readonly]="mode === 'approver' && !obj.isEditingObjective"
-                    style="height: 41px;">
+                      [readonly]="mode === 'approver' && !obj.isEditingObjective">
                     </textarea>
+                    <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">
+                      {{ objectiveErrors[i].objectiveText }}
+                    </small>
 
                     <div *ngIf="obj.isEditingObjective" class="mt-3">
                       <h6 style="font-size: 12px;">Key Update Points*</h6>
@@ -165,6 +168,10 @@
                         [(ngModel)]="obj.keyObjective"
                         placeholder="Enter key point objective..."
                       />
+                      <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyObjectiveText">
+                        {{ objectiveErrors[i].keyObjectiveText }}
+                      </small>
+
                     </div>
 
                       <div *ngIf="mode === 'approver'  && currentIndex !== 1" class="mt-1">
@@ -214,6 +221,10 @@
                       [readonly]="mode === 'approver' && !obj.isEditingPerformance"
                       style="height: 41px;">
                     </textarea>
+                    >
+                    <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
+                      {{ objectiveErrors[i].performanceText }}
+                    </small>
 
                     <div *ngIf="obj.isEditingPerformance" class="mt-3">
                       <h6 style="font-size: 12px;">Key Update Points*</h6>
@@ -224,6 +235,9 @@
                         [(ngModel)]="obj.keyPerformance"
                         placeholder="Enter key point performance..."
                       />
+                      <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyPerformanceText">
+                        {{ objectiveErrors[i].keyPerformanceText }}
+                      </small>
                     </div>
 
                     <div *ngIf="mode === 'approver' && currentIndex !== 1" class="mt-1">
@@ -271,6 +285,10 @@
                         [readonly]="mode === 'approver' && !obj.isEditingTarget"
                         style="height: 41px;" >
                       </textarea>
+                      >
+                      <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.targetText">
+                        {{ objectiveErrors[i].targetText }}
+                      </small>
 
                       <div *ngIf="obj.isEditingTarget" class="mt-3">
                         <h6 style="font-size: 12px;">Key Update Points*</h6>
@@ -281,6 +299,9 @@
                           [(ngModel)]="obj.keyTarget"
                           placeholder="Enter key point target..."
                         />
+                        <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyTargetText">
+                          {{ objectiveErrors[i].keyTargetText }}
+                        </small>
                       </div>
 
                       <div *ngIf="mode === 'approver' && currentIndex !== 1" class="mt-1">
