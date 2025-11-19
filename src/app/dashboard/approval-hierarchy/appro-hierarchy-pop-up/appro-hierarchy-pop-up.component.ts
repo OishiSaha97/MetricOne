@@ -70,6 +70,7 @@ export class ApproHierarchyPopUpComponent {
       full_name: option.full_name
     };
     this.dropdownOpen[tier] = false;
+    this.searchApprover[tier] = '';
   }
 
 

@@ -93,6 +93,12 @@
                         <img src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7"  />
                       </div>
                       <span class="fw-semibold">{{ obj.title }}</span>
+                      <button
+                        class="btn btn-sm btn-outline-danger"
+                        *ngIf="i > 2"
+                        (click)="deleteObjective(i)">
+                        🗑
+                      </button>
                     </div>
                   </div>
                   <div class="col-md-7">
@@ -326,21 +332,6 @@
                       </div>
                     </div>
 
-<!--                    <div class="col-md-4">-->
-<!--                      <div>-->
-<!--                        <label class="text-secondary small">WEIGHTAGE</label>-->
-<!--                        <div *ngIf="mode === 'approver' ">-->
-<!--                          <img src="" class="mb-1" style="scale:0.7" />-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                      <input-->
-<!--                        type="text"-->
-<!--                        class="obj-input mb-2"-->
-<!--                        [(ngModel)]="obj.weightage"-->
-<!--                        placeholder="Enter weightage..."-->
-<!--                      />-->
-<!--                    </div>-->
-
 
                   </div>
 
@@ -368,9 +359,14 @@
           <div>
             <div class="d-flex justify-content-end gap-2">
               <button class="revert-btn" (click)="openModal(actionModal)" *ngIf="mode == 'approver'" >Revert</button>
-
-              <button class="forward-btn " (click)="onSubmit()">Forward</button>
-              <button class="btn submit-btn" *ngIf="currentStatus == 'manager'" (click)="onSubmit()" >Publish</button>
+              <button class="forward-btn"
+                      (click)="(currentStatus == 'manager' || currentStatus === 'approver') ? onSubmit('forward'): onSubmit('submit')"
+                      [ngClass]="{
+                          'forward-btn': true
+                        }">
+                {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}
+              </button>
+              <button class="btn submit-btn" *ngIf="currentStatus == 'manager' || currentStatus === 'approver' || currentStatus === 'hr'" (click)="onSubmit('publish')" >Publish</button>
             </div>
           </div>
 

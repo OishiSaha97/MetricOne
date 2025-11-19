@@ -177,6 +177,8 @@ export class KpiFormComponent implements OnInit {
           keyTargetText?:string;
           weightage?: string
       } } = {};
+
+
   validateObjectives(): boolean {
     let totalWeightage = 0;
     const titleSet = new Set<string>();
@@ -226,7 +228,6 @@ export class KpiFormComponent implements OnInit {
       return false;
     }
 
-    // Return false if any errors exist
     return !Object.values(this.objectiveErrors).some(err => Object.keys(err).length > 0);
   }
 
@@ -242,50 +243,6 @@ export class KpiFormComponent implements OnInit {
       event.preventDefault();
     }
   }
-  // validateObjectives(): boolean {
-  //   let totalWeightage = 0;
-  //   const titleSet = new Set<string>();
-  //
-  //   for (let i = 0; i < this.objectives.length; i++) {
-  //     const obj = this.objectives[i];
-  //
-  //     if (
-  //       !obj.selectedType?.trim() ||
-  //       !obj.objectiveText?.trim() ||
-  //       !obj.targetText?.trim()
-  //     ) {
-  //       alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
-  //       return false;
-  //     }
-  //
-  //     const title = obj.title?.trim();
-  //     if (!title) {
-  //       alert(`Please enter a title for Objective ${i + 1}`);
-  //       return false;
-  //     }
-  //
-  //     if (titleSet.has(title.toLowerCase())) {
-  //       alert(`Duplicate title found: "${title}". Each objective title must be unique.`);
-  //       return false;
-  //     }
-  //     titleSet.add(title.toLowerCase());
-  //
-  //     const weight = Number(obj.weightage || 0);
-  //     if (isNaN(weight) || weight <= 0) {
-  //       alert(`Please enter a valid weightage for "${title}"`);
-  //       return false;
-  //     }
-  //
-  //     totalWeightage += weight;
-  //   }
-  //
-  //   if (totalWeightage !== 100) {
-  //     alert(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
-  //     return false;
-  //   }
-  //
-  //   return true;
-  // }
 
   onSubmit(type:any): void {
     if (!this.validateObjectives()) {
@@ -555,5 +512,22 @@ export class KpiFormComponent implements OnInit {
       apr.name.toLowerCase().includes(search)
     );
   }
+
+  deleteObjective(index: number) {
+    this.objectives.splice(index, 1);
+    this.recalculateObjectiveTitles();
+  }
+
+  recalculateObjectiveTitles() {
+    this.objectives = this.objectives.map((obj: any, i: number) => {
+      return {
+        ...obj,
+        title: `Work Objective ${i + 1}`,
+        id: i + 1
+      };
+    });
+  }
+
+
 
 }
