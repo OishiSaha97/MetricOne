@@ -27,7 +27,6 @@
           <div class="dropdown-box"
                         [class.disabled]="i === tiers.length - 1"
                         (click)="i !== tiers.length - 1 && toggleDropdown(tier)"
-               clickOutside
                (clickOutside)="i !== tiers.length - 1 && closeDropdown(tier)">
 
             <div class="dropdown-selected" >
