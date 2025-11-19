@@ -28,6 +28,7 @@
            (change)="onDateSelect()"
            class="custom-date-input"
            [disabled]="timePeriod==='evaluation'"
+           [min]="today"
          />
 <!--         [disabled]="timePeriod==='evaluation'"-->
          <span class="calendar-icon"></span>
@@ -39,6 +40,7 @@
            [(ngModel)]="selectedDateEva"
            (change)="onDateSelect()"
            class="custom-date-input"
+           [min]="today"
          />
          <span class="calendar-icon"></span>
        </div>

@@ -39,6 +39,7 @@ export class LoginPageComponent {
       formData.append('password', this.password);
       this.client.post(`${environment.baseUrl}/authenticate`, formData).subscribe((result:any)=>{
         if(result){
+
           localStorage.setItem('username', this.username);
           localStorage.setItem('fullName', result['Name']);
           localStorage.setItem('token', result['token']);
@@ -47,11 +48,7 @@ export class LoginPageComponent {
           // this.dialogRef.close(true)
         }
       }, ()=>{
-        // this.messageService.add({
-        //   severity: "error",
-        //   detail: `Invalid Credentials`,
-        //   life: 3000
-        // })
+
       })
 
     }
