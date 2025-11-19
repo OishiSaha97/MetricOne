@@ -27,6 +27,7 @@ interface Objective {
 })
 export class KpiFormComponent implements OnInit {
   filterObjectiveTypes: any[]=[];
+  currentIndex : any;
 
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
@@ -78,7 +79,6 @@ export class KpiFormComponent implements OnInit {
   saveEmitter = new Subject<any>();
   approvalStatus:any;
   currentStatus:any='';
-  currentIndex:any='';
   name:any='';
 
   showObjectiveHistoryIndex: number | null = null;

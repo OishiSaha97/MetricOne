@@ -119,18 +119,29 @@
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                                 style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right:10px;">
-                          {{ obj.selectedType || 'Select' }}
+                          {{ obj.selectedType ? (obj.selectedType.length > 11 ? (obj.selectedType | slice:0:11) + '...' : obj.selectedType) : 'Select' }}
                         </button>
+                        <small class="text-danger" *ngIf="objectiveErrors[i]?.selectedType">
+                          {{ objectiveErrors[i].selectedType }}
+                        </small>
 
-                        <ul class="dropdown-menu dropdown-menu-dark"
-                            style="background-color: #33343C;">
-                          <li *ngFor="let type of objectiveTypes">
-                            <a class="dropdown-item text-light"
-
-                               (click)="onObjectiveChange(type, obj, i)">
-                              {{ type }}
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"style="background-color: #33343C;">
+                          <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
+                            <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+                            <input [(ngModel)]="searchType" type="text" class="form-control search-input"
+                                   placeholder="Search Here" style=""
+                                   (input)="filterTypes()">
+                          </div>
+                          <li *ngFor="let type of filterObjectiveTypes">
+                            <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
+                              <span class="custom-tooltip"
+                                    [attr.title]="type.name"
+                                    >
+                                {{ type.name.length > 11 ? (type.name | slice:0:11) + '...' : type.name }}
+                              </span>
                             </a>
                           </li>
+
                         </ul>
                       </div>
                     </div>
@@ -156,6 +167,7 @@
 
                     <textarea
                       type="text"
+                      style="height: 41px;"
                       class="obj-input mb-2"
                       [(ngModel)]="obj.objectiveText"
                       placeholder="Enter objective..."
@@ -295,6 +307,7 @@
                       <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.targetText">
                         {{ objectiveErrors[i].targetText }}
                       </small>
+=========
 
                       <div *ngIf="obj.isEditingTarget" class="mt-3">
                         <h6 style="font-size: 12px;">Key Update Points*</h6>
