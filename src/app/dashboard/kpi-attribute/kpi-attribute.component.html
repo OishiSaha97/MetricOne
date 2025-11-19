@@ -47,7 +47,9 @@
         <tbody>
         <tr *ngFor="let user of resData; let i = index">
           <td>{{ i + 1 }}</td>
-          <td tooltip="{{ user.kpi_category_name }}" >{{ user.kpi_category_name }}</td>
+          <td tooltip="{{ user.kpi_category_name }}" >
+            {{ user.kpi_category_name.length > 15 ? (user.kpi_category_name | slice:0:15) + '...' : user.kpi_category_name }}
+          </td>
           <td >{{ user.kpi_type }}</td>
           <td >{{ user.created_by }}</td>
           <td >{{ user.created_at }}</td>
