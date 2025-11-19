@@ -231,6 +231,16 @@ export class KpiFormComponent implements OnInit {
 
 
 
+  blockDecimal(event: KeyboardEvent) {
+    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
+
+
+    if (allowedKeys.includes(event.key)) return;
+
+    if (!/^[0-9]$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
   // validateObjectives(): boolean {
   //   let totalWeightage = 0;
   //   const titleSet = new Set<string>();
