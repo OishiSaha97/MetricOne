@@ -135,8 +135,7 @@
                           <li *ngFor="let type of filterObjectiveTypes">
                             <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
                               <span class="custom-tooltip"
-                                    [attr.title]="type.name"
-                                    >
+                                    [attr.title]="type.name">
                                 {{ type.name.length > 11 ? (type.name | slice:0:11) + '...' : type.name }}
                               </span>
                             </a>
@@ -239,7 +238,7 @@
                       [readonly]="mode === 'approver' && !obj.isEditingPerformance"
                       style="height: 41px;">
                     </textarea>
-                    >
+
                     <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
                       {{ objectiveErrors[i].performanceText }}
                     </small>
@@ -307,7 +306,6 @@
                       <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.targetText">
                         {{ objectiveErrors[i].targetText }}
                       </small>
-=========
 
                       <div *ngIf="obj.isEditingTarget" class="mt-3">
                         <h6 style="font-size: 12px;">Key Update Points*</h6>
