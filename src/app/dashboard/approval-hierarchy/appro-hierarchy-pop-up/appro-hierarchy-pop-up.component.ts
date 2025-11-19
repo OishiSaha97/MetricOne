@@ -73,7 +73,7 @@ export class ApproHierarchyPopUpComponent {
         this.dropdownOpen[tier] = false;
         this.searchApprover[tier] = '';
       }else {
-        this.selectedValues[tier] = {
+        this.selectedValues[tier-1] = {
           index: tier,
           username: option.username,
           full_name: option.full_name
