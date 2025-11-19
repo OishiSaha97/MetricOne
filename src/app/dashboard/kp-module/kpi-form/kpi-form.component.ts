@@ -153,14 +153,18 @@ export class KpiFormComponent implements OnInit {
   }
 
   onObjectiveChange(type: any, obj: Objective,i:number): void {
-    obj.selectedType = type.name;
+    if (obj.selectedType === type.name) {
+      obj.selectedType = '';
+    } else {
+      obj.selectedType = type.name;
+    }
     this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
 
-    this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
-      (t: any) => t.name !== obj.selectedType
-    );
-    this.filterTypes();
+    // this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
+    //   (t: any) => t.name !== obj.selectedType
+    // );
+    // this.filterTypes();
   }
   selectedTypes: string[] = [];
   @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
@@ -229,6 +233,25 @@ export class KpiFormComponent implements OnInit {
       }
       totalWeightage += weight;
     }
+
+    const typeCount: { [key: string]: number } = {};
+
+    this.objectives.forEach((obj: { selectedType: string; }) => {
+      if (obj.selectedType?.trim()) {
+        const type = obj.selectedType.trim();
+        typeCount[type] = (typeCount[type] || 0) + 1;
+      }
+    });
+
+    Object.keys(typeCount).forEach(typeKey => {
+      if (typeCount[typeKey] > 1) {
+        this.objectives.forEach((obj:Objective, index:any) => {
+          if (obj.selectedType === typeKey) {
+            this.objectiveErrors[index].selectedType = '*Duplicate Type is not allowed';
+          }
+        });
+      }
+    });
 
     if (Math.round(totalWeightage) !== 100) {
 
@@ -519,13 +542,18 @@ export class KpiFormComponent implements OnInit {
   }
 
   filterTypes() {
-    const search = this.searchType.trim().toLowerCase();
-
-    this.filterObjectiveTypes = this.objectiveTypes.filter((apr: any) =>
-      // Type obj explicitly as Objective
-      !this.objectives.some((obj: Objective) => obj.selectedType === apr.name) &&
-      apr.name.toLowerCase().includes(search)
-    );
+    if (this.searchType.trim()) {
+      this.filterObjectiveTypes = this.objectiveTypes.filter((apr: any) =>
+        apr.name.toLowerCase().includes(this.searchType.toLowerCase())
+      );
+    } else {
+      this.filterObjectiveTypes = [...this.objectiveTypes];
+    }
+    // this.filterObjectiveTypes = this.objectiveTypes.filter((apr: any) =>
+    //   // Type obj explicitly as Objective
+    //   !this.objectives.some((obj: Objective) => obj.selectedType === apr.name) &&
+    //   apr.name.toLowerCase().includes(search)
+    // );
   }
 
   deleteObjective(index: number) {

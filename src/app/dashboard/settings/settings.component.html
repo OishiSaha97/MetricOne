@@ -1,7 +1,7 @@
 <div style="background-color: #25262C">
 
   <div class="kpi-header">
-    <div class="row justify-content-between text-center kpi-tabs">
+    <div class="row justify-content-between text-center kpi-tabs" *ngIf="showEvaluation">
       <div
         class="tab col"
         (click)="changeTable('initiation')"
@@ -21,8 +21,13 @@
         KPI EVALUATION
       </div>
     </div>
-    <div>
-
+    <div class="row justify-content-start kpi-tabs" *ngIf="!showEvaluation">
+      <div
+        class="tab col" style="margin-left: 50px;"
+        (click)="changeTable('initiation')"
+        [ngClass]="{ active: !tables.initiation.selected }">
+        KPI INITIATION
+      </div>
     </div>
   </div>
 

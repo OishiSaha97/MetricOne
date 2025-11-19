@@ -137,6 +137,8 @@
                                     [attr.title]="type.name">
                                 {{ type.name.length > 11 ? (type.name | slice:0:11) + '...' : type.name }}
                               </span>
+                                <i class="tick-icon"
+                                   *ngIf="obj.selectedType === type.name"></i>
                               </a>
                             </li>
 

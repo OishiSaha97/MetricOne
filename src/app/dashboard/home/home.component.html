@@ -84,11 +84,14 @@
            [class.disabled]="role !== 'hr'"
            [class.pointer]="role === 'hr'"
            (click)="(role === 'hr') && openSetting();">
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="d-flex justify-content-between text-center align-items-center" style="margin-left: 70px;">
           <h6 class="mb-0 text-center" >{{ settingTitle }}</h6>
         </div>
         <div>
-          <span class="setting-icon" *ngIf="role === 'hr'"></span>
+          <span title="{{ settingTitle }}"
+                placement="top"
+                container="body" class="setting-icon"
+                *ngIf="role === 'hr'"></span>
         </div>
       </div>
 
