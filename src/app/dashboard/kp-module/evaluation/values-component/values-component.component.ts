@@ -122,6 +122,21 @@ export class ValuesComponentComponent {
     }
   }
 
+  objectiveErrors: { [key: number]:
+      {
+        selectedType?: string;
+        rating?: string;
+        objectiveText?: string;
+        targetText?: string;
+        performanceText?: string;
+        achievedText?: string;
+        achievedInt?: string;
+        keyObjectiveText?:string;
+        keyPerformanceText?:string;
+        keyTargetText?:string;
+        keyAchieved?:string;
+        weightage?: string
+      } } = {};
 
   submitData() {
     this.dataSubmitted.emit(this.objectives);
