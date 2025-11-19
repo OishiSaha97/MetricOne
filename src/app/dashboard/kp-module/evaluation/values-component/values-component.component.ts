@@ -124,21 +124,28 @@ export class ValuesComponentComponent {
 
   objectiveErrors: { [key: number]:
       {
-        selectedType?: string;
+        selectedRating?: string;
         rating?: string;
-        objectiveText?: string;
-        targetText?: string;
-        performanceText?: string;
-        achievedText?: string;
-        achievedInt?: string;
-        keyObjectiveText?:string;
-        keyPerformanceText?:string;
-        keyTargetText?:string;
-        keyAchieved?:string;
-        weightage?: string
       } } = {};
 
+  validateObjectives(): boolean {
+    let hasError = false;
+    for (let i = 0; i < this.objectives.length; i++) {
+      const obj = this.objectives[i];
+      this.objectiveErrors[i] = {};
+      if (!obj.selectedRating?.trim()) {
+        this.objectiveErrors[i].selectedRating = '*Rating is required';
+        hasError = true;
+      }
+
+    }
+    return !hasError;
+  }
   submitData() {
+
+    if (!this.validateObjectives()) {
+      return;
+    }
     this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives)
   }
