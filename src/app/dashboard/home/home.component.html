@@ -1,10 +1,10 @@
 
-<div class="vh-100">
+<div class="">
 <div class="row h-100">
-  <div class="col-md-8 d-flex flex-column">
+  <div class="col-md-9 d-flex flex-column">
     <div class="row g-3">
-      <div class="col-md-6">
-        <div class="card p-3 announcement-panel" style="margin-top:10px;">
+      <div class="col-md-5">
+        <div class="card p-3 announcement-panel mt-5" style="margin-top:10px;">
           <h5 class="announcement-title">Notifications</h5>
           <div class=" announcement-list">
             <div class="user" *ngFor="let note of notifications">
@@ -18,8 +18,8 @@
         </div>
       </div>
 
-      <div class="col-md-6">
-      <div class="announcement-panel card p-3" style="margin-top:10px;">
+      <div class="col-md-7">
+      <div class="announcement-panel card p-3 mt-5" style="margin-top:10px;">
         <h5 class="announcement-title">Announcements</h5>
 
         <div *ngIf="role == 'hr'">
@@ -78,7 +78,7 @@
 <!--    </div>-->
 
   </div>
-  <div class="col-md-4" style="background-color:#1C1D21; height:100%">
+  <div class="col-md-3" style="background-color:#1C1D21; height:100%">
     <div class="kpi-box mb-1">
       <div class="kpi-header d-flex justify-content-between align-items-center mb-1"
            [class.disabled]="role !== 'hr'"
@@ -110,9 +110,12 @@
         </div>
 
 
-        <div class="col-md-6 col-sm-6">
-          <div class="countdown-card">
-            <h6 class="mb-3" style="color: #83F7F6">End Date:</h6>
+        <div class="col-md-6 col-sm-6" style="margin-left: -6px;">
+          <div class="countdown-card tier-block">
+<!--            <div>-->
+              <h6 class="mb-3" style="color: #83F7F6;margin-top: -31px;">End Date:</h6>
+<!--            </div>-->
+
             <div class="end-date-box">
               {{ initialtionDate | date:'dd MMMM, yyyy' }}
             </div>
