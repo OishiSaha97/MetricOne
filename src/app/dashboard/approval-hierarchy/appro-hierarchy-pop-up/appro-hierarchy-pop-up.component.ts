@@ -88,6 +88,7 @@ export class ApproHierarchyPopUpComponent {
   isDropdownOpen(tier: number) {
     return this.dropdownOpen[tier];
   }
+
   closeDropdown(tier: number){
     this.dropdownOpen[tier] = false;
   }
