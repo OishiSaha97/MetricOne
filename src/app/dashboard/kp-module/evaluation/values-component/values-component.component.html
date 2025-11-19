@@ -31,27 +31,34 @@
               <span class="fw-semibold">{{ obj.name }}</span>
             </div>
 
-            <div class="dropdown"
-                 [class.disabled-dropdown]="userData.status === 'Published' || userData.status === 'Closed'">
-              <button class="btn btn-dark dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      [attr.disabled]="userData.status === 'Published' || userData.status === 'Closed' ? true : null"
+            <div style="position: relative;">
+              <div class="dropdown"
+                   [class.disabled-dropdown]="userData.status === 'Published' || userData.status === 'Closed'">
+                <button class="btn btn-dark dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        [attr.disabled]="userData.status === 'Published' || userData.status === 'Closed' ? true : null"
 
-                      style="background-color:#33343C; border:1px solid #7A7B8299;width: 150px;">
-                {{ obj.selectedRating ? (obj.selectedRating.length > 12 ? (obj.selectedRating | slice:0:12) + '...' : obj.selectedRating) : 'Select' }}
-              </button>
+                        style="background-color:#33343C; border:1px solid #7A7B8299;width: 150px;">
+                  {{ obj.selectedRating ? (obj.selectedRating.length > 12 ? (obj.selectedRating | slice:0:12) + '...' : obj.selectedRating) : 'Select' }}
+                </button>
 
-              <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #33343C;">
-                <li *ngFor="let type of ratings">
-                  <a class="dropdown-item text-light"
-                     [class.disabled-item]="userData.status === 'Published' || userData.status === 'Closed'"
-                     (click)="onObjectiveChange(type, obj)">
-                    {{ type.kpi_category_name }}
-                  </a>
-                </li>
-              </ul>
+                <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #33343C;">
+                  <li *ngFor="let type of ratings">
+                    <a class="dropdown-item text-light"
+                       [class.disabled-item]="userData.status === 'Published' || userData.status === 'Closed'"
+                       (click)="onObjectiveChange(type, obj)">
+                      {{ type.kpi_category_name }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <small class="objective-error" *ngIf="objectiveErrors[i]?.selectedType">
+                {{ objectiveErrors[i].selectedType }}
+              </small>
             </div>
+
+
           </div>
 
 
