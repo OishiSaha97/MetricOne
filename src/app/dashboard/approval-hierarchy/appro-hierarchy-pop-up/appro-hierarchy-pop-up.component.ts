@@ -72,14 +72,16 @@ export class ApproHierarchyPopUpComponent {
         };
         this.dropdownOpen[tier] = false;
         this.searchApprover[tier] = '';
+        console.log("this.selectedValues while edit : ", this.selectedValues);
       }else {
-        this.selectedValues[tier-1] = {
+        this.selectedValues[tier] = {
           index: tier,
           username: option.username,
           full_name: option.full_name
         };
         this.dropdownOpen[tier] = false;
         this.searchApprover[tier] = '';
+
       }
 
   }
