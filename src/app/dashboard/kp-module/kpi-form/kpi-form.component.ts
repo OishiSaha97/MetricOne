@@ -27,6 +27,7 @@ interface Objective {
 })
 export class KpiFormComponent implements OnInit {
   filterObjectiveTypes: any[]=[];
+  currentIndex : any;
 
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
