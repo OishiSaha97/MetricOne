@@ -1,8 +1,9 @@
 
-import {NgModule, Component, OnInit, TemplateRef, EventEmitter} from '@angular/core';
+import {NgModule, Component, OnInit, TemplateRef, EventEmitter, ViewChild, ElementRef} from '@angular/core';
 import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {Subject} from "rxjs";
+import {Toast} from "primeng/toast";
 
 declare var $: any;
 
@@ -162,7 +163,8 @@ export class KpiFormComponent implements OnInit {
     this.filterTypes();
   }
   selectedTypes: string[] = [];
-
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
+  toastMessage: string = '';
 
   isOpen: boolean[] = [];
 
@@ -179,10 +181,26 @@ export class KpiFormComponent implements OnInit {
       } } = {};
 
 
+  showToast(msg: string) {
+    this.toastMessage = msg;
+
+    // Show toast after 20 sec
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+
+      el.classList.add('show');
+
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 1000);
+
+    }, 0);
+  }
+
   validateObjectives(): boolean {
     let totalWeightage = 0;
-    const titleSet = new Set<string>();
-    this.objectiveErrors = {}; // Reset previous errors
+    this.objectiveErrors = {};
 
     for (let i = 0; i < this.objectives.length; i++) {
       const obj = this.objectives[i];
@@ -191,11 +209,9 @@ export class KpiFormComponent implements OnInit {
       if (!obj.selectedType?.trim()) {
         this.objectiveErrors[i].selectedType = '*Type is required';
       }
-
       if (!obj.objectiveText?.trim()) {
         this.objectiveErrors[i].objectiveText = '*Objective is required';
       }
-
       if (!obj.targetText?.trim()) {
         this.objectiveErrors[i].targetText = '*Target is required';
       }
@@ -212,27 +228,22 @@ export class KpiFormComponent implements OnInit {
         this.objectiveErrors[i].weightage = '*Weightage must be > 0';
       }
       totalWeightage += weight;
-
-      if (obj.isEditingObjective && !obj.keyObjective?.trim()) {
-        this.objectiveErrors[i].keyObjectiveText = '*Key Update Points required';
-      }
-      if (obj.isEditingPerformance && !obj.keyPerformance?.trim()) {
-        this.objectiveErrors[i].keyPerformanceText = '*Key Update Points required';
-      }
-      if (obj.isEditingTarget && !obj.keyTarget?.trim()) {
-        this.objectiveErrors[i].keyTargetText = '*Key Update Points required';
-      }
-
-
-
     }
 
     if (Math.round(totalWeightage) !== 100) {
-      alert(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
+
+      this.showToast(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
       return false;
     }
 
-    return !Object.values(this.objectiveErrors).some(err => Object.keys(err).length > 0);
+    const hasErrors = Object.values(this.objectiveErrors).some(err => Object.keys(err).length > 0);
+    if (hasErrors) {
+
+      this.showToast("Please fill all required fields before submitting!");
+      return false;
+    }
+
+    return true;
   }
 
 
