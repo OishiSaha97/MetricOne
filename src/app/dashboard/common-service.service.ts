@@ -68,6 +68,10 @@ export class CommonServiceService {
   saveKPIAttribute(obj: any) {
     return this.http.post(`${this.ApiEndpoint}/attribute/save`, obj);
   }
+
+  updateKPIAttribute(obj: any) {
+    return this.http.post(`${this.ApiEndpoint}/attribute/update`, obj);
+  }
   getAllEmpKpiList(obj:any): Observable<any> {
     return this.http.post(`${this.ApiEndpoint}/list/allEmp`, obj);
   }

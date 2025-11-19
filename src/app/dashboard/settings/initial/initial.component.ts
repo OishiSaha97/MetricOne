@@ -43,6 +43,8 @@ export class InitialComponent {
     if(this.mode=='edit'){
       this.getData();
     }
+      const now = new Date();
+      this.today = now.toISOString().split('T')[0];  // yyyy-mm-dd
 
   }
   @Output() showProceed = new EventEmitter<any>();

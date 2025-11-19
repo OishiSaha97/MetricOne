@@ -118,6 +118,7 @@ export class TeamsKPIComponent {
         mode:"approver",
         kpiId: user.id,
         currentStatus:'manager',
+        currentIndex:user.current_approver_ind,
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',

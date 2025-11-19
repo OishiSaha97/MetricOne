@@ -53,6 +53,7 @@ export class KpiFormComponent implements OnInit {
   saveEmitter = new Subject<any>();
   approvalStatus:any;
   currentStatus:any='';
+  currentIndex:any='';
   name:any='';
 
   ngOnInit(): void {
@@ -182,22 +183,16 @@ export class KpiFormComponent implements OnInit {
     return true;
   }
 
-  // validateObjectives(): boolean {
-  //   for (let i = 0; i < this.objectives.length; i++) {
-  //     const obj = this.objectives[i];
-  //
-  //     if (
-  //       !obj.selectedType?.trim() ||
-  //       !obj.objectiveText?.trim() ||
-  //       !obj.targetText?.trim()
-  //     ) {
-  //       alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
-  //       return false;
-  //     }
-  //   }
-  //
-  //   return true;
-  // }
+  blockDecimal(event: KeyboardEvent) {
+    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
+
+
+    if (allowedKeys.includes(event.key)) return;
+
+    if (!/^[0-9]$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
 
 
   onSubmit(): void {
