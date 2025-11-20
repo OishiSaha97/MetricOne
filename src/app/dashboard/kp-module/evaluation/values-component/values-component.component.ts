@@ -122,8 +122,30 @@ export class ValuesComponentComponent {
     }
   }
 
+  objectiveErrors: { [key: number]:
+      {
+        selectedRating?: string;
+        rating?: string;
+      } } = {};
 
+  validateObjectives(): boolean {
+    let hasError = false;
+    for (let i = 0; i < this.objectives.length; i++) {
+      const obj = this.objectives[i];
+      this.objectiveErrors[i] = {};
+      if (!obj.selectedRating?.trim()) {
+        this.objectiveErrors[i].selectedRating = '*Rating is required';
+        hasError = true;
+      }
+
+    }
+    return !hasError;
+  }
   submitData() {
+
+    if (!this.validateObjectives()) {
+      return;
+    }
     this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives)
   }

@@ -84,6 +84,7 @@ export class FlipClockComponent implements OnInit, OnDestroy {
       const target = (typeof this.date === 'string')
         ? this.parseDateTime(this.date)
         : new Date(this.date);
+      target.setDate(target.getDate() + 1);
 
       const diff = target.getTime() - now.getTime(); // ms remaining (can be negative)
       const total = diff;

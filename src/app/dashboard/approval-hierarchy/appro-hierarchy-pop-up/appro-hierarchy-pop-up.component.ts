@@ -1,7 +1,12 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import {CommonServiceService} from "../../common-service.service";
-
+interface TierUser {
+  index?: number;
+  username: string;
+  full_name: string;
+  [key: string]: any;
+}
 @Component({
   selector: 'app-appro-hierarchy-pop-up',
   templateUrl: './appro-hierarchy-pop-up.component.html',
@@ -72,14 +77,16 @@ export class ApproHierarchyPopUpComponent {
         };
         this.dropdownOpen[tier] = false;
         this.searchApprover[tier] = '';
+        console.log("this.selectedValues while edit : ", this.selectedValues);
       }else {
-        this.selectedValues[tier-1] = {
+        this.selectedValues[tier] = {
           index: tier,
           username: option.username,
           full_name: option.full_name
         };
         this.dropdownOpen[tier] = false;
         this.searchApprover[tier] = '';
+
       }
 
   }
@@ -102,15 +109,17 @@ export class ApproHierarchyPopUpComponent {
   }
 
   onSubmit() {
-    const tierArray = Object.values(this.selectedValues);
-    if (this.finalApprover) {
-      const finalApproverWithIndex = {
-        index: tierArray.length + 1,
-        ...this.finalApprover
-      };
 
-      tierArray.push(finalApproverWithIndex);
+    let tierArray: TierUser[] = Object.values(this.selectedValues) as TierUser[];
+
+    if (this.finalApprover) {
+      tierArray.push(this.finalApprover as TierUser);
     }
+
+    tierArray = tierArray.map((item: TierUser, i: number) => ({
+      ...item,
+      index: i + 1
+    }));
 
     console.log("tierArray to submit:", tierArray);
     let obj = {

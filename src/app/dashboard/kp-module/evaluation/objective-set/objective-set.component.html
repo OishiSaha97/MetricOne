@@ -82,63 +82,71 @@
                   </small>
                   <span class="percentage-icon">%</span>
                 </div>
-                <div class="dropdown"
-                     [class.disabled-dropdown]=" userData.status === 'Closed'">
-                  <button class="btn btn-dark btn-sm dropdown-toggle"
-                          type="button"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          [attr.disabled]=" userData.status === 'Closed' ? true : null"
-                          style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right:10px;">
-                    {{ obj.selectedType ? (obj.selectedType.length > 12 ? (obj.selectedType | slice:0:12) + '...' : obj.selectedType) : 'Select' }}
-                  </button>
+                <div style="position: relative;">
+                  <div class="dropdown"
+                       [class.disabled-dropdown]=" userData.status === 'Closed'">
+                    <button class="btn btn-dark btn-sm dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            [attr.disabled]=" userData.status === 'Closed' ? true : null"
+                            style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right:10px;">
+                      {{ obj.selectedType ? (obj.selectedType.length > 12 ? (obj.selectedType | slice:0:12) + '...' : obj.selectedType) : 'Select' }}
+                    </button>
 
-                  <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
-                      style="background-color: #33343C;">
-                    <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
-                      <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
-                      <input [(ngModel)]="searchType" type="text" class="form-control search-input"
-                             placeholder="Search Here" style=""
-                             (input)="filterTypes()">
-                    </div>
-                    <li *ngFor="let type of objectiveTypes">
-                      <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
+                        style="background-color: #33343C;">
+                      <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
+                        <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+                        <input [(ngModel)]="searchType" type="text" class="form-control search-input"
+                               placeholder="Search Here" style=""
+                               (input)="filterTypes()">
+                      </div>
+                      <li *ngFor="let type of objectiveTypes">
+                        <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
                               <span class="custom-tooltip"
                                     [attr.title]="type.name"
-                                    >
+                              >
                                 {{ type.name.length > 11 ? (type.name | slice:0:11) + '...' : type.name }}
                               </span>
-                      </a>
-                    </li>
-                  </ul>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.selectedType">
+                    {{ objectiveErrors[i].selectedType }}
+                  </small>
                 </div>
-                <div class="dropdown"
-                     [class.disabled-dropdown]=" userData.status === 'Closed'"
-                     *ngIf="['manager','hr','approver'].includes(currentStatus)">
-<!--                  *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
-                  <button class="btn btn-dark btn-sm dropdown-toggle"
-                          type="button"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                          [attr.disabled]=" userData.status === 'Closed' ? true : null"
-                          style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
-                    {{ obj.rating ? (obj.rating.length > 12 ? (obj.rating | slice:0:12) + '...' : obj.rating) : 'Select' }}
-                  </button>
-<!--                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.rating">-->
-<!--                    {{ objectiveErrors[i].rating }}-->
-<!--                  </small>-->
 
-                  <ul class="dropdown-menu dropdown-menu-dark"
-                      style="background-color: #33343C;">
-                    <li *ngFor="let type of ratings">
-                      <a class="dropdown-item text-light"
-                         [class.disabled-item]=" userData.status === 'Closed'"
-                         (click)="onRating(type, obj, i)">
-                        {{ type.kpi_category_name }}
-                      </a>
-                    </li>
-                  </ul>
+                <div style="position: relative;">
+                  <div class="dropdown"
+                       [class.disabled-dropdown]=" userData.status === 'Closed'"
+                       *ngIf="['manager','hr','approver'].includes(currentStatus)">
+                    <!--                  *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
+                    <button class="btn btn-dark btn-sm dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            [attr.disabled]=" userData.status === 'Closed' ? true : null"
+                            style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
+                      {{ obj.rating ? (obj.rating.length > 12 ? (obj.rating | slice:0:12) + '...' : obj.rating) : 'Select' }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark"
+                        style="background-color: #33343C;">
+                      <li *ngFor="let type of ratings">
+                        <a class="dropdown-item text-light"
+                           [class.disabled-item]=" userData.status === 'Closed'"
+                           (click)="onRating(type, obj, i)">
+                          {{ type.kpi_category_name }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <small class="objective-error" *ngIf="objectiveErrors[i]?.rating">
+                    {{ objectiveErrors[i].rating }}
+                  </small>
                 </div>
+
               </div>
             </div>
 

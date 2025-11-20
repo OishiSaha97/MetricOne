@@ -442,6 +442,19 @@ input::placeholder {
   border:none;
   background-color: #33343C;
 }
+.delete-icon{
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.objective-error {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  font-size: 12px;
+  color: red;
+  white-space: nowrap;
+}
 .custom-toast {
   position: fixed;
   bottom: 20px;

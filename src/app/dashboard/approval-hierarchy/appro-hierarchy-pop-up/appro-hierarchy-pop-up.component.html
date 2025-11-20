@@ -17,7 +17,7 @@
                 <img
                   src="../../../../assets/delete-icon.svg"
                   class="cursor-enabled"
-                  (click)="removeTier(i)"
+                  (click)="removeTier(tier)"
                   alt="Delete Icon"
                 />
               </div>
@@ -27,7 +27,6 @@
           <div class="dropdown-box"
                         [class.disabled]="i === tiers.length - 1"
                         (click)="i !== tiers.length - 1 && toggleDropdown(tier)"
-               clickOutside
                (clickOutside)="i !== tiers.length - 1 && closeDropdown(tier)">
 
             <div class="dropdown-selected" >
@@ -38,8 +37,13 @@
                 </ng-container>
 
 
+<!--                <ng-template #otherTiers>-->
+<!--                  {{ selectedValues[i]?.full_name ||-->
+<!--                  (i == 0 ? 'Select Manager' : 'Select Approver') }}-->
+<!--                </ng-template> -->
+
                 <ng-template #otherTiers>
-                  {{ selectedValues[i]?.full_name ||
+                  {{ selectedValues[tier]?.full_name ||
                   (i == 0 ? 'Select Manager' : 'Select Approver') }}
                 </ng-template>
               </span>

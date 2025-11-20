@@ -220,7 +220,11 @@ export class KpiFormComponent implements OnInit {
       }
 
       const weight = parseFloat((obj.weightage || '0').toString().trim());
-      if (isNaN(weight) || weight <= 0) {
+
+      if(!weight){
+        this.objectiveErrors[i].weightage = '*Weightage is required';
+      }
+      else if (isNaN(weight) || weight <= 0) {
         this.objectiveErrors[i].weightage = '*Weightage must be > 0';
       }
       totalWeightage += weight;

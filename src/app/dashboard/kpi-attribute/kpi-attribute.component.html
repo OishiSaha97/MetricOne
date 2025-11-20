@@ -47,12 +47,26 @@
         <tbody>
         <tr *ngFor="let user of resData; let i = index">
           <td>{{ i + 1 }}</td>
-          <td title="{{ user.kpi_category_name }}">{{ user.kpi_category_name }}</td>
-          <td title="{{ user.kpi_type }}">{{ user.kpi_type }}</td>
-          <td title="{{ user.created_by }}">{{ user.created_by }}</td>
-          <td title="{{ user.created_at }}">{{ user.created_at }}</td>
-          <td title="{{ user.updated_by }}">{{ user.updated_by }}</td>
-          <td title="{{ user.updated_at }}">{{ user.updated_at }}</td>
+          <td >
+            <div
+              *ngIf="user.kpi_category_name?.length > 16; else noTooltip"
+              tooltip="{{ user.kpi_category_name }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.kpi_category_name | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltip>
+              <div class="text-truncate">{{ user.kpi_category_name }}</div>
+            </ng-template>
+<!--            {{ user.kpi_category_name.length > 15 ? (user.kpi_category_name | slice:0:15) + '...' : user.kpi_category_name }}-->
+          </td>
+          <td >{{ user.kpi_type }}</td>
+          <td >{{ user.created_by }}</td>
+          <td >{{ user.created_at }}</td>
+          <td >{{ user.updated_by }}</td>
+          <td >{{ user.updated_at }}</td>
           <td class="text-center">
             <img src="../../../assets/edit.svg" alt="actions" (click)="edit(user)" />
           </td>
