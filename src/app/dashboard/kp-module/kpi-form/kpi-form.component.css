@@ -442,3 +442,19 @@ input::placeholder {
   border:none;
   background-color: #33343C;
 }
+.custom-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #aba9a9;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.custom-toast.show {
+  opacity: 1;
+}
