@@ -148,10 +148,14 @@ export class ListComponent {
 
 
   onClick() {
+    const initialState = {
+      currentStatus:'employee',
+    };
     this.modalRef = this.modalService.show(KpiFormComponent, {
       backdrop: 'static',
       keyboard: false,
-      class: 'modal-dialog modal-dialog-centered modal-xl'
+      class: 'modal-dialog modal-dialog-centered modal-xl',
+      initialState:initialState
     });
 
     if (this.modalRef) {
@@ -207,7 +211,7 @@ export class ListComponent {
         });
       }
       else if(this.timePeriod === 'initiation' && user.edit_permission ){
-      //
+
         const initialState = {
           kpiUserId: user.user_id,
           status: user.status,

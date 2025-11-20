@@ -132,7 +132,7 @@ export class KpiFormComponent implements OnInit {
           );
       }
     this.filterObjectiveTypes = [...this.objectiveTypes];
-
+    console.log(this.currentStatus)
   }
 
 
