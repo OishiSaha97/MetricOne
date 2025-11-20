@@ -156,7 +156,7 @@ export class NavbarComponent {
           const today = this.getToday();
           const kpiDate = this.parseDate(this.initialtionDate);
 
-          if (kpiDate > today) {
+          if (kpiDate >= today) {
             this.setTimePeriod('evaluation');
           } else {
             this.setTimePeriod('new year');

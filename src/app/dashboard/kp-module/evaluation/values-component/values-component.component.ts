@@ -125,7 +125,7 @@ export class ValuesComponentComponent {
   objectiveErrors: { [key: number]:
       {
         selectedRating?: string;
-        rating?: string;
+        overallrating?: string;
       } } = {};
 
   validateObjectives(): boolean {
@@ -137,6 +137,10 @@ export class ValuesComponentComponent {
         this.objectiveErrors[i].selectedRating = '*Rating is required';
         hasError = true;
       }
+
+    }
+    if(!this.objectives[7].overAllRating?.trim() && (this.currentStatus === 'manager' || this.currentStatus === 'approver' || this.currentStatus === 'hr')){
+      this.objectiveErrors[7].overallrating = '*Overall Rating is required';
 
     }
     return !hasError;

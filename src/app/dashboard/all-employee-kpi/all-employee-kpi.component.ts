@@ -226,15 +226,19 @@ export class AllEmployeeKPIComponent {
     return user.status === 'closed' ;
     // return user.status === 'closed' || user.editPermission;
   }
-
+view:any;
 
   viewDetails(user: any) {
-    // if(user.editPermission == true){
+    // if(user.status === 'closed'){
+    //   this.view = ;
+    // }
+
     if(this.timePeriod == 'evaluation'){
       const initialState = {
         userData: user,
         title: 'HR Evaluation',
         currentStatus:'hr',
+        view:user.editPermission
       };
 
       this.modalRef = this.modalService.show(EvaluationComponent, {
@@ -259,6 +263,7 @@ export class AllEmployeeKPIComponent {
         mode:"approver",
         kpiId: user.id,
         currentStatus:'hr',
+        view:user.editPermission
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',

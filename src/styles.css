@@ -190,3 +190,11 @@ body {
   opacity: 1;
   z-index:9999;
 }
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 1) !important; /* Full black */
+}
+
+.modal-backdrop.show {
+  opacity: 1 !important; /* No transparency */
+}

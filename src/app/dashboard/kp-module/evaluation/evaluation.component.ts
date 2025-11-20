@@ -32,6 +32,7 @@ export class EvaluationComponent {
   mode:any
   remarkList: any;
   remark: any;
+  view:any='';
 
   kpiUserId:any;
   status: any;
@@ -210,12 +211,8 @@ export class EvaluationComponent {
 
     let processedObjectives = objectiveData.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
-        return text
-          ? text
-            .replace(/\r/g, '\\r')
-            .replace(/\n/g, '\\n')
-            .replace(/\t/g, '\\t')
-          : '';
+        return text;
+
       };
       let item: any = {
         title: obj.title,

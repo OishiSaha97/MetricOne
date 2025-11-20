@@ -84,6 +84,10 @@ export class HrModalComponent {
   objectiveErrors: { [key: number]:
       {
         objectiveText?: string;
+        attendanceRating?: string;
+        leaveRating?: string;
+        issueRating?: string;
+        awardRating?: string;
       } } = {};
   validateObjectives(): boolean {
     let hasError = false;
