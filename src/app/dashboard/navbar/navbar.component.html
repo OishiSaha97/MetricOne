@@ -27,9 +27,9 @@
 <div class="nav-bar-bg nav-height nav-width">
   <aside class="main-sidebar elevation-3 d-flex flex-column" style="overflow: hidden;">
     <div class="flex-shrink-0 " style="padding-top: 30px;">
-      <a class="brand-link shadow-box" #brand style="padding: 18px;line-height: initial">
+      <a class="brand-link shadow-box" #brand style="line-height: initial">
 
-        <img src="../../assets/logo-nav.svg" class="img-fluid mb-4 logo-small" alt="Logo" style="scale:0.7" />
+        <img src="../../assets/logo.png" class="img-fluid mb-4 logo-small" alt="Logo" style="scale:0.6" />
 
       </a>
 
@@ -99,16 +99,29 @@
 
     </div>
     <footer class="sidebar-footer p-2" style="background-color: #1C1D21;">
-      <div>
-        <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
-      </div>
-      <div style="font-size:12px">
-        <p style="margin: 0; color: white;">{{ userName }}</p>
-        <p style="margin: 0; font-size: 12px; color: white;">{{ userId }}</p>
+      <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between">
+          <div>
+            <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
+          </div>
+          <div style="font-size:12px;margin-top: 13px; width: 130px;">
+            <p style="margin: 0; color: white;">{{ userName }}</p>
+            <p style="margin: 0; font-size: 12px; color: white;">{{ userId }}</p>
+          </div>
+
+        </div>
+
+        <div>
+          <button class="mt-1 ml-1 logout-icon" tooltip="Logout"
+                  (click)="logout()"></button>
+
+        </div>
+
       </div>
 
-      <button class="btn btn-sm btn-outline-light mt-1 ml-1 logout-icon" tooltip="Logout"
-               (click)="logout()"></button>
+
+
+
     </footer>
 
   </aside>

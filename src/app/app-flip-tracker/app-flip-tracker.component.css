@@ -40,11 +40,13 @@
 .flip-card {
   position: relative;
   display: block;
-  font-size: 2rem;          /* overall digit size */
-  padding-bottom: var(--half);
-  line-height: .95;
+  font-size: 1.2rem;          /* overall digit size */
+  padding-bottom: 18px;
+  line-height: 1;
   width: 34px;
-  margin: 0 auto;
+  margin: 0px auto;
+  --half: 18px;
+  --radius: 3px;
 }
 
 /* Halves + back faces share base styles */
@@ -53,23 +55,11 @@
 .flip-card__back-bottom,
 .flip-card__back::before,
 .flip-card__back::after {
-  /*display: block;*/
-  /*align-items: center;*/
-  /*justify-content: center;*/
-  /*border-radius: var(--radius) var(--radius) 0 0;*/
-  /*height: 16px;*/
-  /*width: 100%;*/
-  /*padding: 0;*/
-  /*line-height: 1;*/
-  /*backface-visibility: hidden;*/
-  /*overflow: hidden;*/
-  /*letter-spacing: 0;*/
-  /*transform-style: preserve-3d;*/
 
   display: block;
-  height: 16px;
+  height: var(--half);
   width: 100%;
-  padding: .22em .25em .38em;
+  padding: 8px 0;
   padding-left: 0px!important;
   border-radius: var(--radius) var(--radius) 0 0;
   backface-visibility: hidden;
