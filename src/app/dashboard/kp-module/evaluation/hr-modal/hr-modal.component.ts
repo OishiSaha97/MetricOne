@@ -98,6 +98,22 @@ export class HrModalComponent {
         this.objectiveErrors[i].objectiveText = '*Objective is required';
         hasError = true;
       }
+      if (!obj.attendanceRating?.trim()) {
+        this.objectiveErrors[i].attendanceRating = '*Objective is required';
+        hasError = true;
+      }
+      if (!obj.leaveRating?.trim()) {
+        this.objectiveErrors[i].leaveRating = '*Objective is required';
+        hasError = true;
+      }
+      if (!obj.issueRating?.trim()) {
+        this.objectiveErrors[i].issueRating = '*Objective is required';
+        hasError = true;
+      }
+      if (!obj.awardRating?.trim()) {
+        this.objectiveErrors[i].awardRating = '*Objective is required';
+        hasError = true;
+      }
     }
     return !hasError;
   }
