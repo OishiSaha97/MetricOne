@@ -331,7 +331,7 @@
   border-radius: 4px;
   outline: none;
   box-sizing: border-box;
-  margin-left: 40%;
+  margin-left: 60%;
 }
 .obj-input-weightage:focus{
   border: 1px solid #7A7B8299;
@@ -341,7 +341,10 @@
   position: relative;
   width: 60%;
 }
-
+.input-with-percent-achieved {
+  position: relative;
+  width: 100%;
+}
 .percentage-icon {
   position: absolute;
   top: 50%;
