@@ -190,3 +190,11 @@ body {
   opacity: 1;
   z-index:9999;
 }
+@font-face {
+  font-family: "poppins";
+  src: url("assets/fonts/Poppins-ExtraLight.ttf");
+}
+
+.poppins-font {
+  font-family: poppins;
+}
