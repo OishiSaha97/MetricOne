@@ -323,10 +323,10 @@ export class ObjectiveSetComponent {
             this.objectiveErrors[i].achievedText = '*Achieved Text is required';
             hasError = true;
           }
-          if (!obj.achievedInt) {
-            this.objectiveErrors[i].achievedInt = '*Achieved Number is required';
-            hasError = true;
-          }
+          // if (!obj.achievedInt) {
+          //   this.objectiveErrors[i].achievedInt = '*Achieved Number is required';
+          //   hasError = true;
+          // }
 
           if (obj.isEditingObjective && !obj.keyObjective?.trim()) {
             this.objectiveErrors[i].keyObjectiveText = '*Key Update Points required';
@@ -385,12 +385,7 @@ export class ObjectiveSetComponent {
     let processedObjectives = this.objectives.map((obj: Objective) => {
 
       const escapeText = (text: string | undefined) => {
-        return text
-          ? text
-            .replace(/\r/g, '\\r')
-            .replace(/\n/g, '\\n')
-            .replace(/\t/g, '\\t')
-          : '';
+        return text;
       };
 
       let item: any = {
