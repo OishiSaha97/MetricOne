@@ -43,12 +43,17 @@
                   {{ obj.selectedRating ? (obj.selectedRating.length > 12 ? (obj.selectedRating | slice:0:12) + '...' : obj.selectedRating) : 'Select' }}
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #33343C;">
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll" style="background-color: #33343C;">
                   <li *ngFor="let type of ratings">
-                    <a class="dropdown-item text-light"
+                    <a class="dropdown-item text-light select-item"
                        [class.disabled-item]="userData.status === 'Published' || userData.status === 'Closed'"
                        (click)="onObjectiveChange(type, obj)">
-                      {{ type.kpi_category_name }}
+                      <span class="custom-tooltip"
+                            tooltip="{{ type.kpi_category_name }}">
+                                {{ type.kpi_category_name.length > 11 ? (type.kpi_category_name | slice:0:11) + '...' : type.kpi_category_name }}
+                      </span>
+                      <i class="tick-icon"
+                         *ngIf="obj.selectedRating === type.kpi_category_name"></i>
                     </a>
                   </li>
                 </ul>
@@ -78,29 +83,39 @@
       <div class="work-obj" *ngIf="objectives[7] && (currentStatus === 'manager' || currentStatus === 'approver' || currentStatus === 'hr')">
         <div class="d-flex justify-content-between">
           <div class="fw-semibold p-3" style="margin-top: 6px;">{{ objectives[7].name }}</div>
-          <div class="dropdown"
-               [class.disabled-dropdown]="userData.status === 'Published' || userData.status === 'Closed'">
-            <button class="btn btn-dark dropdown-toggle m-3"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    [attr.disabled]="userData.status === 'Published' || userData.status === 'Closed' ? true : null"
-                    style="background-color:#33343C; border:1px solid #7A7B8299;width: 150px;">
-              {{ objectives[7].overAllRating ? (objectives[7].overAllRating.length > 12 ? (objectives[7].overAllRating | slice:0:12) + '...' : objectives[7].overAllRating) : 'Select' }}
-            </button>
+          <div style="position: relative;">
+            <div class="dropdown"
+                 [class.disabled-dropdown]="userData.status === 'Published' || userData.status === 'Closed'">
+              <button class="btn btn-dark dropdown-toggle m-3"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      [attr.disabled]="userData.status === 'Published' || userData.status === 'Closed' ? true : null"
+                      style="background-color:#33343C; border:1px solid #7A7B8299;width: 150px;">
+                {{ objectives[7].overAllRating ? (objectives[7].overAllRating.length > 12 ? (objectives[7].overAllRating | slice:0:12) + '...' : objectives[7].overAllRating) : 'Select' }}
+              </button>
 
-            <ul class="dropdown-menu dropdown-menu-dark"
-                style="background-color: #33343C;">
-              <li *ngFor="let type of ratings">
-                <a class="dropdown-item text-light"
-                   [class.disabled-item]="userData.status === 'Published' || userData.status === 'Closed'"
-                   (click)="onOverAllRating(type, objectives[7])"
-                >
-                  {{ type.kpi_category_name }}
-                </a>
-              </li>
-            </ul>
+              <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
+                  style="background-color: #33343C;">
+                <li *ngFor="let type of ratings">
+                  <a class="dropdown-item text-light"
+                     [class.disabled-item]="userData.status === 'Published' || userData.status === 'Closed'"
+                     (click)="onOverAllRating(type, objectives[7])">
+                    <span class="custom-tooltip"
+                          tooltip="{{ type.kpi_category_name }}">
+                      {{ type.kpi_category_name.length > 11 ? (type.kpi_category_name | slice:0:11) + '...' : type.kpi_category_name }}
+                    </span>
+                    <i class="tick-icon"
+                       *ngIf="objectives[7].overAllRating === type.kpi_category_name"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <small class="objective-error" *ngIf="objectiveErrors[7]?.overallrating">
+              {{ objectiveErrors[7].overallrating }}
+            </small>
           </div>
+
         </div>
 
       </div>
