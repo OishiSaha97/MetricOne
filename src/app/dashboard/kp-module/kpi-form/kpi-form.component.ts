@@ -29,9 +29,11 @@ interface Objective {
 export class KpiFormComponent implements OnInit {
   filterObjectiveTypes: any[]=[];
   currentIndex : any;
+  selectedIndexForDelete: any;
 
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
+              public modalServ: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
@@ -301,13 +303,13 @@ export class KpiFormComponent implements OnInit {
 
     let param: string ='';
 
-    if(type === 'publish'){
+    if(this.currentStatus === 'hr'){
       param = 'kpi_initiation_final_approver';
     }
-    else if(type === 'submit' ){
+    else if(this.currentStatus === 'employee' ){
       param = 'kpi_insert_data';
     }
-    else if (type === 'forward') {
+    else if (this.currentStatus === 'manager' || this.currentStatus === 'approver') {
       param = 'kpi_update_data_by_approver';
     }
 
@@ -327,7 +329,17 @@ export class KpiFormComponent implements OnInit {
 
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
-        this.showToast("KPI submitted successfully.");
+
+        if(type === 'publish'){
+          this.showToast("KPI submitted successfully.");
+        }
+        else if(type === 'submit' ){
+          this.showToast("KPI submitted successfully.");
+        }
+        else if (type === 'forward') {
+          this.showToast("KPI submitted successfully.");
+        }
+
         this.saveEmitter.next(true);
         this.onCancel();
         this.requestEmitter.emit(true);
@@ -470,8 +482,7 @@ export class KpiFormComponent implements OnInit {
 
     this.kpi.revertKpi(requestPayload).subscribe({
       next: (response) => {
-        console.log('KPI saved successfully:', response);
-        alert('KPI data submitted successfully!');
+        this.showToast("KPI reverted successfully.");
         this.onCancel();
         this.onClose();
       },
@@ -531,6 +542,7 @@ export class KpiFormComponent implements OnInit {
   deleteObjective(index: number) {
     this.objectives.splice(index, 1);
     this.recalculateObjectiveTitles();
+    this.modalServ.hide();
   }
 
   recalculateObjectiveTitles() {
@@ -543,6 +555,24 @@ export class KpiFormComponent implements OnInit {
     });
   }
 
+
+  actionDelete(template: TemplateRef<any>,i: number) {
+    this.selectedIndexForDelete = i;
+    this.modalServ = this.modalService.show(template, {
+      backdrop: true,
+      keyboard: false,
+      class: 'modal-dialog modal-dialog-centered modal-max-smaller confirm-modal',
+
+    } );
+
+  }
+
+
+  closeDeleteModal() {
+      if (this.modalServ) {
+        this.modalServ.hide();
+      }
+  }
 
 
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import {CommonServiceService} from "../../common-service.service";
 interface TierUser {
@@ -108,8 +108,9 @@ export class ApproHierarchyPopUpComponent {
     this.bsModalRef.hide();
   }
 
-  onSubmit() {
 
+
+  onSubmit() {
     let tierArray: TierUser[] = Object.values(this.selectedValues) as TierUser[];
 
     if (this.finalApprover) {
@@ -121,7 +122,6 @@ export class ApproHierarchyPopUpComponent {
       index: i + 1
     }));
 
-    console.log("tierArray to submit:", tierArray);
     let obj = {
       userIdKPI:this.userId,
       hierarchyData: JSON.stringify(tierArray),
@@ -131,14 +131,17 @@ export class ApproHierarchyPopUpComponent {
     };
     this.kpi.saveKpiHierarchy(obj).subscribe({
       next: (response) => {
+
         this.bsModalRef.hide();
         this.hierarchySaved.emit();
+
       },
       error: (error) => {
 
       }
     });
   }
+
 
 
   approvers: any=[];

@@ -151,7 +151,7 @@
                         <img *ngIf="i > 2"
                           src="../../../../assets/delete-icon.svg"
                           class="cursor-enabled"
-                          (click)="deleteObjective(i)"
+                          (click)="actionDelete(deleteModal,i)"
                           alt="Delete Icon"
                         />
 <!--                        <button-->
@@ -457,12 +457,25 @@
 </div>
 
 
-<!--<div #errorToast class="toast text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">-->
-<!--  <div class="d-flex">-->
-<!--    <div class="toast-body">-->
-<!--      {{ toastMessage }}-->
-<!--    </div>-->
-<!--    <button type="button" class="btn-close btn-close-white me-2 m-auto"-->
-<!--            data-bs-dismiss="toast" aria-label="Close"></button>-->
-<!--  </div>-->
-<!--</div>-->
+<ng-template #deleteModal>
+
+  <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
+
+    <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">
+      <div class="d-flex justify-content-center text-center " >
+        <div style="color: white; font-size: 16px;">Are you sure you want to delete work objective?  </div>
+      </div>
+
+
+    </div>
+    <div class="">
+      <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
+        <button class="btn close-btn" style="cursor: pointer;" (click)="closeDeleteModal()">Close</button>
+        <button class=" active-btn" style="cursor: pointer;"
+                (click)="deleteObjective(selectedIndexForDelete)">Delete</button>
+        <!--      onActive();-->
+      </div>
+    </div>
+
+  </div>
+</ng-template>

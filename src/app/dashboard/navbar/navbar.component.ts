@@ -87,7 +87,7 @@ export class NavbarComponent {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
           }
-          if(data.allPermission && data.teamKpi) {
+          if(data.allPermission ) {
             localStorage.setItem('role', "hr");
             this.role = "hr";
             this.isHr = true;
