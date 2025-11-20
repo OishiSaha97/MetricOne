@@ -1,6 +1,6 @@
 
 
-<div class="objectives-card p-4 rounded">
+<div class="objectives-card p-4 rounded" [class.view-mode]="!view">
   <h5 class="text-light fw-semibold">Objectives Set for Year 2025</h5>
 <!--  <p class="text-secondary small">-->
 <!--    Please write SMART Objective statements:-->
@@ -482,13 +482,14 @@
 <!--                  {{ objOverallRatingError }}-->
 <!--                </small>-->
 
-                <ul class="dropdown-menu dropdown-menu-dark"
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
                     style="background-color: #33343C;">
                   <li *ngFor="let type of ratings">
                     <a class="dropdown-item text-light"
                        [class.disabled-item]=" userData.status === 'Closed'"
                        (click)="onOverallRating(type)">
-                      {{ type.kpi_category_name }}
+
+                      {{ type.kpi_category_name ? (type.kpi_category_name.length > 12 ? (type.kpi_category_name | slice:0:12) + '...' : type.kpi_category_name) : 'Select' }}
                     </a>
                   </li>
                 </ul>
