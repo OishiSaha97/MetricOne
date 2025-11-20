@@ -96,7 +96,7 @@
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
-                        style="background-color: #33343C;">
+                        style="background-color: #33343C; width:150px;">
                       <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
                         <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
                         <input [(ngModel)]="searchType" type="text" class="form-control search-input"
@@ -106,10 +106,11 @@
                       <li *ngFor="let type of objectiveTypes">
                         <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
                               <span class="custom-tooltip"
-                                    [attr.title]="type.name"
-                              >
+                                    tooltip="{{ type.name }}">
                                 {{ type.name.length > 11 ? (type.name | slice:0:11) + '...' : type.name }}
                               </span>
+                          <i class="tick-icon"
+                             *ngIf="obj.selectedType === type.name"></i>
                         </a>
                       </li>
                     </ul>
@@ -132,13 +133,16 @@
                             style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
                       {{ obj.rating ? (obj.rating.length > 12 ? (obj.rating | slice:0:12) + '...' : obj.rating) : 'Select' }}
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-dark"
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
                         style="background-color: #33343C;">
                       <li *ngFor="let type of ratings">
-                        <a class="dropdown-item text-light"
-                           [class.disabled-item]=" userData.status === 'Closed'"
-                           (click)="onRating(type, obj, i)">
-                          {{ type.kpi_category_name }}
+                        <a class="dropdown-item text-light select-item" [class.disabled-item]="userData.status === 'Closed'" (click)="onRating(type, obj, i)">
+                          <span class="custom-tooltip"
+                                tooltip="{{ type.kpi_category_name }}">
+                                {{ type.kpi_category_name.length > 11 ? (type.kpi_category_name | slice:0:11) + '...' : type.kpi_category_name }}
+                          </span>
+                          <i class="tick-icon"
+                             *ngIf="obj.rating === type.kpi_category_name"></i>
                         </a>
                       </li>
                     </ul>
