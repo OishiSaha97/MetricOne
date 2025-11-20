@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
@@ -24,9 +24,29 @@ export class LoginPageComponent {
   password: string = '';
   allPermission: boolean = false;
   teamKpi: boolean = false;
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
+  toastMessage: string = '';
 
   constructor(private client:HttpClient, private router: Router,
               private kpi: CommonServiceService) {
+  }
+
+
+  showToast(msg: string) {
+    this.toastMessage = msg;
+
+    // Show toast after 20 sec
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+
+      el.classList.add('show');
+
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 1000);
+
+    }, 0);
   }
 
 
@@ -39,16 +59,20 @@ export class LoginPageComponent {
       formData.append('password', this.password);
       this.client.post(`${environment.baseUrl}/authenticate`, formData).subscribe((result:any)=>{
         if(result){
+          if(result.isLoginSuccess){
+            localStorage.setItem('username', this.username);
+            localStorage.setItem('fullName', result['Name']);
+            localStorage.setItem('token', result['token']);
 
-          localStorage.setItem('username', this.username);
-          localStorage.setItem('fullName', result['Name']);
-          localStorage.setItem('token', result['token']);
+            this.router.navigate(['/dashboard/home']);
+          }else{
+            this.showToast(`Invalid user ID or password`);
+          }
 
-          this.router.navigate(['/dashboard/home']);
           // this.dialogRef.close(true)
         }
-      }, ()=>{
-
+      }, (error)=>{
+        console.log(error);
       })
 
     }

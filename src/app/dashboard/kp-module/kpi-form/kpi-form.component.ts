@@ -108,9 +108,9 @@ export class KpiFormComponent implements OnInit {
                 workId: item.work_id,
                 title: `Work Objective ${index + 1}`,
                 selectedType: item.category_name,
-                objectiveText: item.objective,
-                targetText: item.target,
-                performanceText: item.performance,
+                objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
+                targetText: (item.target || '').replace(/\\n/g, '\n'),
+                performanceText: (item.performance || '').replace(/\\n/g, '\n'),
                 weightage: item.weightage,
                 isOpen: false
               }));
