@@ -299,4 +299,12 @@ export class AllEmployeeKPIComponent {
     // dropdown.style.left = rect.left + 'px';
 
   }
+  remarkList: any;
+  openRemarks(user: any) {
+    this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+      .subscribe(res => {
+        this.remarkList = res?.['reverted_remark_list'] || [];
+
+      });
+  }
 }
