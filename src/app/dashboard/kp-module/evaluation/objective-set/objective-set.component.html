@@ -176,14 +176,14 @@
                 </div>
               </div>
 
-              <input
+              <textarea
                 type="text"
                 class="obj-input mb-2"
                 [(ngModel)]="obj.objectiveText"
                 placeholder="Enter objective..."
                 [readonly]=" !obj.isEditingObjective"
-                [disabled]=" userData.status === 'Closed'"
-              />
+                [disabled]=" userData.status === 'Closed'">
+              </textarea>
               <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">
                 {{ objectiveErrors[i].objectiveText }}
               </small>
@@ -244,14 +244,15 @@
                 </div>
               </div>
 
-              <input
+              <textarea
                 rows="4"
                 class="obj-input small"
                 [(ngModel)]="obj.performanceText"
                 placeholder="Enter target..."
                 [readonly]="!obj.isEditingPerformance"
-                [disabled]="userData.status === 'Closed'"
-              >
+                [disabled]="userData.status === 'Closed'">
+              </textarea>
+
               <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
                 {{ objectiveErrors[i].performanceText }}
               </small>
@@ -310,14 +311,14 @@
                   </div>
                 </div>
 
-                <input
+                <textarea
                   rows="4"
                   class="obj-input small"
                   [(ngModel)]="obj.targetText"
                   placeholder="Enter target..."
                   [disabled]=" userData.status === 'Closed'"
-                  [readonly]=" !obj.isEditingTarget"
-                >
+                  [readonly]=" !obj.isEditingTarget"></textarea>
+
                 <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.targetText">
                   {{ objectiveErrors[i].targetText }}
                 </small>
@@ -376,13 +377,14 @@
                   </div>
                 </div>
 
-                <input
+                <textarea
                   rows="4"
                   class="obj-input small"
                   [(ngModel)]="obj.achievedText"
                   placeholder="Enter target..."
                   [readonly]="currentStatus == 'manager' && !obj.isEditingAchieved"
-                >
+                ></textarea>
+
                 <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.achievedText">
                   {{ objectiveErrors[i].achievedText }}
                 </small>
@@ -390,12 +392,12 @@
                 <div *ngIf="obj.isEditingAchieved" class="mt-3">
                   <h6 style="font-size: 12px;">Key Update Points*</h6>
                   <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
-                  <input
+                  <textarea
                     type="text"
                     class="obj-input mt-2"
                     [(ngModel)]="obj.keyAchieved"
                     placeholder="Enter key point achieved..."
-                  />
+                  ></textarea>
                   <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyAchieved">
                     {{ objectiveErrors[i].keyAchieved }}
                   </small>

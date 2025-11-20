@@ -477,3 +477,10 @@ input::placeholder {
   height: 16px;
   display: inline-block;
 }
+
+.view-mode input,
+.view-mode textarea {
+  pointer-events: none;
+  /*background-color: #33343c !important;*/
+  opacity: 0.6;
+}

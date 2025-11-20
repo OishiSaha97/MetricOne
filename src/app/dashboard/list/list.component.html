@@ -121,12 +121,6 @@
             <img src="../../../assets/clear-eye.svg" alt="actions"
                  src="../../../assets/clear-eye.svg"
                  alt="View details"
-                 [ngStyle]="{
-                    cursor: user.edit_permission == true  ? 'pointer' : 'not-allowed',
-                    opacity: user.edit_permission == true  ? 1 : 0.4,
-                    'pointer-events': user.edit_permission == true  ? 'all' : 'none'
-                  }"
-
                  (click)="viewClick(user)"
             />
 
@@ -139,7 +133,7 @@
 </div>
 
 <!--                 [ngStyle]="{-->
-<!--                    cursor: user.status == 'closed' && showEvaluation ? 'pointer' : 'not-allowed',-->
-<!--                    opacity: user.status == 'closed' && showEvaluation ? 1 : 0.4,-->
-<!--                    'pointer-events': user.status == 'closed' && showEvaluation ? 'all' : 'none'-->
+<!--                    cursor: user.edit_permission == true  ? 'pointer' : 'not-allowed',-->
+<!--                    opacity: user.edit_permission == true  ? 1 : 0.4,-->
+<!--                    'pointer-events': user.edit_permission == true  ? 'all' : 'none'-->
 <!--                  }"-->

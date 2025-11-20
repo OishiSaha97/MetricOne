@@ -32,6 +32,7 @@ export class EvaluationComponent {
   mode:any
   remarkList: any;
   remark: any;
+  view:any='';
 
   kpiUserId:any;
   status: any;

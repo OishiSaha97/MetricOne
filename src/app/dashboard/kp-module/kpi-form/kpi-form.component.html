@@ -1,5 +1,5 @@
 
-<div class="container-fluid kpi-page">
+<div class="container-fluid kpi-page" [class.view-mode]="!view">
 
   <!-- Header -->
   <div class="d-flex flex-wrap justify-content-between align-items-center p-2 header-section" style="background-color: #1C1D21">
@@ -149,7 +149,7 @@
                         </small>
                       </div>
 
-                      <div class="delete-icon">
+                      <div class="delete-icon" *ngIf="view == true">
                         <img *ngIf="i > 2"
                           src="../../../../assets/delete-icon.svg"
                           class="cursor-enabled"
@@ -380,13 +380,13 @@
           </ul>
 
           <!-- Add new objective -->
-          <button class="btn mt-2 add-obj-btn" (click)="addObjective()">
+          <button class="btn mt-2 add-obj-btn" (click)="addObjective()" *ngIf="view == true">
             + Add Work Objective
           </button>
         </div>
 
 
-        <div class="d-flex justify-content-between gap-2">
+        <div class="d-flex justify-content-between gap-2" *ngIf="view == true">
           <div>
             <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>
           </div>
