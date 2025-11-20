@@ -208,7 +208,8 @@ export class HomeComponent {
   getAnnouncements() {
     this.kpi.getLogData({ param: 'announcement-list', userIdKPI: this.userId })
       .subscribe(res => {
-        this.announcements = res?.['announcement-list'] || [];
+        // this.announcements = res?.['announcement-list'] || [];
+        this.announcements = (res?.['announcement-list'] || '').replace(/\\n/g, '\n');
         console.log("this.announcements  : ", this.announcements );
       });
   }

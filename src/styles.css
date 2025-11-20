@@ -198,3 +198,7 @@ body {
 .modal-backdrop.show {
   opacity: 1 !important; /* No transparency */
 }
+
+.white-font{
+  color:white!important;
+}
