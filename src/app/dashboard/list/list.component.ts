@@ -361,11 +361,13 @@ export class ListComponent {
     this.openRemarksIndex = index;
 
     this.kpi.getLogData({
-      param: 'get_remarks',
+      param: 'reverted_remark_list',
       userIdKPI: this.userId,
-      extraParam: user.team
+      parameter:this.timePeriod,
+      extraParam:user.id
+
     }).subscribe(res => {
-      this.remarkList = res?.['get_remarks'] || [];
+      this.remarkList = res?.['reverted_remark_list'] || [];
     });
 
 
