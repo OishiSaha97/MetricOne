@@ -393,14 +393,14 @@
           <div>
             <div class="d-flex justify-content-end gap-2">
               <button class="revert-btn" (click)="openModal(actionModal)" *ngIf="mode == 'approver'" >Revert</button>
-              <button class="forward-btn"
+              <button class="forward-btn" *ngIf=" currentStatus != 'hr'"
                       (click)="(currentStatus == 'manager' || currentStatus === 'approver') ? onSubmit('forward'): onSubmit('submit')"
                       [ngClass]="{
                           'forward-btn': true
                         }">
                 {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}
               </button>
-              <button class="btn submit-btn" *ngIf="currentStatus == 'manager' || currentStatus === 'approver' || currentStatus === 'hr'" (click)="onSubmit('publish')" >Publish</button>
+              <button class="btn submit-btn" *ngIf=" currentStatus === 'hr'" (click)="onSubmit('publish')" >Publish</button>
             </div>
           </div>
 

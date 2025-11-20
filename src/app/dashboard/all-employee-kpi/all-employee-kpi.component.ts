@@ -258,6 +258,7 @@ export class AllEmployeeKPIComponent {
         year: user.year,
         mode:"approver",
         kpiId: user.id,
+        currentStatus:'hr',
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',
