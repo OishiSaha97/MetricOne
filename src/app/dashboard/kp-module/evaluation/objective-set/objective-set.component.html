@@ -79,7 +79,6 @@
                     type="text"
                     class="obj-input-weightage text-center"
                     [(ngModel)]="obj.weightage"
-                    (keydown)="blockDecimal($event)"
                     [disabled]="userData.status === 'Published' || userData.status === 'Closed'"
                   />
                   <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.weightage">
