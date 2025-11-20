@@ -59,10 +59,10 @@
             <div class="col-md-5">
               <div class="d-flex justify-content-start"  (click)="toggleObjective(obj)">
                 <div>
-                  <img *ngIf="obj.isOpen" src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7"  />
-                  <img *ngIf="!obj.isOpen" src="../../../assets/collapse-icon.svg" class="mb-1" style="scale:0.7"  />
+                  <img *ngIf="obj.isOpen" src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.6"  />
+                  <img *ngIf="!obj.isOpen" src="../../../assets/collapse-icon.svg" class="mb-1" style="scale:0.6"  />
                 </div>
-                <span class="fw-semibold">{{ obj.title }}</span>
+                <span class="fw-semibold" style="font-size: 14px;">{{ obj.title }}</span>
               </div>
             </div>
             <div class="col-md-7">
@@ -169,7 +169,7 @@
                   <label class="text-secondary small">OBJECTIVE</label>
                 </div>
 
-                <div class="col-md-6" style="text-align:end">
+                <div class="col-md-6" style="text-align:end" *ngIf="currentStatus != 'employee'">
                   <img src="../../../assets/fa-regular_edit.svg"
                        class="mb-1" style="scale:0.7"
                        (click)="toggleObjectiveEdit(obj)" />
@@ -427,7 +427,7 @@
 
               <div class="col-md-4">
                 <div>
-                  <label class="text-secondary small">ACHIEVED</label>
+                  <label class="text-secondary small">ACHIEVED(%)</label>
                 </div>
                 <input
                   type="text"
