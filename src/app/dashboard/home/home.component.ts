@@ -64,7 +64,7 @@ export class HomeComponent {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
           }
-          if(data.allPermission && data.teamKpi) {
+          if(data.allPermission ) {
             this.role = "hr";
           }else if(data.teamKpi){
             this.role = "manager";
