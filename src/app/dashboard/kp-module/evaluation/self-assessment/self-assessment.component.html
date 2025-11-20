@@ -43,14 +43,14 @@
 
 
             </div>
-            <input
+            <textarea
               type="text"
+              style="height: 41px;"
               class="obj-input mb-2 mt-2"
               [(ngModel)]="obj.selfText"
               placeholder="Type Here"
               [readonly]="currentStatus === 'manager' || currentStatus === 'approver'"
-              [disabled]=" userData.status === 'Closed'"
-            />
+              [disabled]=" userData.status === 'Closed'"></textarea>
             <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.selfText">
               {{ objectiveErrors[i].selfText }}
             </small>

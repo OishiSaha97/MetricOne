@@ -83,7 +83,7 @@ export class KpiFormComponent implements OnInit {
   approvalStatus:any;
   currentStatus:any='';
   name:any='';
-
+  view:any='';
   showObjectiveHistoryIndex: number | null = null;
   remark: string = '';
   searchType: any;
@@ -98,7 +98,7 @@ export class KpiFormComponent implements OnInit {
       if(this.approvalStatus == 'Reverted' ){
         this.getData();
       }
-      if(this.mode == 'approver'){
+      if(this.mode == 'approver' || this.view == false || this.view == true){
         this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
           .subscribe(res => {
               this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list']
@@ -108,9 +108,9 @@ export class KpiFormComponent implements OnInit {
                 workId: item.work_id,
                 title: `Work Objective ${index + 1}`,
                 selectedType: item.category_name,
-                objectiveText: item.objective,
-                targetText: item.target,
-                performanceText: item.performance,
+                objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
+                targetText: (item.target || '').replace(/\\n/g, '\n'),
+                performanceText: (item.performance || '').replace(/\\n/g, '\n'),
                 weightage: item.weightage,
                 isOpen: false
               }));

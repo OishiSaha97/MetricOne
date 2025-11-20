@@ -119,11 +119,12 @@ export class TeamsKPIComponent {
         kpiId: user.id,
         currentStatus:'manager',
         currentIndex:user.current_approver_ind,
+        view:user.editPermission,
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',
         keyboard: false,
-        class: 'modal-dialog modal-dialog-centered modal-xl',
+        class: 'modal-dialog modal-dialog-centered modal-max',
         initialState: initialState
       });
 
@@ -138,11 +139,12 @@ export class TeamsKPIComponent {
         userData: user,
         title: 'Manager Evaluation',
         currentStatus:'manager',
+        view:user.editPermission,
       };
       this.modalRef = this.modalService.show(EvaluationComponent, {
         backdrop: 'static',
         keyboard: false,
-        class: 'modal-dialog modal-dialog-centered modal-xl',
+        class: 'modal-dialog modal-dialog-centered modal-max',
         initialState: initialState
       });
 

@@ -198,3 +198,15 @@ body {
 .poppins-font {
   font-family: poppins;
 }
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 1) !important; /* Full black */
+}
+
+.modal-backdrop.show {
+  opacity: 1 !important; /* No transparency */
+}
+
+.white-font{
+  color:white!important;
+}

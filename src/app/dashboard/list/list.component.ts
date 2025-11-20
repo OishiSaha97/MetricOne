@@ -150,11 +150,12 @@ export class ListComponent {
   onClick() {
     const initialState = {
       currentStatus:'employee',
+      view:true,
     };
     this.modalRef = this.modalService.show(KpiFormComponent, {
       backdrop: 'static',
       keyboard: false,
-      class: 'modal-dialog modal-dialog-centered modal-xl',
+      class: 'modal-dialog modal-dialog-centered modal-max',
       initialState:initialState
     });
 
@@ -191,18 +192,19 @@ export class ListComponent {
     console.log("user.edit_permission : ", user.edit_permission);
     console.log("this.timePeriod : ", this.timePeriod);
 
-      if (this.timePeriod === 'evaluation' && user.edit_permission ) {
+      if (this.timePeriod === 'evaluation'  ) {
         const initialState = {
           userData: user,
           title: 'Employee Evaluation',
           currentStatus:'employee',
+          view:user.edit_permission,
         };
 
         this.modalRef = this.modalService.show(EvaluationComponent, {
           initialState:initialState,
           backdrop: 'static',
           keyboard: false,
-          class: 'modal-dialog modal-dialog-centered modal-xl'
+          class: 'modal-dialog modal-dialog-centered modal-max'
         });
 
         let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
@@ -210,7 +212,7 @@ export class ListComponent {
           dataLoader.unsubscribe();
         });
       }
-      else if(this.timePeriod === 'initiation' && user.edit_permission ){
+      else if(this.timePeriod === 'initiation'  ){
 
         const initialState = {
           kpiUserId: user.user_id,
@@ -221,11 +223,12 @@ export class ListComponent {
           kpiId: user.id,
           approvalStatus: user.approval_status,
           currentStatus:'employee',
+          view:user.edit_permission,
         };
         this.modalRef = this.modalService.show(KpiFormComponent, {
           backdrop: 'static',
           keyboard: false,
-          class: 'modal-dialog modal-dialog-centered modal-xl',
+          class: 'modal-dialog modal-dialog-centered modal-max',
           initialState: initialState
         });
 
@@ -358,11 +361,13 @@ export class ListComponent {
     this.openRemarksIndex = index;
 
     this.kpi.getLogData({
-      param: 'get_remarks',
+      param: 'reverted_remark_list',
       userIdKPI: this.userId,
-      extraParam: user.team
+      parameter:this.timePeriod,
+      extraParam:user.id
+
     }).subscribe(res => {
-      this.remarkList = res?.['get_remarks'] || [];
+      this.remarkList = res?.['reverted_remark_list'] || [];
     });
 
 

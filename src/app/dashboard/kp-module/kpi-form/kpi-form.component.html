@@ -1,5 +1,5 @@
 
-<div class="container-fluid kpi-page">
+<div class="container-fluid kpi-page" [class.view-mode]="!view">
 
   <!-- Header -->
   <div class="d-flex flex-wrap justify-content-between align-items-center p-2 header-section" style="background-color: #1C1D21">
@@ -149,7 +149,7 @@
                         </small>
                       </div>
 
-                      <div class="delete-icon">
+                      <div class="delete-icon" *ngIf="view == true">
                         <img *ngIf="i > 2"
                           src="../../../../assets/delete-icon.svg"
                           class="cursor-enabled"
@@ -176,7 +176,7 @@
                   <hr>
                   <div>
                     <div>
-                      <label class="text-secondary small">OBJECTIVE</label>
+                      <label class="text-secondary small white-font">OBJECTIVE</label>
                       <div *ngIf="mode == 'approver'">
                         <img src="../../../assets/fa-regular_edit.svg"
                              class="mb-1" style="scale:0.7"
@@ -213,10 +213,11 @@
 
                       <div *ngIf="mode === 'approver'  && currentIndex !== 1" class="mt-1">
                         <img src="../../../assets/bx_chat.svg"
-                             class="mb-1" style="scale:0.999"
+                             class="mb-1" style="scale:0.877"
                              (click)="openObjectiveHistory(obj,i);" />
 
-                        <span class="ml-2 common-purple" (click)="openObjectiveHistory(obj,i);">Changed History</span>
+                        <span class="ml-2 common-purple" style="font-size:12px"
+                              (click)="openObjectiveHistory(obj,i);">Changed History</span>
 
                         <div class="history-popup" *ngIf="showObjectiveHistoryIndex === i">
                           <div class="popup-header">
@@ -241,7 +242,7 @@
 
                   <div>
                     <div>
-                      <label class="text-secondary small">PERFORMANCE MEASURE</label>
+                      <label class="text-secondary small white-font">PERFORMANCE MEASURE</label>
                       <div *ngIf="mode === 'approver'">
                         <img src="../../../assets/fa-regular_edit.svg"
                              class="mb-1" style="scale:0.7"
@@ -279,9 +280,10 @@
 
                     <div *ngIf="mode === 'approver' && currentIndex !== 1" class="mt-1">
                       <img src="../../../assets/bx_chat.svg"
-                           class="mb-1" style="scale:0.999"
+                           class="mb-1" style="scale:0.877"
                            (click)="openPerformanceHistory(obj)" />
-                      <span class="ml-2 common-purple" (click)="openPerformanceHistory(obj)">Changed History</span>
+                      <span class="ml-2 common-purple" style="font-size:12px"
+                            (click)="openPerformanceHistory(obj)">Changed History</span>
 
                       <div class="history-popup" *ngIf="showHistory">
                         <div class="popup-header">
@@ -306,7 +308,7 @@
 
                     <div class="col-md-12 col-sm-12 col-lg-12">
                       <div>
-                        <label class="text-secondary small">TARGET</label>
+                        <label class="text-secondary small white-font">TARGET</label>
                         <div *ngIf="mode === 'approver'">
                           <img src="../../../assets/fa-regular_edit.svg"
                                class="mb-1" style="scale:0.7"
@@ -346,9 +348,10 @@
 
                       <div *ngIf="mode === 'approver' && currentIndex !== 1" class="mt-1">
                         <img src="../../../assets/bx_chat.svg"
-                             class="mb-1" style="scale:0.999"
+                             class="mb-1" style="scale:0.877"
                              (click)="openTargetHistory(obj)" />
-                        <span class="ml-2 common-purple" (click)="openTargetHistory(obj)">Changed History</span>
+                        <span class="ml-2 common-purple" style="font-size:12px"
+                              (click)="openTargetHistory(obj)">Changed History</span>
                         <div class="history-popup" *ngIf="showTargetHistory">
                           <div class="popup-header">
                             <h5>History</h5>
@@ -380,17 +383,17 @@
           </ul>
 
           <!-- Add new objective -->
-          <button class="btn mt-2 add-obj-btn" (click)="addObjective()">
+          <button class="btn mt-2 add-obj-btn" (click)="addObjective()" *ngIf="view == true">
             + Add Work Objective
           </button>
         </div>
 
 
-        <div class="d-flex justify-content-between gap-2">
+        <div class="d-flex justify-content-between gap-2" >
           <div>
             <button class="btn cancel-btn" (click)="onCancel()">Cancel</button>
           </div>
-          <div>
+          <div *ngIf="view == true">
             <div class="d-flex justify-content-end gap-2">
               <button class="revert-btn" (click)="openModal(actionModal)" *ngIf="mode == 'approver'" >Revert</button>
               <button class="forward-btn" *ngIf=" currentStatus != 'hr'"

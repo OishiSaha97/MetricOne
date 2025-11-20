@@ -2,13 +2,16 @@
 
 <div class="objectives-card p-4 rounded">
   <h5 class="text-light fw-semibold">Objectives Set for Year 2025</h5>
-  <p class="text-secondary small">
-    Please write SMART Objective statements:
-    <span >Stretching</span>,
-    <span >Measurable</span>,
-    <span >Agreed</span>,
-    <span >Realistic</span>,
-    <span >Time-Bound</span>.
+<!--  <p class="text-secondary small">-->
+<!--    Please write SMART Objective statements:-->
+<!--    <span >Stretching</span>,-->
+<!--    <span >Measurable</span>,-->
+<!--    <span >Agreed</span>,-->
+<!--    <span >Realistic</span>,-->
+<!--    <span >Time-Bound</span>.-->
+<!--  </p>-->
+  <p class="text-secondary white-font" style="font-size: 11px;">
+    Please write SMART Objective statements: Stretching, Measurable, Agreed, Realistic, Time-Bound. Providing atleast 3 work objective is mandatory. Click on the “Add Work Objective” to add more work objective.
   </p>
 
   <div class="mt-3">
@@ -59,10 +62,10 @@
             <div class="col-md-5">
               <div class="d-flex justify-content-start"  (click)="toggleObjective(obj)">
                 <div>
-                  <img *ngIf="obj.isOpen" src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7"  />
-                  <img *ngIf="!obj.isOpen" src="../../../assets/collapse-icon.svg" class="mb-1" style="scale:0.7"  />
+                  <img *ngIf="obj.isOpen" src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.6"  />
+                  <img *ngIf="!obj.isOpen" src="../../../assets/collapse-icon.svg" class="mb-1" style="scale:0.6"  />
                 </div>
-                <span class="fw-semibold">{{ obj.title }}</span>
+                <span class="fw-semibold" style="font-size: 14px;">{{ obj.title }}</span>
               </div>
             </div>
             <div class="col-md-7">
@@ -165,25 +168,26 @@
             <hr>
             <div>
               <div class="row">
-                <div class="col-md-6">
-                  <label class="text-secondary small">OBJECTIVE</label>
+                <div class="col-md-6 mb-2">
+                  <label class="text-secondary small white-font" >OBJECTIVE</label>
                 </div>
 
-                <div class="col-md-6" style="text-align:end">
+                <div class="col-md-6" style="text-align:end" *ngIf="currentStatus != 'employee'">
                   <img src="../../../assets/fa-regular_edit.svg"
                        class="mb-1" style="scale:0.7"
                        (click)="toggleObjectiveEdit(obj)" />
                 </div>
               </div>
 
-              <input
+              <textarea
                 type="text"
+                style="height: 41px;"
                 class="obj-input mb-2"
                 [(ngModel)]="obj.objectiveText"
                 placeholder="Enter objective..."
                 [readonly]=" !obj.isEditingObjective"
-                [disabled]=" userData.status === 'Closed'"
-              />
+                [disabled]=" userData.status === 'Closed'">
+              </textarea>
               <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">
                 {{ objectiveErrors[i].objectiveText }}
               </small>
@@ -203,12 +207,12 @@
                 </small>
               </div>
 
-              <div  class="mt-3 mb-3">
+              <div  class=" mb-3">
                 <img src="../../../assets/bx_chat.svg"
-                     class="mb-1" style="scale:0.999"
+                      style="scale:0.877"
                      (click)="openObjectiveHistory(obj,i);" />
 
-                <span class="ml-2 common-purple" (click)="openObjectiveHistory(obj,i);">Changed History</span>
+                <span class="ml-2 common-purple" style="font-size:12px" (click)="openObjectiveHistory(obj,i);">Changed History</span>
 
                 <div class="history-popup" *ngIf="showObjectiveHistoryIndex === i">
                   <div class="popup-header">
@@ -233,25 +237,27 @@
 
             <div>
               <div class="row">
-                <div class="col-md-6 col-sm-6">
-                  <label class="text-secondary small">PERFORMANCE MEASURE</label>
+                <div class="col-md-6 col-sm-6 mb-2">
+                  <label class="text-secondary small white-font">PERFORMANCE MEASURE</label>
                 </div>
 
                 <div class="col-md-6  col-sm-6" style="text-align:end">
-                  <img src="../../../assets/fa-regular_edit.svg"
+                  <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
                        class="mb-1" style="scale:0.7"
                        (click)="togglePerformanceEdit(obj)" />
                 </div>
               </div>
 
-              <input
+              <textarea
                 rows="4"
+                style="height: 41px;"
                 class="obj-input small"
                 [(ngModel)]="obj.performanceText"
                 placeholder="Enter target..."
                 [readonly]="!obj.isEditingPerformance"
-                [disabled]="userData.status === 'Closed'"
-              >
+                [disabled]="userData.status === 'Closed'">
+              </textarea>
+
               <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
                 {{ objectiveErrors[i].performanceText }}
               </small>
@@ -271,11 +277,11 @@
                 </small>
               </div>
 
-              <div  class="mt-3 mb-3">
+              <div  class="mb-3">
                 <img src="../../../assets/bx_chat.svg"
-                     class="mb-1" style="scale:0.999"
+                      style="scale:0.877"
                      (click)="openPerformanceHistory(obj)" />
-                <span class="ml-2 common-purple" (click)="openPerformanceHistory(obj)">Changed History</span>
+                <span class="ml-2 common-purple" style="font-size:12px" (click)="openPerformanceHistory(obj)">Changed History</span>
 
                 <div class="history-popup" *ngIf="showHistory">
                   <div class="popup-header">
@@ -300,24 +306,25 @@
 
               <div class="col-md-12 col-sm-12">
                 <div class="row">
-                  <div class="col-md-6">
-                    <label class="text-secondary small">TARGET</label>
+                  <div class="col-md-6 mb-2">
+                    <label class="text-secondary small white-font">TARGET</label>
                   </div>
                   <div class="col-md-6" style="text-align:end">
-                    <img src="../../../assets/fa-regular_edit.svg"
+                    <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
                          class="mb-1" style="scale:0.7"
                          (click)="toggleTargetEdit(obj)" />
                   </div>
                 </div>
 
-                <input
+                <textarea
                   rows="4"
+                  style="height: 41px;"
                   class="obj-input small"
                   [(ngModel)]="obj.targetText"
                   placeholder="Enter target..."
                   [disabled]=" userData.status === 'Closed'"
-                  [readonly]=" !obj.isEditingTarget"
-                >
+                  [readonly]=" !obj.isEditingTarget"></textarea>
+
                 <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.targetText">
                   {{ objectiveErrors[i].targetText }}
                 </small>
@@ -337,11 +344,11 @@
                   </small>
                 </div>
 
-                <div  class="mt-3 mb-3">
+                <div  class=" mb-3">
                   <img src="../../../assets/bx_chat.svg"
-                       class="mb-1" style="scale:0.999"
+                       style="scale:0.877"
                        (click)="openTargetHistory(obj)" />
-                  <span class="ml-2 common-purple" (click)="openTargetHistory(obj)">Changed History</span>
+                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openTargetHistory(obj)">Changed History</span>
                   <div class="history-popup" *ngIf="showTargetHistory">
                     <div class="popup-header">
                       <h5>History</h5>
@@ -366,23 +373,25 @@
 
               <div class="col-md-8">
                 <div class="row">
-                  <div class="col-md-6">
-                    <label class="text-secondary small">ACHIEVED</label>
+                  <div class="col-md-6 mb-2">
+                    <label class="text-secondary small white-font">ACHIEVED</label>
                   </div>
                   <div class="col-md-6" style="text-align:end">
-                    <img src="../../../assets/fa-regular_edit.svg"
+                    <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
                          class="mb-1" style="scale:0.7"
                          (click)="toggleAchievedEdit(obj)" />
                   </div>
                 </div>
 
-                <input
+                <textarea
                   rows="4"
+                  style="height: 41px;"
                   class="obj-input small"
                   [(ngModel)]="obj.achievedText"
-                  placeholder="Enter target..."
+                  placeholder="Enter Achieved..."
                   [readonly]="currentStatus == 'manager' && !obj.isEditingAchieved"
-                >
+                ></textarea>
+
                 <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.achievedText">
                   {{ objectiveErrors[i].achievedText }}
                 </small>
@@ -390,22 +399,23 @@
                 <div *ngIf="obj.isEditingAchieved" class="mt-3">
                   <h6 style="font-size: 12px;">Key Update Points*</h6>
                   <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
-                  <input
+                  <textarea
                     type="text"
+                    style="height: 41px;"
                     class="obj-input mt-2"
                     [(ngModel)]="obj.keyAchieved"
                     placeholder="Enter key point achieved..."
-                  />
+                  ></textarea>
                   <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyAchieved">
                     {{ objectiveErrors[i].keyAchieved }}
                   </small>
                 </div>
 
-                <div  class="mt-3 mb-3">
+                <div  class="mb-3">
                   <img src="../../../assets/bx_chat.svg"
-                       class="mb-1" style="scale:0.999"
+                       class="mb-1" style="scale:0.877"
                        (click)="openAchievedHistory(obj)" />
-                  <span class="ml-2 common-purple" (click)="openAchievedHistory(obj)">Changed History</span>
+                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openAchievedHistory(obj)">Changed History</span>
                   <div class="history-popup" *ngIf="showAchievedHistory">
                     <div class="popup-header">
                       <h5>History</h5>
@@ -423,14 +433,15 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-4 mt-2">
                 <div>
-                  <label class="text-secondary small">ACHIEVED</label>
+                  <label class="text-secondary small white-font">ACHIEVED(%)</label>
                 </div>
                 <input
                   type="text"
                   class="obj-input mb-2"
                   [(ngModel)]="obj.achievedInt"
+                  (keydown)="blockDecimal($event)"
                   placeholder="Enter achieved..."
                 />
                 <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.achievedInt">

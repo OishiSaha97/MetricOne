@@ -117,12 +117,18 @@ export class ObjectiveSetComponent {
               workId: item.work_id,
               title: `Work Objective ${index + 1}`,
               selectedType: item.category_name,
-              objectiveText: item.objective,
-              targetText: item.target,
-              performanceText: item.performance,
+              objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
+              targetText: (item.target || '').replace(/\\n/g, '\n'),
+              performanceText: (item.performance || '').replace(/\\n/g, '\n'),
               weightage: item.weightage,
-              rating: item.overall_rating,
-              achievedText: item.achieved_text,
+              rating:
+                item.overall_rating === null ||
+                item.overall_rating === undefined ||
+                item.overall_rating === '' ||
+                item.overall_rating === 'null'
+                  ? null
+                  : item.overall_rating,
+              achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
               achievedInt: item.achieved_int,
               //targetText: item.target,
               isOpen: false
@@ -178,8 +184,12 @@ export class ObjectiveSetComponent {
     );
     this.filterTypes();
   }
+
+
   searchType: any;
   filterObjectiveTypes: any[]=[];
+
+
   filterTypes() {
     const search = this.searchType.trim().toLowerCase();
 
@@ -319,10 +329,10 @@ export class ObjectiveSetComponent {
             this.objectiveErrors[i].achievedText = '*Achieved Text is required';
             hasError = true;
           }
-          if (!obj.achievedInt) {
-            this.objectiveErrors[i].achievedInt = '*Achieved Number is required';
-            hasError = true;
-          }
+          // if (!obj.achievedInt) {
+          //   this.objectiveErrors[i].achievedInt = '*Achieved Number is required';
+          //   hasError = true;
+          // }
 
           if (obj.isEditingObjective && !obj.keyObjective?.trim()) {
             this.objectiveErrors[i].keyObjectiveText = '*Key Update Points required';
@@ -362,6 +372,17 @@ export class ObjectiveSetComponent {
     return !hasError;
   }
 
+  blockDecimal(event: KeyboardEvent) {
+    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
+
+
+    if (allowedKeys.includes(event.key)) return;
+
+    if (!/^[0-9]$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
   onSubmit(): void {
     if (!this.validateObjectives()) {
       return;
@@ -370,12 +391,7 @@ export class ObjectiveSetComponent {
     let processedObjectives = this.objectives.map((obj: Objective) => {
 
       const escapeText = (text: string | undefined) => {
-        return text
-          ? text
-            .replace(/\r/g, '\\r')
-            .replace(/\n/g, '\\n')
-            .replace(/\t/g, '\\t')
-          : '';
+        return text;
       };
 
       let item: any = {
