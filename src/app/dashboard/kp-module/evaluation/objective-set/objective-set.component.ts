@@ -117,12 +117,12 @@ export class ObjectiveSetComponent {
               workId: item.work_id,
               title: `Work Objective ${index + 1}`,
               selectedType: item.category_name,
-              objectiveText: item.objective,
-              targetText: item.target,
-              performanceText: item.performance,
+              objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
+              targetText: (item.target || '').replace(/\\n/g, '\n'),
+              performanceText: (item.performance || '').replace(/\\n/g, '\n'),
               weightage: item.weightage,
               rating: item.overall_rating,
-              achievedText: item.achieved_text,
+              achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
               achievedInt: item.achieved_int,
               //targetText: item.target,
               isOpen: false
@@ -178,8 +178,12 @@ export class ObjectiveSetComponent {
     );
     this.filterTypes();
   }
+
+
   searchType: any;
   filterObjectiveTypes: any[]=[];
+
+
   filterTypes() {
     const search = this.searchType.trim().toLowerCase();
 
@@ -360,6 +364,17 @@ export class ObjectiveSetComponent {
     }
 
     return !hasError;
+  }
+
+  blockDecimal(event: KeyboardEvent) {
+    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
+
+
+    if (allowedKeys.includes(event.key)) return;
+
+    if (!/^[0-9]$/.test(event.key)) {
+      event.preventDefault();
+    }
   }
 
   onSubmit(): void {

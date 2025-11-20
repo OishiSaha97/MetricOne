@@ -18,23 +18,25 @@
     <!-- Header -->
     <div class="row d-flex flex-wrap justify-content-between align-items-center mb-2 mt-2 header-section">
       <div class="row d-flex align-items-center">
-        <div class="col-md-3">
-          <span class="font-color-system">Manager's Name: </span>
-          <span>Ashiful Islam</span>
-        </div>
+<!--        <div class="col-md-3">-->
+<!--          <span class="font-color-system">Manager's Name: </span>-->
+<!--          <span>Ashiful Islam</span>-->
+<!--        </div>-->
         <div class="col-md-3">
           <span class="font-color-system">Team: </span>
-          <span>bKash</span>
+          <span>{{userData.team}}</span>
         </div>
 
-        <div class="col-md-3">
-          <span class="font-color-system">Designation: </span>
-          <span>Business Analyst</span>
-        </div>
+<!--        <div class="col-md-3">-->
+<!--          <span class="font-color-system">Designation: </span>-->
+<!--          <span>Business Analyst</span>-->
+<!--        </div>-->
 
         <div class="col-md-3">
           <span class="font-color-system">View as: </span>
-          <span>Self </span>
+          <span *ngIf="currentStatus === 'employee'">Self</span>
+          <span *ngIf="currentStatus === 'manager'">Manager</span>
+          <span *ngIf="currentStatus === 'hr'">HR</span>
         </div>
       </div>
     </div>
@@ -43,13 +45,13 @@
   <div class="d-flex justify-content-between">
     <div class="d-flex justify-content-start">
       <div>
-        <h5 class=" m-3 fw-bold" style="color:#FFFFFF80">INITIAL KPI SETTING </h5>
+        <h5 class=" m-3 fw-bold" style="color:#FFFFFF80;font-size: 15px;">KPI INITIATION </h5>
       </div>
       <div>
-        <h5 class="fw-bold" style="color:#00B2B1; scale: 1.8;margin-top: 14px;"> → </h5>
+        <h5 class="fw-bold" style="color:#00B2B1; scale: 1.2;margin-top: 11px;"> → </h5>
       </div>
       <div>
-        <h5 class=" m-3 fw-bold" style="color:#00B2B1">  KPI EVALUATION </h5>
+        <h5 class=" m-3 fw-bold" style="color:#00B2B1;font-size: 15px;">  KPI EVALUATION </h5>
       </div>
     </div>
 
