@@ -38,6 +38,7 @@ export class ObjectiveSetComponent {
   @Output() dataSubmitted = new EventEmitter<any>();
   @Output() rateSubmit = new EventEmitter<any>();
   @Input() currentStatus: any;
+  @Input() view: any;
 
 
 

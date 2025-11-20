@@ -143,8 +143,12 @@
           </td>
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"
-
-                 (click)=" viewDetails(user)"
+                 [ngStyle]="{
+                      cursor: isClickable(user) ? 'pointer' : 'default',
+                      opacity: isClickable(user) ? 1 : 0.4,
+                      'pointer-events': isClickable(user) ? 'all' : 'none'
+                      }"
+                 (click)="isClickable(user) && viewDetails(user)"
             />
           </td>
         </tr>
@@ -158,8 +162,4 @@
 
 <!--isClickable(user) &&-->
 
-<!--[ngStyle]="{-->
-<!--cursor: isClickable(user) ? 'pointer' : 'default',-->
-<!--opacity: isClickable(user) ? 1 : 0.4,-->
-<!--'pointer-events': isClickable(user) ? 'all' : 'none'-->
-<!--}"-->
+
