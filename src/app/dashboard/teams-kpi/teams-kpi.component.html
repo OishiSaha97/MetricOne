@@ -36,7 +36,7 @@
           <th>Team</th>
           <th>Employee Id</th>
           <th>Status</th>
-          <th>Designation</th>
+<!--          <th>Designation</th>-->
           <th>Hierarchy</th>
           <th>Remarks</th>
           <th>Action</th>
@@ -45,16 +45,16 @@
         <tbody>
         <tr *ngFor="let user of resData; let i = index" >
           <td>{{ i + 1 }}</td>
-          <td title="{{ user.year }}">{{ user.year }}</td>
+          <td >{{ user.year }}</td>
 <!--                    <td title="{{ user.name }}">{{ user.name }}</td>-->
           <td [title]="user.name">
             {{ user.name.length > 15 ? (user.name | slice:0:15) + '...' : user.name }}
           </td>
-          <td title="{{ user.team }}">{{ user.team }}</td>
-                    <td title="{{ user.employee_id }}">{{ user.employee_id }}</td>
-          <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
-          <td>{{ user.desg }}</td>
-          <td title="{{ user.hieCount }}" style="cursor:pointer;position: relative;">
+          <td >{{ user.team }}</td>
+          <td >{{ user.employee_id }}</td>
+          <td  [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
+<!--          <td>{{ user.desg }}</td>-->
+          <td style="cursor:pointer;position: relative;">
             <span *ngIf="user.hieCount > 0"
               class="text-white dropdown"
               role="button"
@@ -98,7 +98,7 @@
 
 
           </td>
-          <td title="{{ user.remarks }}">
+          <td >
             <span *ngIf="user.remarks > 0"
               class="text-white dropdown"
               role="button"

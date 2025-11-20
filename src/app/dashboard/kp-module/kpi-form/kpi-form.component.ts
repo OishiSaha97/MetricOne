@@ -323,7 +323,7 @@ export class KpiFormComponent implements OnInit {
 
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
-        console.log('KPI saved successfully:', response);
+        this.showToast("KPI submitted successfully.");
         this.saveEmitter.next(true);
         this.onCancel();
         this.requestEmitter.emit(true);
