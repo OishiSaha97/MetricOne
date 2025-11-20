@@ -391,6 +391,7 @@ table, tr, td {
   padding: 10px 15px !important;
   height: 200px;
   max-height: 250px;
+  overflow-y: auto !important;
 }
 
 .hierarchy-dropdown .w-100 {

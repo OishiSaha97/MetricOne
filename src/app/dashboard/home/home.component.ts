@@ -120,11 +120,11 @@ export class HomeComponent {
         const [year, month, day] = this.initialtionDate.split('-').map(Number);
         const kpiDate = new Date(year, month - 1, day);
         if(this.initialtionDate && (kpiDate >= today)){
-          this.settingTitle = "Initiation";
+          this.settingTitle = "KPI Initiation";
           this.mode = "edit";
         }
         else if (kpiDate <= today) {
-          this.settingTitle = "Evaluation";
+          this.settingTitle = "KPI Evaluation";
           this.checkEvaEndDate();
           this.mode = "add";
         }
