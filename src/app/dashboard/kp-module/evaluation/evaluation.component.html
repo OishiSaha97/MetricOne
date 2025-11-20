@@ -209,8 +209,8 @@
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
               <button class="revert-btn" (click)="openModal(actionModal)"
                       *ngIf="view == true && currentStatus != 'employee'">Revert</button>
-              <button class=" submit-btn" (click)="onNext()">
-                {{ currentStep == maxStep ? 'Submit' : 'Next' }}
+              <button class="submit-btn" (click)="onNext()">
+                {{ currentStep == maxStep && view == true  ? 'Submit' : 'Next' }}
               </button>
             </div>
           </div>
