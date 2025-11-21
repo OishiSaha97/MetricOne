@@ -202,3 +202,10 @@ body {
 .white-font{
   color:white!important;
 }
+
+.view-mode input,
+.view-mode textarea {
+  pointer-events: none;
+  /*background-color: #33343c !important;*/
+  opacity: 0.6;
+}

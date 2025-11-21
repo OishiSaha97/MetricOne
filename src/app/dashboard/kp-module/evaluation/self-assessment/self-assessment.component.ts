@@ -21,6 +21,7 @@ export class SelfAssessmentComponent {
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
   @Input() currentStatus: any;
+  @Input() view: any;
   objectives: Objective[] = [
     {
       id: 1,

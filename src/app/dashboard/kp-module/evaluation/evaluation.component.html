@@ -166,26 +166,30 @@
 
     <div class="col-lg-9 col-md-9">
       <fieldset *ngIf="currentTable=='objective'">
-        <app-objective-set [userData]="userData" [currentStatus]="currentStatus"
+        <app-objective-set [userData]="userData" [currentStatus]="currentStatus" [view]="view"
                            (dataSubmitted)="onChildDataSubmitted($event,'objective')"
                            (rateSubmit)="onClickRate($event)"
         ></app-objective-set>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='self'">
-        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
+        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+                             (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='values'">
-        <app-values-component [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
+        <app-values-component [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+                              (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='manager'">
-        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
+        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+                             (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='hr'">
-        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'hr')"></app-hr-modal>
+        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+                      (dataSubmitted)="onChildDataSubmitted($event,'hr')"></app-hr-modal>
       </fieldset>
 
     </div>
@@ -200,11 +204,11 @@
           <div>
             <button class="btn cancel-btn" style="margin-left: 17%;" (click)="cancel()">Cancel</button>
           </div>
-          <div>
+          <div >
             <div class="d-flex justify-content-end gap-2 p-3">
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
               <button class="revert-btn" (click)="openModal(actionModal)"
-                      *ngIf="currentStatus != 'employee'">Revert</button>
+                      *ngIf="view == true && currentStatus != 'employee'">Revert</button>
               <button class=" submit-btn" (click)="onNext()">
                 {{ currentStep == maxStep ? 'Submit' : 'Next' }}
               </button>
