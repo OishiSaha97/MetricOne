@@ -122,7 +122,13 @@ export class ObjectiveSetComponent {
               targetText: (item.target || '').replace(/\\n/g, '\n'),
               performanceText: (item.performance || '').replace(/\\n/g, '\n'),
               weightage: item.weightage,
-              rating: item.overall_rating,
+              rating:
+                item.overall_rating === null ||
+                item.overall_rating === undefined ||
+                item.overall_rating === '' ||
+                item.overall_rating === 'null'
+                  ? null
+                  : item.overall_rating,
               achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
               achievedInt: item.achieved_int,
               //targetText: item.target,

@@ -102,12 +102,6 @@ export class EvaluationComponent {
     this.tables[this.currentTable].selected = true;
   }
 
-  onCancel() {
-  }
-
-  onSubmit(){
-  }
-
   onNext(){
     let currentStep;
     if (this.currentStep == 1) {
@@ -160,9 +154,6 @@ export class EvaluationComponent {
     this.modalService.hide();
   }
 
-  onDropdownOpen(): void {
-    this.isOpenRemark.fill(true);
-  }
 
   onToggle(index: number): void {
     this.isOpenRemark[index] = !this.isOpenRemark[index];
