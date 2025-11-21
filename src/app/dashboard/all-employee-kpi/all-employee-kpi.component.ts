@@ -238,7 +238,7 @@ view:any;
         userData: user,
         title: 'HR Evaluation',
         currentStatus:'hr',
-        view:user.editPermission
+
       };
 
       this.modalRef = this.modalService.show(EvaluationComponent, {
@@ -263,7 +263,7 @@ view:any;
         mode:"approver",
         kpiId: user.id,
         currentStatus:'hr',
-        view:user.editPermission
+
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',
