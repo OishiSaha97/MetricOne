@@ -263,6 +263,7 @@ view:any;
         mode:"approver",
         kpiId: user.id,
         currentStatus:'hr',
+        view:true
 
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {

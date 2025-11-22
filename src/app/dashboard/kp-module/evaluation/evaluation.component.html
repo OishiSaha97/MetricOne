@@ -207,6 +207,8 @@
           <div >
             <div class="d-flex justify-content-end gap-2 p-3">
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
+              <button class="revert-btn" (click)="draft()"
+                      *ngIf="currentStep == maxStep && currentStatus == 'employee'">Draft</button>
               <button class="revert-btn" (click)="openModal(actionModal)"
                       *ngIf="view == true && currentStatus != 'employee'">Revert</button>
               <button class="submit-btn" (click)="onNext()">
