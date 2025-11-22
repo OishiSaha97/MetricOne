@@ -24,6 +24,7 @@ export class HrModalComponent {
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
   @Input() currentStatus: any;
+  @Input() view: any;
 
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''}];
@@ -75,7 +76,47 @@ export class HrModalComponent {
   }
 
   submitData() {
+    if (!this.validateObjectives()) {
+      return;
+    }
+    console.log("objectives : ", this.objectives);
     this.dataSubmitted.emit(this.objectives);
+  }
+  objectiveErrors: { [key: number]:
+      {
+        objectiveText?: string;
+        attendanceRating?: string;
+        leaveRating?: string;
+        issueRating?: string;
+        awardRating?: string;
+      } } = {};
+  validateObjectives(): boolean {
+    let hasError = false;
+    for (let i = 0; i < this.objectives.length; i++) {
+      const obj = this.objectives[i];
+      this.objectiveErrors[i] = {};
+      if (!obj.objectiveText?.trim()) {
+        this.objectiveErrors[i].objectiveText = '*Objective is required';
+        hasError = true;
+      }
+      if (!obj.attendanceRating?.trim()) {
+        this.objectiveErrors[i].attendanceRating = '*Objective is required';
+        hasError = true;
+      }
+      if (!obj.leaveRating?.trim()) {
+        this.objectiveErrors[i].leaveRating = '*Objective is required';
+        hasError = true;
+      }
+      if (!obj.issueRating?.trim()) {
+        this.objectiveErrors[i].issueRating = '*Objective is required';
+        hasError = true;
+      }
+      if (!obj.awardRating?.trim()) {
+        this.objectiveErrors[i].awardRating = '*Objective is required';
+        hasError = true;
+      }
+    }
+    return !hasError;
   }
 
   getRating() {

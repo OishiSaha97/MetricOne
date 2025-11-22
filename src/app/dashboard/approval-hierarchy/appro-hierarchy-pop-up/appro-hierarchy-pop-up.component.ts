@@ -1,7 +1,12 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import {CommonServiceService} from "../../common-service.service";
-
+interface TierUser {
+  index?: number;
+  username: string;
+  full_name: string;
+  [key: string]: any;
+}
 @Component({
   selector: 'app-appro-hierarchy-pop-up',
   templateUrl: './appro-hierarchy-pop-up.component.html',
@@ -11,7 +16,7 @@ export class ApproHierarchyPopUpComponent {
   finalApprover: any=[];
   userId:any;
   mode:any;
-
+  @Output() clickOutside = new EventEmitter<MouseEvent>();
   @Output() hierarchySaved = new EventEmitter<void>();
   resData: any;
   constructor(public bsModalRef: BsModalRef,
@@ -32,7 +37,7 @@ export class ApproHierarchyPopUpComponent {
   hierarchyLength:any=0;
   tiers: number[] = [1, 2];
   maxTiers = 4;
-  selectedValues: any = {};
+  selectedValues: any = [];
   dropdownOpen: { [tier: number]: boolean } = {};
   userList:any='';
   filterUserList:any='';
@@ -56,7 +61,7 @@ export class ApproHierarchyPopUpComponent {
   toggleDropdown(tier: number) {
 
 
-    Object.keys(this.dropdownOpen).forEach(key => this.dropdownOpen[+key] = false);
+    // Object.keys(this.dropdownOpen).forEach(key => this.dropdownOpen[+key] = false);
 
     this.dropdownOpen[tier] = !this.dropdownOpen[tier];
     this.filterApproversList[tier] = [...this.approvers];
@@ -64,18 +69,35 @@ export class ApproHierarchyPopUpComponent {
 
   selectOption(tier: number, option: { username: string; full_name: string }, i: number) {
 
-    this.selectedValues['tier' + tier] = {
-      index: tier,
-      username: option.username,
-      full_name: option.full_name
-    };
-    this.dropdownOpen[tier] = false;
-    console.log("selectedValues: ", this.selectedValues);
+      if(this.mode === 'edit'){
+        this.selectedValues[tier] = {
+          index: tier,
+          username: option.username,
+          full_name: option.full_name
+        };
+        this.dropdownOpen[tier] = false;
+        this.searchApprover[tier] = '';
+        console.log("this.selectedValues while edit : ", this.selectedValues);
+      }else {
+        this.selectedValues[tier] = {
+          index: tier,
+          username: option.username,
+          full_name: option.full_name
+        };
+        this.dropdownOpen[tier] = false;
+        this.searchApprover[tier] = '';
+
+      }
+
   }
 
 
   isDropdownOpen(tier: number) {
     return this.dropdownOpen[tier];
+  }
+
+  closeDropdown(tier: number){
+    this.dropdownOpen[tier] = false;
   }
 
   closeModal() {
@@ -86,16 +108,20 @@ export class ApproHierarchyPopUpComponent {
     this.bsModalRef.hide();
   }
 
-  onSubmit() {
-    const tierArray = Object.values(this.selectedValues);
-    if (this.finalApprover) {
-      const finalApproverWithIndex = {
-        index: tierArray.length + 1,
-        ...this.finalApprover
-      };
 
-      tierArray.push(finalApproverWithIndex);
+
+  onSubmit() {
+    let tierArray: TierUser[] = Object.values(this.selectedValues) as TierUser[];
+
+    if (this.finalApprover) {
+      tierArray.push(this.finalApprover as TierUser);
     }
+
+    tierArray = tierArray.map((item: TierUser, i: number) => ({
+      ...item,
+      index: i + 1
+    }));
+
     let obj = {
       userIdKPI:this.userId,
       hierarchyData: JSON.stringify(tierArray),
@@ -105,14 +131,17 @@ export class ApproHierarchyPopUpComponent {
     };
     this.kpi.saveKpiHierarchy(obj).subscribe({
       next: (response) => {
+
         this.bsModalRef.hide();
         this.hierarchySaved.emit();
+
       },
       error: (error) => {
 
       }
     });
   }
+
 
 
   approvers: any=[];
@@ -151,23 +180,35 @@ export class ApproHierarchyPopUpComponent {
       .subscribe(res => {
         this.resData = res?.['getPrevHierarchy'] || [];
         this.hierarchyLength = this.resData.length;
+        this.tiers = [];
+        this.selectedValues = [];
         this.setViewHierarchy();
       });
   }
 
   setViewHierarchy() {
-    this.tiers = Array.from({ length: this.hierarchyLength + 1 }, (_, i) => i + 1);
+    this.tiers = Array.from({ length: this.hierarchyLength+1}, (_, i) => i);
     this.resData.forEach((element: any) => {
-      this.selectedValues['tier' + element.index] = {
+      this.selectedValues.push({
         index: element.index,
         username: element.username,
         full_name: element.full_name
-      };
+      }) ;
       if (!this.tiers.includes(element.index)) {
-        this.tiers.push(element.index);
+        this.tiers.push(element.index+1);
       }
+      console.log(this.selectedValues)
     });
 
-    console.log("selectedValues:", this.selectedValues);
   }
+
+  removeTier(index: number) {
+    this.tiers.pop();
+    this.selectedValues.splice(index, 1);
+    this.selectedValues = this.selectedValues.map((v:any, i:any) => ({ ...v, index: i+1 }));
+
+  }
+
+
+
 }

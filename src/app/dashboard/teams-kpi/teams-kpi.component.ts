@@ -31,6 +31,7 @@ export class TeamsKPIComponent {
   userId:any;
   timePeriod:any;
   fullHierarchy: any;
+  remarkList: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -116,11 +117,14 @@ export class TeamsKPIComponent {
         year: user.year,
         mode:"approver",
         kpiId: user.id,
+        currentStatus:'manager',
+        currentIndex:user.current_approver_ind,
+
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',
         keyboard: false,
-        class: 'modal-dialog modal-dialog-centered modal-xl',
+        class: 'modal-dialog modal-dialog-centered modal-max',
         initialState: initialState
       });
 
@@ -135,11 +139,12 @@ export class TeamsKPIComponent {
         userData: user,
         title: 'Manager Evaluation',
         currentStatus:'manager',
+
       };
       this.modalRef = this.modalService.show(EvaluationComponent, {
         backdrop: 'static',
         keyboard: false,
-        class: 'modal-dialog modal-dialog-centered modal-xl',
+        class: 'modal-dialog modal-dialog-centered modal-max',
         initialState: initialState
       });
 
@@ -154,7 +159,7 @@ export class TeamsKPIComponent {
 
 
   isClickable(user: any): boolean {
-    return user.status === 'Submitted for Reviewer' || user.editPermission;
+    return user.editPermission;
   }
 
   search() {
@@ -162,11 +167,21 @@ export class TeamsKPIComponent {
   }
 
   openHierarchy(user: any) {
-    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
+    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team,pid:user.id })
       .subscribe(res => {
         this.fullHierarchy = res?.['get_hierarchy'] || [];
 
       });
 
   }
+
+  openRemarks(user: any) {
+    this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+      .subscribe(res => {
+        this.remarkList = res?.['reverted_remark_list'] || [];
+
+      });
+  }
+
+
 }

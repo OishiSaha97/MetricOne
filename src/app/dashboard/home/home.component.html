@@ -1,16 +1,17 @@
 
-<div class="vh-100">
-<div class="row h-100">
-  <div class="col-md-8 d-flex flex-column">
+
+<div class="row poppins-font">
+  <div class="col-md-9">
     <div class="row g-3">
-      <div class="col-md-6">
-        <div class="card p-3 announcement-panel" style="margin-top:10px;">
+      <div class="col-md-5">
+        <div class="card p-3 announcement-panel " style="width:270px;margin-left:13px;margin-top:83px;">
           <h5 class="announcement-title">Notifications</h5>
           <div class=" announcement-list">
             <div class="user" *ngFor="let note of notifications">
               <div>
-                <strong>{{ note.created_by }}</strong><br>
-                <small>{{ note.notification }}</small>
+                <strong style="font-size: 14px;">{{ note.created_by }}</strong>
+                <br>
+                <p style="font-size: 11px;line-height: 1.5;margin-top: 5px;">{{ note.notification }}</p>
                 <hr>
               </div>
             </div>
@@ -18,11 +19,11 @@
         </div>
       </div>
 
-      <div class="col-md-6">
-      <div class="announcement-panel card p-3" style="margin-top:10px;">
+      <div class="col-md-7">
+      <div class="announcement-panel card p-3 " style="margin-left: -39px; margin-top: 83px;">
         <h5 class="announcement-title">Announcements</h5>
 
-        <div *ngIf="role == 'hr'">
+        <div *ngIf="role == 'hr'" style="margin-top: 3%;">
           <textarea [(ngModel)]="anncText"
             rows="4"
             class="announcement-input"
@@ -36,7 +37,7 @@
         </div>
 
 
-        <div class="announcement-list mt-3">
+        <div class="announcement-list mt-3" style="margin-top: 7px !important;">
           <div *ngFor="let a of announcements"
           >
             <hr>
@@ -77,26 +78,30 @@
 <!--      </table>-->
 <!--    </div>-->
 
-  </div>
-  <div class="col-md-4" style="background-color:#1C1D21; height:100%">
+</div>
+<div class="col-md-3 h-100" style="background-color:#1C1D21;">
+  <div  >
     <div class="kpi-box mb-1">
       <div class="kpi-header d-flex justify-content-between align-items-center mb-1"
            [class.disabled]="role !== 'hr'"
            [class.pointer]="role === 'hr'"
            (click)="(role === 'hr') && openSetting();">
-        <div class="d-flex justify-content-center align-items-center">
-          <h6 class="mb-0 text-center" >{{ settingTitle }}</h6>
+        <div class="d-flex justify-content-between text-center align-items-center" style="margin-left: 50px;">
+          <h6 class="mb-0 text-center" style="font-size:12px;" >{{ settingTitle }}</h6>
         </div>
         <div>
-          <span class="setting-icon"></span>
+          <span title="{{ settingTitle }}"
+                placement="top"
+                container="body" class="setting-icon"
+                *ngIf="role === 'hr'"></span>
         </div>
       </div>
 
-      <div class="row align-items-center mb-1">
+      <div class="row align-items-center mb-1" style="margin-top: 18%;">
 
         <div class="col-md-6 col-sm-6">
-          <div class="countdown-card tier-block">
-            <h6 class=" mb-3" style="color: #83F7F6">Closes In:</h6>
+          <div class="countdown-card tier-block" style="margin-left: 16px;">
+            <h6 class=" mb-2" style="color: #83F7F6;font-size: 12px;">Closes In:</h6>
             <div>
               <app-flip-clock
                 [date]=initialtionDate
@@ -110,9 +115,12 @@
         </div>
 
 
-        <div class="col-md-6 col-sm-6">
-          <div class="countdown-card">
-            <h6 class="mb-3" style="color: #83F7F6">End Date:</h6>
+        <div class="col-md-6 col-sm-6" style="margin-left: -3px;">
+          <div class="countdown-card tier-block">
+            <!--            <div>-->
+            <h6 class="mb-2" style="color: #83F7F6;font-size: 12px;margin-top: -22%;">End Date:</h6>
+            <!--            </div>-->
+
             <div class="end-date-box">
               {{ initialtionDate | date:'dd MMMM, yyyy' }}
             </div>
@@ -120,67 +128,67 @@
         </div>
       </div>
 
+    </div>
+
+
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-title">In Manager's Review</div>
+        <div class="kpi-value">
+          <div>
+            <span class="divider">|</span>
+          </div>
+          <div>
+            <!--              <span class="number">32</span>-->
+          </div>
+
+
+        </div>
       </div>
 
-
-
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-title">In Manager's Review</div>
-          <div class="kpi-value">
-            <div>
-              <span class="divider">|</span>
-            </div>
-            <div>
-              <span class="number">32</span>
-            </div>
-
-
+      <div class="kpi-card">
+        <div class="kpi-title">Total Employees</div>
+        <div class="kpi-value">
+          <div>
+            <span class="divider">|</span>
           </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-title">Total Employees</div>
-          <div class="kpi-value">
-            <div>
-              <span class="divider">|</span>
-            </div>
-            <div>
-              <span class="number">{{ totalEmloyee }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-title">KPI In Progress</div>
-          <div class="kpi-value">
-            <div>
-              <span class="divider">|</span>
-            </div>
-            <div>
-              <span class="number">32</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-title">In HR's Review</div>
-          <div class="kpi-value">
-            <div>
-              <span class="divider">|</span>
-            </div>
-            <div>
-              <span class="number">32</span>
-            </div>
+          <div>
+            <span class="number">{{ totalEmloyee }}</span>
           </div>
         </div>
       </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">KPI In Progress</div>
+        <div class="kpi-value">
+          <div>
+            <span class="divider">|</span>
+          </div>
+          <div>
+            <!--              <span class="number">32</span>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">In HR's Review</div>
+        <div class="kpi-value">
+          <div>
+            <span class="divider">|</span>
+          </div>
+          <div>
+            <!--              <span class="number">32</span>-->
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="card card-measure text-center pt-4">
       <div class="progress-circle">
         <svg>
-          <circle class="bg" cx="60" cy="60" r="50"></circle>
-          <circle class="progress" cx="60" cy="60" r="50" [attr.stroke-dashoffset]="dashOffset"></circle>
+          <circle class="bg" cx="40" cy="40" r="30"></circle>
+          <circle class="progress" cx="40" cy="40" r="30" [attr.stroke-dashoffset]="dashOffset"></circle>
         </svg>
         <div class="percentage">{{ progressValue }}%</div>
       </div>
@@ -189,7 +197,10 @@
 
   </div>
 
+
 </div>
+
 </div>
+
 
 

@@ -6,7 +6,7 @@
     </div>
 
     <div class="text-end text-light header-info" style="display: flex;justify-content: space-between;align-items: center;">
-      <div><strong class="font-color-system">Year:</strong> 2025 | <strong class="font-color-system">KPI of</strong> Sharmilie Nawar</div>
+      <div><strong class="font-color-system">Year:</strong> {{ userData.year }} | <strong class="font-color-system">KPI of</strong> {{userData.name}}</div>
       <div>
         <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
       </div>
@@ -18,23 +18,25 @@
     <!-- Header -->
     <div class="row d-flex flex-wrap justify-content-between align-items-center mb-2 mt-2 header-section">
       <div class="row d-flex align-items-center">
-        <div class="col-md-3">
-          <span class="font-color-system">Manager's Name: </span>
-          <span>Ashiful Islam</span>
-        </div>
+<!--        <div class="col-md-3">-->
+<!--          <span class="font-color-system">Manager's Name: </span>-->
+<!--          <span>Ashiful Islam</span>-->
+<!--        </div>-->
         <div class="col-md-3">
           <span class="font-color-system">Team: </span>
-          <span>bKash</span>
+          <span>{{userData.team}}</span>
         </div>
 
-        <div class="col-md-3">
-          <span class="font-color-system">Designation: </span>
-          <span>Business Analyst</span>
-        </div>
+<!--        <div class="col-md-3">-->
+<!--          <span class="font-color-system">Designation: </span>-->
+<!--          <span>Business Analyst</span>-->
+<!--        </div>-->
 
         <div class="col-md-3">
           <span class="font-color-system">View as: </span>
-          <span>Self </span>
+          <span *ngIf="currentStatus === 'employee'">Self</span>
+          <span *ngIf="currentStatus === 'manager'">Manager</span>
+          <span *ngIf="currentStatus === 'hr'">HR</span>
         </div>
       </div>
     </div>
@@ -43,13 +45,13 @@
   <div class="d-flex justify-content-between">
     <div class="d-flex justify-content-start">
       <div>
-        <h5 class=" m-3 fw-bold" style="color:#FFFFFF80">INITIAL KPI SETTING </h5>
+        <h5 class=" m-3 fw-bold" style="color:#FFFFFF80;font-size: 15px;">KPI INITIATION </h5>
       </div>
       <div>
-        <h5 class="fw-bold" style="color:#00B2B1; scale: 1.8;margin-top: 14px;"> → </h5>
+        <h5 class="fw-bold" style="color:#00B2B1; scale: 1.2;margin-top: 11px;"> → </h5>
       </div>
       <div>
-        <h5 class=" m-3 fw-bold" style="color:#00B2B1">  KPI EVALUATION </h5>
+        <h5 class=" m-3 fw-bold" style="color:#00B2B1;font-size: 15px;">  KPI EVALUATION </h5>
       </div>
     </div>
 
@@ -164,23 +166,30 @@
 
     <div class="col-lg-9 col-md-9">
       <fieldset *ngIf="currentTable=='objective'">
-        <app-objective-set [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-objective-set>
+        <app-objective-set [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+                           (dataSubmitted)="onChildDataSubmitted($event,'objective')"
+                           (rateSubmit)="onClickRate($event)"
+        ></app-objective-set>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='self'">
-        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
+        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+                             (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='values'">
-        <app-values-component [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
+        <app-values-component [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+                              (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='manager'">
-        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
+        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+                             (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='hr'">
-        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" (dataSubmitted)="onChildDataSubmitted($event,'hr')"></app-hr-modal>
+        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+                      (dataSubmitted)="onChildDataSubmitted($event,'hr')"></app-hr-modal>
       </fieldset>
 
     </div>
@@ -195,11 +204,11 @@
           <div>
             <button class="btn cancel-btn" style="margin-left: 17%;" (click)="cancel()">Cancel</button>
           </div>
-          <div>
+          <div >
             <div class="d-flex justify-content-end gap-2 p-3">
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
               <button class="revert-btn" (click)="openModal(actionModal)"
-                      *ngIf="role == 'manager' || role == 'hr'">Revert</button>
+                      *ngIf="view == true && currentStatus != 'employee'">Revert</button>
               <button class=" submit-btn" (click)="onNext()">
                 {{ currentStep == maxStep ? 'Submit' : 'Next' }}
               </button>

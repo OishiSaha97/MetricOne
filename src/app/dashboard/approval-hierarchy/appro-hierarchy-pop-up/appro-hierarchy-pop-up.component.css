@@ -175,3 +175,25 @@ input::placeholder {
   background-color: rgba(100, 73, 190, 1);
   border: 1px solid rgba(100, 73, 190, 1);
 }
+
+.delete-icon{
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.custom-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #aba9a9;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.custom-toast.show {
+  opacity: 1;
+}

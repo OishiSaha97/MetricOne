@@ -42,6 +42,7 @@ import {ManagerInsightComponent} from "./dashboard/kp-module/evaluation/manager-
 import { ObjectiveSetComponent } from './dashboard/kp-module/evaluation/objective-set/objective-set.component';
 import { SelfAssessmentComponent } from './dashboard/kp-module/evaluation/self-assessment/self-assessment.component';
 import { HrModalComponent } from './dashboard/kp-module/evaluation/hr-modal/hr-modal.component';
+import { ClickOutsideDirective } from './shared/click-outside.directive';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { HrModalComponent } from './dashboard/kp-module/evaluation/hr-modal/hr-m
     ManagerInsightComponent,
     ObjectiveSetComponent,
     SelfAssessmentComponent,
-    HrModalComponent
+    HrModalComponent,
+    ClickOutsideDirective
   ],
   imports: [
     BrowserModule,

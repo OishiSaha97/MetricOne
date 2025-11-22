@@ -183,6 +183,8 @@ tbody td[title]:hover::after {
   overflow: hidden auto;
   overflow-x: auto;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #6c6d74 black !important;
 }
 
 
@@ -372,3 +374,28 @@ thead th:first-child{
     max-width: 50vh;
   }
 }
+table, tr, td {
+  overflow: visible !important;
+  position: relative !important;
+}
+.hierarchy-dropdown {
+  position: absolute !important;
+  bottom: 100% !important;
+  left: 0 !important;
+  z-index: 9999 !important;
+  background-color: black !important;
+  min-width: 200px;
+  transform: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  padding: 10px 15px !important;
+  height: 200px;
+  max-height: 250px;
+  overflow-y: auto !important;
+}
+
+.hierarchy-dropdown .w-100 {
+  max-height: 250px;
+  overflow-y: auto;
+}
+

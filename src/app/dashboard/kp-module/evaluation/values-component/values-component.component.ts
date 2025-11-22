@@ -30,6 +30,7 @@ export class ValuesComponentComponent {
   @Output() dataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
   @Input() currentStatus: any;
+  @Input() view: any;
   isOpen: boolean[] = [];
   mode:any;
   userId:any;
@@ -122,11 +123,38 @@ export class ValuesComponentComponent {
     }
   }
 
+  objectiveErrors: { [key: number]:
+      {
+        selectedRating?: string;
+        overallrating?: string;
+      } } = {};
 
+  validateObjectives(): boolean {
+    let hasError = false;
+    for (let i = 0; i < this.objectives.length; i++) {
+      const obj = this.objectives[i];
+      this.objectiveErrors[i] = {};
+      if (!obj.selectedRating?.trim()) {
+        this.objectiveErrors[i].selectedRating = '*Rating is required';
+        hasError = true;
+      }
+
+    }
+    if(!this.objectives[7].overAllRating?.trim() && (this.currentStatus === 'manager' || this.currentStatus === 'approver' || this.currentStatus === 'hr')){
+      this.objectiveErrors[7].overallrating = '*Overall Rating is required';
+
+    }
+    return !hasError;
+  }
   submitData() {
-    // this.dataSubmitted.emit(this.objectives);
+
+    if (!this.validateObjectives()) {
+      return;
+    }
+    this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives)
   }
+
   getRating() {
     this.kpi.getLogData({userIdKPI:this.userId,param: 'get_ratings',extraParam:'KPI Values'})
       .subscribe(res => {

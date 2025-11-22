@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
 import {Router} from "@angular/router";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -42,6 +42,8 @@ export class ListComponent {
   isInitCrossed: boolean = false;
   showEvaluation: boolean = false;
   isShowAdd: boolean = false;
+ remarkList: any;
+  isHierarchyOpen: boolean = false;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -146,10 +148,15 @@ export class ListComponent {
 
 
   onClick() {
+    const initialState = {
+      currentStatus:'employee',
+      view:true,
+    };
     this.modalRef = this.modalService.show(KpiFormComponent, {
       backdrop: 'static',
       keyboard: false,
-      class: 'modal-dialog modal-dialog-centered modal-xl'
+      class: 'modal-dialog modal-dialog-centered modal-max',
+      initialState:initialState
     });
 
     if (this.modalRef) {
@@ -178,24 +185,26 @@ export class ListComponent {
   }
 
   // modalRef: BsModalRef ;
+  fullHierarchy: any;
 
   viewClick(user: any): void {
 
     console.log("user.edit_permission : ", user.edit_permission);
     console.log("this.timePeriod : ", this.timePeriod);
 
-      if (this.timePeriod === 'evaluation' && user.edit_permission ) {
+      if (this.timePeriod === 'evaluation'  ) {
         const initialState = {
           userData: user,
           title: 'Employee Evaluation',
           currentStatus:'employee',
+          view:user.edit_permission,
         };
 
         this.modalRef = this.modalService.show(EvaluationComponent, {
           initialState:initialState,
           backdrop: 'static',
           keyboard: false,
-          class: 'modal-dialog modal-dialog-centered modal-xl'
+          class: 'modal-dialog modal-dialog-centered modal-max'
         });
 
         let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
@@ -203,8 +212,8 @@ export class ListComponent {
           dataLoader.unsubscribe();
         });
       }
-      else if(this.timePeriod === 'initiation' && user.edit_permission ){
-      //
+      else if(this.timePeriod === 'initiation'  ){
+
         const initialState = {
           kpiUserId: user.user_id,
           status: user.status,
@@ -213,11 +222,13 @@ export class ListComponent {
           year: user.year,
           kpiId: user.id,
           approvalStatus: user.approval_status,
+          currentStatus:'employee',
+          view:user.edit_permission,
         };
         this.modalRef = this.modalService.show(KpiFormComponent, {
           backdrop: 'static',
           keyboard: false,
-          class: 'modal-dialog modal-dialog-centered modal-xl',
+          class: 'modal-dialog modal-dialog-centered modal-max',
           initialState: initialState
         });
 
@@ -227,6 +238,159 @@ export class ListComponent {
         });
       }
     }
+
+  // activeDropdown: HTMLElement | null = null;
+  // openHierarchy(user: any, event: MouseEvent) {
+  //   event.stopPropagation();
+  //   if (this.isHierarchyOpen) {
+  //     this.closeAllDropdowns();
+  //     return;
+  //   }
+  //   this.isHierarchyOpen = true;
+  //   this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
+  //     .subscribe(res => {
+  //       this.fullHierarchy = res?.['get_hierarchy'] || [];
+  //
+  //     });
+  //
+  //   const dropdown = (event.target as HTMLElement)
+  //     .closest('.dropdown')!
+  //     .querySelector('.hierarchy-dropdown') as HTMLElement;
+  //
+  //   this.activeDropdown = dropdown;
+  //
+  //   const rect = (event.target as HTMLElement).getBoundingClientRect();
+  //
+  //   dropdown.style.display = 'block';
+  //   dropdown.style.top = (rect.top + 30) + 'px';
+  //   dropdown.style.left = rect.left + 'px';
+  //   dropdown.classList.add('show');
+  //
+  // }
+  // @HostListener('document:click')
+  // closeAllDropdowns() {
+  //   if (this.activeDropdown) {
+  //     this.activeDropdown.classList.remove('show');
+  //   }
+  //   this.isHierarchyOpen = false;
+  // }
+
+
+  openHierarchyIndex: number | null = null;
+  activeDropdown: HTMLElement | null = null;
+
+  openHierarchy(user: any, event: MouseEvent, index: number) {
+    event.stopPropagation();
+
+    // Toggle logic
+    if (this.openHierarchyIndex === index) {
+      this.closeDropdown();
+      return;
+    }
+
+    this.openHierarchyIndex = index;
+
+    // Load API
+    this.kpi.getLogData({
+      param: 'get_hierarchy',
+      userIdKPI: this.userId,
+      extraParam: user.team
+    }).subscribe(res => {
+      this.fullHierarchy = res?.['get_hierarchy'] || [];
+    });
+
+    // Position dropdown
+    const dropdown = (event.target as HTMLElement)
+      .closest('.dropdown')
+      ?.querySelector('.hierarchy-dropdown') as HTMLElement;
+
+    this.activeDropdown = dropdown;
+
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+    dropdown.style.top = rect.top + 30 + 'px';
+    dropdown.style.left = rect.left + 'px';
+
+    dropdown.classList.add('show');
+  }
+
+  closeDropdown() {
+    if (this.activeDropdown) {
+      this.activeDropdown.classList.remove('show');
+    }
+    this.openHierarchyIndex = null;
+  }
+
+  @HostListener('document:click')
+  onOutsideClick() {
+    this.closeDropdown();
+    this.closeRemarksDropdown();
+  }
+
+
+  openRemarksIndex: number | null = null;
+  activeRemarksDropdown: HTMLElement | null = null;
+
+
+
+  // openRemarks(user: any, event: MouseEvent, index: number) {
+  //     this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+  //       .subscribe(res => {
+  //         this.remarkList = res?.['reverted_remark_list'] || [];
+  //
+  //       });
+  //     const dropdown = (event.target as HTMLElement)
+  //       .closest('.dropdown')!
+  //       .querySelector('.hierarchy-dropdown-remark') as HTMLElement;
+  //
+  //     const rect = (event.target as HTMLElement).getBoundingClientRect();
+  //
+  //     dropdown.style.display = 'block';
+  //     dropdown.style.top = (rect.top + 20) + 'px';
+  //     dropdown.style.left = rect.left + 'px';
+  //   }
+
+  openRemarks(user: any, event: MouseEvent, index: number) {
+    event.stopPropagation();
+
+    // If clicking same index → toggle close
+    if (this.openRemarksIndex === index) {
+      this.closeRemarksDropdown();
+      return;
+    }
+
+    this.openRemarksIndex = index;
+
+    this.kpi.getLogData({
+      param: 'reverted_remark_list',
+      userIdKPI: this.userId,
+      parameter:this.timePeriod,
+      extraParam:user.id
+
+    }).subscribe(res => {
+      this.remarkList = res?.['reverted_remark_list'] || [];
+    });
+
+
+    const dropdown = (event.target as HTMLElement)
+      .closest('.dropdown')
+      ?.querySelector('.hierarchy-dropdown-remark') as HTMLElement;
+
+    this.activeRemarksDropdown = dropdown;
+
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+    dropdown.style.top = rect.top + 30 + 'px';
+    dropdown.style.left = rect.left + 'px';
+
+    dropdown.classList.add('show');
+  }
+
+  closeRemarksDropdown() {
+    if (this.activeRemarksDropdown) {
+      this.activeRemarksDropdown.classList.remove('show');
+    }
+    this.openRemarksIndex = null;
+  }
+
 
 
 }

@@ -87,7 +87,7 @@ export class NavbarComponent {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
           }
-          if(data.allPermission && data.teamKpi) {
+          if(data.allPermission ) {
             localStorage.setItem('role', "hr");
             this.role = "hr";
             this.isHr = true;
@@ -156,7 +156,7 @@ export class NavbarComponent {
           const today = this.getToday();
           const kpiDate = this.parseDate(this.initialtionDate);
 
-          if (kpiDate > today) {
+          if (kpiDate >= today) {
             this.setTimePeriod('evaluation');
           } else {
             this.setTimePeriod('new year');

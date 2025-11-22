@@ -23,7 +23,7 @@ export class HomeComponent {
   totalEmloyee: any;
    settingTitle: any;
    mode: any;
-   completed: number = 101;
+   completed: number = 0;
   anncText:any='';
   allPermission: any = [];
   teamKpi: any = [];
@@ -37,7 +37,7 @@ export class HomeComponent {
     { name: 'Arafat Alam', designation: 'SQA Engineer', team: 'QA', measure: 'Performance Review', date: 'Nov 1, 2025' },
   ];
   announcements:any[] = [];
-  progressValue: number =75;
+  progressValue: number =0;
 
   ngOnInit() {
     console.log("initialtionDate :", this.initialtionDate);
@@ -51,10 +51,9 @@ export class HomeComponent {
     this.getPermission();
     this.updateCountdown();
     setInterval(() => this.updateCountdown(), 60000); // Update every minute
-    this.progressValue = 75;
-    this.completed = 101;
-    this.updateProgress();
-
+    // this.progressValue = 0;
+    // this.completed = 101;
+    this.progressData();
   }
 
   getPermission() {
@@ -65,7 +64,7 @@ export class HomeComponent {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
           }
-          if(data.allPermission && data.teamKpi) {
+          if(data.allPermission ) {
             this.role = "hr";
           }else if(data.teamKpi){
             this.role = "manager";
@@ -84,14 +83,9 @@ export class HomeComponent {
 
 
   get dashOffset() {
-    const circumference = 2 * Math.PI * 50;
-    let progress = circumference - (this.progressValue / 100) * circumference;
-    return progress;
-  }
-
-  updateProgress() {
-    this.progressValue = 65;
-    this.completed = 180;
+    const radius = 30;
+    const circumference = 2 * Math.PI * radius;
+    return circumference - (this.progressValue / 100) * circumference;
   }
 
   getData() {
@@ -126,16 +120,16 @@ export class HomeComponent {
         const [year, month, day] = this.initialtionDate.split('-').map(Number);
         const kpiDate = new Date(year, month - 1, day);
         if(this.initialtionDate && (kpiDate >= today)){
-          this.settingTitle = "Initiation";
+          this.settingTitle = "KPI INITIATION";
           this.mode = "edit";
         }
         else if (kpiDate <= today) {
-          this.settingTitle = "Evaluation";
+          this.settingTitle = "KPI EVALUATION";
           this.checkEvaEndDate();
           this.mode = "add";
         }
         else {
-          this.settingTitle = "Setting";
+          this.settingTitle = "SETTING";
           this.mode = "add";
         }
       });
@@ -193,6 +187,10 @@ export class HomeComponent {
   }
 
   publishAnnoc() {
+    if (!this.anncText || this.anncText.trim() === '') {
+      alert("Announcement text cannot be empty!");
+      return;
+    }
     const formData = new FormData();
     formData.append('userId', this.userId);
     formData.append('remarkData', this.anncText);
@@ -210,7 +208,8 @@ export class HomeComponent {
   getAnnouncements() {
     this.kpi.getLogData({ param: 'announcement-list', userIdKPI: this.userId })
       .subscribe(res => {
-        this.announcements = res?.['announcement-list'] || [];
+        // this.announcements = res?.['announcement-list'] || [];
+        this.announcements = (res?.['announcement-list'] || '').replace(/\\n/g, '\n');
         console.log("this.announcements  : ", this.announcements );
       });
   }
@@ -221,5 +220,13 @@ export class HomeComponent {
         this.notifications =  res?.result?.content || [];
         console.log("this.announcements  : ", this.notifications );
       });
+  }
+
+ progressData() {
+   this.kpi.getLogData({ param: 'dashboardProgress', userIdKPI: this.userId })
+     .subscribe(res => {
+       this.progressValue = res?.dashboardProgress?.[0]?.progessCount;
+       this.completed =  res?.dashboardProgress?.[0]?.totalComplete;
+     });
   }
 }

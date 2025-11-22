@@ -3,6 +3,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
 import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
+import {SettingsComponent} from "../settings/settings.component";
 
 @Component({
   selector: 'app-all-employee-kpi',
@@ -28,19 +29,138 @@ export class AllEmployeeKPIComponent {
   userName:any;
   userId:any;
   timePeriod:any;
+  initialtionDate: string | Date | undefined = undefined;
+  dateData: any;
+  days: number = 0;
+  hours: number = 0;
+  minutes: number = 0;
+  choosedOptionDate: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
 
+  private timerId: any;
+  private target!: Date;
+
+
+
   ngOnInit() {
+
+    this.timePeriod = localStorage.getItem('timePeriod');
+    this.checkEndDate();
+    this.timerId = setInterval(() => this.updateCountdown(), 1000);
+
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
-    this.timePeriod = localStorage.getItem('timePeriod');
     this.loadData('');
+    this.userId = localStorage.getItem('username');
+    // this.role = localStorage.getItem('role');
+    // console.log(this.role);
+
 
   }
+
+  checkEndDate() {
+    let param = '';
+      if(this.timePeriod == 'evaluation'){
+         param = 'EvaEndDate'
+      }else{
+          param = 'KPIendDate'
+      }
+    this.kpi.getLogData({ param: param, userIdKPI: this.userId })
+      .subscribe(res => {
+        this.dateData = res?.[param][0] || [];
+
+        this.initialtionDate = this.formatToLongDate(this.dateData.kpi_last_date);
+        this.target = new Date(this.dateData.kpi_last_date + 'T00:00:00');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const [year, month, day] = this.initialtionDate.split('-').map(Number);
+        const kpiDate = new Date(year, month - 1, day);
+
+        this.updateCountdown();
+      });
+  }
+
+
+  formatToLongDate(dateStr: string): string {
+    if (!dateStr) return '';
+
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const dateObj = new Date(year, month - 1, day);
+
+    return dateObj.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
+  }
+
+ pad(num: number): string {
+    return String(num).padStart(2, '0');
+  }
+
+  updateCountdown(): void {
+    const now = new Date();
+    let diff = this.target.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      this.choosedOptionDate = '00:00:00:00';
+      clearInterval(this.timerId);
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= days * 1000 * 60 * 60 * 24;
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * 1000 * 60 * 60;
+
+    const minutes = Math.floor(diff / (1000 * 60));
+    diff -= minutes * 1000 * 60;
+
+    const seconds = Math.floor(diff / 1000);
+
+    // Format: DD:HH:MM:SS
+    this.choosedOptionDate =
+      `${this.pad(days)}:${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}`;
+  }
+
+
+
+  openSetting(): void {
+    this.modalRef = this.modalService.show(SettingsComponent, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-dialog modal-dialog-centered modal-lg',
+      // initialState: {
+      //   mode: this.mode,
+      // },
+    });
+
+    if (this.modalRef) {
+      const modalContent = this.modalRef.content as SettingsComponent;
+
+      const subscription = modalContent.requestEmitter.subscribe(() => {
+        this.checkEndDate();
+      });
+
+      this.modalRef.onHidden?.subscribe(() => {
+        subscription.unsubscribe();
+      });
+    }
+  }
+
+
 
   getStatusClass(status: string): string {
     if (!status) return '';
@@ -106,15 +226,19 @@ export class AllEmployeeKPIComponent {
     return user.status === 'closed' ;
     // return user.status === 'closed' || user.editPermission;
   }
-
+view:any;
 
   viewDetails(user: any) {
-    // if(user.editPermission == true){
+    // if(user.status === 'closed'){
+    //   this.view = ;
+    // }
+
     if(this.timePeriod == 'evaluation'){
       const initialState = {
         userData: user,
         title: 'HR Evaluation',
         currentStatus:'hr',
+
       };
 
       this.modalRef = this.modalService.show(EvaluationComponent, {
@@ -138,6 +262,8 @@ export class AllEmployeeKPIComponent {
         year: user.year,
         mode:"approver",
         kpiId: user.id,
+        currentStatus:'hr',
+
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',
@@ -158,5 +284,33 @@ export class AllEmployeeKPIComponent {
 
   search() {
    this.loadData({});
+  }
+
+  fullHierarchy: any;
+  openHierarchy(user: any) {
+    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
+      .subscribe(res => {
+        this.fullHierarchy = res?.['get_hierarchy'] || [];
+
+      });
+
+    // const dropdown = (event.target as HTMLElement)
+    //   .closest('.dropdown')!
+    //   .querySelector('.hierarchy-dropdown') as HTMLElement;
+    //
+    // const rect = (event.target as HTMLElement).getBoundingClientRect();
+    //
+    // dropdown.style.display = 'block';
+    // dropdown.style.top = (rect.top + 30) + 'px';
+    // dropdown.style.left = rect.left + 'px';
+
+  }
+  remarkList: any;
+  openRemarks(user: any) {
+    this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+      .subscribe(res => {
+        this.remarkList = res?.['reverted_remark_list'] || [];
+
+      });
   }
 }

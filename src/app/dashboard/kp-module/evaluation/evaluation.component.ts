@@ -32,6 +32,7 @@ export class EvaluationComponent {
   mode:any
   remarkList: any;
   remark: any;
+  view:any='';
 
   kpiUserId:any;
   status: any;
@@ -44,6 +45,7 @@ export class EvaluationComponent {
 
 
   currentStatus:any='';
+  rateOverall:any = '';
   objectiveSet:any = [];
   selfAssessment:any = [];
   valuesData:any = [];
@@ -76,6 +78,7 @@ export class EvaluationComponent {
     this.timePeriod = localStorage.getItem('timePeriod');
     this.kpiId = this.userData.id;
     console.log("Role:", this.role);
+    console.log("user:", this.userData);
   }
 
   maxStepData() {
@@ -99,12 +102,6 @@ export class EvaluationComponent {
     this.tables[this.currentTable].selected = true;
   }
 
-  onCancel() {
-  }
-
-  onSubmit(){
-  }
-
   onNext(){
     let currentStep;
     if (this.currentStep == 1) {
@@ -121,7 +118,9 @@ export class EvaluationComponent {
     }else if(this.currentStep == 4){
      this.managerComp.submitData();
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
-        this.submitManager();
+        if(this.managerData && this.managerData.length > 0){
+          this.submitManager();
+        }
       }else{
         currentStep = 5;
         this.changeTable('hr',currentStep)
@@ -155,9 +154,6 @@ export class EvaluationComponent {
     this.modalService.hide();
   }
 
-  onDropdownOpen(): void {
-    this.isOpenRemark.fill(true);
-  }
 
   onToggle(index: number): void {
     this.isOpenRemark[index] = !this.isOpenRemark[index];
@@ -167,7 +163,7 @@ export class EvaluationComponent {
     let currentStep;
     if(item == 'objective'){
       this.objectiveSet = data;
-      if(this.objectiveSet?.objectives?.length > 0){
+      if(this.objectiveSet?.objectives?.length > 0 || this.objectiveSet?.length > 0){
         currentStep = 2;
         this.changeTable('self',currentStep)
       }
@@ -197,15 +193,17 @@ export class EvaluationComponent {
   submitEmployee() {
     console.log(this.objectiveSet);
     console.log(this.selfAssessment);
+    let objectiveData;
+    if(this.objectiveSet?.objectives){
+      objectiveData = this.objectiveSet?.objectives;
+    }else {
+      objectiveData = this.objectiveSet;
+    }
 
-    let processedObjectives = this.objectiveSet?.objectives.map((obj: any ) => {
+    let processedObjectives = objectiveData.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
-        return text
-          ? text
-            .replace(/\r/g, '\\r')
-            .replace(/\n/g, '\\n')
-            .replace(/\t/g, '\\t')
-          : '';
+        return text;
+
       };
       let item: any = {
         title: obj.title,
@@ -247,7 +245,14 @@ export class EvaluationComponent {
   }
 
   submitManager() {
-    let processedObjectives = this.objectiveSet?.objectives.map((obj: any ) => {
+    let objectiveData;
+    if(this.objectiveSet?.objectives){
+      objectiveData = this.objectiveSet?.objectives;
+    }else {
+      objectiveData = this.objectiveSet;
+    }
+
+    let processedObjectives = objectiveData.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
         return text;
       };
@@ -276,6 +281,7 @@ export class EvaluationComponent {
       managerData: JSON.stringify(this.managerData),
       pid: this.userData.id,
       objectId:this.userId,
+      otherParam:this.rateOverall,
       param: 'manager_evaluation_insert_data'
     };
 
@@ -300,14 +306,21 @@ export class EvaluationComponent {
     console.log(this.managerData);
     console.log(this.hrData);
 
-    let processedObjectives = this.objectiveSet.map((obj: any ) => {
+    let objectiveData;
+    if(this.objectiveSet?.objectives){
+      objectiveData = this.objectiveSet?.objectives;
+    }else {
+      objectiveData = this.objectiveSet;
+    }
+
+    let processedObjectives = objectiveData.map((obj: any ) => {
       const escapeText = (text: string | undefined) => {
-        return text
-          ? text
-            .replace(/\r/g, '\\r')
-            .replace(/\n/g, '\\n')
-            .replace(/\t/g, '\\t')
-          : '';
+        return text;
+          // ? text
+          //   .replace(/\r/g, '\\r')
+          //   .replace(/\n/g, '\\n')
+          //   .replace(/\t/g, '\\t')
+          // : '';
       };
       let item: any = {
         title: obj.title,
@@ -383,6 +396,10 @@ export class EvaluationComponent {
     });
   }
 
+
+  onClickRate(event: any) {
+    this.rateOverall = event;
+  }
 
 
 }

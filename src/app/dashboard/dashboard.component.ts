@@ -11,6 +11,11 @@ export class DashboardComponent {
               private cdr: ChangeDetectorRef) {
 
   }
+  ngOnInit() {
+    const token = localStorage.getItem('token');
 
-
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import {Component, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, TemplateRef, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {ApproHierarchyPopUpComponent} from "./appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
 import {CommonServiceService} from "../common-service.service";
@@ -13,9 +13,7 @@ declare var $: any;
 export class ApprovalHierarchyComponent {
   label = "Approval Hierarchy";
    modalRef?: BsModalRef;
-
-
-
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
   pagination: any = {
     paramLimit: 100,
     paramOffset: 0,
@@ -40,6 +38,7 @@ export class ApprovalHierarchyComponent {
   finalApprover: any = [];
   selectedType: string='';
   mode: any;
+   toastMessage:any= '';
   constructor(private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
@@ -87,6 +86,22 @@ export class ApprovalHierarchyComponent {
 
   }
 
+  showToast(msg: string) {
+    this.toastMessage = msg;
+
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+
+      el.classList.add('show');
+
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 1000);
+
+    }, 0);
+  }
+
+
   edit(data:any) {
     // console.log(data)
     // const initialState = {
@@ -115,6 +130,11 @@ export class ApprovalHierarchyComponent {
     });
     this.modalRef.content.hierarchySaved.subscribe(() => {
       this.loadData('');
+      if(this.mode == 'edit'){
+        this.showToast("Approval Hierarchy updated successfully.");
+      }else{
+        this.showToast(" Approval Hierarchy added successfully.");
+      }
     });
 
 
