@@ -73,7 +73,7 @@ export class ApproAttributePopUpComponent {
           if (response?.statusCode === 500 &&
             response?.message === 'KPI Type had already same category name') {
 
-            this.errorMessage = 'Same name already exists!';
+            this.errorMessage = 'Name already exists.';
             return;
           }
 
@@ -107,7 +107,7 @@ export class ApproAttributePopUpComponent {
           if (response?.statusCode === 500 &&
             response?.message === 'KPI Type had already same category name') {
 
-            this.errorMessage = 'Same name already exists!';
+            this.errorMessage = 'Name already exists.';
             return;
           }
 

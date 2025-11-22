@@ -36,7 +36,10 @@
 
         <div class="col-md-3">
           <span class="font-color-system">View as: </span>
-          <span>Self </span>
+          <span *ngIf="currentStatus === 'employee'">Self</span>
+          <span *ngIf="currentStatus === 'manager'">Manager</span>
+          <span *ngIf="currentStatus === 'approver'">Approver</span>
+          <span *ngIf="currentStatus === 'hr'">HR</span>
         </div>
       </div>
     </div>
@@ -59,13 +62,8 @@
     <div class="col-lg-8 col-md-8">
       <div class="objectives-card p-4 rounded">
         <h5 class="text-light fw-semibold">Objectives Set for Year 2025</h5>
-        <p class="text-secondary small">
-          Please write SMART Objective statements:
-          <span >Stretching</span>,
-          <span >Measurable</span>,
-          <span >Agreed</span>,
-          <span >Realistic</span>,
-          <span >Time-Bound</span>.
+        <p class="text-secondary white-font" style="font-size: 11px;">
+          Please write SMART Objective statements: Stretching, Measurable, Agreed, Realistic, Time-Bound. Providing atleast 3 work objective is mandatory. Click on the “Add Work Objective” to add more work objective.
         </p>
 
         <div class="mt-3 mb-3">

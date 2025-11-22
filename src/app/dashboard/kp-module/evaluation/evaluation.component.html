@@ -18,10 +18,10 @@
     <!-- Header -->
     <div class="row d-flex flex-wrap justify-content-between align-items-center mb-2 mt-2 header-section">
       <div class="row d-flex align-items-center">
-<!--        <div class="col-md-3">-->
-<!--          <span class="font-color-system">Manager's Name: </span>-->
-<!--          <span>Ashiful Islam</span>-->
-<!--        </div>-->
+        <div class="col-md-3">
+          <span class="font-color-system">Manager's Name: </span>
+          <span>Ashiful Islam</span>
+        </div>
         <div class="col-md-3">
           <span class="font-color-system">Team: </span>
           <span>{{userData.team}}</span>
@@ -36,6 +36,7 @@
           <span class="font-color-system">View as: </span>
           <span *ngIf="currentStatus === 'employee'">Self</span>
           <span *ngIf="currentStatus === 'manager'">Manager</span>
+          <span *ngIf="currentStatus === 'approver'">Approver</span>
           <span *ngIf="currentStatus === 'hr'">HR</span>
         </div>
       </div>
@@ -57,45 +58,27 @@
 
     <div>
       <div class="" >
-        <span class="remark-icon" data-toggle="dropdown"
-                  [style.pointer-events]="remark ? 'all': 'none'"
-                  aria-haspopup="true" aria-expanded="false"></span>
-        <span class="remark-count2 text-right">{{'(' + (remark || 0) + ')'}}</span>
-        <div class="dropdown-menu d-large p-4"
-             aria-labelledby="dropdownMenu2"
-             style="word-wrap: break-word; overflow-wrap: break-word;">
-          <div style="font-size: 14px" class="tr-header"> Remark History</div>
-          <div class="m_datatable m-datatable m-datatable--default m-datatable--loaded w-100"
-               style="height:200px;overflow-x: hidden">
-            <div *ngFor="let r of remarkList; let i = index;">
-              <div style="color:#E2266E;font-size:14px">
-                <div class="row">
-                  <div class="col-md-10">{{r?.createdBy}}</div>
-                  <div class="col-md-2 text-right collapse-remark-i"
-                       *ngIf="!isOpenRemark[i]"
-                       data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-                       aria-controls="collapseExample"
-                       (click)="onToggle(i); $event.stopPropagation()">
-                  </div>
-                  <div class="col-md-2 text-right collapse-remark-i-rotate"
-                       *ngIf="isOpenRemark[i]"
-                       data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-                       aria-controls="collapseExample"
-                       (click)="onToggle(i); $event.stopPropagation()">
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="isOpenRemark[i]">
-                <div style="color:lightgrey;font-size:small;display: flex">{{r?.action}}</div>
-                <p>{{r?.remark}}</p>
-                <div class="row">
-                  <div class="col-md-12">
-                    <p style="color:lightgrey; float: left; font-size:small"> {{r?.createdAt}}</p>
-                  </div>
-                </div>
-                <div class="dropdown-divider"></div>
-              </div>
+        <span class="remark-icon" data-bs-toggle="dropdown"
+                  [style.pointer-events]="userData.remarks ? 'all': 'none'"
+                  aria-haspopup="true" aria-expanded="false"
+              role="button"
+              (click)="userData.remarks>0 ? openRemarks($event): ''"
+        ></span>
+        <span class="remark-count2 text-right">{{'(' + (userData.remarks  || 0) + ')'}}</span>
+        <div class="dropdown-menu dropdown-options d-large p-4" aria-labelledby="dropdownMenu2"
+             style="word-wrap: break-word; overflow-wrap: break-word;background-color: black !important;">
+          <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
+            Remarks
+          </div>
+          <div *ngFor="let note of remarkList">
+            <div class="popup-meta">
+                  <span class="common-purple"
+                        [title]="note.created_by">
+                          {{ note.created_by?.length > 15 ? (note.created_by | slice:0:15) + '...' : note.created_by }}
+                        </span>
+              <span class="date" style="margin-left: 34px;">Date:{{note.created_at }}</span>
             </div>
+            <p style="color: white!important;">{{note.obj_remark}}</p>
           </div>
         </div>
       </div>
@@ -209,9 +192,22 @@
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
               <button class="revert-btn" (click)="openModal(actionModal)"
                       *ngIf="view == true && currentStatus != 'employee'">Revert</button>
-              <button class="submit-btn" (click)="onNext()">
-                {{ currentStep == maxStep && view == true  ? 'Submit' : 'Next' }}
+
+              <button *ngIf="currentStep != maxStep" class="submit-btn" (click)="onNext()">
+                {{ 'Next' }}
               </button>
+
+              <button *ngIf="currentStep == maxStep || (view == true) " class="submit-btn" (click)="onNext()">
+                {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}
+              </button>
+
+<!--              <button class="forward-btn" *ngIf=" currentStatus != 'hr'"-->
+<!--                      (click)="(currentStatus == 'manager' || currentStatus === 'approver') ? onNext(): onNext()"-->
+<!--                      [ngClass]="{-->
+<!--                          'forward-btn': true-->
+<!--                        }">-->
+<!--                {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}-->
+<!--              </button>-->
             </div>
           </div>
 

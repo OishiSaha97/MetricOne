@@ -65,6 +65,7 @@ export class ApproHierarchyPopUpComponent {
 
     this.dropdownOpen[tier] = !this.dropdownOpen[tier];
     this.filterApproversList[tier] = [...this.approvers];
+    this.searchApprover[tier] = '';
   }
 
   selectOption(tier: number, option: { username: string; full_name: string }, i: number) {

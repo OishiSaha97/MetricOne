@@ -378,7 +378,7 @@
   outline: none;
   box-sizing: border-box;
   text-align: center;
-  margin-left: 0;
+  margin-left: 38%;
 }
 .justify-content-end .input-with-percent {
   position: relative;
@@ -386,7 +386,7 @@
   margin-left: 221px;
 }
 .justify-content-end .percentage-icon {
-  right: 8px;
+  right: 26%;
 }
 .custom-tooltip:hover::after {
   content: attr(title);

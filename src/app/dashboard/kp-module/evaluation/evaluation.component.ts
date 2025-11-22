@@ -79,6 +79,7 @@ export class EvaluationComponent {
     this.kpiId = this.userData.id;
     console.log("Role:", this.role);
     console.log("user:", this.userData);
+
   }
 
   maxStepData() {
@@ -402,4 +403,16 @@ export class EvaluationComponent {
   }
 
 
+  openRemarks(event: MouseEvent) {
+    event.stopPropagation();
+    this.kpi.getLogData({
+      param: 'reverted_remark_list',
+      userIdKPI: this.userId,
+      parameter:this.timePeriod,
+      extraParam:this.userData.id
+
+    }).subscribe(res => {
+      this.remarkList = res?.['reverted_remark_list'] || [];
+    });
+  }
 }

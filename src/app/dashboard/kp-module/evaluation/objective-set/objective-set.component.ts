@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
 
@@ -228,6 +228,7 @@ export class ObjectiveSetComponent {
 
   validateObjectives(): boolean {
     let hasError = false;
+    let totalWeightage = 0;
     for (let i = 0; i < this.objectives.length; i++) {
       const obj = this.objectives[i];
       this.objectiveErrors[i] = {};
@@ -285,6 +286,18 @@ export class ObjectiveSetComponent {
         ) {
           hasError = true;
         }
+
+        const weight = parseFloat((obj.weightage || '0').toString().trim());
+
+        if(!weight){
+          this.objectiveErrors[i].weightage = '*Weightage is required';
+          hasError = true;
+        }
+        else if (isNaN(weight) || weight <= 0) {
+          this.objectiveErrors[i].weightage = '*Weightage must be > 0';
+          hasError = true;
+        }
+        totalWeightage += weight;
 
         //
         //
@@ -351,6 +364,18 @@ export class ObjectiveSetComponent {
             this.objectiveErrors[i].keyAchieved = '*Key Update Points required';
             hasError = true;
           }
+          const weight = parseFloat((obj.weightage || '0').toString().trim());
+
+          if(!weight){
+            this.objectiveErrors[i].weightage = '*Weightage is required';
+            hasError = true;
+          }
+          else if (isNaN(weight) || weight <= 0) {
+            this.objectiveErrors[i].weightage = '*Weightage must be > 0';
+            hasError = true;
+          }
+          totalWeightage += weight;
+
 
 
         }
@@ -369,8 +394,31 @@ export class ObjectiveSetComponent {
       }
 
     }
+    if (Math.round(totalWeightage) !== 100) {
+
+      this.showToast(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
+      return false;
+    }
 
     return !hasError;
+  }
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
+  toastMessage: string = '';
+  showToast(msg: string) {
+    this.toastMessage = msg;
+
+    // Show toast after 20 sec
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+
+      el.classList.add('show');
+
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 1000);
+
+    }, 0);
   }
 
   blockDecimal(event: KeyboardEvent) {
