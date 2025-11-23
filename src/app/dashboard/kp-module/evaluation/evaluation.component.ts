@@ -69,6 +69,7 @@ export class EvaluationComponent {
               private kpi: CommonServiceService) {
   }
   maxStep:any=3;
+  managerName: any;
 
 
   ngOnInit(){
@@ -81,6 +82,7 @@ export class EvaluationComponent {
     this.kpiId = this.userData.id;
     console.log("Role:", this.role);
     console.log("user:", this.userData);
+    this.getManagerName();
   }
 
   maxStepData() {
@@ -465,5 +467,17 @@ export class EvaluationComponent {
         this.cancel();
       }
     });
+  }
+
+   getManagerName() {
+     console.log("Getting manager name ",this.userData.team )
+     this.kpi.getLogData({
+       param: 'get_manager_name',
+       extraParam:this.userData.team
+
+     }).subscribe(res => {
+       this.managerName = res?.['get_manager_name'][0].managerName || [];
+     });
+
   }
 }

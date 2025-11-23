@@ -55,7 +55,7 @@ input::placeholder {
   background-repeat: no-repeat;
   background-size: contain;
   pointer-events: none;
-  scale:0.8;
+  scale:0.7;
 }
 
 .active-btn{

@@ -40,12 +40,12 @@
 .flip-card {
   position: relative;
   display: block;
-  font-size: 1.2rem;          /* overall digit size */
-  padding-bottom: 18px;
-  line-height: 1;
-  width: 34px;
+  font-size: 1rem;
+  padding-bottom: 17px;
+  line-height: 1.25;
+  width: 32px;
   margin: 0px auto;
-  --half: 18px;
+  --half: 17px;
   --radius: 3px;
 }
 
@@ -59,7 +59,7 @@
   display: block;
   height: var(--half);
   width: 100%;
-  padding: 8px 0;
+  padding: 7px 0;
   padding-left: 0px!important;
   border-radius: var(--radius) var(--radius) 0 0;
   backface-visibility: hidden;

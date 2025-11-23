@@ -32,6 +32,7 @@ export class KpiFormComponent implements OnInit {
   currentIndex : any;
   selectedIndexForDelete: any;
   draftShow:any=false;
+  managerName: any;
 
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
@@ -100,7 +101,7 @@ export class KpiFormComponent implements OnInit {
       if(this.approvalStatus == 'Reverted' ){
         this.getData();
       }
-      if(this.mode == 'approver' || this.kpiId != '' ){
+      if(this.mode == 'approver' || this.view == false || this.view == true){
         this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
           .subscribe(res => {
               this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list']
@@ -135,9 +136,19 @@ export class KpiFormComponent implements OnInit {
           );
       }
     this.filterObjectiveTypes = [...this.objectiveTypes];
-    console.log(this.currentStatus)
+    this.getManagerName();
   }
+  getManagerName() {
+    this.kpi.getLogData({
+      param: 'get_manager_name',
+      extraParam:this.team
 
+    }).subscribe(res => {
+      this.managerName = res?.['get_manager_name'][0].managerName || [];
+      console.log("this.managerName : ", this.managerName)
+    });
+
+  }
 
   addObjective(): void {
     const newObjective: Objective = {
@@ -165,6 +176,7 @@ export class KpiFormComponent implements OnInit {
       obj.selectedType = type.name;
     }
     this.isOpen[i] = false;
+    this.searchType = '';
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
 
     // this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
