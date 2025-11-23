@@ -3,6 +3,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {ApproAttributePopUpComponent} from "./appro-attribute-pop-up/appro-attribute-pop-up.component";
 import {CommonServiceService} from "../common-service.service";
 import {SettingsComponent} from "../settings/settings.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-kpi-attribute',
@@ -30,11 +31,18 @@ export class KpiAttributeComponent {
   rowNo: any = 0;
   resData: any = [];
   resDataDup: any = [];
-  constructor(private modalService: BsModalService,
+  role: any;
+  constructor(private router: Router,
+              private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
 
   ngOnInit() {
+    this.role = localStorage.getItem('role');
+    if (this.role !== 'hr') {
+      this.router.navigate(['/dashboard/404']);
+      return;
+    }
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.loadData('');
