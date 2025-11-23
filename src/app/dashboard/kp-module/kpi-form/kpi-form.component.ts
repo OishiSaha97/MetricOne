@@ -281,7 +281,7 @@ export class KpiFormComponent implements OnInit {
     const hasErrors = Object.values(this.objectiveErrors).some(err => Object.keys(err).length > 0);
     if (hasErrors) {
 
-      this.showToast("Please fill all required fields before submitting!");
+      // this.showToast("Please fill all required fields before submitting!");
       return false;
     }
 
