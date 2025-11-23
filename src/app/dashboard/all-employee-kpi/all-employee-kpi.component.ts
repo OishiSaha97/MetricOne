@@ -245,7 +245,7 @@ view:any;
       this.modalRef = this.modalService.show(EvaluationComponent, {
         backdrop: 'static',
         keyboard: false,
-        class: 'modal-dialog modal-dialog-centered modal-xl',
+        class: 'modal-dialog modal-dialog-centered modal-max',
         initialState: initialState
       });
 
@@ -270,7 +270,7 @@ view:any;
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',
         keyboard: false,
-        class: 'modal-dialog modal-dialog-centered modal-xl',
+        class: 'modal-dialog modal-dialog-centered modal-max',
         initialState: initialState
       });
 

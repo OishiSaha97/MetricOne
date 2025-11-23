@@ -149,6 +149,7 @@ export class KpiFormComponent implements OnInit {
       isOpen: false
     };
     this.objectives.push(newObjective);
+    console.log("Objectives:", this.objectives);
   }
 
   toggleObjective(obj: Objective): void {
@@ -396,7 +397,7 @@ export class KpiFormComponent implements OnInit {
 
   openPerformanceHistory(obj: any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedPerformanceHistory = Array.isArray(res?.['changed-performance-history']) ? res?.['changed-performance-history'] : res?.['changed-performance-history']
           this.openChangedHistory();
@@ -409,7 +410,7 @@ export class KpiFormComponent implements OnInit {
 
   openTargetHistory(obj: any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
 
           this.changedTargetHistory = Array.isArray(res?.['changed-target-history']) ? res?.['changed-target-history'] : res?.['changed-target-history']
@@ -423,7 +424,7 @@ export class KpiFormComponent implements OnInit {
 
   openObjectiveHistory(obj: any,i:any) {
     this.showObjectiveHistoryIndex = null;
-    this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
+    this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedObjHistory = Array.isArray(res?.['changed-objective-history']) ? res?.['changed-objective-history'] : res?.['changed-objective-history']
           this.openChangedObjectiveHistory(i);
