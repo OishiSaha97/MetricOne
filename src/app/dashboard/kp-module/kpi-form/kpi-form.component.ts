@@ -19,6 +19,7 @@ interface Objective {
   keyObjective?: string;
   keyTarget?: string;
   keyPerformance?: string;
+  addedByApprover?:boolean;
 }
 
 @Component({
@@ -114,7 +115,8 @@ export class KpiFormComponent implements OnInit {
                 targetText: (item.target || '').replace(/\\n/g, '\n'),
                 performanceText: (item.performance || '').replace(/\\n/g, '\n'),
                 weightage: item.weightage,
-                isOpen: false
+                isOpen: false,
+                addedByApprover: false
               }));
             },
             (error) => {
@@ -157,7 +159,8 @@ export class KpiFormComponent implements OnInit {
       targetText: '',
       performanceText: '',
       weightage: '',
-      isOpen: false
+      isOpen: false,
+      addedByApprover: this.mode === 'approver' ? true : false
     };
     this.objectives.push(newObjective);
   }
