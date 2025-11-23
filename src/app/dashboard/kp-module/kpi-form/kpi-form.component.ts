@@ -101,7 +101,8 @@ export class KpiFormComponent implements OnInit {
       if(this.approvalStatus == 'Reverted' ){
         this.getData();
       }
-      if(this.mode == 'approver' || this.view == false || this.view == true){
+
+      if(this.mode == 'approver' || this.kpiId != '' ){
         this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
           .subscribe(res => {
               this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list']
