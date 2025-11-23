@@ -100,6 +100,7 @@ export class KpiFormComponent implements OnInit {
       if(this.approvalStatus == 'Reverted' ){
         this.getData();
       }
+
       if(this.mode == 'approver' || this.kpiId != '' ){
         this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
           .subscribe(res => {
@@ -116,6 +117,7 @@ export class KpiFormComponent implements OnInit {
                 weightage: item.weightage,
                 isOpen: false,
                 addedByApprover: false
+
               }));
             },
             (error) => {
