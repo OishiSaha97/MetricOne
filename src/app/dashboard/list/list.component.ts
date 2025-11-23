@@ -282,6 +282,7 @@ export class ListComponent {
 
   openHierarchy(user: any, event: MouseEvent, index: number) {
     event.stopPropagation();
+    this.openRemarksIndex = null;
 
     // Toggle logic
     if (this.openHierarchyIndex === index) {
@@ -352,6 +353,7 @@ export class ListComponent {
 
   openRemarks(user: any, event: MouseEvent, index: number) {
     event.stopPropagation();
+    this.openHierarchyIndex = null;
 
     // If clicking same index → toggle close
     if (this.openRemarksIndex === index) {
