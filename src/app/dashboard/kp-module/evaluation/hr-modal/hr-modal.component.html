@@ -142,6 +142,9 @@
               </li>
             </ul>
           </div>
+            <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.awardRating">
+              {{ objectiveErrors[i].awardRating }}
+            </small>
           </div>
         </div>
 

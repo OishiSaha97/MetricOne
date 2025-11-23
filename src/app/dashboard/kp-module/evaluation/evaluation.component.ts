@@ -52,6 +52,7 @@ export class EvaluationComponent {
   managerData:any = [];
   hrData:any = [];
   userId:any;
+  userName:any;
 
 
   @ViewChild(ObjectiveSetComponent) objectiveComp!: ObjectiveSetComponent;
@@ -74,6 +75,7 @@ export class EvaluationComponent {
     this.maxStepData();
     this.currentTable = 'objective';
     this.userId = localStorage.getItem('username');
+    this.userName = localStorage.getItem('fullName');
     this.role = localStorage.getItem('role');
     this.timePeriod = localStorage.getItem('timePeriod');
     this.kpiId = this.userData.id;
@@ -402,4 +404,66 @@ export class EvaluationComponent {
   }
 
 
+  openRemarks(event: MouseEvent) {
+    event.stopPropagation();
+    this.kpi.getLogData({
+      param: 'reverted_remark_list',
+      userIdKPI: this.userId,
+      parameter:this.timePeriod,
+      extraParam:this.userData.id
+
+    }).subscribe(res => {
+      this.remarkList = res?.['reverted_remark_list'] || [];
+    });
+  }
+  draft() {
+    let objectiveData;
+    if(this.objectiveSet?.objectives){
+      objectiveData = this.objectiveSet?.objectives;
+    }else {
+      objectiveData = this.objectiveSet;
+    }
+
+    let processedObjectives = objectiveData.map((obj: any ) => {
+      const escapeText = (text: string | undefined) => {
+        return text;
+
+      };
+      let item: any = {
+        title: obj.title,
+        selectedType: obj.selectedType,
+        objectiveText: escapeText(obj.objectiveText),
+        targetText: escapeText(obj.targetText),
+        performanceText: escapeText(obj.performanceText),
+        weightage: escapeText(obj.weightage),
+        keyObjective: escapeText(obj.keyObjective),
+        keyTarget: escapeText(obj.keyTarget),
+        selectedRating: escapeText(obj.rating),
+        achievedText: escapeText(obj.achievedText),
+        achievedInt: escapeText(obj.achievedInt),
+      };
+      return item;
+    });
+
+    let obj: any = {
+      userIdKPI: this.userData.user_id,
+      year: this.userData.year,
+      objectiveData: JSON.stringify(processedObjectives),
+      selfData: JSON.stringify(this.selfAssessment),
+      pid: this.userData.id,
+      param: 'employee_evaluation_draft_data'
+    };
+
+    this.kpi.evaluationDataInsert(obj).subscribe({
+      next: (response: any) => {
+        console.log('KPI saved successfully:', response);
+        this.saveEmitter.next(true);
+        this.cancel();
+      },
+      error: (error: any) => {
+        console.error('Error saving KPI:', error);
+        this.cancel();
+      }
+    });
+  }
 }

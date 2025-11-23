@@ -30,6 +30,7 @@ export class KpiFormComponent implements OnInit {
   filterObjectiveTypes: any[]=[];
   currentIndex : any;
   selectedIndexForDelete: any;
+  draftShow:any=false;
 
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
@@ -603,4 +604,56 @@ export class KpiFormComponent implements OnInit {
   }
 
 
+  draft() {
+    let processedObjectives = this.objectives.map((obj: Objective) => {
+
+      const escapeText = (text: string | undefined) => {
+        return text
+          ? text
+            .replace(/\r/g, '\\r')
+            .replace(/\n/g, '\\n')
+            .replace(/\t/g, '\\t')
+          : '';
+      };
+
+      let item: any = {
+        title: obj.title,
+        selectedType: obj.selectedType,
+        weightage: obj.weightage,
+        objectiveText: escapeText(obj.objectiveText),
+        performanceText: escapeText(obj.performanceText),
+        targetText: escapeText(obj.targetText)
+      };
+
+      return item;
+    });
+    let obj: any = {
+      userIdKPI: this.userId,
+      userName: this.userName,
+      randomData: JSON.stringify(processedObjectives),
+      year: this.year,
+      param: 'kpi_draft_insert_data'
+    };
+
+    if (this.kpiId != '') {
+      obj.objectId = this.kpiId;
+    }else{
+      obj.objectId = '';
+    }
+
+    this.kpi.saveKpi(obj).subscribe({
+      next: (response) => {
+
+        this.showToast("KPI Save Successfully.");
+        this.saveEmitter.next(true);
+        this.onCancel();
+        this.requestEmitter.emit(true);
+
+      },
+      error: (error) => {
+        console.error('Error saving KPI:', error);
+        this.onCancel();
+      }
+    });
+  }
 }

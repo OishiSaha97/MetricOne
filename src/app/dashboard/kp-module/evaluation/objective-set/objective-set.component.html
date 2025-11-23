@@ -79,7 +79,6 @@
                     type="text"
                     class="obj-input-weightage text-center"
                     [(ngModel)]="obj.weightage"
-                    (keydown)="blockDecimal($event)"
                     [disabled]="userData.status === 'Published' || userData.status === 'Closed'"
                   />
                   <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.weightage">
@@ -438,16 +437,19 @@
                 <div>
                   <label class="text-secondary small white-font">ACHIEVED(%)</label>
                 </div>
-                <input
-                  type="text"
-                  class="obj-input mb-2"
-                  [(ngModel)]="obj.achievedInt"
-                  (keydown)="blockDecimal($event)"
-                  placeholder="Enter achieved..."
-                />
-                <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.achievedInt">
-                  {{ objectiveErrors[i].achievedInt }}
-                </small>
+                <div class="input-with-percent-achieved" >
+                  <input
+                    type="text"
+                    class="obj-input mb-2"
+                    [(ngModel)]="obj.achievedInt"
+                    (keydown)="blockDecimal($event)"
+                    placeholder="Enter achieved..."
+                  />
+                  <span class="percentage-icon" style="right:13px!important;">%</span>
+                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.achievedInt">
+                    {{ objectiveErrors[i].achievedInt }}
+                  </small>
+                </div>
               </div>
 
 
@@ -507,4 +509,7 @@
 
 
 
+</div>
+<div #errorToast class="custom-toast">
+  {{ toastMessage }}
 </div>

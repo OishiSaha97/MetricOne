@@ -223,7 +223,7 @@ nav.flex-grow-1 {
   bottom: 0;
   z-index: 1020;
   position: absolute;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  /*display: flex;*/
+  /*justify-content: space-between;*/
+  /*align-items: center;*/
 }

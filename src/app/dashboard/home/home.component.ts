@@ -88,6 +88,7 @@ export class HomeComponent {
     return progress;
   }
 
+
   getData() {
     this.kpi.getLogData({ param: 'dashboardInfo', userIdKPI: this.userId })
       .subscribe(res => {
@@ -120,16 +121,16 @@ export class HomeComponent {
         const [year, month, day] = this.initialtionDate.split('-').map(Number);
         const kpiDate = new Date(year, month - 1, day);
         if(this.initialtionDate && (kpiDate >= today)){
-          this.settingTitle = "KPI Initiation";
+          this.settingTitle = "KPI INITIATION";
           this.mode = "edit";
         }
         else if (kpiDate <= today) {
-          this.settingTitle = "KPI Evaluation";
+          this.settingTitle = "KPI EVALUATION";
           this.checkEvaEndDate();
           this.mode = "add";
         }
         else {
-          this.settingTitle = "Setting";
+          this.settingTitle = "SETTING";
           this.mode = "add";
         }
       });

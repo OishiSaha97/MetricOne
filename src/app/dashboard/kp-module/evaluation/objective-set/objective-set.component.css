@@ -331,7 +331,7 @@
   border-radius: 4px;
   outline: none;
   box-sizing: border-box;
-  margin-left: 40%;
+  margin-left: 60%;
 }
 .obj-input-weightage:focus{
   border: 1px solid #7A7B8299;
@@ -341,7 +341,10 @@
   position: relative;
   width: 60%;
 }
-
+.input-with-percent-achieved {
+  position: relative;
+  width: 100%;
+}
 .percentage-icon {
   position: absolute;
   top: 50%;
@@ -375,7 +378,7 @@
   outline: none;
   box-sizing: border-box;
   text-align: center;
-  margin-left: 0;
+  margin-left: 38%;
 }
 .justify-content-end .input-with-percent {
   position: relative;
@@ -383,7 +386,7 @@
   margin-left: 221px;
 }
 .justify-content-end .percentage-icon {
-  right: 8px;
+  right: 26%;
 }
 .custom-tooltip:hover::after {
   content: attr(title);

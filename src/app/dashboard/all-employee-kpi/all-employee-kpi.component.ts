@@ -110,8 +110,9 @@ export class AllEmployeeKPIComponent {
   }
 
   updateCountdown(): void {
+    const ONE_DAY = 24 * 60 * 60 * 1000;
     const now = new Date();
-    let diff = this.target.getTime() - now.getTime();
+    let diff = (this.target.getTime() + ONE_DAY) - now.getTime();
 
     if (diff <= 0) {
       this.choosedOptionDate = '00:00:00:00';
@@ -263,6 +264,7 @@ view:any;
         mode:"approver",
         kpiId: user.id,
         currentStatus:'hr',
+        view:true
 
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {
