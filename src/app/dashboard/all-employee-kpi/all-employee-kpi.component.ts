@@ -4,6 +4,7 @@ import {CommonServiceService} from "../common-service.service";
 import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
 import {SettingsComponent} from "../settings/settings.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-all-employee-kpi',
@@ -35,18 +36,25 @@ export class AllEmployeeKPIComponent {
   hours: number = 0;
   minutes: number = 0;
   choosedOptionDate: any;
+  role:any;
 
-  constructor(public modalRef: BsModalRef,
+
+  constructor(private router: Router,public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
 
-  private timerId: any;
-  private target!: Date;
+  timerId: any;
+   target!: Date;
 
 
 
   ngOnInit() {
+    this.role = localStorage.getItem('role');
+    if (this.role !== 'hr') {
+      this.router.navigate(['/dashboard/404']);
+      return;
+    }
 
     this.timePeriod = localStorage.getItem('timePeriod');
     this.checkEndDate();

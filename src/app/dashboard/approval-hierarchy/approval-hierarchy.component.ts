@@ -3,6 +3,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {ApproHierarchyPopUpComponent} from "./appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
 import {CommonServiceService} from "../common-service.service";
 import {FinalApprovalPopUpComponent} from "./final-approval-pop-up/final-approval-pop-up.component";
+import {Router} from "@angular/router";
 
 declare var $: any;
 @Component({
@@ -38,11 +39,22 @@ export class ApprovalHierarchyComponent {
   finalApprover: any = [];
   selectedType: string='';
   mode: any;
-   toastMessage:any= '';
-  constructor(private modalService: BsModalService,
+  toastMessage:any= '';
+  role:any;
+
+
+  constructor(private router: Router,
+              private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
+
+
   ngOnInit() {
+    this.role = localStorage.getItem('role');
+    if (this.role !== 'hr') {
+      this.router.navigate(['/dashboard/404']);
+      return;
+    }
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.loadData('');

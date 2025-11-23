@@ -160,7 +160,6 @@ export class KpiFormComponent implements OnInit {
       isOpen: false
     };
     this.objectives.push(newObjective);
-    console.log("Objectives:", this.objectives);
   }
 
   toggleObjective(obj: Objective): void {

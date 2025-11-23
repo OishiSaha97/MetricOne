@@ -15,6 +15,7 @@ import { ApprovalHierarchyComponent } from "./dashboard/approval-hierarchy/appro
 import { ApproHierarchyPopUpComponent } from "./dashboard/approval-hierarchy/appro-hierarchy-pop-up/appro-hierarchy-pop-up.component";
 import {HomeComponent} from "./dashboard/home/home.component";
 import {EvaluationComponent} from "./dashboard/kp-module/evaluation/evaluation.component";
+import {NotFoundComponent} from "./not-found/not-found.component";
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
@@ -33,7 +34,9 @@ const routes: Routes = [
       { path: 'allEmployeeKPI', component: AllEmployeeKPIComponent },
       { path: 'hierarchy', component: ApprovalHierarchyComponent },
       { path: 'attributes', component: KpiAttributeComponent },
-      { path: 'home', component: HomeComponent }
+      { path: 'home', component: HomeComponent },
+      { path: '404', component: NotFoundComponent },
+      { path: '**', redirectTo: '404' }
       // { path: 'approHierarchyPopUp', component: ApproHierarchyPopUpComponent }
 
     ]
