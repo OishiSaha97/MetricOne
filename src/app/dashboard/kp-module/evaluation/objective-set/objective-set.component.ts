@@ -176,14 +176,18 @@ export class ObjectiveSetComponent {
   }
 
   onObjectiveChange(type: any, obj: Objective,i:number): void {
-    obj.selectedType = type.name;
+    if (obj.selectedType === type.name) {
+      obj.selectedType = '';
+    } else {
+      obj.selectedType = type.name;
+    }
     this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
-
-    this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
-      (t: any) => t.name !== obj.selectedType
-    );
-    this.filterTypes();
+    this.searchType='';
+    // this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
+    //   (t: any) => t.name !== obj.selectedType
+    // );
+    // this.filterTypes();
   }
 
 

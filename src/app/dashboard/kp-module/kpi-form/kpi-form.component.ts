@@ -173,6 +173,7 @@ export class KpiFormComponent implements OnInit {
       obj.selectedType = type.name;
     }
     this.isOpen[i] = false;
+    this.searchType = '';
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
 
     // this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
