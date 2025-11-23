@@ -86,9 +86,10 @@
            [class.disabled]="role !== 'hr'"
            [class.pointer]="role === 'hr'"
            (click)="(role === 'hr') && openSetting();">
-        <div class="d-flex justify-content-between text-center align-items-center" style="margin-left: 50px;">
-          <h6 class="mb-0 text-center" style="font-size:12px;" >{{ settingTitle }}</h6>
-        </div>
+<!--        <div class="d-flex justify-content-between text-center align-items-center">-->
+<!--          style="margin-left: 50px;"-->
+          <h6 class=" setting-title" style="font-size:12px;" >{{ settingTitle }}</h6>
+<!--        </div>-->
         <div>
           <span title="{{ settingTitle }}"
                 placement="top"
