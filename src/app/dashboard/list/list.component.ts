@@ -225,6 +225,7 @@ export class ListComponent {
           approvalStatus: user.approval_status,
           currentStatus:'employee',
           view:user.edit_permission,
+          draftShow:true
         };
         this.modalRef = this.modalService.show(KpiFormComponent, {
           backdrop: 'static',
