@@ -52,6 +52,7 @@ export class EvaluationComponent {
   managerData:any = [];
   hrData:any = [];
   userId:any;
+  userName:any;
 
 
   @ViewChild(ObjectiveSetComponent) objectiveComp!: ObjectiveSetComponent;
@@ -74,6 +75,7 @@ export class EvaluationComponent {
     this.maxStepData();
     this.currentTable = 'objective';
     this.userId = localStorage.getItem('username');
+    this.userName = localStorage.getItem('fullName');
     this.role = localStorage.getItem('role');
     this.timePeriod = localStorage.getItem('timePeriod');
     this.kpiId = this.userData.id;
