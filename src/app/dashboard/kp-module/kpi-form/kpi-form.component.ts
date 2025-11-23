@@ -207,16 +207,12 @@ export class KpiFormComponent implements OnInit {
   showToast(msg: string) {
     this.toastMessage = msg;
 
-    // Show toast after 20 sec
     setTimeout(() => {
       const el = this.errorToast.nativeElement;
-
       el.classList.add('show');
-
-      // Auto-hide after 3 seconds
       setTimeout(() => {
         el.classList.remove('show');
-      }, 1000);
+      }, 5000);
 
     }, 0);
   }
