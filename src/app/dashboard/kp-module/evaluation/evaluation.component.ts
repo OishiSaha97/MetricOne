@@ -79,7 +79,6 @@ export class EvaluationComponent {
     this.kpiId = this.userData.id;
     console.log("Role:", this.role);
     console.log("user:", this.userData);
-
   }
 
   maxStepData() {
@@ -413,6 +412,56 @@ export class EvaluationComponent {
 
     }).subscribe(res => {
       this.remarkList = res?.['reverted_remark_list'] || [];
+    });
+  }
+  draft() {
+    let objectiveData;
+    if(this.objectiveSet?.objectives){
+      objectiveData = this.objectiveSet?.objectives;
+    }else {
+      objectiveData = this.objectiveSet;
+    }
+
+    let processedObjectives = objectiveData.map((obj: any ) => {
+      const escapeText = (text: string | undefined) => {
+        return text;
+
+      };
+      let item: any = {
+        title: obj.title,
+        selectedType: obj.selectedType,
+        objectiveText: escapeText(obj.objectiveText),
+        targetText: escapeText(obj.targetText),
+        performanceText: escapeText(obj.performanceText),
+        weightage: escapeText(obj.weightage),
+        keyObjective: escapeText(obj.keyObjective),
+        keyTarget: escapeText(obj.keyTarget),
+        selectedRating: escapeText(obj.rating),
+        achievedText: escapeText(obj.achievedText),
+        achievedInt: escapeText(obj.achievedInt),
+      };
+      return item;
+    });
+
+    let obj: any = {
+      userIdKPI: this.userData.user_id,
+      year: this.userData.year,
+      objectiveData: JSON.stringify(processedObjectives),
+      selfData: JSON.stringify(this.selfAssessment),
+      pid: this.userData.id,
+      param: 'employee_evaluation_draft_data'
+    };
+
+    this.kpi.evaluationDataInsert(obj).subscribe({
+      next: (response: any) => {
+        console.log('KPI saved successfully:', response);
+        this.saveEmitter.next(true);
+        this.cancel();
+      },
+      error: (error: any) => {
+        console.error('Error saving KPI:', error);
+        this.cancel();
+      }
     });
   }
 }

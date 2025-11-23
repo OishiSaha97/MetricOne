@@ -151,6 +151,7 @@ export class ListComponent {
     const initialState = {
       currentStatus:'employee',
       view:true,
+      draftShow:true
     };
     this.modalRef = this.modalService.show(KpiFormComponent, {
       backdrop: 'static',
