@@ -138,9 +138,12 @@
                               </div>
                               <li *ngFor="let type of filterObjectiveTypes">
                                 <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
-                                <span class="custom-tooltip"
-                                      tooltip="{{ type.name }}">
-                                  {{ type.name.length > 11 ? (type.name | slice:0:11) + '...' : type.name }}
+                                <span *ngIf="type.name.length <= 11">
+                                  {{ type.name }}
+                                </span>
+                                  <span *ngIf="type.name.length > 11" class="custom-tooltip"
+                                        tooltip="{{ type.name }}">
+                                  {{ (type.name | slice:0:11) + '...'  }}
                                 </span>
                                   <i class="tick-icon"
                                      *ngIf="obj.selectedType === type.name"></i>
