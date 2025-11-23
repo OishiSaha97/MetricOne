@@ -44,6 +44,7 @@ export class ListComponent {
   isShowAdd: boolean = false;
  remarkList: any;
   isHierarchyOpen: boolean = false;
+  team: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -55,6 +56,7 @@ export class ListComponent {
     this.userId = localStorage.getItem('username');
     this.timePeriod = localStorage.getItem('timePeriod');
     this.loadData('');
+    this.userTeam();
     //this.checkInitiationDate();
     // this.kpi.getLogData({param: 'check_kpi_my',objectId:this.year,extraParam:this.userId})
     //   .subscribe(res => {
@@ -151,7 +153,8 @@ export class ListComponent {
     const initialState = {
       currentStatus:'employee',
       view:true,
-      draftShow:true
+      draftShow:true,
+      team:this.team
     };
     this.modalRef = this.modalService.show(KpiFormComponent, {
       backdrop: 'static',
@@ -396,5 +399,14 @@ export class ListComponent {
   }
 
 
+  userTeam() {
+    this.kpi.getLogData({
+      param: 'get_userTeam',
+      extraParam:this.userId
 
+    }).subscribe(res => {
+      this.team = res?.['get_userTeam'][0].team_name || [];
+      console.log("this.team : ", this.team);
+    });
+  }
 }

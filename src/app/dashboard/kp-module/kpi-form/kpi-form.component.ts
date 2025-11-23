@@ -671,4 +671,10 @@ export class KpiFormComponent implements OnInit {
       }
     });
   }
+
+  opendropdown() {
+    // this.isOpen[this.currentIndex] = !this.isOpen[this.currentIndex];
+    this.searchType='';
+    this.filterObjectiveTypes = [...this.objectiveTypes]
+  }
 }
