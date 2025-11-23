@@ -38,6 +38,9 @@ export class HomeComponent {
   ];
   announcements:any[] = [];
   progressValue: number =0;
+  managerReview: number=0;
+  kpiNotSubmitted: number=0;
+  hrReviewCount:  number=0;
 
   ngOnInit() {
     console.log("initialtionDate :", this.initialtionDate);
@@ -228,6 +231,12 @@ export class HomeComponent {
      .subscribe(res => {
        this.progressValue = res?.dashboardProgress?.[0]?.progessCount;
        this.completed =  res?.dashboardProgress?.[0]?.totalComplete;
+     });
+   this.kpi.getLogData({ param: 'get_reviewCount', userIdKPI: this.userId })
+     .subscribe(res => {
+       this.managerReview = res?.get_reviewCount?.[0]?.approverReview;
+       this.kpiNotSubmitted =  res?.get_reviewCount?.[0]?.notSubmittedReview;
+       this.hrReviewCount =  res?.get_reviewCount?.[0]?.hrReview;
      });
   }
 }

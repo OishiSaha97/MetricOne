@@ -673,6 +673,81 @@ export class KpiFormComponent implements OnInit {
     });
   }
 
+  directPublish(type: string) {
+    if (!this.validateObjectives()) {
+      return;
+    }
+
+    let processedObjectives = this.objectives.map((obj: Objective) => {
+
+      const escapeText = (text: string | undefined) => {
+        return text
+          ? text
+            .replace(/\r/g, '\\r')
+            .replace(/\n/g, '\\n')
+            .replace(/\t/g, '\\t')
+          : '';
+      };
+
+      let item: any = {
+        title: obj.title,
+        selectedType: obj.selectedType,
+        weightage: obj.weightage,
+        objectiveText: escapeText(obj.objectiveText),
+        performanceText: escapeText(obj.performanceText),
+        targetText: escapeText(obj.targetText)
+      };
+
+      if (this.mode === 'approver') {
+        if (obj.keyObjective?.trim()) {
+          item.keyObjective = escapeText(obj.keyObjective.trim());
+        }
+        if (obj.keyTarget?.trim()) {
+          item.keyTarget = escapeText(obj.keyTarget.trim());
+        }
+        if (obj.keyPerformance?.trim()) {
+          item.keyPerformance = escapeText(obj.keyPerformance.trim());
+        }
+      }
+
+      return item;
+    });
+
+    let param: string ='';
+
+
+    param = 'kpi_initiation_final_approver';
+
+
+    let obj: any = {
+      userIdKPI: this.userId,
+      userName: this.userName,
+      randomData: JSON.stringify(processedObjectives),
+      year: this.year,
+      param: param
+    };
+
+    if (this.kpiId != '') {
+      obj.objectId = this.kpiId;
+    }else{
+      obj.objectId = '';
+    }
+
+    this.kpi.saveKpi(obj).subscribe({
+      next: (response) => {
+        this.showToast("KPI submitted successfully.");
+        this.saveEmitter.next(true);
+        this.onCancel();
+        this.requestEmitter.emit(true);
+
+      },
+      error: (error) => {
+        console.error('Error saving KPI:', error);
+        this.onCancel();
+      }
+    });
+  }
+
   opendropdown() {
     // this.isOpen[this.currentIndex] = !this.isOpen[this.currentIndex];
     this.searchType='';

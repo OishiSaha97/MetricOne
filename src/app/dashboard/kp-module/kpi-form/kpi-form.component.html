@@ -414,6 +414,7 @@
                 {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}
               </button>
               <button class="btn submit-btn" *ngIf=" currentStatus === 'hr'" (click)="onSubmit('publish')" >Publish</button>
+              <button class="btn submit-btn" *ngIf=" currentStatus == 'manager' || currentStatus === 'approver'" (click)="directPublish('publish')" >Publish</button>
             </div>
           </div>
 
