@@ -51,7 +51,15 @@
           <td [title]="user.team">
             {{ user.team.length > 15 ? (user.team | slice:0:15) + '...' : user.team }}
           </td>
-          <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
+          <td [style.color]="
+                user.status === 'Forwarded' ? '#6BCAFA' :
+                user.status === 'In Progress' ? '#FF4FD3' :
+                user.status === 'Reverted' ? '#E5FD51' :
+                user.status === 'Draft' ? '#FFFFFF' :
+                user.status === 'Pending' ? '#FF9945' :
+                user.status === 'Published' ? '#A645FF' :
+                'white'
+              ">{{ user.status }} </td>
           <td title="{{ user.SBU }}">{{ user.sbu }}</td>
           <td title="{{ user.hieCount }}" style="cursor:pointer;position: relative;">
             <div class="dropdown" style="position: relative;">

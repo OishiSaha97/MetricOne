@@ -86,7 +86,16 @@
           </td>
           <td>{{ data.employee_id }}</td>
 
-          <td [ngClass]="getStatusClass(data.status)">{{ data.status }}</td>
+          <td [style.color]="
+                data.status === 'Forwarded' ? '#6BCAFA' :
+                data.status === 'In Progress' ? '#FF4FD3' :
+                data.status === 'Reverted' ? '#E5FD51' :
+                data.status === 'Draft' ? '#FFFFFF' :
+                data.status === 'Pending' ? '#FF9945' :
+                data.status === 'Published' ? '#A645FF' :
+                'white'
+              "
+          >{{ data.status }}</td>
           <td>{{ data.desg }}</td>
           <td>{{ data.sbu }}</td>
           <td title="{{ data.hieCount }}" style="cursor:pointer;position: relative;">

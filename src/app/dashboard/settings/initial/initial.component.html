@@ -28,6 +28,8 @@
            (change)="onDateSelect()"
            class="custom-date-input"
            [disabled]="timePeriod==='evaluation'"
+           [min]="today"
+           [max]="(today | date:'yyyy') + '-12-31'"
 
          />
 <!--        [min]="today"  [disabled]="timePeriod==='evaluation'"-->
@@ -41,6 +43,7 @@
            (change)="onDateSelect()"
            class="custom-date-input"
            [min]="today"
+           [max]="(today | date:'yyyy') + '-12-31'"
          />
          <span class="calendar-icon"></span>
        </div>
