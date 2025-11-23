@@ -420,7 +420,7 @@
       <div class="modal-content bg-color">
         <div>
           <span class="top-left-title-bar common-purple">Revert Remarks</span>
-          <span class="close-btn close" data-dismiss="modal" (click)="onClose()">X</span>
+          <span class="close-btn close" data-dismiss="modal" (click)="onClose()"></span>
         </div>
         <div class="modal-body modal-message-body text-break">
           <p>
@@ -435,17 +435,19 @@
           </div>
 
         </div>
-        <div class="modal-footer row justify-content-end" style="border:none; margin-top:-20px">
-          <div class="col-6">
-            <button type="button" class="btn cancel-button" data-dismiss="modal" (click)="onClose()">
-              Cancel
-            </button>
-            <button
-              [ngClass]=" (remark==''||remark==null)? 'cursor-disabled' : 'cursor-enabled'"
-              [disabled]=" (remark==''||remark==null)"
-              (click)="onRevert()" class="btn submit-btn" data-dismiss="modal">
-              Submit
-            </button>
+        <div class="modal-footer" style="border:none; margin-top:-20px">
+          <div class="d-flex justify-content-end">
+            <div>
+              <button type="button" class="btn cancel-button" data-dismiss="modal" (click)="onClose()">
+                Cancel
+              </button>
+              <button
+                [ngClass]=" (remark==''||remark==null)? 'cursor-disabled' : 'cursor-enabled'"
+                [disabled]=" (remark==''||remark==null)"
+                (click)="onRevert()" class="btn submit-btn" data-dismiss="modal">
+                Submit
+              </button>
+            </div>
           </div>
 
 
