@@ -217,3 +217,9 @@ body {
   /*background-color: #33343c !important;*/
   opacity: 0.6;
 }
+
+.readonly,
+.readonly * {
+  pointer-events: none !important;
+  /*opacity: 0.6;*/
+}

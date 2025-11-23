@@ -325,7 +325,7 @@
 
 /* ===== Textarea ===== */
 .add-input-box {
-  background: #111827;
+  background: #2A2B2F;
   border-radius: 6px;
   border: 1px solid #4b5563;
   color: #f9fafb;
@@ -386,7 +386,7 @@
   border-radius: 4px;
   outline: none;
   box-sizing: border-box;
-  margin-left: 40%;
+  margin-left:  54%;
 }
 .obj-input-weightage:focus{
   border: 1px solid #7A7B8299;
@@ -398,7 +398,7 @@
 }
 .percentage-icon {
   position: absolute;
-  right: 40px;
+  right: 12%;
   top: 50%;
   transform: translateY(-50%);
   color: #ffffffcc;
