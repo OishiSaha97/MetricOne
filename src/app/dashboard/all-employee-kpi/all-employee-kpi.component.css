@@ -20,7 +20,10 @@
   box-sizing: border-box;
 }
 
-
+table thead th:first-child,
+table tbody td:first-child {
+  padding-left: 35px; /* adjust the value as needed */
+}
 
 .labels {
   display: flex;

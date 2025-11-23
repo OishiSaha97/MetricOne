@@ -147,11 +147,11 @@ circle {
   padding: 10px 15px;
   font-weight: 600;
   color: #83F7F6;
-  width: 90%;
+  width: 93%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 5%;
+  margin-left: 4%;
 }
 .setting-title{
   font-size: 12px;
@@ -272,6 +272,7 @@ circle {
   align-items: center;
   background-color: #1C1D21;
   padding: 10px;
+  padding-right: 4px;
 
 }
 

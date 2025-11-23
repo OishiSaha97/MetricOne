@@ -31,6 +31,7 @@ export class KpiFormComponent implements OnInit {
   currentIndex : any;
   selectedIndexForDelete: any;
   draftShow:any=false;
+  managerName: any;
 
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
@@ -133,9 +134,19 @@ export class KpiFormComponent implements OnInit {
           );
       }
     this.filterObjectiveTypes = [...this.objectiveTypes];
-    console.log(this.currentStatus)
+    this.getManagerName();
   }
+  getManagerName() {
+    this.kpi.getLogData({
+      param: 'get_manager_name',
+      extraParam:this.team
 
+    }).subscribe(res => {
+      this.managerName = res?.['get_manager_name'][0].managerName || [];
+      console.log("this.managerName : ", this.managerName)
+    });
+
+  }
 
   addObjective(): void {
     const newObjective: Objective = {
