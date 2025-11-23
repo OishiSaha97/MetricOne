@@ -83,10 +83,11 @@ export class HomeComponent {
 
 
   get dashOffset() {
-    const radius = 30;
-    const circumference = 2 * Math.PI * radius;
-    return circumference - (this.progressValue / 100) * circumference;
+    const circumference = 2 * Math.PI * 50;
+    let progress = circumference - (this.progressValue / 100) * circumference;
+    return progress;
   }
+
 
   getData() {
     this.kpi.getLogData({ param: 'dashboardInfo', userIdKPI: this.userId })
