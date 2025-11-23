@@ -385,6 +385,7 @@ circle {
   margin: 0 0 6px;
   color: #FFFFFFCC;
   font-size: 11px;
+  white-space: pre-line;
 }
 
 .announcement-date {
