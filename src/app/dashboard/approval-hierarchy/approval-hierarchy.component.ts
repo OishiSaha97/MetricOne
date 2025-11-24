@@ -108,7 +108,7 @@ export class ApprovalHierarchyComponent {
 
       setTimeout(() => {
         el.classList.remove('show');
-      }, 1000);
+      }, 5000);
 
     }, 0);
   }

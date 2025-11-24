@@ -177,11 +177,12 @@ html, body {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: url('src/assets/top-up.svg') center center no-repeat;
+  background: url('src/assets/side-arrow.svg') center center no-repeat;
   transition: transform 0.3s ease;
+  transform: rotate(0deg);
 }
 .top-up.rotated {
-  transform: rotate(180deg);
+  transform: rotate(90deg);
 }
 .sidebar-item {
   display: flex;

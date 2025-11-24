@@ -47,12 +47,46 @@
           <td>{{ i + 1 }}</td>
           <td >{{ user.year }}</td>
 <!--                    <td title="{{ user.name }}">{{ user.name }}</td>-->
-          <td [title]="user.name">
-            {{ user.name.length > 15 ? (user.name | slice:0:15) + '...' : user.name }}
+          <td>
+            <div
+              *ngIf="user.name?.length > 15; else noTooltip"
+              tooltip="{{ user.name }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.name | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltip>
+              <div class="text-truncate">{{ user.name }}</div>
+            </ng-template>
           </td>
-          <td >{{ user.team }}</td>
+          <td>
+            <div
+              *ngIf="user.team?.length > 15; else noTooltipTeam"
+              tooltip="{{ user.team }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.name | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltipTeam>
+              <div class="text-truncate">{{ user.team }}</div>
+            </ng-template>
+          </td>
           <td >{{ user.employee_id }}</td>
-          <td  [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
+          <td  [style.color]="
+                user.status === 'Forwarded' ? '#6BCAFA' :
+                user.status === 'In Progress' ? '#FF4FD3' :
+                user.status === 'Reverted' ? '#E5FD51' :
+                user.status === 'Draft' ? '#FFFFFF' :
+                user.status === 'Pending' ? '#FF9945' :
+                user.status === 'Published' ? '#A645FF' :
+                'white'
+              "
+          >
+            {{ user.status }} </td>
 <!--          <td>{{ user.desg }}</td>-->
           <td style="cursor:pointer;position: relative;">
             <span *ngIf="user.hieCount > 0"

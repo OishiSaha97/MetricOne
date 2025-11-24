@@ -95,6 +95,7 @@ export class KpiFormComponent implements OnInit {
     for (let i = 1; i <= 3; i++) {
       this.addObjective();
     }
+    console.log(this.view)
     this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
@@ -118,7 +119,6 @@ export class KpiFormComponent implements OnInit {
                 weightage: item.weightage,
                 isOpen: false,
                 addedByApprover: false
-
               }));
             },
             (error) => {
@@ -208,16 +208,12 @@ export class KpiFormComponent implements OnInit {
   showToast(msg: string) {
     this.toastMessage = msg;
 
-    // Show toast after 20 sec
     setTimeout(() => {
       const el = this.errorToast.nativeElement;
-
       el.classList.add('show');
-
-      // Auto-hide after 3 seconds
       setTimeout(() => {
         el.classList.remove('show');
-      }, 1000);
+      }, 5000);
 
     }, 0);
   }
@@ -241,6 +237,18 @@ export class KpiFormComponent implements OnInit {
       }
       if (!obj.performanceText?.trim()) {
         this.objectiveErrors[i].performanceText = '*Performance Text is required';
+      }
+      if (obj.isEditingObjective && !obj.keyObjective?.trim()) {
+        this.objectiveErrors[i].keyObjectiveText = '*Key Update Points required';
+
+      }
+      if (obj.isEditingPerformance && !obj.keyPerformance?.trim()) {
+        this.objectiveErrors[i].keyPerformanceText = '*Key Update Points required';
+
+      }
+      if (obj.isEditingTarget && !obj.keyTarget?.trim()) {
+        this.objectiveErrors[i].keyTargetText = '*Key Update Points required';
+
       }
 
       const weight = parseFloat((obj.weightage || '0').toString().trim());
@@ -282,7 +290,7 @@ export class KpiFormComponent implements OnInit {
     const hasErrors = Object.values(this.objectiveErrors).some(err => Object.keys(err).length > 0);
     if (hasErrors) {
 
-      this.showToast("Please fill all required fields before submitting!");
+      // this.showToast("Please fill all required fields before submitting!");
       return false;
     }
 
@@ -439,7 +447,7 @@ export class KpiFormComponent implements OnInit {
   }
 
   openObjectiveHistory(obj: any,i:any) {
-    this.showObjectiveHistoryIndex = null;
+    //this.showObjectiveHistoryIndex = null;
     this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedObjHistory = Array.isArray(res?.['changed-objective-history']) ? res?.['changed-objective-history'] : res?.['changed-objective-history']
@@ -748,4 +756,18 @@ export class KpiFormComponent implements OnInit {
       }
     });
   }
+
+  opendropdown() {
+    // this.isOpen[this.currentIndex] = !this.isOpen[this.currentIndex];
+    this.searchType='';
+    this.filterObjectiveTypes = [...this.objectiveTypes]
+  }
+
+  autoGrow(event: any) {
+    const textarea = event.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+
 }

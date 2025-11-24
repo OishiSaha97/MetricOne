@@ -1,4 +1,4 @@
-<div class="list-table">
+<div class="list-table" >
   <div class="d-flex justify-content-between align-items-center mb-5">
 
     <div class="left-side d-flex align-items-center gap-3">
@@ -78,15 +78,46 @@
               {{ i + 1 }}
           </td>
           <td>{{ data?.year }}</td>
-          <td [title]="data.employee_name">
-            {{ data.employee_name.length > 15 ? (data.employee_name | slice:0:15) + '...' : data.employee_name }}
+          <td>
+            <div
+              *ngIf="data.employee_name?.length > 15; else noTooltip"
+              tooltip="{{ data.employee_name }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (data.employee_name | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltip>
+              <div class="text-truncate">{{ data.employee_name }}</div>
+            </ng-template>
           </td>
-          <td [title]="data.team">
-            {{ data.team.length > 15 ? (data.team | slice:0:15) + '...' : data.team }}
+          <td>
+            <div
+              *ngIf="data.team?.length > 15; else noTooltipTeam"
+              tooltip="{{ data.team }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (data.team | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltipTeam>
+              <div class="text-truncate">{{ data.team }}</div>
+            </ng-template>
           </td>
           <td>{{ data.employee_id }}</td>
 
-          <td [ngClass]="getStatusClass(data.status)">{{ data.status }}</td>
+          <td [style.color]="
+                data.status === 'Forwarded' ? '#6BCAFA' :
+                data.status === 'In Progress' ? '#FF4FD3' :
+                data.status === 'Reverted' ? '#E5FD51' :
+                data.status === 'Draft' ? '#FFFFFF' :
+                data.status === 'Pending' ? '#FF9945' :
+                data.status === 'Published' ? '#A645FF' :
+                'white'
+              "
+          >{{ data.status }}</td>
           <td>{{ data.desg }}</td>
           <td>{{ data.sbu }}</td>
           <td title="{{ data.hieCount }}" style="cursor:pointer;position: relative;">
@@ -146,14 +177,6 @@
                 </div>
                 <p>{{note.obj_remark}}</p>
               </div>
-              <!--              <div class="w-100">-->
-              <!--                <div *ngFor="let user of remarkList; let i = index;">-->
-              <!--                  <div style="font-size:14px; color:white;">-->
-              <!--                    {{ user.obj_remark }}-->
-              <!--                  </div>-->
-              <!--                  <div class="dropdown-divider"></div>-->
-              <!--                </div>-->
-              <!--              </div>-->
             </div>
 
 
@@ -161,11 +184,13 @@
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"
                  [ngStyle]="{
-                      cursor: data.editPermission ? 'pointer' : 'default',
-                      opacity:  data.editPermission ? 1 : 0.4,
-                      'pointer-events':  data.editPermission ? 'all' : 'none'
-                    }"
-                 (click)="viewDetails(data)"
+                    cursor: isViewAllowed(data) ? 'pointer' : 'default',
+                    opacity: isViewAllowed(data) ? 1 : 0.4,
+                    'pointer-events': isViewAllowed(data) ? 'all' : 'none'
+                  }"
+
+                 (click)=" viewDetails(data)"
+
             />
           </td>
         </tr>
@@ -174,3 +199,14 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+<!--[ngStyle]="{-->
+<!--cursor: data.editPermission ? 'pointer' : 'default',-->
+<!--opacity:  data.editPermission ? 1 : 0.4,-->
+<!--'pointer-events':  data.editPermission ? 'all' : 'none'-->
+<!--}"-->
+<!--(click)="viewDetails(data)"-->
