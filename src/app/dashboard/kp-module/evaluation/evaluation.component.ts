@@ -304,11 +304,6 @@ export class EvaluationComponent {
 
 
   submitHr() {
-    console.log(this.objectiveSet);
-    console.log(this.selfAssessment);
-    console.log(this.valuesData);
-    console.log(this.managerData);
-    console.log(this.hrData);
 
     let objectiveData;
     if(this.objectiveSet?.objectives){
@@ -418,6 +413,7 @@ export class EvaluationComponent {
       this.remarkList = res?.['reverted_remark_list'] || [];
     });
   }
+
   draft() {
     let objectiveData;
     if(this.objectiveSet?.objectives){
@@ -480,4 +476,5 @@ export class EvaluationComponent {
      });
 
   }
+
 }

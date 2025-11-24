@@ -223,3 +223,10 @@ body {
   pointer-events: none !important;
   /*opacity: 0.6;*/
 }
+
+.auto-textarea {
+  min-height: 41px;
+  height: auto;
+  overflow: hidden;
+  resize: none;
+}
