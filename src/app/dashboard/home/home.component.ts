@@ -212,9 +212,14 @@ export class HomeComponent {
   getAnnouncements() {
     this.kpi.getLogData({ param: 'announcement-list', userIdKPI: this.userId })
       .subscribe(res => {
-        // this.announcements = res?.['announcement-list'] || [];
-        this.announcements = (res?.['announcement-list'] || '').replace(/\\n/g, '\n');
-        console.log("this.announcements  : ", this.announcements );
+        const data = res?.['announcement-list'] || [];
+
+        this.announcements = data.map((item: any) => ({
+          ...item,
+          announcement2: (item.announcement || '').replace(/\r?\n/g, '\n')
+        }));
+
+        console.log('this.announcements:', this.announcements);
       });
   }
 
