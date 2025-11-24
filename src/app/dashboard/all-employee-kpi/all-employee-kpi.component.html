@@ -78,11 +78,33 @@
               {{ i + 1 }}
           </td>
           <td>{{ data?.year }}</td>
-          <td [title]="data.employee_name">
-            {{ data.employee_name.length > 15 ? (data.employee_name | slice:0:15) + '...' : data.employee_name }}
+          <td>
+            <div
+              *ngIf="data.employee_name?.length > 15; else noTooltip"
+              tooltip="{{ data.employee_name }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (data.employee_name | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltip>
+              <div class="text-truncate">{{ data.employee_name }}</div>
+            </ng-template>
           </td>
-          <td [title]="data.team">
-            {{ data.team.length > 15 ? (data.team | slice:0:15) + '...' : data.team }}
+          <td>
+            <div
+              *ngIf="data.team?.length > 15; else noTooltipTeam"
+              tooltip="{{ data.team }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (data.team | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltipTeam>
+              <div class="text-truncate">{{ data.team }}</div>
+            </ng-template>
           </td>
           <td>{{ data.employee_id }}</td>
 

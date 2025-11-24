@@ -48,8 +48,20 @@
           <td>{{ i + 1 }}</td>
           <td title="{{ user.year }}">{{ user.year }}</td>
 <!--          <td title="{{ user.team }}">{{ user.team }}</td>-->
-          <td [title]="user.team">
-            {{ user.team.length > 15 ? (user.team | slice:0:15) + '...' : user.team }}
+
+          <td>
+            <div
+              *ngIf="user.team?.length > 15; else noTooltip"
+              tooltip="{{ user.team }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.team | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltip>
+              <div class="text-truncate">{{ user.team }}</div>
+            </ng-template>
           </td>
           <td [style.color]="
                 user.status === 'Forwarded' ? '#6BCAFA' :
@@ -60,7 +72,20 @@
                 user.status === 'Published' ? '#A645FF' :
                 'white'
               ">{{ user.status }} </td>
-          <td title="{{ user.SBU }}">{{ user.sbu }}</td>
+          <td>
+            <div
+              *ngIf="user.sbu?.length > 15; else noTooltipSbu"
+              tooltip="{{ user.sbu }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.sbu | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltipSbu>
+              <div class="text-truncate">{{ user.sbu }}</div>
+            </ng-template>
+          </td>
           <td title="{{ user.hieCount }}" style="cursor:pointer;position: relative;">
             <div class="dropdown" style="position: relative;">
               <span

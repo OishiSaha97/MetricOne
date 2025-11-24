@@ -62,7 +62,7 @@
               {{pagination.paramOffset+i+1}}
             </label>
           </td>
-          <td title="{{ user.team }}">
+          <td>
             <div
               *ngIf="user.team_name?.length > 30; else noTooltip"
               tooltip="{{ user.team_name }}"

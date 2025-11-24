@@ -77,6 +77,7 @@ export class NavbarComponent {
   toggleTask(index: number): void {
     this.activeIndex = this.activeIndex === index ? null : index;
     this.isHomeActive = false;
+    this.active = !this.active;
   }
 
   getPermission() {
