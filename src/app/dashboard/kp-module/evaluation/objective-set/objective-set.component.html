@@ -414,7 +414,7 @@
                   {{ objectiveErrors[i].achievedText }}
                 </small>
 
-                <div *ngIf="obj.isEditingAchieved" class="mt-3">
+                <div *ngIf="obj.isEditingAchieved " class="mt-3">
                   <h6 style="font-size: 12px;">Key Update Points*</h6>
                   <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
                   <textarea
@@ -430,7 +430,7 @@
                   </small>
                 </div>
 
-                <div  class="mb-3">
+                <div  class="mb-3" *ngIf="currentStatus != 'employee'">
                   <img src="../../../assets/bx_chat.svg"
                        class="mb-1" style="scale:0.877"
                        (click)="openAchievedHistory(obj)" />
