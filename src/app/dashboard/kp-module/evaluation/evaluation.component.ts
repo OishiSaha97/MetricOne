@@ -34,6 +34,11 @@ export class EvaluationComponent {
   remark: any;
   view:any='';
   isBack1:any=false;
+  isBack2:any=false;
+  isBack3:any=false;
+  isBack4:any=false;
+  isBack5:any=false;
+  isNext1:any=false;
   kpiUserId:any;
   status: any;
   team: any;
@@ -70,6 +75,7 @@ export class EvaluationComponent {
   }
   maxStep:any=3;
   managerName: any;
+
 
 
   ngOnInit(){
@@ -144,12 +150,15 @@ export class EvaluationComponent {
       this.changeTable('objective',currentStep)
     }else if(this.currentStep == 3) {
       currentStep = 2;
+      this.isBack2 =true;
       this.changeTable('self',currentStep)
     }else if(this.currentStep == 4){
       currentStep = 3;
+      this.isBack3 =true;
       this.changeTable('values',currentStep)
     }else if(this.currentStep == 5){
       currentStep = 4;
+      this.isBack4 =true;
       this.changeTable('manager',currentStep)
     }
   }

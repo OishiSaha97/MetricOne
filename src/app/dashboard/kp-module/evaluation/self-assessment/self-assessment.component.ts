@@ -22,6 +22,7 @@ export class SelfAssessmentComponent {
   @Input() userData: any;
   @Input() currentStatus: any;
   @Input() view: any;
+  @Input() isBack:any=false;
   objectives: Objective[] = [
     {
       id: 1,
@@ -53,7 +54,7 @@ export class SelfAssessmentComponent {
   userName: any;
   userId: any;
   role: any;
-
+  @Input() oldObjective:any=[];
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {

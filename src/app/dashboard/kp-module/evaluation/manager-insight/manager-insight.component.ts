@@ -28,6 +28,8 @@ export class ManagerInsightComponent {
   @Input() userData: any;
   @Input() currentStatus: any;
   @Input() view: any;
+  @Input() isBack:any=false;
+  @Input() oldObjective:any=[];
   data: any =[];
 
   constructor(public modalRef: BsModalRef,

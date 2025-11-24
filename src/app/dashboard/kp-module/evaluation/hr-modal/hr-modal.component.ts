@@ -27,6 +27,8 @@ export class HrModalComponent {
   @Input() userData: any;
   @Input() currentStatus: any;
   @Input() view: any;
+  @Input() oldObjective:any=[];
+  @Input() isBack:any=false;
 
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false,isOpenIncrement: false,isEditingObjective: false, objectiveText: '',increment: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''},
