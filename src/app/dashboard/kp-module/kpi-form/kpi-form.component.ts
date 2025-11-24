@@ -95,6 +95,7 @@ export class KpiFormComponent implements OnInit {
     for (let i = 1; i <= 3; i++) {
       this.addObjective();
     }
+    console.log(this.view)
     this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
@@ -761,4 +762,12 @@ export class KpiFormComponent implements OnInit {
     this.searchType='';
     this.filterObjectiveTypes = [...this.objectiveTypes]
   }
+
+  autoGrow(event: any) {
+    const textarea = event.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+
 }

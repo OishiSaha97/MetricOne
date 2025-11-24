@@ -108,6 +108,7 @@ export class TeamsKPIComponent {
   }
 
   viewDetails(user: any) {
+
     if(this.timePeriod === 'initiation'){
       const initialState = {
         kpiUserId: user.user_id,
@@ -119,7 +120,7 @@ export class TeamsKPIComponent {
         kpiId: user.id,
         currentStatus:'manager',
         currentIndex:user.current_approver_ind,
-        view:true
+        view:user.editPermission
       };
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',
@@ -139,7 +140,7 @@ export class TeamsKPIComponent {
         userData: user,
         title: 'Manager Evaluation',
         currentStatus:'manager',
-
+        view:user.editPermission,
       };
       this.modalRef = this.modalService.show(EvaluationComponent, {
         backdrop: 'static',
@@ -159,7 +160,7 @@ export class TeamsKPIComponent {
 
 
   isClickable(user: any): boolean {
-    return user.editPermission;
+    return user.editPermission || user.viewPermission;
   }
 
   search() {

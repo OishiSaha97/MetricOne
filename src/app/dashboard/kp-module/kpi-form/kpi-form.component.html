@@ -195,7 +195,8 @@
 
                     <textarea
                       type="text"
-                      style="height: 41px;"
+                      (input)="autoGrow($event)"
+                      [ngStyle]="{ 'height': 'auto', 'overflow': 'hidden' }"
                       class="obj-input mb-2"
                       [(ngModel)]="obj.objectiveText"
                       placeholder="Enter objective..."
@@ -266,7 +267,8 @@
                       [(ngModel)]="obj.performanceText"
                       placeholder="Enter Performance..."
                       [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingPerformance"
-                      style="height: 41px;">
+                      (input)="autoGrow($event)"
+                      [ngStyle]="{ 'height': 'auto', 'overflow': 'hidden' }">
                     </textarea>
 
                     <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
@@ -331,7 +333,8 @@
                         [(ngModel)]="obj.targetText"
                         placeholder="Enter target..."
                         [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingTarget"
-                        style="height: 41px;" >
+                        (input)="autoGrow($event)"
+                        [ngStyle]="{ 'height': 'auto', 'overflow': 'hidden' }" >
                       </textarea>
 
                       <p style="font-size: 10px;">Please set the target based on the following measurements: Numeric, Percentage, Monitory, Ratio or Time</p>

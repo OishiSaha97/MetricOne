@@ -235,26 +235,31 @@ export class AllEmployeeKPIComponent {
     return user.status === 'closed' ;
     // return user.status === 'closed' || user.editPermission;
   }
-view:any;
+
+  view:any;
 
   viewDetails(user: any) {
-    // if(user.status === 'closed'){
-    //   this.view = ;
-    // }
 
-    if(this.timePeriod == 'evaluation'){
+    let viewMode: any = null;
+
+    if (user.viewPermission == true) {
+      viewMode = true;
+    }
+
+    if (this.timePeriod == 'evaluation') {
+
       const initialState = {
         userData: user,
         title: 'HR Evaluation',
-        currentStatus:'hr',
-
+        currentStatus: 'hr',
+        view: viewMode      // <-- apply view mode here
       };
 
       this.modalRef = this.modalService.show(EvaluationComponent, {
         backdrop: 'static',
         keyboard: false,
         class: 'modal-dialog modal-dialog-centered modal-max',
-        initialState: initialState
+        initialState
       });
 
       let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
@@ -262,24 +267,25 @@ view:any;
         dataLoader.unsubscribe();
       });
 
-    }else{
+    } else {
+
       const initialState = {
         kpiUserId: user.user_id,
         status: user.status,
         team: user.team,
         name: user.name,
         year: user.year,
-        mode:"approver",
+        mode: "approver",
         kpiId: user.id,
-        currentStatus:'hr',
-        view:true
-
+        currentStatus: 'hr',
+        view: viewMode     // <-- apply view mode here
       };
+
       this.modalRef = this.modalService.show(KpiFormComponent, {
         backdrop: 'static',
         keyboard: false,
         class: 'modal-dialog modal-dialog-centered modal-max',
-        initialState: initialState
+        initialState
       });
 
       let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
@@ -288,8 +294,65 @@ view:any;
       });
 
     }
-
   }
+
+  isViewAllowed(data: any) {
+    return data.editPermission || data.viewPermission;
+  }
+
+  // viewDetails(user: any) {
+  //   // if(user.status === 'closed'){
+  //   //   this.view = ;
+  //   // }
+  //
+  //   if(this.timePeriod == 'evaluation'){
+  //     const initialState = {
+  //       userData: user,
+  //       title: 'HR Evaluation',
+  //       currentStatus:'hr',
+  //
+  //     };
+  //
+  //     this.modalRef = this.modalService.show(EvaluationComponent, {
+  //       backdrop: 'static',
+  //       keyboard: false,
+  //       class: 'modal-dialog modal-dialog-centered modal-max',
+  //       initialState: initialState
+  //     });
+  //
+  //     let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+  //       this.loadData({});
+  //       dataLoader.unsubscribe();
+  //     });
+  //
+  //   }else{
+  //     const initialState = {
+  //       kpiUserId: user.user_id,
+  //       status: user.status,
+  //       team: user.team,
+  //       name: user.name,
+  //       year: user.year,
+  //       mode:"approver",
+  //       kpiId: user.id,
+  //       currentStatus:'hr',
+  //       view:true
+  //
+  //     };
+  //     this.modalRef = this.modalService.show(KpiFormComponent, {
+  //       backdrop: 'static',
+  //       keyboard: false,
+  //       class: 'modal-dialog modal-dialog-centered modal-max',
+  //       initialState: initialState
+  //     });
+  //
+  //     let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+  //       this.loadData({});
+  //       dataLoader.unsubscribe();
+  //     });
+  //
+  //   }
+  //
+  // }
 
 
   search() {
