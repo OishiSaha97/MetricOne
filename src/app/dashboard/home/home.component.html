@@ -33,6 +33,7 @@
           <div class="d-flex justify-content-end">
             <button class="btn btn-announce mt-2 text-right" (click)="publishAnnoc()">Publish</button>
           </div>
+          <hr>
 
         </div>
 
@@ -40,13 +41,14 @@
         <div class="announcement-list mt-3" style="margin-top: 7px !important;">
           <div *ngFor="let a of announcements"
           >
-            <hr>
+
             <p class="announcement-text" >
               {{ a.announcement2 }}
             </p>
             <p class="announcement-date">
               {{ a.created_at }}
             </p>
+            <hr>
           </div>
         </div>
 

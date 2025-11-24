@@ -485,7 +485,7 @@
             <div>
               <span class="fw-semibold">{{ 'OVERALL RATING' }}</span>
             </div>
-            <div>
+            <div style="position: relative;">
               <div class="dropdown"
                    [class.disabled-dropdown]=" userData.status === 'Closed'"
                    *ngIf="['manager','hr','approver'].includes(currentStatus)">
@@ -497,9 +497,6 @@
                         style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
                   {{ objOverallRating ? (objOverallRating.length > 12 ? (objOverallRating | slice:0:12) + '...' : objOverallRating) : 'Select' }}
                 </button>
-<!--                <small class="text-danger" style="font-size: 11px;" *ngIf="objOverallRatingError">-->
-<!--                  {{ objOverallRatingError }}-->
-<!--                </small>-->
 
                 <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
                     style="background-color: #33343C;">
@@ -513,6 +510,9 @@
                   </li>
                 </ul>
               </div>
+              <small class="objective-error" style="left: -14px;" *ngIf="objOverallRatingError">
+                {{ objOverallRatingError }}
+              </small>
 
             </div>
 
