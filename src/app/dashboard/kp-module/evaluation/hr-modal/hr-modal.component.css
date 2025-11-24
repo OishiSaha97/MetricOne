@@ -128,4 +128,7 @@
   height: 16px;
   display: inline-block;
 }
-
+textarea::placeholder {
+  color: whitesmoke;
+  opacity: 1;
+}

@@ -75,3 +75,7 @@
   border: 1px solid rgba(100, 73, 190, 0.41);
   color:white;
 }
+textarea::placeholder {
+  color: whitesmoke;
+  opacity: 1;
+}
