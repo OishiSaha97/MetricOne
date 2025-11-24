@@ -191,15 +191,17 @@
             <div class="d-flex justify-content-end gap-2 p-3">
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
               <button class="revert-btn" (click)="draft()"
-                      *ngIf="currentStep == maxStep && currentStatus == 'employee'">Draft</button>
+                      *ngIf="currentStep == maxStep && currentStatus == 'employee' && userData.status != 'Closed' &&userData.status !== 'Submitted'">Draft</button>
               <button class="revert-btn" (click)="openModal(actionModal)"
-                      *ngIf="view == true && currentStatus != 'employee'">Revert</button>
+                      *ngIf="view == true && currentStatus != 'employee' ">Revert</button>
 
               <button *ngIf="currentStep != maxStep" class="submit-btn" (click)="onNext()">
                 {{ 'Next' }}
               </button>
 
-              <button *ngIf="currentStep == maxStep || (view == true) " class="submit-btn" (click)="onNext()">
+              <button *ngIf="userData.status !== 'Closed'
+                        &&userData.status !== 'Submitted'
+                        && currentStep == maxStep || (view == true) " class="submit-btn" (click)="onNext()">
                 {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}
               </button>
 

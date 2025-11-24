@@ -192,8 +192,7 @@
               <textarea
                 type="text"
                 (input)="autoGrow($event)"
-                [ngStyle]="{ 'height': 'auto', 'overflow': 'hidden' }"
-                class="obj-input mb-2"
+                class="obj-input mb-2 auto-textarea"
                 [(ngModel)]="obj.objectiveText"
                 placeholder="Enter objective..."
                 [readonly]=" !obj.isEditingObjective"
@@ -263,8 +262,7 @@
               <textarea
                 rows="4"
                 (input)="autoGrow($event)"
-                [ngStyle]="{ 'height': 'auto', 'overflow': 'hidden' }"
-                class="obj-input small"
+                class="obj-input small auto-textarea"
                 [(ngModel)]="obj.performanceText"
                 placeholder="Enter target..."
                 [readonly]="!obj.isEditingPerformance"
@@ -333,8 +331,7 @@
                 <textarea
                   rows="4"
                   (input)="autoGrow($event)"
-                  [ngStyle]="{ 'height': 'auto', 'overflow': 'hidden' }"
-                  class="obj-input small"
+                  class="obj-input small auto-textarea"
                   [(ngModel)]="obj.targetText"
                   placeholder="Enter target..."
                   [disabled]=" userData.status === 'Closed'"
@@ -402,8 +399,7 @@
                 <textarea
                   rows="4"
                   (input)="autoGrow($event)"
-                  [ngStyle]="{ 'height': 'auto', 'overflow': 'hidden' }"
-                  class="obj-input small"
+                  class="obj-input  auto-textarea"
                   [(ngModel)]="obj.achievedText"
                   placeholder="Enter Achieved..."
                   [readonly]="currentStatus == 'manager' && !obj.isEditingAchieved"
