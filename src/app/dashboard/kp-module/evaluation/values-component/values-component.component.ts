@@ -71,7 +71,11 @@ export class ValuesComponentComponent {
               default: rating = ratingArray[index] || '';
             }
 
-            return { ...obj, selectedRating: rating };
+            if (index === 7) {
+              return { ...obj, overAllRating: rating };
+            } else {
+              return { ...obj, selectedRating: rating };
+            }
           });
 
           console.log("this.objectives : ", this.objectives);
@@ -109,6 +113,7 @@ export class ValuesComponentComponent {
     obj.selectedRating = type.kpi_category_name;
   }
   onOverAllRating(type: any, obj: Objective): void {
+    obj.selectedRating = type.kpi_category_name;
     obj.overAllRating = type.kpi_category_name;
   }
 
@@ -126,12 +131,15 @@ export class ValuesComponentComponent {
   objectiveErrors: { [key: number]:
       {
         selectedRating?: string;
-        overallrating?: string;
+        overAllRating?: string;
       } } = {};
 
   validateObjectives(): boolean {
     let hasError = false;
     for (let i = 0; i < this.objectives.length; i++) {
+      if (i === 7) {
+        continue;
+      }
       const obj = this.objectives[i];
       this.objectiveErrors[i] = {};
       if (!obj.selectedRating?.trim()) {
@@ -141,17 +149,28 @@ export class ValuesComponentComponent {
 
     }
     if(!this.objectives[7].overAllRating?.trim() && (this.currentStatus === 'manager' || this.currentStatus === 'approver' || this.currentStatus === 'hr')){
-      this.objectiveErrors[7].overallrating = '*Overall Rating is required';
-
+      this.objectiveErrors[7].overAllRating = '*Overall Rating is required';
+      hasError = true;
     }
     return !hasError;
   }
+
+
   submitData() {
 
     if (!this.validateObjectives()) {
       return;
     }
-    this.dataSubmitted.emit(this.objectives);
+    const finalData = this.objectives.map((obj, index) => {
+      if (index === 7) {
+        return {
+          ...obj,
+          overall_rating: obj.overAllRating   // API needs this
+        };
+      }
+      return obj;
+    });
+    this.dataSubmitted.emit(finalData);
     console.log(this.objectives)
   }
 

@@ -224,7 +224,7 @@ export class ObjectiveSetComponent {
         keyPerformanceText?:string;
         keyTargetText?:string;
         keyAchieved?:string;
-        weightage?: string
+        weightage?: string;
       } } = {};
 
   objOverallRatingError: string = '';
@@ -265,6 +265,11 @@ export class ObjectiveSetComponent {
           this.objectiveErrors[i].achievedInt = '*Achieved Number is required';
           hasError = true;
         }
+        if (!this.objOverallRating) {
+          this.objOverallRatingError = '*Overall Rating is required';
+          hasError = true;
+        }
+
 
         if (obj.isEditingObjective && !obj.keyObjective?.trim()) {
           this.objectiveErrors[i].keyObjectiveText = '*Key Update Points required';

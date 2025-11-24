@@ -117,8 +117,8 @@ export class EvaluationComponent {
 
     }else if(this.currentStep == 3){
       this.valuesComp.submitData();
-      currentStep = 4;
-      this.changeTable('manager',currentStep)
+      // currentStep = 4;
+      // this.changeTable('manager',currentStep)
     }else if(this.currentStep == 4){
      this.managerComp.submitData();
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
@@ -182,6 +182,9 @@ export class EvaluationComponent {
       }
     }else if(item == 'values'){
       this.valuesData = data;
+      console.log("Received data from values:", this.valuesData);
+        currentStep = 4;
+        this.changeTable('manager',currentStep);
     }else if(item == 'manager'){
       this.managerData = data;
     }else if(item == 'hr'){
@@ -195,8 +198,6 @@ export class EvaluationComponent {
 
 
   submitEmployee() {
-    console.log(this.objectiveSet);
-    console.log(this.selfAssessment);
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
