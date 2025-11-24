@@ -118,7 +118,6 @@ export class KpiFormComponent implements OnInit {
                 weightage: item.weightage,
                 isOpen: false,
                 addedByApprover: false
-
               }));
             },
             (error) => {
@@ -743,5 +742,11 @@ export class KpiFormComponent implements OnInit {
         this.onCancel();
       }
     });
+  }
+
+  opendropdown() {
+    // this.isOpen[this.currentIndex] = !this.isOpen[this.currentIndex];
+    this.searchType='';
+    this.filterObjectiveTypes = [...this.objectiveTypes]
   }
 }
