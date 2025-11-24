@@ -69,6 +69,15 @@ export class ApproAttributePopUpComponent {
       formData.append('id', this.selectedAttribute.id);
 
       this.kpi.updateKPIAttribute(formData).subscribe({
+
+        // next: (response:any) => {
+        //   if (response?.statusCode === 500 &&
+        //     response?.message === 'KPI Type had already same category name') {
+        //
+        //     this.errorMessage = 'Name already exists.';
+        //     return;
+        //   }
+
         next: (response:any) => {
           if (response?.statusCode === 500 &&
             response?.message === 'KPI Type had already same category name') {
@@ -111,7 +120,6 @@ export class ApproAttributePopUpComponent {
             return;
           }
 
-          // SUCCESS CASE → close modal + emit
           this.modalRef.hide();
           this.requestEmitter.emit(true);
 

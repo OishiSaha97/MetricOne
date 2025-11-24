@@ -45,6 +45,8 @@ export class ListComponent {
  remarkList: any;
   isHierarchyOpen: boolean = false;
   team: any;
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
+  toastMessage: string = '';
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -57,30 +59,8 @@ export class ListComponent {
     this.timePeriod = localStorage.getItem('timePeriod');
     this.loadData('');
     this.userTeam();
-    //this.checkInitiationDate();
-    // this.kpi.getLogData({param: 'check_kpi_my',objectId:this.year,extraParam:this.userId})
-    //   .subscribe(res => {
-    //
-    //       this.check_kpi = Array.isArray(res?.['check_kpi_my']) ? res?.['check_kpi_my'] : res?.['check_kpi_my']
-    //       console.log(this.check_kpi);
-    //     },
-    //     (error) => {
-    //       console.error("Error fetching permission list", error);
-    //     }
-    //   );
-
-
   }
 
-  // checkInitiationDate() {
-  //   this.kpi.getLogData({ param: 'initiationCheck', userIdKPI: this.userId })
-  //     .subscribe(res => {
-  //       this.isInitCrossed = res?.['initiationCheck'][0].deadline_crossed;
-  //       if(this.isInitCrossed){
-  //         this.showEvaluation = true;
-  //       }
-  //     });
-  // }
 
 
   loadData(obj:any){
@@ -177,6 +157,7 @@ export class ListComponent {
 
     let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
       this.loadData({});
+      this.showToast("KPI submitted successfully.");
       dataLoader.unsubscribe();
     });
 
@@ -188,7 +169,19 @@ export class ListComponent {
      this.loadData({})
   }
 
-  // modalRef: BsModalRef ;
+  showToast(msg: string) {
+    this.toastMessage = msg;
+
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+      el.classList.add('show');
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 5000);
+
+    }, 0);
+  }
+
   fullHierarchy: any;
 
   viewClick(user: any): void {
@@ -239,7 +232,6 @@ export class ListComponent {
 
         let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
           this.loadData({});
-
           dataLoader.unsubscribe();
         });
       }
