@@ -149,9 +149,10 @@
 
     <div class="col-lg-9 col-md-9">
       <fieldset *ngIf="currentTable=='objective'">
-        <app-objective-set [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+        <app-objective-set [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack1"
+                           [oldObjective]="objectiveSet"
                            (dataSubmitted)="onChildDataSubmitted($event,'objective')"
-                           (rateSubmit)="onClickRate($event)"
+                           (rateSubmit)="onClickRate($event)" [oldOverallRating]="rateOverall"
         ></app-objective-set>
       </fieldset>
 

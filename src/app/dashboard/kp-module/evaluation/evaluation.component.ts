@@ -33,7 +33,7 @@ export class EvaluationComponent {
   remarkList: any;
   remark: any;
   view:any='';
-
+  isBack1:any=false;
   kpiUserId:any;
   status: any;
   team: any;
@@ -140,6 +140,7 @@ export class EvaluationComponent {
     let currentStep;
     if (this.currentStep == 2) {
       currentStep = 1;
+      this.isBack1=true;
       this.changeTable('objective',currentStep)
     }else if(this.currentStep == 3) {
       currentStep = 2;
