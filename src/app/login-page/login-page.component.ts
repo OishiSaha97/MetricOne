@@ -26,6 +26,7 @@ export class LoginPageComponent {
   teamKpi: boolean = false;
   @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
   toastMessage: string = '';
+  errorMessage: any;
 
   constructor(private client:HttpClient, private router: Router,
               private kpi: CommonServiceService) {
@@ -44,7 +45,7 @@ export class LoginPageComponent {
       // Auto-hide after 3 seconds
       setTimeout(() => {
         el.classList.remove('show');
-      }, 1000);
+      }, 5000);
 
     }, 0);
   }
@@ -52,6 +53,10 @@ export class LoginPageComponent {
 
 
   signIn() {
+    if (!this.username || !this.password) {
+      this.errorMessage = "Username and password are required";
+      return;
+    }
 
     if(this.username && this.password){
       let formData = new FormData();
@@ -66,8 +71,9 @@ export class LoginPageComponent {
             localStorage.setItem('token', result['token']);
 
             this.router.navigate(['/dashboard/home']);
-          }else{
-            this.showToast(`Invalid user ID or password`);
+          }
+          else{
+            this.errorMessage = "Invalid login credentials";
           }
 
           // this.dialogRef.close(true)
