@@ -133,7 +133,7 @@
 
 
 
-    <div class="kpi-grid">
+    <div class="kpi-grid" *ngIf="role === 'hr'">
       <div class="kpi-card">
         <div class="kpi-title">In Manager's Review</div>
         <div class="kpi-value">
@@ -185,7 +185,7 @@
       </div>
     </div>
 
-    <div class="card card-measure text-center pt-4">
+    <div class="card card-measure text-center pt-4" *ngIf="role === 'hr'">
       <div class="progress-circle">
         <svg>
           <circle class="bg" cx="40" cy="40" r="30"></circle>
