@@ -59,6 +59,8 @@ export class EvaluationComponent {
   userId:any;
   userName:any;
 
+  managerBackData: any = null;
+
 
   @ViewChild(ObjectiveSetComponent) objectiveComp!: ObjectiveSetComponent;
   @ViewChild(SelfAssessmentComponent) selfComp!: SelfAssessmentComponent;
@@ -155,6 +157,9 @@ export class EvaluationComponent {
     }else if(this.currentStep == 4){
       currentStep = 3;
       this.isBack3 =true;
+      this.managerComp.onNext();
+      console.log("this.managerData ", this.managerData)
+      this.managerBackData = this.managerData;
       this.changeTable('values',currentStep)
     }else if(this.currentStep == 5){
       currentStep = 4;
