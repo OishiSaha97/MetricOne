@@ -434,7 +434,7 @@ export class KpiFormComponent implements OnInit {
   }
 
   openObjectiveHistory(obj: any,i:any) {
-    this.showObjectiveHistoryIndex = null;
+    //this.showObjectiveHistoryIndex = null;
     this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedObjHistory = Array.isArray(res?.['changed-objective-history']) ? res?.['changed-objective-history'] : res?.['changed-objective-history']
