@@ -96,8 +96,6 @@ export class ObjectiveSetComponent {
 
 
   ngOnInit(): void {
-
-    console.log(this.view)
     for (let i = 1; i <= 3; i++) {
       this.addObjective();
     }

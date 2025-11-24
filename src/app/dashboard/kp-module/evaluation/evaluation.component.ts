@@ -102,7 +102,6 @@ export class EvaluationComponent {
     this.tables[this.currentTable].selected = false;
     this.currentTable = tab;
     this.currentStep = stepNumber;
-    console.log(this.currentStep)
     this.tables[this.currentTable].selected = true;
   }
 
