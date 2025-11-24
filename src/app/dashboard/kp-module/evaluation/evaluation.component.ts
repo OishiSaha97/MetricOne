@@ -33,7 +33,7 @@ export class EvaluationComponent {
   remarkList: any;
   remark: any;
   view:any='';
-
+  isBack1:any=false;
   kpiUserId:any;
   status: any;
   team: any;
@@ -102,7 +102,6 @@ export class EvaluationComponent {
     this.tables[this.currentTable].selected = false;
     this.currentTable = tab;
     this.currentStep = stepNumber;
-    console.log(this.currentStep)
     this.tables[this.currentTable].selected = true;
   }
 
@@ -141,6 +140,7 @@ export class EvaluationComponent {
     let currentStep;
     if (this.currentStep == 2) {
       currentStep = 1;
+      this.isBack1=true;
       this.changeTable('objective',currentStep)
     }else if(this.currentStep == 3) {
       currentStep = 2;
@@ -305,11 +305,6 @@ export class EvaluationComponent {
 
 
   submitHr() {
-    console.log(this.objectiveSet);
-    console.log(this.selfAssessment);
-    console.log(this.valuesData);
-    console.log(this.managerData);
-    console.log(this.hrData);
 
     let objectiveData;
     if(this.objectiveSet?.objectives){
@@ -419,6 +414,7 @@ export class EvaluationComponent {
       this.remarkList = res?.['reverted_remark_list'] || [];
     });
   }
+
   draft() {
     let objectiveData;
     if(this.objectiveSet?.objectives){
@@ -481,4 +477,5 @@ export class EvaluationComponent {
      });
 
   }
+
 }

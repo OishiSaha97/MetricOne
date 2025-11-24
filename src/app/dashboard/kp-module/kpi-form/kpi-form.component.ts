@@ -765,8 +765,9 @@ export class KpiFormComponent implements OnInit {
 
   autoGrow(event: any) {
     const textarea = event.target;
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
+
+    textarea.style.height = '41px';   // reset to minimum height
+    textarea.style.height = textarea.scrollHeight + 'px';  // grow according to content
   }
 
 
