@@ -25,7 +25,7 @@
   </div>
 
   <!-- Table scroll wrapper -->
-  <div class="table-scroll-wrapper">
+  <div class="table-scroll-wrapper" style="min-height: 60vh;">
     <div class="table-x-scroll">
       <table>
         <thead>
@@ -52,7 +52,17 @@
           </td>
           <td >{{ user.team }}</td>
           <td >{{ user.employee_id }}</td>
-          <td  [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
+          <td  [style.color]="
+                user.status === 'Forwarded' ? '#6BCAFA' :
+                user.status === 'In Progress' ? '#FF4FD3' :
+                user.status === 'Reverted' ? '#E5FD51' :
+                user.status === 'Draft' ? '#FFFFFF' :
+                user.status === 'Pending' ? '#FF9945' :
+                user.status === 'Published' ? '#A645FF' :
+                'white'
+              "
+          >
+            {{ user.status }} </td>
 <!--          <td>{{ user.desg }}</td>-->
           <td style="cursor:pointer;position: relative;">
             <span *ngIf="user.hieCount > 0"

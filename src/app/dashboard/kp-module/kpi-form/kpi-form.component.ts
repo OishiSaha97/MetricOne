@@ -237,6 +237,18 @@ export class KpiFormComponent implements OnInit {
       if (!obj.performanceText?.trim()) {
         this.objectiveErrors[i].performanceText = '*Performance Text is required';
       }
+      if (obj.isEditingObjective && !obj.keyObjective?.trim()) {
+        this.objectiveErrors[i].keyObjectiveText = '*Key Update Points required';
+
+      }
+      if (obj.isEditingPerformance && !obj.keyPerformance?.trim()) {
+        this.objectiveErrors[i].keyPerformanceText = '*Key Update Points required';
+
+      }
+      if (obj.isEditingTarget && !obj.keyTarget?.trim()) {
+        this.objectiveErrors[i].keyTargetText = '*Key Update Points required';
+
+      }
 
       const weight = parseFloat((obj.weightage || '0').toString().trim());
 
@@ -277,7 +289,7 @@ export class KpiFormComponent implements OnInit {
     const hasErrors = Object.values(this.objectiveErrors).some(err => Object.keys(err).length > 0);
     if (hasErrors) {
 
-      this.showToast("Please fill all required fields before submitting!");
+      // this.showToast("Please fill all required fields before submitting!");
       return false;
     }
 

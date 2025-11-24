@@ -9,7 +9,7 @@
   border: none;
   border-radius: 10px;
   color: #fff;
-  height: 154px;
+  height: 172px;
   margin: 6px 11px 51px;
 }
 
@@ -123,7 +123,7 @@ circle {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.4rem;
+  font-size: 15px;
   font-weight: 600;
   color: #ffffff;
 }
