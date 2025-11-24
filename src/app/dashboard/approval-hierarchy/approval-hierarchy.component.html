@@ -62,7 +62,22 @@
               {{pagination.paramOffset+i+1}}
             </label>
           </td>
-          <td title="{{ user.team }}">{{ user.team_name }}</td>
+          <td title="{{ user.team }}">
+            <div
+              *ngIf="user.team_name?.length > 30; else noTooltip"
+              tooltip="{{ user.team_name }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.team_name | slice:0:30) + '...' }}
+            </div>
+            <ng-template #noTooltip>
+              <div class="text-truncate">{{ user.team_name }}</div>
+            </ng-template>
+
+<!--            {{ user.team_name }}-->
+          </td>
           <td title="{{ user.hierarchy_with_final }}">{{ user.hierarchy_with_final }}</td>
           <td class="text-center">
             <button

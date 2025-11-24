@@ -75,13 +75,7 @@
         <tbody>
         <tr *ngFor="let data of userList; let i = index">
           <td>
-
-<!--              <label class="custom-checkbox">-->
-<!--                <input type="checkbox"/>-->
-<!--                <span></span>-->
-<!--              </label>-->
               {{ i + 1 }}
-
           </td>
           <td>{{ data?.year }}</td>
           <td [title]="data.employee_name">

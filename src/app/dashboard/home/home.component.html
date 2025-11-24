@@ -101,8 +101,8 @@
       <div class="row align-items-center mb-1" style="margin-top: 18%;">
 
         <div class="col-md-6 col-sm-6">
-          <div class="countdown-card tier-block" style="margin-left: 16px;">
-            <h6 class=" mb-2" style="color: #83F7F6;font-size: 12px;">Closes In:</h6>
+          <div class="countdown-card tier-block" style="margin-left: 6%;">
+            <h6 class=" mb-2" style="color: #83F7F6;font-size: 12px;margin-left: 3%;">Closes In:</h6>
             <div>
               <app-flip-clock
                 [date]=initialtionDate
@@ -141,7 +141,7 @@
             <span class="divider">|</span>
           </div>
           <div>
-            <!--              <span class="number">32</span>-->
+            <span class="number">{{ managerReview }}</span>
           </div>
 
 
@@ -161,13 +161,13 @@
       </div>
 
       <div class="kpi-card">
-        <div class="kpi-title">KPI In Progress</div>
+        <div class="kpi-title">KPI Not Submiteed</div>
         <div class="kpi-value">
           <div>
             <span class="divider">|</span>
           </div>
           <div>
-            <!--              <span class="number">32</span>-->
+             <span class="number">{{kpiNotSubmitted}}</span>
           </div>
         </div>
       </div>
@@ -179,7 +179,7 @@
             <span class="divider">|</span>
           </div>
           <div>
-            <!--              <span class="number">32</span>-->
+            <span class="number">{{ hrReviewCount }}</span>
           </div>
         </div>
       </div>

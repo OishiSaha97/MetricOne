@@ -62,7 +62,8 @@
                 <ul style="color:#fff;">{{ user.hieCount }}</ul>
               </span>
 
-              <div #dropdownMenu class="dropdown-menu hierarchy-dropdown dropdown-options p-4"  [class.show]="openHierarchyIndex === i">
+              <div #dropdownMenu class="dropdown-menu hierarchy-dropdown dropdown-options p-4"
+                   [class.show]="openHierarchyIndex === i">
                 <div style="font-size:16px; color:white; font-weight:bold;">Hierarchy</div>
                 <div class="w-100">
                   <div *ngFor="let u of fullHierarchy" >
