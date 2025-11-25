@@ -25,10 +25,12 @@ export class ManagerInsightComponent {
   ];
 
   @Output() dataSubmitted = new EventEmitter<any>();
+  @Output() backdataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
   @Input() currentStatus: any;
   @Input() view: any;
   @Input() isBack:any=false;
+  @Input() onNexts:any=false;
   @Input() oldObjective:any=[];
   @Input() savedManagerData:any=[];
   data: any =[];
@@ -63,12 +65,15 @@ export class ManagerInsightComponent {
     //   );
 
     console.log("this.savedManagerData : ", this.savedManagerData);
-    if(this.savedManagerData && this.savedManagerData.length>0){
-      this.objectives = this.objectives.map((obj, index) => ({
-        ...obj,
-        objectiveText: this.savedManagerData[index]?.objectiveText || ''
-      }));
 
+    if (this.onNexts == true){
+      if(this.savedManagerData && this.savedManagerData.length>0){
+        this.objectives = this.objectives.map((obj, index) => ({
+          ...obj,
+          objectiveText: this.savedManagerData[index]?.objectiveText || ''
+        }));
+
+      }
     }
   }
 
@@ -131,7 +136,7 @@ export class ManagerInsightComponent {
     console.log(this.objectives);
   }
   onNext(){
-    this.dataSubmitted.emit(this.objectives);
+    this.backdataSubmitted.emit(this.objectives);
 
   }
 

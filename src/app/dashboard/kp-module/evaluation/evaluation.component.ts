@@ -38,7 +38,8 @@ export class EvaluationComponent {
   isBack3:any=false;
   isBack4:any=false;
   isBack5:any=false;
-  isNext1:any=false;
+  onNext1:any=false;
+  onNext3:any=false;
   kpiUserId:any;
   status: any;
   team: any;
@@ -148,6 +149,7 @@ export class EvaluationComponent {
     let currentStep;
     if (this.currentStep == 2) {
       currentStep = 1;
+      this.selfComp.onNext();
       this.isBack1=true;
       this.changeTable('objective',currentStep)
     }else if(this.currentStep == 3) {
@@ -166,6 +168,34 @@ export class EvaluationComponent {
       this.isBack4 =true;
       this.changeTable('manager',currentStep)
     }
+  }
+
+  onChildBackDataSubmitted(data: any,item:any) {
+    let currentStep;
+    if(item == 'objective'){
+      this.objectiveSet = data;
+      if(this.objectiveSet?.objectives?.length > 0 || this.objectiveSet?.length > 0){
+        currentStep = 2;
+        this.changeTable('self',currentStep)
+      }
+    }else if(item == 'self'){
+      this.onNext1 = true;
+      this.selfAssessment = data;
+
+    }else if(item == 'values'){
+      this.valuesData = data;
+      console.log("Received data from values:", this.valuesData);
+      currentStep = 4;
+      this.changeTable('manager',currentStep);
+    }else if(item == 'manager'){
+      this.onNext3 = true;
+      this.managerData = data;
+    }else if(item == 'hr'){
+      this.hrData = data;
+      console.log('Received data from hr:', data);
+      this.submitHr();
+    }
+
   }
 
   cancel(){

@@ -157,8 +157,8 @@
       </fieldset>
 
       <fieldset *ngIf="currentTable=='self'">
-        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack2"
-                             [oldObjective]="selfAssessment"
+        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack2" [onNexts] ="onNext1"
+                             [oldObjective]="selfAssessment" [savedselfData]="selfAssessment"  (backdataSubmitted)="onChildBackDataSubmitted($event,'self')"
                              (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
       </fieldset>
 
@@ -169,8 +169,8 @@
       </fieldset>
 
       <fieldset *ngIf="currentTable=='manager'">
-        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack4"
-                             [oldObjective]="managerData"
+        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack4" [onNexts] ="onNext3"
+                             [oldObjective]="managerData" [savedManagerData]="managerData" (backdataSubmitted)="onChildBackDataSubmitted($event,'manager')"
                              (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
       </fieldset>
 
