@@ -237,7 +237,7 @@
         <div class=" common-purple" style="padding-top: 20px;padding-left: 20px;">
           <button aria-hidden="true" data-toggle="tooltip" data-title="Cancel"
                               style="margin-top: 23%;margin-right: 20%"
-                              (click)="cancel()" class="cross-icon ">
+                              (click)="closeModal()" class="cross-icon ">
         </button></div>
       </div>
       <div class="modal-body modal-message-body text-break" >
@@ -254,7 +254,7 @@
       </div>
       <div class="modal-footer d-flex justify-content-end" style="border:none; margin-top:-20px">
         <div >
-          <button type="button" class="btn cancel-btn" style="margin-right: 10px;" data-dismiss="modal" (click)="cancel()">
+          <button type="button" class="btn cancel-btn" style="margin-right: 10px;" data-dismiss="modal" (click)="closeModal()">
             Cancel
           </button>
           <button
