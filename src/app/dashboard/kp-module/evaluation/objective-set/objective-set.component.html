@@ -296,13 +296,13 @@
               <div  class="mb-3">
                 <img src="../../../assets/bx_chat.svg"
                       style="scale:0.877"
-                     (click)="openPerformanceHistory(obj)" />
-                <span class="ml-2 common-purple" style="font-size:12px" (click)="openPerformanceHistory(obj)">Changed History</span>
+                     (click)="openPerformanceHistory(obj,i)" />
+                <span class="ml-2 common-purple" style="font-size:12px" (click)="openPerformanceHistory(obj,i)">Changed History</span>
 
-                <div class="history-popup" *ngIf="showHistory">
+                <div class="history-popup" *ngIf="showPerformanceHistoryIndex === i">
                   <div class="popup-header">
                     <h5>History</h5>
-                    <button class="close-btn" (click)="openChangedHistory()">×</button>
+                    <button class="close-btn" (click)="openChangedHistory(i)">×</button>
                   </div>
                   <div *ngFor="let note of changedPerformanceHistory">
                     <div class="popup-meta">
@@ -364,12 +364,12 @@
                 <div  class=" mb-3">
                   <img src="../../../assets/bx_chat.svg"
                        style="scale:0.877"
-                       (click)="openTargetHistory(obj)" />
-                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openTargetHistory(obj)">Changed History</span>
-                  <div class="history-popup" *ngIf="showTargetHistory">
+                       (click)="openTargetHistory(obj,i)" />
+                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openTargetHistory(obj,i)">Changed History</span>
+                  <div class="history-popup" *ngIf="showTargetHistoryIndex === i">
                     <div class="popup-header">
                       <h5>History</h5>
-                      <button class="close-btn" (click)="openChangedTargetHistory()">×</button>
+                      <button class="close-btn" (click)="openChangedTargetHistory(i)">×</button>
                     </div>
                     <div *ngFor="let note of changedTargetHistory">
                       <div class="popup-meta">
@@ -430,15 +430,15 @@
                   </small>
                 </div>
 
-                <div  class="mb-3" *ngIf="currentStatus != 'employee'">
+                <div  class="mb-3" >
                   <img src="../../../assets/bx_chat.svg"
                        class="mb-1" style="scale:0.877"
-                       (click)="openAchievedHistory(obj)" />
-                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openAchievedHistory(obj)">Changed History</span>
-                  <div class="history-popup" *ngIf="showAchievedHistory">
+                       (click)="openAchievedHistory(obj,i)" />
+                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openAchievedHistory(obj,i)">Changed History</span>
+                  <div class="history-popup" *ngIf="showAchievedHistoryIndex === i">
                     <div class="popup-header">
                       <h5>History</h5>
-                      <button class="close-btn" (click)="openChangedAchievedHistory()">×</button>
+                      <button class="close-btn" (click)="openChangedAchievedHistory(i)">×</button>
                     </div>
                     <div *ngFor="let note of changedAchievedHistory">
                       <div class="popup-meta">

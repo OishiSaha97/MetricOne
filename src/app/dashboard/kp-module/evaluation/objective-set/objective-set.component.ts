@@ -116,7 +116,9 @@ export class ObjectiveSetComponent {
   showHistory = false;
   changedPerformanceHistory: any = [];
   showObjectiveHistoryIndex: number | null = null;
-  showTargetHistory = false;
+  showTargetHistoryIndex: number | null = null;
+  showPerformanceHistoryIndex: number | null = null;
+  showAchievedHistoryIndex: number | null = null;
   changedAchievedHistory: any =[];
   showAchievedHistory:boolean =  false;
   @Input() oldObjective:any=[];
@@ -579,13 +581,13 @@ export class ObjectiveSetComponent {
   }
 
 
-  openTargetHistory(obj: any) {
+  openTargetHistory(obj: any,i:any) {
     console.log(obj)
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedTargetHistory = Array.isArray(res?.['changed-target-history']) ? res?.['changed-target-history'] : res?.['changed-target-history']
           console.log(this.changedTargetHistory);
-          this.openChangedTargetHistory();
+          this.openChangedTargetHistory(i);
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -606,10 +608,6 @@ export class ObjectiveSetComponent {
       );
   }
 
-  openChangedTargetHistory() {
-    this.showTargetHistory = !this.showTargetHistory;
-  }
-
   // getAttribute() {
   //   this.kpi.getLogData({param: 'attributeType'})
   //     .subscribe(res => {
@@ -628,12 +626,12 @@ export class ObjectiveSetComponent {
 
 
 
-  openPerformanceHistory(obj: any) {
+  openPerformanceHistory(obj: any,i:any) {
     console.log(obj)
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedPerformanceHistory = Array.isArray(res?.['changed-performance-history']) ? res?.['changed-performance-history'] : res?.['changed-performance-history']
-          this.openChangedHistory();
+          this.openChangedHistory(i);
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -641,22 +639,17 @@ export class ObjectiveSetComponent {
       );
   }
 
-  openAchievedHistory(obj: any) {
+  openAchievedHistory(obj: any,i:any) {
     console.log(obj)
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-achieved-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedAchievedHistory = Array.isArray(res?.['changed-achieved-history']) ? res?.['changed-achieved-history'] : res?.['changed-achieved-history']
-          this.openChangedAchievedHistory();
+          this.openChangedAchievedHistory(i);
         },
         (error) => {
           console.error("Error fetching permission list", error);
         }
       );
-  }
-
-
-  openChangedHistory() {
-    this.showHistory = !this.showHistory;
   }
 
   openChangedObjectiveHistory(i: number) {
@@ -669,8 +662,21 @@ export class ObjectiveSetComponent {
 
   }
 
-  openChangedAchievedHistory() {
-    this.showAchievedHistory = !this.showAchievedHistory;
+  openChangedAchievedHistory(i: number) {
+      this.showAchievedHistoryIndex =
+        this.showAchievedHistoryIndex === i ? null : i;
+
+  }
+
+
+  openChangedHistory(i: number) {
+      this.showPerformanceHistoryIndex =
+        this.showPerformanceHistoryIndex === i ? null : i;
+  }
+
+  openChangedTargetHistory(i: number) {
+    this.showTargetHistoryIndex =
+      this.showTargetHistoryIndex === i ? null : i;
   }
 
   toggleAchievedEdit(obj: any) {
