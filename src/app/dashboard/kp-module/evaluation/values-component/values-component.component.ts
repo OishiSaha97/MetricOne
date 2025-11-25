@@ -31,6 +31,9 @@ export class ValuesComponentComponent {
   @Input() userData: any;
   @Input() currentStatus: any;
   @Input() view: any;
+  @Input() isBack:any=false;
+  @Input() oldObjective:any=[];
+  @Input() oldOverallRating:any=[];
   isOpen: boolean[] = [];
   mode:any;
   userId:any;
@@ -46,41 +49,92 @@ export class ValuesComponentComponent {
   ngOnInit(): void {
     this.userId = localStorage.getItem('username');
     this.getRating();
-    this.kpi.getLogData({param: 'evalution-values-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
-      .subscribe(res => {
-          const data = res?.['evalution-values-kpi-list']?.[0];
-          if (!data) return;
-          let ratingArray: string[] = [];
-          try {
-            ratingArray = data.rating ? JSON.parse(data.rating) : [];
-          } catch (e) {
-            console.warn("Rating parse failed, using empty array");
-          }
-          this.objectives = this.objectives.map((obj, index) => {
-            let rating = '';
-
-            switch (obj.name.toUpperCase()) {
-              case 'DEPENDABILITY': rating = data.dependability; break;
-              case 'JOB KNOWLEDGE AND SKILLS': rating = data.job_knowledge; break;
-              case 'INITIATIVE AND RESOURCEFULNESS': rating = data.initiative; break;
-              case 'JUDGEMENT': rating = data.judgement; break;
-              case 'ADAPTABILITY': rating = data.adaptability; break;
-              case 'DECISIVENESS': rating = data.decidiveness; break;
-              case 'INTERPERSONAL RELATIONSHIPS': rating = data.interpersonal_relation; break;
-              case 'OVERALL RATING': rating = data.overall_rating; break;
-              default: rating = ratingArray[index] || '';
+    if(!this.isBack) {
+      this.kpi.getLogData({
+        param: 'evalution-values-kpi-list',
+        objectId: this.userData.user_id,
+        parameter: this.userData.team,
+        pid: this.userData.year,
+        extraParam: this.userData.id
+      })
+        .subscribe(res => {
+            const data = res?.['evalution-values-kpi-list']?.[0];
+            if (!data) return;
+            let ratingArray: string[] = [];
+            try {
+              ratingArray = data.rating ? JSON.parse(data.rating) : [];
+            } catch (e) {
+              console.warn("Rating parse failed, using empty array");
             }
+            this.objectives = this.objectives.map((obj, index) => {
+              let rating = '';
 
-            return { ...obj, selectedRating: rating };
-          });
+              switch (obj.name.toUpperCase()) {
+                case 'DEPENDABILITY':
+                  rating = data.dependability;
+                  break;
+                case 'JOB KNOWLEDGE AND SKILLS':
+                  rating = data.job_knowledge;
+                  break;
+                case 'INITIATIVE AND RESOURCEFULNESS':
+                  rating = data.initiative;
+                  break;
+                case 'JUDGEMENT':
+                  rating = data.judgement;
+                  break;
+                case 'ADAPTABILITY':
+                  rating = data.adaptability;
+                  break;
+                case 'DECISIVENESS':
+                  rating = data.decidiveness;
+                  break;
+                case 'INTERPERSONAL RELATIONSHIPS':
+                  rating = data.interpersonal_relation;
+                  break;
+                case 'OVERALL RATING':
+                  rating = data.overall_rating;
+                  break;
+                default:
+                  rating = ratingArray[index] || '';
+              }
 
-          console.log("this.objectives : ", this.objectives);
-        },
-        (error) => {
-          console.error("Error fetching permission list", error);
+              if (index === 7) {
+                return {...obj, overAllRating: rating};
+              } else {
+                return {...obj, selectedRating: rating};
+              }
+            });
+
+            console.log("this.objectives : ", this.objectives);
+          },
+          (error) => {
+            console.error("Error fetching permission list", error);
+          }
+        );
+    }
+    else {
+      console.log("this.oldObjective : ", this.oldObjective);
+
+      this.objectives = this.oldObjective.map((obj: any, index: number) => {
+
+        const savedRating = obj.selectedRating || '';
+
+        if (index === 7) {
+          return {
+            ...obj,
+            selectedRating: undefined,
+            overAllRating: savedRating
+          };
+        } else {
+          return {
+            ...obj,
+            selectedRating: savedRating,
+            overAllRating: undefined
+          };
         }
+      });
+    }
 
-      );
   }
   // onObjectiveChange(type: any, obj: Objective,i:number): void {
   //   obj.selectedRating = type;
@@ -89,26 +143,15 @@ export class ValuesComponentComponent {
   // }
 
 
-  onBack() {
-
-  }
-
-  // onOverallRating(type: any,) {
-  //   obj.selectedRating = type;
-  // }
-
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
   }
-
-  // toggleObjectiveEdit(obj: Objective): void {
-  //   obj.isEditingObjective = !obj.isEditingObjective;
-  // }
 
   onObjectiveChange(type: any, obj: Objective): void {
     obj.selectedRating = type.kpi_category_name;
   }
   onOverAllRating(type: any, obj: Objective): void {
+    obj.selectedRating = type.kpi_category_name;
     obj.overAllRating = type.kpi_category_name;
   }
 
@@ -126,12 +169,15 @@ export class ValuesComponentComponent {
   objectiveErrors: { [key: number]:
       {
         selectedRating?: string;
-        overallrating?: string;
+        overAllRating?: string;
       } } = {};
 
   validateObjectives(): boolean {
     let hasError = false;
     for (let i = 0; i < this.objectives.length; i++) {
+      if (i === 7) {
+        continue;
+      }
       const obj = this.objectives[i];
       this.objectiveErrors[i] = {};
       if (!obj.selectedRating?.trim()) {
@@ -141,17 +187,28 @@ export class ValuesComponentComponent {
 
     }
     if(!this.objectives[7].overAllRating?.trim() && (this.currentStatus === 'manager' || this.currentStatus === 'approver' || this.currentStatus === 'hr')){
-      this.objectiveErrors[7].overallrating = '*Overall Rating is required';
-
+      this.objectiveErrors[7].overAllRating = '*Overall Rating is required';
+      hasError = true;
     }
     return !hasError;
   }
+
+
   submitData() {
 
     if (!this.validateObjectives()) {
       return;
     }
-    this.dataSubmitted.emit(this.objectives);
+    const finalData = this.objectives.map((obj, index) => {
+      if (index === 7) {
+        return {
+          ...obj,
+          overall_rating: obj.overAllRating   // API needs this
+        };
+      }
+      return obj;
+    });
+    this.dataSubmitted.emit(finalData);
     console.log(this.objectives)
   }
 

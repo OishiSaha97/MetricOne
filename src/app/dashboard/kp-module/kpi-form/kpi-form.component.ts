@@ -282,15 +282,13 @@ export class KpiFormComponent implements OnInit {
     });
 
     if (Math.round(totalWeightage) !== 100) {
-
       this.showToast(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
       return false;
     }
 
     const hasErrors = Object.values(this.objectiveErrors).some(err => Object.keys(err).length > 0);
     if (hasErrors) {
-
-      // this.showToast("Please fill all required fields before submitting!");
+      this.showToast("Please fill all required fields before submitting!");
       return false;
     }
 

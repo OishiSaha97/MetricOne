@@ -157,22 +157,26 @@
       </fieldset>
 
       <fieldset *ngIf="currentTable=='self'">
-        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack2" [onNexts] ="onNext1"
+                             [oldObjective]="selfAssessment" [savedselfData]="selfAssessment"  (backdataSubmitted)="onChildBackDataSubmitted($event,'self')"
                              (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='values'">
-        <app-values-component [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+        <app-values-component [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack3"
+                              [oldObjective]="valuesData"
                               (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='manager'">
-        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack4" [onNexts] ="onNext3"
+                             [oldObjective]="managerData" [savedManagerData]="managerData" (backdataSubmitted)="onChildBackDataSubmitted($event,'manager')"
                              (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='hr'">
-        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" [view]="view"
+        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack5"
+                      [oldObjective]="hrData"
                       (dataSubmitted)="onChildDataSubmitted($event,'hr')"></app-hr-modal>
       </fieldset>
 
@@ -194,7 +198,7 @@
               <button class="revert-btn" (click)="draft()"
                       *ngIf=" currentStatus == 'employee' && userData.status != 'Closed' &&userData.status !== 'Submitted'">Draft</button>
               <button class="revert-btn" (click)="openModal(actionModal)"
-                      *ngIf="view == true && currentStatus != 'employee' ">Revert</button>
+                      *ngIf="view == true || currentStatus != 'employee' ">Revert</button>
 
               <button *ngIf="currentStep != maxStep" class="submit-btn" (click)="onNext()">
                 {{ 'Next' }}

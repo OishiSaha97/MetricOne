@@ -34,6 +34,12 @@ export class EvaluationComponent {
   remark: any;
   view:any='';
   isBack1:any=false;
+  isBack2:any=false;
+  isBack3:any=false;
+  isBack4:any=false;
+  isBack5:any=false;
+  onNext1:any=false;
+  onNext3:any=false;
   kpiUserId:any;
   status: any;
   team: any;
@@ -54,6 +60,8 @@ export class EvaluationComponent {
   userId:any;
   userName:any;
 
+  managerBackData: any = null;
+
 
   @ViewChild(ObjectiveSetComponent) objectiveComp!: ObjectiveSetComponent;
   @ViewChild(SelfAssessmentComponent) selfComp!: SelfAssessmentComponent;
@@ -70,6 +78,7 @@ export class EvaluationComponent {
   }
   maxStep:any=3;
   managerName: any;
+
 
 
   ngOnInit(){
@@ -116,8 +125,8 @@ export class EvaluationComponent {
 
     }else if(this.currentStep == 3){
       this.valuesComp.submitData();
-      currentStep = 4;
-      this.changeTable('manager',currentStep)
+      // currentStep = 4;
+      // this.changeTable('manager',currentStep)
     }else if(this.currentStep == 4){
      this.managerComp.submitData();
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
@@ -140,18 +149,53 @@ export class EvaluationComponent {
     let currentStep;
     if (this.currentStep == 2) {
       currentStep = 1;
+      this.selfComp.onNext();
       this.isBack1=true;
       this.changeTable('objective',currentStep)
     }else if(this.currentStep == 3) {
       currentStep = 2;
+      this.isBack2 =true;
       this.changeTable('self',currentStep)
     }else if(this.currentStep == 4){
       currentStep = 3;
+      this.isBack3 =true;
+      this.managerComp.onNext();
+      console.log("this.managerData ", this.managerData)
+      this.managerBackData = this.managerData;
       this.changeTable('values',currentStep)
     }else if(this.currentStep == 5){
       currentStep = 4;
+      this.isBack4 =true;
       this.changeTable('manager',currentStep)
     }
+  }
+
+  onChildBackDataSubmitted(data: any,item:any) {
+    let currentStep;
+    if(item == 'objective'){
+      this.objectiveSet = data;
+      if(this.objectiveSet?.objectives?.length > 0 || this.objectiveSet?.length > 0){
+        currentStep = 2;
+        this.changeTable('self',currentStep)
+      }
+    }else if(item == 'self'){
+      this.onNext1 = true;
+      this.selfAssessment = data;
+
+    }else if(item == 'values'){
+      this.valuesData = data;
+      console.log("Received data from values:", this.valuesData);
+      currentStep = 4;
+      this.changeTable('manager',currentStep);
+    }else if(item == 'manager'){
+      this.onNext3 = true;
+      this.managerData = data;
+    }else if(item == 'hr'){
+      this.hrData = data;
+      console.log('Received data from hr:', data);
+      this.submitHr();
+    }
+
   }
 
   cancel(){
@@ -182,6 +226,9 @@ export class EvaluationComponent {
       }
     }else if(item == 'values'){
       this.valuesData = data;
+      console.log("Received data from values:", this.valuesData);
+        currentStep = 4;
+        this.changeTable('manager',currentStep);
     }else if(item == 'manager'){
       this.managerData = data;
     }else if(item == 'hr'){
@@ -195,8 +242,6 @@ export class EvaluationComponent {
 
 
   submitEmployee() {
-    console.log(this.objectiveSet);
-    console.log(this.selfAssessment);
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;

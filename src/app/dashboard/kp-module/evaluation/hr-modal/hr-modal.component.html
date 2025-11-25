@@ -34,10 +34,42 @@
           </small>
         </div>
 
+
         </div>
       </div>
 
     </ul>
+  </div>
+  <div class=" mt-3" *ngFor="let obj of objectives; let i = index;"class="objective-box p-3 text-light"
+       [ngClass]="{ 'bg-open': obj.isOpenIncrement }">
+<!--    <ul  class="list-group">-->
+      <div class="d-flex justify-content-between align-items-center"
+
+           style="cursor:pointer;">
+        <div class="d-flex justify-content-between"  (click)="toggleObjectiveIncrement(obj)">
+          <div>
+            <img src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7"  />
+          </div>
+          <span class="fw-semibold">FINAL INCREMENT</span>
+        </div>
+
+      </div>
+      <div *ngIf="obj.isOpenIncrement" class="collapse-content">
+        <hr style="width: 104%;margin-left: -18px;">
+        <textarea
+          type="text"
+          class="obj-input mb-2"
+          [(ngModel)]="obj.increment"
+          placeholder="Type Here">
+          </textarea>
+        <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.incrementText">
+          {{ objectiveErrors[i].incrementText }}
+        </small>
+      </div>
+<!--    </ul>-->
+
+
+
   </div>
   <div class=" mt-3" *ngFor="let obj of objectives; let i = index;">
     <ul class="list-group">
@@ -70,6 +102,9 @@
               </li>
             </ul>
           </div>
+            <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.attendanceRating">
+              {{ objectiveErrors[i].attendanceRating }}
+            </small>
           </div>
         </div>
 
@@ -106,6 +141,9 @@
               </li>
             </ul>
           </div>
+            <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.leaveRating">
+              {{ objectiveErrors[i].leaveRating }}
+            </small>
           </div>
         </div>
 
@@ -142,8 +180,8 @@
               </li>
             </ul>
           </div>
-            <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.awardRating">
-              {{ objectiveErrors[i].awardRating }}
+            <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.issueRating">
+              {{ objectiveErrors[i].issueRating }}
             </small>
           </div>
         </div>

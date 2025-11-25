@@ -429,8 +429,8 @@
                 <div  class="mb-3" *ngIf="currentStatus != 'employee'">
                   <img src="../../../assets/bx_chat.svg"
                        class="mb-1" style="scale:0.877"
-                       (click)="openAchievedHistory(obj)" />
-                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openAchievedHistory(obj)">Changed History</span>
+                       (click)="openAchievedHistory()" />
+                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openAchievedHistory()">Changed History</span>
                   <div class="history-popup" *ngIf="showAchievedHistory">
                     <div class="popup-header">
                       <h5>History</h5>
@@ -485,7 +485,7 @@
             <div>
               <span class="fw-semibold">{{ 'OVERALL RATING' }}</span>
             </div>
-            <div>
+            <div style="position: relative;">
               <div class="dropdown"
                    [class.disabled-dropdown]=" userData.status === 'Closed'"
                    *ngIf="['manager','hr','approver'].includes(currentStatus)">
@@ -497,9 +497,6 @@
                         style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
                   {{ objOverallRating ? (objOverallRating.length > 12 ? (objOverallRating | slice:0:12) + '...' : objOverallRating) : 'Select' }}
                 </button>
-<!--                <small class="text-danger" style="font-size: 11px;" *ngIf="objOverallRatingError">-->
-<!--                  {{ objOverallRatingError }}-->
-<!--                </small>-->
 
                 <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
                     style="background-color: #33343C;">
@@ -513,6 +510,9 @@
                   </li>
                 </ul>
               </div>
+              <small class="objective-error" style="left: -14px;" *ngIf="objOverallRatingError">
+                {{ objOverallRatingError }}
+              </small>
 
             </div>
 

@@ -25,9 +25,14 @@ export class ManagerInsightComponent {
   ];
 
   @Output() dataSubmitted = new EventEmitter<any>();
+  @Output() backdataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
   @Input() currentStatus: any;
   @Input() view: any;
+  @Input() isBack:any=false;
+  @Input() onNexts:any=false;
+  @Input() oldObjective:any=[];
+  @Input() savedManagerData:any=[];
   data: any =[];
 
   constructor(public modalRef: BsModalRef,
@@ -37,6 +42,7 @@ export class ManagerInsightComponent {
 
   ngOnInit(): void {
     this.loadManagerInsight();
+    console.log(this.currentStatus)
     // this.kpi.getLogData({param: 'evalution-manager-insight-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
     //   .subscribe(res => {
     //       this.data = Array.isArray(res?.['evalution-manager-insight-kpi-list']) ? res?.['evalution-manager-insight-kpi-list'] : res?.['evalution-manager-insight-kpi-list']
@@ -57,6 +63,18 @@ export class ManagerInsightComponent {
     //     }
     //
     //   );
+
+    console.log("this.savedManagerData : ", this.savedManagerData);
+
+    if (this.onNexts == true){
+      if(this.savedManagerData && this.savedManagerData.length>0){
+        this.objectives = this.objectives.map((obj, index) => ({
+          ...obj,
+          objectiveText: this.savedManagerData[index]?.objectiveText || ''
+        }));
+
+      }
+    }
   }
 
 
@@ -109,10 +127,6 @@ export class ManagerInsightComponent {
     // handle previous step
   }
 
-  onNext() {
-    // Example: log full data to see stored input
-    console.log('Saved objectives:', this.objectives);
-  }
 
   submitData() {
     if (!this.validateObjectives()) {
@@ -120,6 +134,10 @@ export class ManagerInsightComponent {
     }
     this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives);
+  }
+  onNext(){
+    this.backdataSubmitted.emit(this.objectives);
+
   }
 
   objectiveErrors: { [key: number]:
