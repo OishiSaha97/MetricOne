@@ -41,10 +41,11 @@
 
 
         <div class="announcement-list mt-3" style="margin-top: 7px !important;">
-          <div *ngFor="let a of announcements"
+          <div *ngFor="let a of announcements;let i = index;"
           >
 
-            <p class="announcement-text" >
+            <p class="announcement-text"
+               [ngStyle]="{ color: i === 0 ? '#FFFFFFCC' : '#FFFFFF80' }">
               {{ a.announcement2 }}
             </p>
             <p class="announcement-date">

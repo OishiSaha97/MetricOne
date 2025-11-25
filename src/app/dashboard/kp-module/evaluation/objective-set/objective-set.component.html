@@ -221,7 +221,7 @@
                 </small>
               </div>
 
-              <div  class=" mb-3">
+              <div  class=" mb-3" (clickOutside)="showObjectiveHistoryIndex=null">
                 <img src="../../../assets/bx_chat.svg"
                       style="scale:0.877"
                      (click)="openObjectiveHistory(obj,i);" />
@@ -293,7 +293,7 @@
                 </small>
               </div>
 
-              <div  class="mb-3">
+              <div  class="mb-3" (clickOutside)="showPerformanceHistoryIndex=null">
                 <img src="../../../assets/bx_chat.svg"
                       style="scale:0.877"
                      (click)="openPerformanceHistory(obj,i)" />
@@ -361,7 +361,7 @@
                   </small>
                 </div>
 
-                <div  class=" mb-3">
+                <div  class=" mb-3" (clickOutside)="showTargetHistoryIndex=null">
                   <img src="../../../assets/bx_chat.svg"
                        style="scale:0.877"
                        (click)="openTargetHistory(obj,i)" />
@@ -430,7 +430,7 @@
                   </small>
                 </div>
 
-                <div  class="mb-3" >
+                <div  class="mb-3" (clickOutside)="showAchievedHistoryIndex=null">
                   <img src="../../../assets/bx_chat.svg"
                        class="mb-1" style="scale:0.877"
                        (click)="openAchievedHistory(obj,i)" />

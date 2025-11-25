@@ -385,7 +385,7 @@ circle {
 
 .announcement-text {
   margin: 0 0 6px;
-  color: #FFFFFFCC;
+  /*color: #FFFFFFCC;*/
   font-size: 11px;
   white-space: pre-line;
 }

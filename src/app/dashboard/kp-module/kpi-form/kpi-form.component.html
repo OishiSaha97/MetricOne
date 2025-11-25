@@ -221,7 +221,7 @@
 
                     </div>
 
-                      <div *ngIf="mode === 'approver' && !obj.addedByApprover  && currentIndex !== 1" class="mt-1">
+                      <div *ngIf="mode === 'approver' && !obj.addedByApprover  && currentIndex !== 1" class="mt-1" (clickOutside)="showObjectiveHistoryIndex=null;">
                         <img src="../../../assets/bx_chat.svg"
                              class="mb-1" style="scale:0.877"
                              (click)="openObjectiveHistory(obj,i);" />
@@ -288,7 +288,7 @@
                       </small>
                     </div>
 
-                    <div *ngIf="mode === 'approver' && !obj.addedByApprover && currentIndex !== 1" class="mt-1">
+                    <div *ngIf="mode === 'approver' && !obj.addedByApprover && currentIndex !== 1" class="mt-1" (clickOutside)="showHistory=null">
                       <img src="../../../assets/bx_chat.svg"
                            class="mb-1" style="scale:0.877"
                            (click)="openPerformanceHistory(obj)" />
@@ -356,7 +356,7 @@
                         </small>
                       </div>
 
-                      <div *ngIf="mode === 'approver' && !obj.addedByApprover && currentIndex !== 1" class="mt-1">
+                      <div *ngIf="mode === 'approver' && !obj.addedByApprover && currentIndex !== 1" class="mt-1" (clickOutside)="showTargetHistory=null;">
                         <img src="../../../assets/bx_chat.svg"
                              class="mb-1" style="scale:0.877"
                              (click)="openTargetHistory(obj)" />
