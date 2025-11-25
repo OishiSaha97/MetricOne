@@ -101,7 +101,7 @@
                 <div style="font-size:16px; color:white; font-weight:bold;">Hierarchy</div>
                 <div class="w-100">
                   <div *ngFor="let u of fullHierarchy" >
-                    <div style="font-size:14px; color:white; display:flex; justify-content:space-between; align-items:center; padding:10px;">
+                    <div style="font-size:14px; color:white; display:flex; justify-content:space-between; align-items:center;">
                       <span>{{ u.user_name }}</span>
                       <span
                         [style.color]="u.status === 'Pending' ? 'yellow' : (u.status === 'Approved' ? 'lightgreen' : 'white')"

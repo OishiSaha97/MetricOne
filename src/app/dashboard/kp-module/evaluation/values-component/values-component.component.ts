@@ -148,11 +148,22 @@ export class ValuesComponentComponent {
   }
 
   onObjectiveChange(type: any, obj: Objective): void {
-    obj.selectedRating = type.kpi_category_name;
+
+    if (obj.selectedRating === type.kpi_category_name) {
+      obj.selectedRating = '';
+    } else {
+      obj.selectedRating = type.kpi_category_name;
+    }
+    // obj.selectedRating = type.kpi_category_name;
   }
   onOverAllRating(type: any, obj: Objective): void {
     obj.selectedRating = type.kpi_category_name;
-    obj.overAllRating = type.kpi_category_name;
+
+    if (obj.overAllRating === type.kpi_category_name) {
+      obj.overAllRating = '';
+    } else {
+      obj.overAllRating = type.kpi_category_name;
+    }
   }
 
   onNext(): void {

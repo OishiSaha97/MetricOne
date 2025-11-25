@@ -293,7 +293,8 @@ export class ListComponent {
     this.kpi.getLogData({
       param: 'get_hierarchy',
       userIdKPI: this.userId,
-      extraParam: user.team
+      extraParam: user.team,
+      pid:user.id
     }).subscribe(res => {
       this.fullHierarchy = res?.['get_hierarchy'] || [];
     });

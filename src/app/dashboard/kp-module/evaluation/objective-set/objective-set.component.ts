@@ -232,7 +232,11 @@ export class ObjectiveSetComponent {
 
 
   onRating(type: any, obj: Objective,i:number): void {
-    obj.rating = type.kpi_category_name;
+    if (obj.rating === type.kpi_category_name) {
+      obj.rating = '';
+    } else {
+      obj.rating = type.kpi_category_name;
+    }
     this.isOpen[i] = false;
     console.log(`Objective ${obj.id} selected rating:`, obj.rating);
   }
@@ -661,7 +665,13 @@ export class ObjectiveSetComponent {
 
 
   onOverallRating(type: any) {
-    this.objOverallRating  = type.kpi_category_name;
+
+    if (this.objOverallRating === type.kpi_category_name) {
+      this.objOverallRating = '';
+    } else {
+      this.objOverallRating = type.kpi_category_name;
+    }
+    // this.objOverallRating  = type.kpi_category_name;
   }
 
   getOverallRating(){

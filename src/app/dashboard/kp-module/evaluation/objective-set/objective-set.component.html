@@ -149,7 +149,8 @@
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
                         style="background-color: #33343C;">
                       <li *ngFor="let type of ratings">
-                        <a class="dropdown-item text-light select-item" [class.disabled-item]="userData.status === 'Closed'" (click)="onRating(type, obj, i)">
+                        <a class="dropdown-item text-light select-item" [class.disabled-item]="userData.status === 'Closed'"
+                           (click)="onRating(type, obj, i)">
                           <span class="custom-tooltip"
                                 tooltip="{{ type.kpi_category_name }}">
                                 {{ type.kpi_category_name.length > 11 ? (type.kpi_category_name | slice:0:11) + '...' : type.kpi_category_name }}
