@@ -7,8 +7,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
 import {HrModalComponent} from "./hr-modal/hr-modal.component";
 import {Subject} from "rxjs";
-
-
+declare var $: any;
 
 
 @Component({
@@ -73,6 +72,7 @@ export class EvaluationComponent {
   saveEmitter = new Subject<any>();
 
   constructor(public modalRef: BsModalRef,
+              public revertModalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
@@ -409,7 +409,7 @@ export class EvaluationComponent {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {
+    this.revertModalRef = this.modalService.show(template, {
       backdrop: 'static',
       keyboard: false,
       class: 'modal-md'
@@ -430,7 +430,8 @@ export class EvaluationComponent {
     this.kpi.revertKpi(requestPayload).subscribe({
       next: (response) => {
         console.log('KPI saved successfully:', response);
-        alert('KPI data submitted successfully!');
+        // alert('KPI data submitted successfully!');
+        this.saveEmitter.next(true);
         this.cancel();
       },
       error: (error) => {
@@ -522,4 +523,7 @@ export class EvaluationComponent {
 
   }
 
+  closeModal() {
+    this.revertModalRef.hide();
+  }
 }
