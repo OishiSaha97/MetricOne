@@ -73,10 +73,10 @@ export class SelfAssessmentComponent {
 
     if(this.onNexts == true){
       console.log("savedselfData",this.savedselfData);
-      // this.objectives = this.savedselfData.map((obj:Objective, index:number) => ({
-      //   ...obj,
-      //   selfText: this.data[index]?.remark || ''
-      // }));
+      this.objectives = this.savedselfData.map((obj:Objective, index:number) => ({
+        ...obj,
+        selfText: this.savedselfData[index]?.selfText || ''
+      }));
     }
     else{
       this.kpi.getLogData({param: 'evalution-self-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
