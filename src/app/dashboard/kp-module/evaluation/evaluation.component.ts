@@ -160,8 +160,6 @@ export class EvaluationComponent {
       currentStep = 3;
       this.isBack3 =true;
       this.managerComp.onNext();
-      console.log("this.managerData ", this.managerData)
-      this.managerBackData = this.managerData;
       this.changeTable('values',currentStep)
     }else if(this.currentStep == 5){
       currentStep = 4;
