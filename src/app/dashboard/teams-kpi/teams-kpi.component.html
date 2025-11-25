@@ -156,22 +156,15 @@
               </div>
               <div *ngFor="let note of remarkList">
                 <div class="popup-meta">
-                  <span class="common-purple"
-                        [title]="note.created_by">
-                          {{ note.created_by?.length > 15 ? (note.created_by | slice:0:15) + '...' : note.created_by }}
-                        </span>
+                    <span class="common-purple"
+                          [title]="note.created_by">
+                          {{ note.created_by?.length > 20 ? (note.created_by | slice:0:20) + '...' : note.created_by }}
+                  </span>
+
                   <span class="date" style="margin-left: 34px;">Date:{{note.created_at }}</span>
                 </div>
-                <p>{{note.obj_remark}}</p>
+                <p style=" overflow-wrap: break-word;word-break: break-word;">{{note.obj_remark}}</p>
               </div>
-<!--              <div class="w-100">-->
-<!--                <div *ngFor="let user of remarkList; let i = index;">-->
-<!--                  <div style="font-size:14px; color:white;">-->
-<!--                    {{ user.obj_remark }}-->
-<!--                  </div>-->
-<!--                  <div class="dropdown-divider"></div>-->
-<!--                </div>-->
-<!--              </div>-->
             </div>
 
 

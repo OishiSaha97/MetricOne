@@ -7,11 +7,13 @@
         <div class="card p-3 announcement-panel " style="width: 84%;margin-left: 13px;margin-top: 26%;">
           <h5 class="announcement-title">Notifications</h5>
           <div class=" announcement-list">
-            <div class="user" *ngFor="let note of notifications">
+            <div class="user" *ngFor="let note of notifications;let i = index">
               <div>
-                <strong style="font-size: 14px;">{{ note.created_by }}</strong>
+                <span style="font-size: 14px; font-weight: bold;"
+                        [ngStyle]="{ color: i === 0 ? '#FFFFFF' : '#92959E' }">{{ note.created_by }}</span>
                 <br>
-                <p style="font-size: 11px;line-height: 1.5;margin-top: 5px;">{{ note.notification }}</p>
+                <p style="font-size: 11px;line-height: 1.5;margin-top: 5px;"
+                   [ngStyle]="{ color: i === 0 ? '#FFFFFF' : '#D0D2DA' }">{{ note.notification }}</p>
                 <hr>
               </div>
             </div>
