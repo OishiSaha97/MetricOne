@@ -198,7 +198,7 @@
               <button class="revert-btn" (click)="draft()"
                       *ngIf=" currentStatus == 'employee' && userData.status != 'Closed' &&userData.status !== 'Submitted'">Draft</button>
               <button class="revert-btn" (click)="openModal(actionModal)"
-                      *ngIf="view == true && currentStatus != 'employee' ">Revert</button>
+                      *ngIf="view == true || currentStatus != 'employee' ">Revert</button>
 
               <button *ngIf="currentStep != maxStep" class="submit-btn" (click)="onNext()">
                 {{ 'Next' }}
