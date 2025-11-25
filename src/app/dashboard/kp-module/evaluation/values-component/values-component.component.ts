@@ -118,12 +118,13 @@ export class ValuesComponentComponent {
       this.objectives = this.oldObjective.map((obj: any, index: number) => {
 
         const savedRating = obj.selectedRating || '';
+        const overallRating = obj.overAllRating || '';
 
         if (index === 7) {
           return {
             ...obj,
             selectedRating: undefined,
-            overAllRating: savedRating
+            overAllRating: overallRating
           };
         } else {
           return {
