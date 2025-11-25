@@ -35,8 +35,8 @@
         <div class="col-md-3">
           <span class="font-color-system">View as: </span>
           <span *ngIf="currentStatus === 'employee'">Self</span>
-          <span *ngIf="currentStatus === 'manager'">Manager</span>
-          <span *ngIf="currentStatus === 'approver'">Approver</span>
+          <span *ngIf="currentStatus === 'manager' && userData.current_ind == 1">Manager</span>
+          <span *ngIf="currentStatus === 'manager' && userData.current_ind != 1 ">Approver</span>
           <span *ngIf="currentStatus === 'hr'">HR</span>
         </div>
       </div>
@@ -196,7 +196,7 @@
             <div class="d-flex justify-content-end gap-2 p-3">
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
               <button class="revert-btn" (click)="draft()"
-                      *ngIf=" currentStatus == 'employee' && userData.status != 'Closed' &&userData.status !== 'Submitted'">Draft</button>
+                      *ngIf=" currentStatus == 'employee' && userData.status != 'Closed' &&userData.status !== 'Submitted'">Save</button>
               <button class="revert-btn" (click)="openModal(actionModal)"
                       *ngIf="view == true || currentStatus != 'employee' ">Revert</button>
 
@@ -237,7 +237,7 @@
         <div class=" common-purple" style="padding-top: 20px;padding-left: 20px;">
           <button aria-hidden="true" data-toggle="tooltip" data-title="Cancel"
                               style="margin-top: 23%;margin-right: 20%"
-                              (click)="cancel()" class="cross-icon ">
+                              (click)="closeModal()" class="cross-icon ">
         </button></div>
       </div>
       <div class="modal-body modal-message-body text-break" >
@@ -254,7 +254,7 @@
       </div>
       <div class="modal-footer d-flex justify-content-end" style="border:none; margin-top:-20px">
         <div >
-          <button type="button" class="btn cancel-btn" style="margin-right: 10px;" data-dismiss="modal" (click)="cancel()">
+          <button type="button" class="btn cancel-btn" style="margin-right: 10px;" data-dismiss="modal" (click)="closeModal()">
             Cancel
           </button>
           <button
