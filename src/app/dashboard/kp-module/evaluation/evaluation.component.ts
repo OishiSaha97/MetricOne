@@ -33,7 +33,12 @@ export class EvaluationComponent {
   remarkList: any;
   remark: any;
   view:any='';
-
+  isBack1:any=false;
+  isBack2:any=false;
+  isBack3:any=false;
+  isBack4:any=false;
+  isBack5:any=false;
+  isNext1:any=false;
   kpiUserId:any;
   status: any;
   team: any;
@@ -54,6 +59,8 @@ export class EvaluationComponent {
   userId:any;
   userName:any;
 
+  managerBackData: any = null;
+
 
   @ViewChild(ObjectiveSetComponent) objectiveComp!: ObjectiveSetComponent;
   @ViewChild(SelfAssessmentComponent) selfComp!: SelfAssessmentComponent;
@@ -70,6 +77,7 @@ export class EvaluationComponent {
   }
   maxStep:any=3;
   managerName: any;
+
 
 
   ngOnInit(){
@@ -140,15 +148,22 @@ export class EvaluationComponent {
     let currentStep;
     if (this.currentStep == 2) {
       currentStep = 1;
+      this.isBack1=true;
       this.changeTable('objective',currentStep)
     }else if(this.currentStep == 3) {
       currentStep = 2;
+      this.isBack2 =true;
       this.changeTable('self',currentStep)
     }else if(this.currentStep == 4){
       currentStep = 3;
+      this.isBack3 =true;
+      this.managerComp.onNext();
+      console.log("this.managerData ", this.managerData)
+      this.managerBackData = this.managerData;
       this.changeTable('values',currentStep)
     }else if(this.currentStep == 5){
       currentStep = 4;
+      this.isBack4 =true;
       this.changeTable('manager',currentStep)
     }
   }

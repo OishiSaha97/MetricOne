@@ -27,8 +27,9 @@ interface Objective {
   styleUrls: ['./objective-set.component.css']
 })
 export class ObjectiveSetComponent {
-    objOverallRating: any;
-   role: any;
+  objOverallRating: any;
+  role: any;
+  @Input() isBack:any=false;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -92,7 +93,8 @@ export class ObjectiveSetComponent {
   showTargetHistory = false;
   changedAchievedHistory: any =[];
   showAchievedHistory:boolean =  false;
-
+  @Input() oldObjective:any=[];
+  @Input() oldOverallRating:any=[];
 
 
   ngOnInit(): void {
@@ -105,42 +107,67 @@ export class ObjectiveSetComponent {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
-
-      this.kpi.getLogData({userIdKPI:this.userData.employee_id,param: 'evalution-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
-        .subscribe(res => {
-            // this.data = res?.['kpi-list'];
-            this.data = Array.isArray(res?.['evalution-kpi-list']) ? res?.['evalution-kpi-list'] : res?.['evalution-kpi-list']
-            console.log(this.data);
-            this.objectives = this.data.map((item:any, index:any) => ({
-              id: item.id,
-              workId: item.work_id,
-              title: `Work Objective ${index + 1}`,
-              selectedType: item.category_name,
-              objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
-              targetText: (item.target || '').replace(/\\n/g, '\n'),
-              performanceText: (item.performance || '').replace(/\\n/g, '\n'),
-              weightage: item.weightage,
-              rating:
-                item.overall_rating === null ||
-                item.overall_rating === undefined ||
-                item.overall_rating === '' ||
-                item.overall_rating === 'null'
-                  ? null
-                  : item.overall_rating,
-              achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
-              achievedInt: item.achieved_int,
-              //targetText: item.target,
-              isOpen: false
-            }));
-          },
-          (error) => {
-            console.error("Error fetching permission list", error);
-          }
-
-   );
-      if(['manager','hr','approver'].includes(this.currentStatus)){
-        this.getOverallRating();
+    if(['manager','hr','approver'].includes(this.currentStatus)){
+      this.getOverallRating();
+    }
+  if(!this.isBack){
+   this.kpi.getLogData({userIdKPI:this.userData.employee_id,param: 'evalution-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
+    .subscribe(res => {
+        // this.data = res?.['kpi-list'];
+        this.data = Array.isArray(res?.['evalution-kpi-list']) ? res?.['evalution-kpi-list'] : res?.['evalution-kpi-list']
+        console.log(this.data);
+        this.objectives = this.data.map((item:any, index:any) => ({
+          id: item.id,
+          workId: item.work_id,
+          title: `Work Objective ${index + 1}`,
+          selectedType: item.category_name,
+          objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
+          targetText: (item.target || '').replace(/\\n/g, '\n'),
+          performanceText: (item.performance || '').replace(/\\n/g, '\n'),
+          weightage: item.weightage,
+          rating:
+            item.overall_rating === null ||
+            item.overall_rating === undefined ||
+            item.overall_rating === '' ||
+            item.overall_rating === 'null'
+              ? null
+              : item.overall_rating,
+          achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
+          achievedInt: item.achieved_int,
+          //targetText: item.target,
+          isOpen: false
+        }));
+      },
+      (error) => {
+        console.error("Error fetching permission list", error);
       }
+    );
+}else{
+    this.objectives = this.oldObjective.map((item:any, index:any) => ({
+      id: item.id,
+      workId: item.workId,
+      title: `Work Objective ${index + 1}`,
+      selectedType: item.selectedType,
+      objectiveText: (item.objectiveText || '').replace(/\\n/g, '\n'),
+      targetText: (item.targetText || '').replace(/\\n/g, '\n'),
+      performanceText: (item.performanceText || '').replace(/\\n/g, '\n'),
+      weightage: item.weightage,
+      rating:
+        item.rating === null ||
+        item.rating === undefined ||
+        item.rating === '' ||
+        item.rating === 'null'
+          ? null
+          : item.rating,
+      achievedText: (item.achievedText || '').replace(/\\n/g, '\n'),
+      achievedInt: item.achievedInt,
+      //targetText: item.target,
+      isOpen: true
+    }));
+    // this.objOverallRating=this.oldOverallRating;
+  }
+    console.log(this.objectives);
+
 
 
   }
@@ -642,6 +669,9 @@ export class ObjectiveSetComponent {
       .subscribe(res => {
           this.objOverallRating = Array.isArray(res?.['get_overAllRating']) ? res?.['get_overAllRating'][0].over_all_rating : res?.['get_overAllRating'][0].over_all_rating
           console.log("Overall Rating :", this.objOverallRating);
+          if(this.isBack){
+            this.objOverallRating=this.oldOverallRating;
+          }
         },
         (error) => {
           console.error("Error fetching ratings", error);

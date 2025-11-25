@@ -28,6 +28,9 @@ export class ManagerInsightComponent {
   @Input() userData: any;
   @Input() currentStatus: any;
   @Input() view: any;
+  @Input() isBack:any=false;
+  @Input() oldObjective:any=[];
+  @Input() savedManagerData:any=[];
   data: any =[];
 
   constructor(public modalRef: BsModalRef,
@@ -58,6 +61,15 @@ export class ManagerInsightComponent {
     //     }
     //
     //   );
+
+    console.log("this.savedManagerData : ", this.savedManagerData);
+    if(this.savedManagerData && this.savedManagerData.length>0){
+      this.objectives = this.objectives.map((obj, index) => ({
+        ...obj,
+        objectiveText: this.savedManagerData[index]?.objectiveText || ''
+      }));
+
+    }
   }
 
 
@@ -110,10 +122,6 @@ export class ManagerInsightComponent {
     // handle previous step
   }
 
-  onNext() {
-    // Example: log full data to see stored input
-    console.log('Saved objectives:', this.objectives);
-  }
 
   submitData() {
     if (!this.validateObjectives()) {
@@ -121,6 +129,10 @@ export class ManagerInsightComponent {
     }
     this.dataSubmitted.emit(this.objectives);
     console.log(this.objectives);
+  }
+  onNext(){
+    this.dataSubmitted.emit(this.objectives);
+
   }
 
   objectiveErrors: { [key: number]:

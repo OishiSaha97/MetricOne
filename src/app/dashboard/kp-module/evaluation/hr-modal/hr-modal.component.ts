@@ -6,8 +6,10 @@ interface Objective {
   id: number;
   name: string;
   isOpen: boolean;
+  isOpenIncrement: boolean;
   isEditingObjective: boolean;
   objectiveText: string;
+  increment: string;
   keyObjective?: string;
   attendanceRating:string;
   leaveRating:string;
@@ -25,9 +27,13 @@ export class HrModalComponent {
   @Input() userData: any;
   @Input() currentStatus: any;
   @Input() view: any;
+  @Input() oldObjective:any=[];
+  @Input() isBack:any=false;
 
   objectives: Objective[] = [
-    { id: 1, name: 'HR’S COMMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''}];
+    { id: 1, name: 'HR’S COMMENT', isOpen: false,isOpenIncrement: false,isEditingObjective: false, objectiveText: '',increment: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''},
+    // { id: 2, name: 'FINAL INCREMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''},
+  ];
   mode: any;
   userName: any;
   userId: any;
@@ -53,6 +59,9 @@ export class HrModalComponent {
 
   toggleObjective(obj: Objective): void {
     obj.isOpen = !obj.isOpen;
+  }
+  toggleObjectiveIncrement(obj: Objective): void {
+    obj.isOpenIncrement = !obj.isOpenIncrement;
   }
 
   onAttendanceRating(obj: Objective,type: any) {
@@ -89,6 +98,7 @@ export class HrModalComponent {
         leaveRating?: string;
         issueRating?: string;
         awardRating?: string;
+        incrementText?: string;
       } } = {};
   validateObjectives(): boolean {
     let hasError = false;
@@ -99,20 +109,24 @@ export class HrModalComponent {
         this.objectiveErrors[i].objectiveText = '*Objective is required';
         hasError = true;
       }
+      if (!obj.increment?.trim()) {
+        this.objectiveErrors[i].incrementText = '*Final Increment is required';
+        hasError = true;
+      }
       if (!obj.attendanceRating?.trim()) {
-        this.objectiveErrors[i].attendanceRating = '*Objective is required';
+        this.objectiveErrors[i].attendanceRating = '*Attendance rating is required';
         hasError = true;
       }
       if (!obj.leaveRating?.trim()) {
-        this.objectiveErrors[i].leaveRating = '*Objective is required';
+        this.objectiveErrors[i].leaveRating = '*Leave Rating is required';
         hasError = true;
       }
       if (!obj.issueRating?.trim()) {
-        this.objectiveErrors[i].issueRating = '*Objective is required';
+        this.objectiveErrors[i].issueRating = '*Issue Rating is required';
         hasError = true;
       }
       if (!obj.awardRating?.trim()) {
-        this.objectiveErrors[i].awardRating = '*Objective is required';
+        this.objectiveErrors[i].awardRating = '*Award Rating is required';
         hasError = true;
       }
     }
