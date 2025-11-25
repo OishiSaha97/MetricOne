@@ -314,6 +314,7 @@ table, tr, td {
   height: 200px;
   max-height: 250px;
   overflow-y: auto !important;
+  max-width: 350px;
 }
 
 .hierarchy-dropdown .w-100 {

@@ -482,6 +482,12 @@ input::placeholder {
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
   padding: 12px;
   z-index: 10000; /* ensure above all */
+  /*max-width: 350px;*/
+  overflow-x: auto !important;
+  max-height: 250px;
+  overflow-y: auto !important;
+  scrollbar-width: thin;
+  scrollbar-color: #6c6d74 black !important;
 }
 
 .popup-header {
