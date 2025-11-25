@@ -408,7 +408,7 @@
               <button class="revert-btn" (click)="draft()" *ngIf="draftShow" >Save</button>
               <button class="revert-btn" (click)="openModal(actionModal)" *ngIf="mode == 'approver'" >Revert</button>
               <button class="forward-btn" *ngIf=" currentStatus != 'hr'"
-                      (click)="(currentStatus == 'manager' || currentStatus === 'approver') ? onSubmit('forward'): onSubmit('submit')"
+                      (click)="(currentStatus == 'manager' || currentStatus === 'approver') ? onSubmit('forward'): openConfirmation(confirmation);"
                       [ngClass]="{
                           'forward-btn': true
                         }">
@@ -475,6 +475,28 @@
   {{ toastMessage }}
 </div>
 
+<ng-template #confirmation>
+
+  <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
+
+    <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">
+      <div class="d-flex justify-content-center text-center " >
+        <div style="color: white; font-size: 16px;">Are you sure you want to submit?</div>
+      </div>
+
+
+    </div>
+    <div class="">
+      <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
+        <button class="btn close-btn" style="cursor: pointer;" (click)="closeConfirmModal() ">Close</button>
+        <button class=" active-btn" style="cursor: pointer;"
+                (click)="onSubmit('submit')">Submit</button>
+        <!--      onActive();-->
+      </div>
+    </div>
+
+  </div>
+</ng-template>
 
 <ng-template #deleteModal>
 

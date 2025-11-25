@@ -361,7 +361,7 @@ export class AllEmployeeKPIComponent {
 
   fullHierarchy: any;
   openHierarchy(user: any) {
-    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
+    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team,pid:user.id  })
       .subscribe(res => {
         this.fullHierarchy = res?.['get_hierarchy'] || [];
 

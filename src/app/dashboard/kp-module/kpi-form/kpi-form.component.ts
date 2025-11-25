@@ -36,6 +36,7 @@ export class KpiFormComponent implements OnInit {
 
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
+              public modalRefConfirm: BsModalRef,
               public modalServ: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
@@ -549,6 +550,14 @@ export class KpiFormComponent implements OnInit {
       });
     }
 
+  openConfirmation(template: TemplateRef<any>){
+    this.modalRefConfirm = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
   onClose(): void {
     this.modalRef?.hide();
   }
@@ -626,6 +635,11 @@ export class KpiFormComponent implements OnInit {
       }
   }
 
+  closeConfirmModal() {
+    if (this.modalRefConfirm) {
+      this.modalRefConfirm.hide();
+    }
+  }
 
   draft() {
     let processedObjectives = this.objectives.map((obj: Objective) => {
