@@ -205,8 +205,9 @@
               </button>
 
               <button *ngIf="userData.status !== 'Closed'
-                        &&userData.status !== 'Submitted'
-                        && currentStep == maxStep || (view == true && currentStep == maxStep ) " class="submit-btn" (click)="onNext()">
+                        && userData.status !== 'Submitted'
+                        && currentStep == maxStep || (view == true && currentStep == maxStep )"
+                      class="submit-btn" (click)="onNext()">
                 {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}
               </button>
 
