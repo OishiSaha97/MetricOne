@@ -86,10 +86,10 @@
               container="body"
               class="text-truncate"
             >
-              {{ (data.employee_name | slice:0:15) + '...' }}
+              {{ (data.name | slice:0:15) + '...' }}
             </div>
             <ng-template #noTooltip>
-              <div class="text-truncate">{{ data.employee_name }}</div>
+              <div class="text-truncate">{{ data.name }}</div>
             </ng-template>
           </td>
           <td>

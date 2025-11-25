@@ -37,6 +37,7 @@ export class ManagerInsightComponent {
 
   ngOnInit(): void {
     this.loadManagerInsight();
+    console.log(this.currentStatus)
     // this.kpi.getLogData({param: 'evalution-manager-insight-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
     //   .subscribe(res => {
     //       this.data = Array.isArray(res?.['evalution-manager-insight-kpi-list']) ? res?.['evalution-manager-insight-kpi-list'] : res?.['evalution-manager-insight-kpi-list']
