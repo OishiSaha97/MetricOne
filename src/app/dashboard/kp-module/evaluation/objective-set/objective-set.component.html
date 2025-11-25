@@ -26,7 +26,7 @@
           >
             <div class="fw-semibold p-3" style="margin-right: -38px;" >WEIGHTAGE</div>
             <div class="fw-semibold p-3">KEY RESULTS AREA</div>
-            <div class="fw-semibold p-3" style="margin-right: 40px;"
+            <div class="fw-semibold p-3" style="margin-right: 45px;margin-left: -5px;"
                  *ngIf="['manager','hr','approver'].includes(currentStatus)" >Rating</div>
 
           </div>
@@ -101,7 +101,7 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                             [attr.disabled]=" userData.status === 'Closed' ? true : null"
-                            style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right:10px;">
+                            style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right: 25px;">
                       {{ obj.selectedType ? (obj.selectedType.length > 12 ? (obj.selectedType | slice:0:12) + '...' : obj.selectedType) : 'Select' }}
                     </button>
 

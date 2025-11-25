@@ -331,7 +331,7 @@
   border-radius: 4px;
   outline: none;
   box-sizing: border-box;
-  margin-left: 60%;
+  margin-left: 52%;
 }
 .obj-input-weightage:focus{
   border: 1px solid #7A7B8299;
@@ -348,7 +348,7 @@
 .percentage-icon {
   position: absolute;
   top: 50%;
-  right:33px;
+  right:20%;
   transform: translateY(-50%);
   color: #ffffffcc;
   font-size: 0.9rem;
