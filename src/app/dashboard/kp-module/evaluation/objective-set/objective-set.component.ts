@@ -70,6 +70,32 @@ export class ObjectiveSetComponent {
     {id:23,name: 'Facility Management'},
     {id:24,name: 'Stationery Management'},
     {id:25,name:'Other'}];
+
+  filterObjectiveTypes: any[] = [{id:1,name:'Production'},
+    {id:2,name: 'Support'},
+    {id:3,name: 'Innovation'},
+    {id:4,name: 'People'},
+    {id:5,name: 'Recruitment'},
+    {id:6,name: 'Performance Management'},
+    {id:7,name: 'Compensation & Benefits '},
+    {id:8,name: 'Training & Development'},
+    {id:9,name: 'Employee Engagement'},
+    {id:10,name: 'Record Keeping'},
+    {id:11,name: 'Financial Reporting/Analysis'},
+    {id:12,name: 'Budgeting & Forecasting'},
+    {id:13,name: 'Compliance & Tax Management'},
+    {id:14,name: 'Financial Statement Preparation'},
+    {id:15,name: 'Network & Server Management'},
+    {id:16,name: 'Device Management'},
+    {id:17,name: 'Trouble Shooting'},
+    {id:18,name: 'User Assistance'},
+    {id:19,name: 'Cyber Security & Data Protection'},
+    {id:20,name: 'Software & Application Management'},
+    {id:21,name: 'IT Governance & Strategy'},
+    {id:22,name: 'Policy Implementation'},
+    {id:23,name: 'Facility Management'},
+    {id:24,name: 'Stationery Management'},
+    {id:25,name:'Other'}];
   objectives: any = [];
   // ratings: string[] = ['Exceeded', 'Achieved All Aspect', 'Achieved All Essentials', 'Did Not Achieve'];
   ratings: any = [];
@@ -107,65 +133,72 @@ export class ObjectiveSetComponent {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
+
     if(['manager','hr','approver'].includes(this.currentStatus)){
       this.getOverallRating();
     }
-  if(!this.isBack){
-   this.kpi.getLogData({userIdKPI:this.userData.employee_id,param: 'evalution-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
-    .subscribe(res => {
-        // this.data = res?.['kpi-list'];
-        this.data = Array.isArray(res?.['evalution-kpi-list']) ? res?.['evalution-kpi-list'] : res?.['evalution-kpi-list']
-        console.log(this.data);
-        this.objectives = this.data.map((item:any, index:any) => ({
+
+      if(!this.isBack){
+       this.kpi.getLogData({userIdKPI:this.userData.employee_id,param: 'evalution-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
+        .subscribe(res => {
+            // this.data = res?.['kpi-list'];
+            this.data = Array.isArray(res?.['evalution-kpi-list']) ? res?.['evalution-kpi-list'] : res?.['evalution-kpi-list']
+            console.log(this.data);
+            this.objectives = this.data.map((item:any, index:any) => ({
+              id: item.id,
+              workId: item.work_id,
+              title: `Work Objective ${index + 1}`,
+              selectedType: item.category_name,
+              objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
+              targetText: (item.target || '').replace(/\\n/g, '\n'),
+              performanceText: (item.performance || '').replace(/\\n/g, '\n'),
+              weightage: item.weightage,
+              rating:
+                item.overall_rating === null ||
+                item.overall_rating === undefined ||
+                item.overall_rating === '' ||
+                item.overall_rating === 'null'
+                  ? null
+                  : item.overall_rating,
+              achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
+              achievedInt: item.achieved_int,
+              //targetText: item.target,
+              isOpen: false
+            }));
+          },
+          (error) => {
+            console.error("Error fetching permission list", error);
+          }
+        );
+    }else{
+        this.objectives = this.oldObjective.map((item:any, index:any) => ({
           id: item.id,
-          workId: item.work_id,
+          workId: item.workId,
           title: `Work Objective ${index + 1}`,
-          selectedType: item.category_name,
-          objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
-          targetText: (item.target || '').replace(/\\n/g, '\n'),
-          performanceText: (item.performance || '').replace(/\\n/g, '\n'),
+          selectedType: item.selectedType,
+          objectiveText: (item.objectiveText || '').replace(/\\n/g, '\n'),
+          targetText: (item.targetText || '').replace(/\\n/g, '\n'),
+          performanceText: (item.performanceText || '').replace(/\\n/g, '\n'),
           weightage: item.weightage,
           rating:
-            item.overall_rating === null ||
-            item.overall_rating === undefined ||
-            item.overall_rating === '' ||
-            item.overall_rating === 'null'
+            item.rating === null ||
+            item.rating === undefined ||
+            item.rating === '' ||
+            item.rating === 'null'
               ? null
-              : item.overall_rating,
-          achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
-          achievedInt: item.achieved_int,
+              : item.rating,
+          achievedText: (item.achievedText || '').replace(/\\n/g, '\n'),
+          achievedInt: item.achievedInt,
+          keyObjective: item.keyObjective,
+          keyTarget: item.keyTarget,
+          keyPerformance: item.keyPerformance,
+          keyAchieved: item.keyAchieved,
+
           //targetText: item.target,
-          isOpen: false
+          isOpen: true
         }));
-      },
-      (error) => {
-        console.error("Error fetching permission list", error);
+        // this.objOverallRating=this.oldOverallRating;
       }
-    );
-}else{
-    this.objectives = this.oldObjective.map((item:any, index:any) => ({
-      id: item.id,
-      workId: item.workId,
-      title: `Work Objective ${index + 1}`,
-      selectedType: item.selectedType,
-      objectiveText: (item.objectiveText || '').replace(/\\n/g, '\n'),
-      targetText: (item.targetText || '').replace(/\\n/g, '\n'),
-      performanceText: (item.performanceText || '').replace(/\\n/g, '\n'),
-      weightage: item.weightage,
-      rating:
-        item.rating === null ||
-        item.rating === undefined ||
-        item.rating === '' ||
-        item.rating === 'null'
-          ? null
-          : item.rating,
-      achievedText: (item.achievedText || '').replace(/\\n/g, '\n'),
-      achievedInt: item.achievedInt,
-      //targetText: item.target,
-      isOpen: true
-    }));
-    // this.objOverallRating=this.oldOverallRating;
-  }
     console.log(this.objectives);
 
 
@@ -217,7 +250,6 @@ export class ObjectiveSetComponent {
 
 
   searchType: any;
-  filterObjectiveTypes: any[]=[];
 
 
   filterTypes() {
@@ -333,8 +365,6 @@ export class ObjectiveSetComponent {
         }
         totalWeightage += weight;
 
-        //
-        //
         // if (
         //   !obj.selectedType?.trim() ||
         //   !obj.objectiveText?.trim() ||
@@ -343,9 +373,8 @@ export class ObjectiveSetComponent {
         //   !obj.achievedText?.trim() ||
         //   !obj.achievedInt ||
         //   !obj.weightage?.trim() ||
-        //   !obj.rating?.trim()
-        //   // ||
-        //   // !obj.overAllRating?.trim()
+        //   !obj.rating?.trim() ||
+        //   !obj.overAllRating?.trim()
         // ) {
         //   console.log(obj)
         //   alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
@@ -409,10 +438,8 @@ export class ObjectiveSetComponent {
             hasError = true;
           }
           totalWeightage += weight;
-
-
-
         }
+
         // if ((this.currentStatus == 'employee') &&
         //   !obj.selectedType?.trim() ||
         //   !obj.objectiveText?.trim() ||
@@ -442,18 +469,17 @@ export class ObjectiveSetComponent {
 
     return !hasError;
   }
+
   @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
   toastMessage: string = '';
+
   showToast(msg: string) {
     this.toastMessage = msg;
 
-    // Show toast after 20 sec
     setTimeout(() => {
       const el = this.errorToast.nativeElement;
 
       el.classList.add('show');
-
-      // Auto-hide after 3 seconds
       setTimeout(() => {
         el.classList.remove('show');
       }, 5000);
@@ -551,7 +577,7 @@ export class ObjectiveSetComponent {
 
   openTargetHistory(obj: any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedTargetHistory = Array.isArray(res?.['changed-target-history']) ? res?.['changed-target-history'] : res?.['changed-target-history']
           console.log(this.changedTargetHistory);
@@ -565,7 +591,7 @@ export class ObjectiveSetComponent {
 
   openObjectiveHistory(obj: any,i:any) {
     //this.showObjectiveHistoryIndex = null;
-    this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.workId})
+    this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedObjHistory = Array.isArray(res?.['changed-objective-history']) ? res?.['changed-objective-history'] : res?.['changed-objective-history']
           this.openChangedObjectiveHistory(i);
@@ -600,10 +626,23 @@ export class ObjectiveSetComponent {
 
   openPerformanceHistory(obj: any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
       .subscribe(res => {
           this.changedPerformanceHistory = Array.isArray(res?.['changed-performance-history']) ? res?.['changed-performance-history'] : res?.['changed-performance-history']
           this.openChangedHistory();
+        },
+        (error) => {
+          console.error("Error fetching permission list", error);
+        }
+      );
+  }
+
+  openAchievedHistory(obj: any) {
+    console.log(obj)
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-achieved-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
+      .subscribe(res => {
+          this.changedAchievedHistory = Array.isArray(res?.['changed-achieved-history']) ? res?.['changed-achieved-history'] : res?.['changed-achieved-history']
+          this.openChangedAchievedHistory();
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -624,19 +663,6 @@ export class ObjectiveSetComponent {
       this.showObjectiveHistoryIndex = i;
     }
 
-  }
-
-
-  openAchievedHistory() {
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-achieved-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
-      .subscribe(res => {
-          this.changedPerformanceHistory = Array.isArray(res?.['changed-achieved-history']) ? res?.['changed-achieved-history'] : res?.['changed-achieved-history']
-          this.openChangedAchievedHistory();
-        },
-        (error) => {
-          console.error("Error fetching permission list", error);
-        }
-      );
   }
 
   openChangedAchievedHistory() {

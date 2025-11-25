@@ -35,8 +35,8 @@
         <div class="col-md-3">
           <span class="font-color-system">View as: </span>
           <span *ngIf="currentStatus === 'employee'">Self</span>
-          <span *ngIf="currentStatus === 'manager'">Manager</span>
-          <span *ngIf="currentStatus === 'approver'">Approver</span>
+          <span *ngIf="currentStatus === 'manager' && userData.current_ind == 1">Manager</span>
+          <span *ngIf="currentStatus === 'manager' && userData.current_ind != 1 ">Approver</span>
           <span *ngIf="currentStatus === 'hr'">HR</span>
         </div>
       </div>
