@@ -19,10 +19,13 @@ interface Objective {
 export class SelfAssessmentComponent {
 
   @Output() dataSubmitted = new EventEmitter<any>();
+  @Output() backdataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
   @Input() currentStatus: any;
   @Input() view: any;
   @Input() isBack:any=false;
+  @Input() onNexts:any=false;
+  @Input() savedselfData:any=[];
   objectives: Objective[] = [
     {
       id: 1,
@@ -66,21 +69,32 @@ export class SelfAssessmentComponent {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
-    this.kpi.getLogData({param: 'evalution-self-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
-      .subscribe(res => {
-          // this.data = res?.['kpi-list'];
-          this.data = Array.isArray(res?.['evalution-self-kpi-list']) ? res?.['evalution-self-kpi-list'] : res?.['evalution-self-kpi-list']
-          console.log(this.data);
-          this.objectives = this.objectives.map((obj, index) => ({
-            ...obj,
-            selfText: this.data[index]?.remark || ''
-          }));
-        },
-        (error) => {
-          console.error("Error fetching permission list", error);
-        }
 
-      );
+
+    if(this.onNexts == true){
+      console.log("savedselfData",this.savedselfData);
+      // this.objectives = this.savedselfData.map((obj:Objective, index:number) => ({
+      //   ...obj,
+      //   selfText: this.data[index]?.remark || ''
+      // }));
+    }
+    else{
+      this.kpi.getLogData({param: 'evalution-self-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
+        .subscribe(res => {
+            // this.data = res?.['kpi-list'];
+            this.data = Array.isArray(res?.['evalution-self-kpi-list']) ? res?.['evalution-self-kpi-list'] : res?.['evalution-self-kpi-list']
+            console.log(this.data);
+            this.objectives = this.objectives.map((obj, index) => ({
+              ...obj,
+              selfText: this.data[index]?.remark || ''
+            }));
+          },
+          (error) => {
+            console.error("Error fetching permission list", error);
+          }
+
+        );
+    }
   }
 
 
@@ -94,11 +108,7 @@ export class SelfAssessmentComponent {
   }
 
   onNext() {
-    const answers = this.objectives.map((obj, index) => ({
-      index: index + 1,
-      title: obj.title,
-      answer: obj.selfText,
-    }));
+    this.backdataSubmitted.emit(this.objectives);
 
 
     // if you want to send to backend:
