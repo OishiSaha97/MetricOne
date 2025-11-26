@@ -792,12 +792,13 @@ export class KpiFormComponent implements OnInit {
     this.searchType='';
     this.filterObjectiveTypes = [...this.objectiveTypes]
   }
-  @ViewChildren('autoTA') textAreas!: QueryList<ElementRef>;
-  autoGrow(event:any) {
-    const textarea = event;
-    textarea.style.height = '41px';   // reset to minimum height
-    textarea.style.height = textarea.scrollHeight + 'px';  // grow according to content
-  }
 
+  blockTyping(event: KeyboardEvent, obj: any) {
+    const isReadonly = this.view === 0;
+
+    if ((this.view === 0) ) {
+      event.preventDefault();
+    }
+  }
 
 }

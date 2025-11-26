@@ -483,3 +483,8 @@ input::placeholder {
   /*background-color: #33343c !important;*/
   opacity: 0.6;
 }
+
+.textarea-readonly {
+  overflow-y: auto !important;
+  pointer-events: auto !important; /* allow scrolling */
+}

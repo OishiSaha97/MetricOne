@@ -198,6 +198,7 @@
                       class="obj-input mb-2 auto-textarea"
                       [(ngModel)]="obj.objectiveText"
                       placeholder="Enter objective..."
+                      (keydown)="blockTyping($event,obj)"
                       [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingObjective">
                     </textarea>
 
@@ -265,8 +266,8 @@
                       class="obj-input small auto-textarea"
                       [(ngModel)]="obj.performanceText"
                       placeholder="Enter Performance..."
-                      [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingPerformance"
-                      (input)="autoGrow($event)">
+                      (keydown)="blockTyping($event,obj)"
+                      [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingPerformance">
                     </textarea>
 
                     <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
@@ -330,6 +331,7 @@
                         class="obj-input small"
                         [(ngModel)]="obj.targetText"
                         placeholder="Enter target..."
+                        (keydown)="blockTyping($event, obj)"
                         [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingTarget">
                       </textarea>
 
