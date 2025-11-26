@@ -18,6 +18,7 @@ interface Objective {
 })
 export class SelfAssessmentComponent {
 
+  @Output() dataSubmittedDraft = new EventEmitter<any>();
   @Output() dataSubmitted = new EventEmitter<any>();
   @Output() backdataSubmitted = new EventEmitter<any>();
   @Input() userData: any;
@@ -135,6 +136,10 @@ export class SelfAssessmentComponent {
     console.log(this.objectives)
   }
 
+  submitDataDraft() {
+    this.dataSubmittedDraft.emit(this.objectives);
+  }
+
   objectiveErrors: { [key: number]:
       {
         selfText?: string;
@@ -165,5 +170,7 @@ export class SelfAssessmentComponent {
 
     return !hasError;
   }
+
+
 
 }

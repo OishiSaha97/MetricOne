@@ -464,7 +464,18 @@ export class EvaluationComponent {
     });
   }
 
+  setData(){
+    if(this.currentStep==1){
+      this.objectiveComp?.submitDraftData();
+    }else{
+      this.selfComp?.submitDataDraft();
+    }
+  }
+
+
   draft() {
+
+
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
@@ -530,4 +541,16 @@ export class EvaluationComponent {
   closeModal() {
     this.revertModalRef.hide();
   }
+
+  onChildDataSubmittedDraft(data: any,item:any) {
+    if (item == 'objective') {
+      this.objectiveSet = data;
+      this.draft();
+    } else if (item == 'self') {
+      this.selfAssessment = data;
+      this.draft();
+    }
+  }
+
+
 }

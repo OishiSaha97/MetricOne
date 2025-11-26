@@ -150,7 +150,7 @@
     <div class="col-lg-9 col-md-9">
       <fieldset *ngIf="currentTable=='objective'">
         <app-objective-set [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack1"
-                           [oldObjective]="objectiveSet"
+                           [oldObjective]="objectiveSet" (dataSubmittedDraft)="onChildDataSubmittedDraft($event,'objective')"
                            (dataSubmitted)="onChildDataSubmitted($event,'objective')"
                            (rateSubmit)="onClickRate($event)" [oldOverallRating]="rateOverall"
         ></app-objective-set>
@@ -158,7 +158,9 @@
 
       <fieldset *ngIf="currentTable=='self'">
         <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack2" [onNexts] ="onNext1"
-                             [oldObjective]="selfAssessment" [savedselfData]="selfAssessment"  (backdataSubmitted)="onChildBackDataSubmitted($event,'self')"
+                             [oldObjective]="selfAssessment" [savedselfData]="selfAssessment"
+                             (dataSubmittedDraft)="onChildDataSubmittedDraft($event,'self')"
+                             (backdataSubmitted)="onChildBackDataSubmitted($event,'self')"
                              (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
       </fieldset>
 
@@ -195,8 +197,11 @@
           <div >
             <div class="d-flex justify-content-end gap-2 p-3">
               <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
-              <button class="revert-btn" (click)="draft()"
-                      *ngIf=" currentStatus == 'employee' && userData.status != 'Closed' &&userData.status !== 'Submitted'">Save</button>
+
+              <button class="revert-btn" (click)="setData()"
+                      *ngIf=" currentStatus == 'employee' && userData.status != 'Closed'
+                      && userData.status !== 'Submitted'">Save</button>
+
               <button class="revert-btn" (click)="openModal(actionModal)"
                       *ngIf="view == true || currentStatus != 'employee' ">Revert</button>
 
