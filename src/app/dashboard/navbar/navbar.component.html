@@ -53,7 +53,7 @@
                   />
                   {{ superTask.name }}
                 </div>
-                <i class="right top-up " [class.rotated]="active"></i>
+                <i class="right top-up " [class.rotated]="activeIndex === i"></i>
               </div>
               <div *ngIf="activeIndex === i">
                 <ul class="nav nav-treeview" >

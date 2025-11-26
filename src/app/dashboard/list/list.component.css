@@ -344,8 +344,25 @@ table, tr, td {
   max-height: 250px;
   overflow-y: auto;
   display: none;
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  width: 280px;
+  font-size: 13px;
 }
 
 .hierarchy-dropdown-remark.show {
   display: block !important;
+}
+.popup-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: white!important;
+}
+
+.popup-body {
+  background-color: #25262C;
+  padding: 50px;
+  font-size: 12px; /* smaller font overall */
 }

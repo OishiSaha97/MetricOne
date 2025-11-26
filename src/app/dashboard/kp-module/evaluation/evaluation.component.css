@@ -146,3 +146,18 @@
   padding: 50px;
   font-size: 14px; /* smaller font overall */
 }
+.step-wrapper {
+  position: relative;
+  padding-left: 20px;
+}
+
+.step-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #6c5dd3;
+  opacity: 0.4;
+}

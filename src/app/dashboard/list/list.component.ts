@@ -380,7 +380,7 @@ export class ListComponent {
 
     const rect = (event.target as HTMLElement).getBoundingClientRect();
     dropdown.style.top = rect.top + 30 + 'px';
-    dropdown.style.left = rect.left + 'px';
+    dropdown.style.left = rect.left -30 + 'px';
 
     dropdown.classList.add('show');
   }

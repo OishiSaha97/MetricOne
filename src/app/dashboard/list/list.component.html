@@ -46,7 +46,7 @@
         <tbody>
         <tr *ngFor="let user of resData; let i = index" >
           <td>{{ i + 1 }}</td>
-          <td title="{{ user.year }}">{{ user.year }}</td>
+          <td>{{ user.year }}</td>
 <!--          <td title="{{ user.team }}">{{ user.team }}</td>-->
 
           <td>
@@ -87,7 +87,7 @@
               <div class="text-truncate">{{ user.sbu }}</div>
             </ng-template>
           </td>
-          <td title="{{ user.hieCount }}" style="cursor:pointer;position: relative;">
+          <td style="cursor:pointer;position: relative;">
             <div class="dropdown" style="position: relative;">
               <span
                 class="text-white"
@@ -118,7 +118,7 @@
 
 
           </td>
-          <td  title="{{ user.remarks }}" style="cursor:pointer;position: relative;">
+          <td style="cursor:pointer;position: relative;">
             <div class="dropdown" style="position: relative;">
              <span
              class="text-white"
