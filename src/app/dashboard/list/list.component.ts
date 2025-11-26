@@ -157,7 +157,11 @@ export class ListComponent {
 
     let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
       this.loadData({});
-      this.showToast("KPI submitted successfully.");
+      if (res?.action == 'draft') {
+        this.showToast("KPI saved as draft successfully.");
+      }else if (res?.action == 'submit') {
+        this.showToast("KPI submitted successfully.");
+      }
       dataLoader.unsubscribe();
     });
 
@@ -232,11 +236,9 @@ export class ListComponent {
 
         let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
           this.loadData({});
-          if (res?.action === 'draft') {
+          if (res?.action == 'draft') {
             this.showToast("KPI saved as draft successfully.");
-          }
-
-          if (res?.action === 'submit') {
+          }else if (res?.action == 'submit') {
             this.showToast("KPI submitted successfully.");
           }
           dataLoader.unsubscribe();
