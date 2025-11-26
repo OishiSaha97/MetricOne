@@ -226,7 +226,7 @@ body {
 
 .auto-textarea {
   min-height: 41px;
-  height: auto;
+  max-height: fit-content;
   overflow: hidden;
   resize: none;
 }

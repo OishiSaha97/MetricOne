@@ -1,5 +1,14 @@
 
-import {NgModule, Component, OnInit, TemplateRef, EventEmitter, ViewChild, ElementRef} from '@angular/core';
+import {
+  NgModule,
+  Component,
+  OnInit,
+  TemplateRef,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  ViewChildren, QueryList
+} from '@angular/core';
 import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {Subject} from "rxjs";
@@ -121,17 +130,21 @@ export class KpiFormComponent implements OnInit {
                 isOpen: false,
                 addedByApprover: false
               }));
+              setTimeout(() => {
+                this.adjustAllTextAreas();
+              }, 0);
             },
             (error) => {
               console.error("Error fetching permission list", error);
             }
+
           );
 
         this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
           .subscribe(res => {
-
               this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
               console.log(this.changedHistory);
+              // this.adjustAllTextAreas();
             },
             (error) => {
               console.error("Error fetching permission list", error);
@@ -141,6 +154,7 @@ export class KpiFormComponent implements OnInit {
     this.filterObjectiveTypes = [...this.objectiveTypes];
     this.getManagerName();
   }
+
   getManagerName() {
     this.kpi.getLogData({
       param: 'get_manager_name',
@@ -681,7 +695,7 @@ export class KpiFormComponent implements OnInit {
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
 
-        this.showToast("KPI Save Successfully.");
+       // this.showToast("KPI Save Successfully.");
         this.saveEmitter.next(true);
         this.onCancel();
         this.requestEmitter.emit(true);
@@ -774,13 +788,21 @@ export class KpiFormComponent implements OnInit {
     this.searchType='';
     this.filterObjectiveTypes = [...this.objectiveTypes]
   }
-
-  autoGrow(event: any) {
-    const textarea = event.target;
-
+  @ViewChildren('autoTA') textAreas!: QueryList<ElementRef>;
+  autoGrow(event:any) {
+    const textarea = event;
     textarea.style.height = '41px';   // reset to minimum height
     textarea.style.height = textarea.scrollHeight + 'px';  // grow according to content
   }
 
+  adjustAllTextAreas() {
+    if (!this.textAreas) return;
+
+    this.textAreas.forEach(ta => {
+      const el = ta.nativeElement as HTMLTextAreaElement;
+      el.style.height = '41px';
+      el.style.height = el.scrollHeight + 'px';
+    });
+  }
 
 }
