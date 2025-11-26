@@ -441,7 +441,7 @@ input::placeholder {
 }
 .delete-icon{
   cursor: pointer;
-  margin-right: 20px;
+  /*margin-right: 20px;*/
 }
 
 .objective-error {

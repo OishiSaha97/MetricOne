@@ -510,9 +510,9 @@ export class KpiFormComponent implements OnInit {
   }
 
   onRevert() {
-    if (!this.validateObjectives()) {
-      return;
-    }
+    // if (!this.validateObjectives()) {
+    //   return;
+    // }
 
     const escapeText = (text: string | undefined) => {
       return text
@@ -546,7 +546,7 @@ export class KpiFormComponent implements OnInit {
 
     this.kpi.revertKpi(requestPayload).subscribe({
       next: (response) => {
-        this.showToast("KPI reverted successfully.");
+        this.saveEmitter.next({ action: 'revert' });
         this.onCancel();
         this.onClose();
       },
@@ -567,6 +567,10 @@ export class KpiFormComponent implements OnInit {
     }
 
   openConfirmation(template: TemplateRef<any>){
+    if (!this.validateObjectives()) {
+      return;
+    }
+
     this.modalRefConfirm = this.modalService.show(template, {
       backdrop: 'static',
       keyboard: false,
