@@ -52,7 +52,7 @@
             <div class="tier-block" *ngIf="mode == 'edit'" >
               <div class="tier-label" >{{ 'New Final Approver' }}</div>
               <div class="dropdown-box"
-                   (click)="this.isOpenNew = !this.isOpenNew;">
+                   (click)="this.isOpenNew = !this.isOpenNew;resetFilter()">
                 <div class="dropdown-selected">
                 <span class="dropdown-text" style="color:#FFFFFF80">
                   {{ finalApproverNew?.full_name || 'Select' }}

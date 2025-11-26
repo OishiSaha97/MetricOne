@@ -116,12 +116,13 @@
                 data.status === 'Submitted' ? '#6BCAFA' :
                 data.status === 'Pending' ? '#FF9945' :
                 data.status === 'Published' ? '#A645FF' :
+                data.status === 'Closed' ? '#A645FF' :
                 'white'
               "
           >{{ data.status }}</td>
           <td>{{ data.desg }}</td>
           <td>{{ data.sbu }}</td>
-          <td title="{{ data.hieCount }}" style="cursor:pointer;position: relative;">
+          <td style="cursor:pointer;position: relative;">
             <div class="dropdown" style="position: relative;">
               <span
                 class="text-white"
@@ -153,7 +154,7 @@
 
 
           </td>
-          <td title="{{ data.remarks }}">
+          <td >
             <span *ngIf="data.remarks > 0"
                   class="text-white dropdown"
                   role="button"
