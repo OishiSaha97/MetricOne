@@ -232,9 +232,13 @@ export class ListComponent {
 
         let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
           this.loadData({});
-          // if(this.draftShow == true){
-          //   this.showToast("KPI Save Successfully.");
-          // }
+          if (res?.action === 'draft') {
+            this.showToast("KPI saved as draft successfully.");
+          }
+
+          if (res?.action === 'submit') {
+            this.showToast("KPI submitted successfully.");
+          }
           dataLoader.unsubscribe();
         });
       }

@@ -482,7 +482,8 @@ input::placeholder {
 
 .view-mode input,
 .view-mode textarea {
-  pointer-events: none;
+  /*pointer-events: none;*/
+  pointer-events: auto;
   /*background-color: #33343c !important;*/
   opacity: 0.6;
 }

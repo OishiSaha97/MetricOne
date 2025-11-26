@@ -129,11 +129,11 @@ export class KpiFormComponent implements OnInit {
                 weightage: item.weightage,
                 isOpen: false,
                 addedByApprover: false
-              }));
-              setTimeout(() => {
-                this.adjustAllTextAreas();
-              }, 0);
-            },
+               }));
+              // setTimeout(() => {
+              //   this.adjustAllTextAreas();
+              // }, 0);
+             },
             (error) => {
               console.error("Error fetching permission list", error);
             }
@@ -401,15 +401,17 @@ export class KpiFormComponent implements OnInit {
         else if (type === 'forward') {
           this.showToast("KPI submitted successfully.");
         }
-
-        this.saveEmitter.next(true);
+        this.saveEmitter.next({ action: 'submit' });
+        // this.saveEmitter.next(true);
         this.onCancel();
+        this.modalRefConfirm.hide();
         this.requestEmitter.emit(true);
 
       },
       error: (error) => {
         console.error('Error saving KPI:', error);
         this.onCancel();
+        this.modalRefConfirm.hide();
       }
     });
   }
@@ -696,7 +698,8 @@ export class KpiFormComponent implements OnInit {
       next: (response) => {
 
        // this.showToast("KPI Save Successfully.");
-        this.saveEmitter.next(true);
+       //  this.saveEmitter.next(true);
+        this.saveEmitter.next({ action: 'draft' });
         this.onCancel();
         this.requestEmitter.emit(true);
 
@@ -770,8 +773,9 @@ export class KpiFormComponent implements OnInit {
 
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
-        this.showToast("KPI submitted successfully.");
-        this.saveEmitter.next(true);
+        // this.showToast("KPI submitted successfully.");
+        this.saveEmitter.next({ action: 'submit' });
+        // this.saveEmitter.next(true);
         this.onCancel();
         this.requestEmitter.emit(true);
 
@@ -795,14 +799,5 @@ export class KpiFormComponent implements OnInit {
     textarea.style.height = textarea.scrollHeight + 'px';  // grow according to content
   }
 
-  adjustAllTextAreas() {
-    if (!this.textAreas) return;
-
-    this.textAreas.forEach(ta => {
-      const el = ta.nativeElement as HTMLTextAreaElement;
-      el.style.height = '41px';
-      el.style.height = el.scrollHeight + 'px';
-    });
-  }
 
 }
