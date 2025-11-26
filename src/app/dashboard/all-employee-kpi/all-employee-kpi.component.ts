@@ -252,7 +252,7 @@ export class AllEmployeeKPIComponent {
         userData: user,
         title: 'HR Evaluation',
         currentStatus: 'hr',
-        view: viewMode      // <-- apply view mode here
+        view: user.editPermission      // <-- apply view mode here
       };
 
       this.modalRef = this.modalService.show(EvaluationComponent, {
@@ -278,7 +278,7 @@ export class AllEmployeeKPIComponent {
         mode: "approver",
         kpiId: user.id,
         currentStatus: 'hr',
-        view: viewMode
+        view: user.editPermission
       };
 
       this.modalRef = this.modalService.show(KpiFormComponent, {
