@@ -40,11 +40,13 @@
 .flip-card {
   position: relative;
   display: block;
-  font-size: 2rem;          /* overall digit size */
-  padding-bottom: var(--half);
-  line-height: .95;
-  width: var(--card-width);
-  margin: 0 auto;
+  font-size: 1rem;
+  padding-bottom: 17px;
+  line-height: 1.25;
+  width: 32px;
+  margin: 0px auto;
+  --half: 17px;
+  --radius: 3px;
 }
 
 /* Halves + back faces share base styles */
@@ -53,10 +55,12 @@
 .flip-card__back-bottom,
 .flip-card__back::before,
 .flip-card__back::after {
+
   display: block;
   height: var(--half);
   width: 100%;
-  padding: .22em .25em .38em;
+  padding: 7px 0;
+  padding-left: 0px!important;
   border-radius: var(--radius) var(--radius) 0 0;
   backface-visibility: hidden;
   transform-style: preserve-3d;
@@ -67,7 +71,7 @@
 
 /* Top half (static) */
 .flip-card__top {
-  background: var(--bg-top);
+  background: #232F3A;
   color: var(--fg-top);
 }
 
@@ -76,7 +80,7 @@
   position: absolute;
   top: 50%;
   left: 0;
-  background: var(--bg-bottom);
+  background: #232F3A;
   color: #83F7F6;
   border-top: 1px solid #000;
   border-radius: 0 0 var(--radius) var(--radius);
@@ -88,7 +92,7 @@
   position: absolute;
   top: 50%;
   left: 0;
-  background: var(--bg-bottom);
+  background: #232F3A;
   color: #83F7F6;
   border-radius: 0 0 var(--radius) var(--radius);
   z-index: 1;
@@ -108,7 +112,7 @@
   position: relative;
   display: block;
   height: var(--half);
-  background: var(--bg-top);
+  background: #232F3A;
   color: var(--fg-top);
   z-index: -1;
 }

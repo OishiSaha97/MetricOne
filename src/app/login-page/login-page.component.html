@@ -9,7 +9,7 @@
         </div>
         <div class="welcome text-white">
           <h1 class="fw-bold">Welcome</h1>
-          <p>Login to your account to continue</p>
+          <p>Enter your ID and password to continue </p>
         </div>
       </div>
 
@@ -26,25 +26,46 @@
             </div>
             <div class="mb-3">
               <input type="text" name="username" [(ngModel)]="username"
-                class="form-control bg-transparent text-white border border-white" placeholder="Email"
-                placeholder="Email" required>
+                class="form-control bg-transparent text-white border border-white"
+                placeholder="Login ID" required>
             </div>
             <div class="password-wrapper mb-3">
-              <input type="password" name="password" [(ngModel)]="password" class="password-input"
-                placeholder="Password" required>
-              <img src="assets/closed-eye.svg" class="password-icon" alt="Password icon" />
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                name="password"
+                [(ngModel)]="password"
+                class="password-input"
+                placeholder="Password"
+                required
+              >
+
+              <img
+                [src]="showPassword ? 'assets/open-eye.svg' : 'assets/closed-eye.svg'"
+                class="password-icon"
+                alt="Toggle password visibility"
+                (click)="togglePassword()"
+              />
             </div>
+
             <button type="button" class="btn btn-gradient w-100 mb-0" (click)="signIn()">Login</button>
-            <div class="text-center text-white mt-1">
-              <a href="#" class="text-white " style="text-decoration: none; color: white;">Forgot Password?</a>
-              <img class="mt-4" src="../../../assets/separator.svg" alt="separator"
-                style="max-width: 100%; height: auto; display: block; margin: 10px auto;">
-              <a href="#" class="text-white mt-4 mb-5 d-block" style="text-decoration: none; color: white;">Create an
-                account?</a>
+            <div *ngIf="errorMessage" class="text-danger mt-2" style="font-size: 14px;">
+              {{ errorMessage }}
             </div>
+<!--            <div class="text-center text-white mt-1">-->
+<!--              <a href="#" class="text-white " style="text-decoration: none; color: white;">Forgot Password?</a>-->
+<!--              <img class="mt-4" src="../../../assets/separator.svg" alt="separator"-->
+<!--                style="max-width: 100%; height: auto; display: block; margin: 10px auto;">-->
+<!--              <a href="#" class="text-white mt-4 mb-5 d-block" style="text-decoration: none; color: white;">Create an-->
+<!--                account?</a>-->
+<!--            </div>-->
           </form>
         </div>
       </div>
     </div>
   </div>
 </body>
+
+
+<div #errorToast class="custom-toast">
+  {{ toastMessage }}
+</div>

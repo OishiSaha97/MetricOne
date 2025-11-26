@@ -17,10 +17,10 @@
       <h5 style="color:#AD94FF;">{{ label }}</h5>
     </div>
     <div class="actions">
-      <button  (click)="onClick()" [disabled]="showEvaluation == true">+ Add New</button>
+      <button  (click)="onClick()" *ngIf="isShowAdd">+ Add New</button>
       <div class="search-wrapper"  (keydown.enter)="search()" >
-        <input type="text" placeholder="Search Here" class="search-input" >
-        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+        <input type="text" placeholder="Search Here" [(ngModel)]="searchParam" class="search-input" >
+        <img src="../../../assets/magnifine-bar.svg" (click)="search()" class="search-icon" />
       </div>
     </div>
   </div>
@@ -38,6 +38,7 @@
 <!--          <th>Manager</th>-->
           <th>Status</th>
           <th>SBU</th>
+          <th>Hierarchy</th>
           <th>Remarks</th>
           <th>Action</th>
         </tr>
@@ -45,31 +46,133 @@
         <tbody>
         <tr *ngFor="let user of resData; let i = index" >
           <td>{{ i + 1 }}</td>
-          <td title="{{ user.year }}">{{ user.year }}</td>
-<!--          <td title="{{ user.designation }}">{{ user.designation }}</td>-->
-          <td title="{{ user.team }}">{{ user.team }}</td>
-<!--          <td title="{{ user.manager }}">{{ user.manager }}</td>-->
-          <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
-          <td title="{{ user.SBU }}">{{ user.sbu }}</td>
-          <td class="remarks-cell" title="{{ user.Remarks }}">
-           <span class="remarks"> ({{ user.Remarks }})</span>
-            {{" "}} <img src="../../../assets/comment.svg" />
+          <td>{{ user.year }}</td>
+<!--          <td title="{{ user.team }}">{{ user.team }}</td>-->
+
+          <td>
+            <div
+              *ngIf="user.team?.length > 15; else noTooltip"
+              tooltip="{{ user.team }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.team | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltip>
+              <div class="text-truncate">{{ user.team }}</div>
+            </ng-template>
+          </td>
+          <td [style.color]="
+                user.status === 'Forwarded' ? '#6BCAFA' :
+                user.status === 'In Progress' ? '#FF4FD3' :
+                user.status === 'Reverted' ? '#E5FD51' :
+                user.status === 'Draft' ? '#FFFFFF' :
+                user.status === 'Submitted' ? '#6BCAFA' :
+                user.status === 'Pending' ? '#FF9945' :
+                user.status === 'Published' ? '#A645FF' :
+                'white'
+              ">{{ user.status }} </td>
+          <td>
+            <div
+              *ngIf="user.sbu?.length > 15; else noTooltipSbu"
+              tooltip="{{ user.sbu }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.sbu | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltipSbu>
+              <div class="text-truncate">{{ user.sbu }}</div>
+            </ng-template>
+          </td>
+          <td style="cursor:pointer;position: relative;">
+            <div class="dropdown" style="position: relative;">
+              <span
+                class="text-white"
+                role="button"
+                (click)="user.hieCount>0 ? openHierarchy(user, $event,i): ''">
+                <ul style="color:#fff;">{{ user.hieCount }}</ul>
+              </span>
+
+              <div #dropdownMenu class="dropdown-menu hierarchy-dropdown dropdown-options p-4"
+                   [class.show]="openHierarchyIndex === i">
+                <div style="font-size:16px; color:white; font-weight:bold;">Hierarchy</div>
+                <div class="w-100">
+                  <div *ngFor="let u of fullHierarchy" >
+                    <div style="font-size:14px; color:white; display:flex; justify-content:space-between; align-items:center;">
+                      <span>{{ u.user_name }}</span>
+                      <span
+                        [style.color]="u.status === 'Pending' ? 'yellow' : (u.status === 'Approved' ? 'lightgreen' : 'white')"
+                          >
+                        {{ u.status }}
+                      </span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </td>
+          <td style="cursor:pointer;position: relative;">
+            <div class="dropdown" style="position: relative;">
+             <span
+             class="text-white"
+             role="button"
+             (click)="user.remarks>0 ? openRemarks(user, $event,i): ''">
+              {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />
+            </span>
+            <div #dropdownMenu [class.show]="openRemarksIndex === i"
+                 class="dropdown-menu hierarchy-dropdown-remark dropdown-options p-4" style="font-size: 12px;">
+              <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
+                Remarks
+              </div>
+              <div *ngFor="let note of remarkList">
+                <div class="popup-meta">
+                  <span class="common-purple"
+                        [title]="note.created_by">
+                          {{ note.created_by?.length > 15 ? (note.created_by | slice:0:15) + '...' : note.created_by }}
+                        </span>
+                  <span class="date" style="margin-left: 34px;">Date:{{note.created_at }}</span>
+                </div>
+                <p>{{note.obj_remark}}</p>
+              </div>
+              <!--              <div class="w-100">-->
+              <!--                <div *ngFor="let user of remarkList; let i = index;">-->
+              <!--                  <div style="font-size:14px; color:white;">-->
+              <!--                    {{ user.obj_remark }}-->
+              <!--                  </div>-->
+              <!--                  <div class="dropdown-divider"></div>-->
+              <!--                </div>-->
+              <!--              </div>-->
+            </div>
+            </div>
           </td>
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"
                  src="../../../assets/clear-eye.svg"
                  alt="View details"
-                 [ngStyle]="{
-                    cursor: user.status == 'closed' && showEvaluation ? 'pointer' : 'not-allowed',
-                    opacity: user.status == 'closed' && showEvaluation ? 1 : 0.4,
-                    'pointer-events': user.status == 'closed' && showEvaluation ? 'all' : 'none'
-                  }"
                  (click)="viewClick(user)"
             />
+
           </td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
+</div>
+
+<!--                 [ngStyle]="{-->
+<!--                    cursor: user.edit_permission == true  ? 'pointer' : 'not-allowed',-->
+<!--                    opacity: user.edit_permission == true  ? 1 : 0.4,-->
+<!--                    'pointer-events': user.edit_permission == true  ? 'all' : 'none'-->
+<!--                  }"-->
+
+<div #errorToast class="custom-toast">
+  {{ toastMessage }}
 </div>

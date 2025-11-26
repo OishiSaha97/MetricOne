@@ -6,7 +6,7 @@
     </div>
 
     <div class="text-end text-light header-info" style="display: flex;justify-content: space-between;align-items: center;">
-      <div><strong class="font-color-system">Year:</strong> 2025 | <strong class="font-color-system">KPI of</strong> Sharmilie Nawar</div>
+      <div><strong class="font-color-system">Year:</strong> {{ userData.year }} | <strong class="font-color-system">KPI of</strong> {{userData.name}}</div>
       <div>
         <img src="../../../assets/avatar.svg" class="avatar mb-1" style="scale:0.7"  />
       </div>
@@ -20,33 +20,75 @@
       <div class="row d-flex align-items-center">
         <div class="col-md-3">
           <span class="font-color-system">Manager's Name: </span>
-          <span>Ashiful Islam</span>
+          <span>{{ managerName }}</span>
         </div>
         <div class="col-md-3">
           <span class="font-color-system">Team: </span>
-          <span>bKash</span>
+          <span>{{userData.team}}</span>
         </div>
 
         <div class="col-md-3">
-          <span class="font-color-system">Designation: </span>
-          <span>Business Analyst</span>
+<!--          <span class="font-color-system">Designation: </span>-->
+<!--          <span>Business Analyst</span>-->
         </div>
 
         <div class="col-md-3">
           <span class="font-color-system">View as: </span>
-          <span>Self </span>
+          <span *ngIf="currentStatus === 'employee'">Self</span>
+          <span *ngIf="currentStatus === 'manager' && userData.current_ind == 1">Manager</span>
+          <span *ngIf="currentStatus === 'manager' && userData.current_ind != 1 ">Approver</span>
+          <span *ngIf="currentStatus === 'hr'">HR</span>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="d-flex justify-content-start">
-    <h5 class=" m-3 fw-bold" style="color:#FFFFFF80">INITIAL KPI SETTING -> </h5>
-    <h5 class=" m-3 fw-bold" style="color:#00B2B1">EVALUATION </h5>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-start">
+      <div>
+        <h5 class=" m-3 fw-bold" style="color:#FFFFFF80;font-size: 15px;">KPI INITIATION </h5>
+      </div>
+      <div>
+        <h5 class="fw-bold" style="color:#00B2B1; scale: 1.2;margin-top: 11px;"> → </h5>
+      </div>
+      <div>
+        <h5 class=" m-3 fw-bold" style="color:#00B2B1;font-size: 15px;">  KPI EVALUATION </h5>
+      </div>
+    </div>
+
+    <div>
+      <div class="" >
+        <span class="remark-icon" data-bs-toggle="dropdown"
+                  [style.pointer-events]="userData.remarks ? 'all': 'none'"
+                  aria-haspopup="true" aria-expanded="false"
+              role="button"
+              (click)="userData.remarks>0 ? openRemarks($event): ''"
+        ></span>
+        <span class="remark-count2 text-right">{{'(' + (userData.remarks  || 0) + ')'}}</span>
+        <div class="dropdown-menu dropdown-options d-large p-4" aria-labelledby="dropdownMenu2"
+             style="word-wrap: break-word; overflow-wrap: break-word;background-color: black !important;">
+          <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
+            Remarks
+          </div>
+          <div *ngFor="let note of remarkList">
+            <div class="popup-meta">
+                  <span class="common-purple"
+                        [title]="note.created_by">
+                          {{ note.created_by?.length > 15 ? (note.created_by | slice:0:15) + '...' : note.created_by }}
+                        </span>
+              <span class="date" style="margin-left: 34px;">Date:{{note.created_at }}</span>
+            </div>
+            <p style="color: white!important;">{{note.obj_remark}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 
   <div class="row g-4">
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-3 col-md-3">
 
       <!-- Step 1 -->
       <div class="d-flex step-section p-3 rounded"
@@ -71,7 +113,7 @@
       </div>
 
       <!-- Step 3 -->
-      <div *ngIf="currentStatus !== 'employee'" class="d-flex step-section p-3 rounded"
+      <div class="d-flex step-section p-3 rounded" *ngIf="maxStep>3"
            [ngClass]="{
            'active-step': currentStep === 3,
            'completed-step': currentStep > 3,
@@ -82,7 +124,7 @@
       </div>
 
       <!-- Step 4 -->
-      <div *ngIf="currentStatus !== 'employee'" class="d-flex step-section p-3 rounded"
+      <div class="d-flex step-section p-3 rounded" *ngIf="maxStep>3"
            [ngClass]="{
            'active-step': currentStep === 4,
            'completed-step': currentStep > 4,
@@ -92,70 +134,150 @@
         <h6 class="mt-2 text-light ms-2">Manager's Insight</h6>
       </div>
 
+      <!-- Step 5 -->
+      <div class="d-flex step-section p-3 rounded"  *ngIf="maxStep>4"
+           [ngClass]="{
+           'active-step': currentStep === 5,
+           'completed-step': currentStep > 5,
+           'pending-step': currentStep < 5
+         }">
+        <span class="step-number">5</span>
+        <h6 class="mt-2 text-light ms-2">HR's Insight</h6>
+      </div>
+
     </div>
 
-    <div class="col-lg-8 col-md-8">
+    <div class="col-lg-9 col-md-9">
       <fieldset *ngIf="currentTable=='objective'">
-        <app-objective-set [userData]="userData" (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-objective-set>
+        <app-objective-set [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack1"
+                           [oldObjective]="objectiveSet" (dataSubmittedDraft)="onChildDataSubmittedDraft($event,'objective')"
+                           (dataSubmitted)="onChildDataSubmitted($event,'objective')"
+                           (rateSubmit)="onClickRate($event)" [oldOverallRating]="rateOverall"
+        ></app-objective-set>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='self'">
-        <app-self-assessment (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
+        <app-self-assessment [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack2" [onNexts] ="onNext1"
+                             [oldObjective]="selfAssessment" [savedselfData]="selfAssessment"
+                             (dataSubmittedDraft)="onChildDataSubmittedDraft($event,'self')"
+                             (backdataSubmitted)="onChildBackDataSubmitted($event,'self')"
+                             (dataSubmitted)="onChildDataSubmitted($event,'self')"></app-self-assessment>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='values'">
-        <app-values-component (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
+        <app-values-component [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack3"
+                              [oldObjective]="valuesData"
+                              (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
       </fieldset>
 
       <fieldset *ngIf="currentTable=='manager'">
-        <app-manager-insight (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
+        <app-manager-insight [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack4" [onNexts] ="onNext3"
+                             [oldObjective]="managerData" [savedManagerData]="managerData" (backdataSubmitted)="onChildBackDataSubmitted($event,'manager')"
+                             (dataSubmitted)="onChildDataSubmitted($event,'manager')"></app-manager-insight>
       </fieldset>
 
-<!--      <fieldset *ngIf="currentTable=='hr'">-->
-<!--        <app-hr-modal (dataSubmitted)="onChildDataSubmitted($event,'objective')"></app-hr-modal>-->
-<!--      </fieldset>-->
+      <fieldset *ngIf="currentTable=='hr'">
+        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack5"
+                      [oldObjective]="hrData"
+                      (dataSubmitted)="onChildDataSubmitted($event,'hr')"></app-hr-modal>
+      </fieldset>
 
     </div>
   </div>
 
   <div class="row">
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-3 col-md-3">
     </div>
-    <div class="col-lg-8 col-md-8">
-      <div class="container mt-3" *ngIf="currentTable!='manager'">
+    <div class="col-lg-9 col-md-9">
+      <div class="container mt-3">
         <div class="d-flex justify-content-between">
           <div>
             <button class="btn cancel-btn" style="margin-left: 17%;" (click)="cancel()">Cancel</button>
           </div>
-          <div>
+          <div >
             <div class="d-flex justify-content-end gap-2 p-3">
-              <button class=" cancel-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
-              <button class=" submit-btn" (click)="onNext()">
-                {{ currentStep == maxStep() ? 'Submit' : 'Next' }}
+              <button class=" back-btn" (click)="onBack()" *ngIf="currentStep!=1">Back</button>
+
+              <button class="revert-btn" (click)="setData()"
+                      *ngIf=" currentStatus == 'employee' && userData.status != 'Closed'
+                      && userData.status !== 'Submitted'">Save</button>
+
+              <button class="revert-btn" (click)="openModal(actionModal)"
+                      *ngIf="view == true || currentStatus != 'employee' ">Revert</button>
+
+              <button *ngIf="currentStep != maxStep" class="submit-btn" (click)="onNext()">
+                {{ 'Next' }}
               </button>
+
+              <button *ngIf="userData.status !== 'Closed'
+                        && userData.status !== 'Submitted'
+                        && currentStep == maxStep || (view == true && currentStep == maxStep )"
+                      class="submit-btn" (click)="onNext()">
+                {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}
+              </button>
+
+<!--              <button class="forward-btn" *ngIf=" currentStatus != 'hr'"-->
+<!--                      (click)="(currentStatus == 'manager' || currentStatus === 'approver') ? onNext(): onNext()"-->
+<!--                      [ngClass]="{-->
+<!--                          'forward-btn': true-->
+<!--                        }">-->
+<!--                {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}-->
+<!--              </button>-->
             </div>
           </div>
 
         </div>
 
       </div>
-        <div class="container mt-3"  *ngIf="currentTable=='manager'">
-          <div class="d-flex justify-content-between">
-            <div>
-              <button class="btn cancel-btn" style="margin-left: 17%;" (click)="onBack()">Cancel</button>
-            </div>
-            <div>
-              <div class="d-flex justify-content-end gap-2 p-3">
-                <button class=" cancel-btn" (click)="onBack()">Back</button>
-                <button class=" submit-btn" (click)="onNext()">Submit</button>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
     </div>
  </div>
 
 </div>
+
+
+<ng-template #actionModal>
+  <div role="document">
+    <div class="modal-content bg-color">
+      <div class="d-flex justify-content-between">
+        <div class=" common-purple" style="padding-top: 20px;padding-left: 20px;">Revert Remarks</div>
+        <div class=" common-purple" style="padding-top: 20px;padding-left: 20px;">
+          <button aria-hidden="true" data-toggle="tooltip" data-title="Cancel"
+                              style="margin-top: 23%;margin-right: 20%"
+                              (click)="closeModal()" class="cross-icon ">
+        </button></div>
+      </div>
+      <div class="modal-body modal-message-body text-break" >
+        <p style="color:#FFFFFF">
+          Are you sure you want to revert the KPI?
+        </p>
+
+        <div  class="form-group form-group-sm">
+          <div style="font-size:10px;color:#FFFFFFCC">250 character limit</div>
+          <textarea class="form-control form-control-sm add-input-box" name="" id="" cols="30" rows="3" style="background:#2A2B2F; border:1px solid #C6C5CA; color:white;"
+                    maxlength="250" [(ngModel)]="remark"></textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-end" style="border:none; margin-top:-20px">
+        <div >
+          <button type="button" class="btn cancel-btn" style="margin-right: 10px;" data-dismiss="modal" (click)="closeModal()">
+            Cancel
+          </button>
+          <button
+            [ngClass]=" (remark==''||remark==null)? 'cursor-disabled' : 'cursor-enabled'"
+            [disabled]=" (remark==''||remark==null)"
+            (click)="revert()" class="btn submit-btn" data-dismiss="modal">
+            Submit
+          </button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <!--  </div>-->
+</ng-template>
+
+
+
 

@@ -12,7 +12,7 @@ html, body {
   height: 100%;
 }
 .nav-width{
-  width: 260px;
+  width: 240px;
 }
 
 
@@ -163,6 +163,10 @@ html, body {
   scale: 0.7;
   border: none;
 }
+.logout-icon:focus{
+  border: none;
+  outline:none;
+}
 
 .task-icon{
   width: 20px;
@@ -173,11 +177,12 @@ html, body {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: url('src/assets/top-up.svg') center center no-repeat;
+  background: url('src/assets/side-arrow.svg') center center no-repeat;
   transition: transform 0.3s ease;
+  transform: rotate(0deg);
 }
 .top-up.rotated {
-  transform: rotate(180deg);
+  transform: rotate(90deg);
 }
 .sidebar-item {
   display: flex;
@@ -200,7 +205,7 @@ html, body {
   color: white;
   margin: 0;
   margin-left: 20px;
-  font-size: 14px;
+  font-size:11px;
 }
 
 .subtask.active-subtask .subtask-text {
@@ -219,7 +224,7 @@ nav.flex-grow-1 {
   bottom: 0;
   z-index: 1020;
   position: absolute;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  /*display: flex;*/
+  /*justify-content: space-between;*/
+  /*align-items: center;*/
 }

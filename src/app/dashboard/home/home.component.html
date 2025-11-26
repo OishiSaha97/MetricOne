@@ -1,118 +1,132 @@
 
-<div class="vh-100">
-<!--  <div>-->
-<!--    <app-flip-clock-->
-<!--      [date]="'2026-01-01 00:00:00'"-->
-<!--      [showDays]="true"-->
-<!--      (completed)="onDone()"-->
-<!--    ></app-flip-clock>-->
-<!--  </div>-->
-<div class="row h-100">
-  <div class="col-md-8 d-flex flex-column">
+
+<div class="row poppins-font">
+  <div class="col-md-9">
     <div class="row g-3">
-      <div class="col-md-6">
-        <div class="card p-3 notifications">
-          <h5>Notifications</h5>
-          <div class="user" *ngFor="let note of notifications">
-            <img [src]="note.image" alt="user">
-            <div>
-              <strong>{{ note.name }}</strong><br>
-              <small>{{ note.message }}</small>
+      <div class="col-md-5">
+        <div class="card p-3 announcement-panel " style="width: 84%;margin-left: 13px;margin-top: 26%;">
+          <h5 class="announcement-title">Notifications</h5>
+          <div class=" announcement-list">
+            <div class="user" *ngFor="let note of notifications;let i = index">
+              <div>
+                <span style="font-size: 14px; font-weight: bold;"
+                        [ngStyle]="{ color: i === 0 ? '#FFFFFF' : '#92959E' }">{{ note.created_by }}</span>
+                <br>
+                <p style="font-size: 11px;line-height: 1.5;margin-top: 5px;"
+                   [ngStyle]="{ color: i === 0 ? '#FFFFFF' : '#D0D2DA' }">{{ note.notification }}</p>
+                <hr>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="card p-3 announcement-box">
-          <h5>Announcements</h5>
-          <textarea
+      <div class="col-md-7">
+      <div class="announcement-panel card p-3 " style="margin-left: -8%;margin-top: 18%;">
+        <h5 class="announcement-title">Announcements</h5>
+
+        <div *ngIf="role == 'hr'" style="margin-top: 3%;">
+          <textarea [(ngModel)]="anncText"
             rows="4"
-            class="obj-input small"
-            placeholder="Enter Announcement..."
+            class="announcement-input"
+            placeholder="Type Here"
           ></textarea>
-          <button class="btn btn-primary btn-sm mt-2">Submit</button>
+
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-announce mt-2 text-right" (click)="publishAnnoc()">Publish</button>
+          </div>
+          <hr>
+
         </div>
-        <hr>
+
+
+        <div class="announcement-list mt-3" style="margin-top: 7px !important;">
+          <div *ngFor="let a of announcements;let i = index;"
+          >
+
+            <p class="announcement-text"
+               [ngStyle]="{ color: i === 0 ? '#FFFFFFCC' : '#FFFFFF80' }">
+              {{ a.announcement2 }}
+            </p>
+            <p class="announcement-date">
+              {{ a.created_at }}
+            </p>
+            <hr>
+          </div>
+        </div>
+
       </div>
     </div>
-    <div class="table-container mt-3">
-      <h5>Performance Measurements</h5>
-      <table class="table-borderless table-sm">
-        <thead>
-        <tr>
-          <th>Employee Name</th>
-          <th>Designation</th>
-          <th>Team</th>
-          <th>Performance Measure</th>
-          <th>Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let emp of employees">
-          <td>{{ emp.name }}</td>
-          <td>{{ emp.designation }}</td>
-          <td>{{ emp.team }}</td>
-          <td>{{ emp.measure }}</td>
-          <td>{{ emp.date }}</td>
-        </tr>
-        </tbody>
-      </table>
+
     </div>
+<!--    <div class="table-container mt-3">-->
+<!--      <h5>Performance Measurements</h5>-->
+<!--      <table class="table-borderless table-sm">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--          <th>Employee Name</th>-->
+<!--          <th>Designation</th>-->
+<!--          <th>Team</th>-->
+<!--          <th>Performance Measure</th>-->
+<!--          <th>Date</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr *ngFor="let emp of employees">-->
+<!--          <td>{{ emp.name }}</td>-->
+<!--          <td>{{ emp.designation }}</td>-->
+<!--          <td>{{ emp.team }}</td>-->
+<!--          <td>{{ emp.measure }}</td>-->
+<!--          <td>{{ emp.date }}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
 
-  </div>
-  <div class="col-md-4" style="background-color:#1C1D21; height:100%">
-    <div class="kpi-box mb-3">
-      <div class="kpi-header d-flex justify-content-between align-items-center mb-3" (click)="openSetting();">
+</div>
+<div class="col-md-3" style="background-color:#1C1D21;">
+  <div  >
+    <div class="kpi-box mb-1">
+      <div class="kpi-header d-flex justify-content-between align-items-center mb-1"
+           [class.disabled]="role !== 'hr'"
+           [class.pointer]="role === 'hr'"
+           (click)="(role === 'hr') && openSetting();">
+<!--        <div class="d-flex justify-content-between text-center align-items-center">-->
+<!--          style="margin-left: 50px;"-->
+          <h6 class=" setting-title" style="font-size:12px;" >{{ settingTitle }}</h6>
+<!--        </div>-->
         <div>
-          <h6 class="mb-0 text-center" >{{ settingTitle }}</h6>
+          <span title="{{ settingTitle }}"
+                placement="top"
+                container="body" class="setting-icon"
+                *ngIf="role === 'hr'"></span>
         </div>
-        <div>
-          <span class="setting-icon"></span>
-        </div>
-
-
       </div>
 
-      <div class="row align-items-center mb-3">
+      <div class="row align-items-center mb-1" style="margin-top: 18%;">
 
         <div class="col-md-6 col-sm-6">
-          <div class="countdown-card tier-block">
-            <h6 class=" mb-3" style="color: #83F7F6">Closes In:</h6>
+          <div class="countdown-card tier-block" style="margin-left: 6%;">
+            <h6 class=" mb-2" style="color: #83F7F6;font-size: 12px;margin-left: 3%;">Closes In:</h6>
             <div>
               <app-flip-clock
-                [date]="'2026-01-01 00:00:00'"
+                [date]=initialtionDate
                 [showDays]="true"
                 (completed)="onDone()"
               ></app-flip-clock>
             </div>
 
-<!--            <div class="countdown d-flex justify-content-center align-items-center gap-3">-->
-<!--              <div class="time-box text-center">-->
-<!--                <div class="time-value">{{ days | number: '2.0' }}</div>-->
 
-<!--              </div>-->
-<!--&lt;!&ndash;              <div class="time-label">DAYS</div>&ndash;&gt;-->
-
-<!--              <div class="time-box text-center">-->
-<!--                <div class="time-value">{{ hours | number: '2.0' }}</div>-->
-
-<!--              </div>-->
-<!--&lt;!&ndash;              <div class="time-label">HOURS</div>&ndash;&gt;-->
-
-<!--              <div class="time-box text-center">-->
-<!--                <div class="time-value">{{ minutes | number: '2.0' }}</div>-->
-
-<!--              </div>-->
-<!--&lt;!&ndash;              <div class="time-label">MINUTES</div>&ndash;&gt;-->
-<!--            </div>-->
           </div>
         </div>
 
 
-        <div class="col-md-6 col-sm-6">
-          <div class="countdown-card">
-            <h6 class="mb-3" style="color: #83F7F6">End Date:</h6>
+        <div class="col-md-6 col-sm-6" style="margin-left: -3px;">
+          <div class="countdown-card tier-block">
+            <!--            <div>-->
+            <h6 class="mb-2" style="color: #83F7F6;font-size: 12px;margin-top: -21%;">End Date:</h6>
+            <!--            </div>-->
+
             <div class="end-date-box">
               {{ initialtionDate | date:'dd MMMM, yyyy' }}
             </div>
@@ -120,82 +134,79 @@
         </div>
       </div>
 
-<!--      <div class="row align-items-center mb-3">-->
-
-<!--          <div class="col-md-6 col-sm-6">-->
-<!--              <div class="countdown d-flex justify-content-center align-items-center gap-3" style="padding-left: 14px;">-->
-<!--                              <div class="time-label">DAYS</div>-->
-<!--                              <div class="time-label">HOURS</div>-->
-<!--                              <div class="time-label">MINUTES</div>-->
-<!--              </div>-->
-<!--          </div>-->
-
-<!--      </div>-->
-
-      </div>
-
-
-
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-title">In Manager's Review</div>
-          <div class="kpi-value">
-            <div>
-              <span class="divider">|</span>
-            </div>
-            <div>
-              <span class="number">32</span>
-            </div>
-
-
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-title">Total Employees</div>
-          <div class="kpi-value">
-            <div>
-              <span class="divider">|</span>
-            </div>
-            <div>
-              <span class="number">{{ totalEmloyee }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-title">KPI In Progress</div>
-          <div class="kpi-value">
-            <div>
-              <span class="divider">|</span>
-            </div>
-            <div>
-              <span class="number">32</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-title">In HR's Review</div>
-          <div class="kpi-value">
-            <div>
-              <span class="divider">|</span>
-            </div>
-            <div>
-              <span class="number">32</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    <div class="card p-4 text-center">
-      <div class="progress-circle">
-        <span>35%</span>
-      </div>
-      <p class="mt-3">Completed: 101</p>
     </div>
+
+
+
+    <div class="kpi-grid" *ngIf="role == 'hr' || role == 'manager'">
+      <div class="kpi-card">
+        <div class="kpi-title">In Manager's Review</div>
+        <div class="kpi-value">
+          <div>
+            <span class="divider">|</span>
+          </div>
+          <div>
+            <span class="number">{{ managerReview }}</span>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">Total Employees</div>
+        <div class="kpi-value">
+          <div>
+            <span class="divider">|</span>
+          </div>
+          <div>
+            <span class="number">{{ totalEmloyee }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">KPI Not Submiteed</div>
+        <div class="kpi-value">
+          <div>
+            <span class="divider">|</span>
+          </div>
+          <div>
+             <span class="number">{{kpiNotSubmitted}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">In HR's Review</div>
+        <div class="kpi-value">
+          <div>
+            <span class="divider">|</span>
+          </div>
+          <div>
+            <span class="number">{{ hrReviewCount }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-measure text-center pt-4" *ngIf="role == 'hr' || role == 'manager'">
+      <div class="progress-circle">
+        <svg>
+          <circle class="bg" cx="40" cy="40" r="30"></circle>
+          <circle class="progress" cx="40" cy="40" r="30" [attr.stroke-dashoffset]="dashOffset"></circle>
+        </svg>
+        <div class="percentage">{{ progressValue }}%</div>
+      </div>
+      <p class="completed-text">Completed : <span>{{ completed }}</span></p>
+    </div>
+
   </div>
 
+
 </div>
+
 </div>
+
 
 

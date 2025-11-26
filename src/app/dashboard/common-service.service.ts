@@ -51,6 +51,10 @@ export class CommonServiceService {
     return this.http.post(`${this.ApiEndpoint}/dashboard/save/endDate`, obj);
   }
 
+  saveEvaEndDate(obj: any) {
+    return this.http.post(`${this.ApiEndpoint}/dashboard/save/evalutionDate`, obj);
+  }
+
   saveModifiedData(obj: any) {
     return this.http.post(`${this.ApiEndpoint}/dashboard/modified/info`, obj);
   }
@@ -58,8 +62,20 @@ export class CommonServiceService {
   getLogData(obj:any): Observable<any>{
     return this.http.post(`${this.ApiEndpoint}/hierarchy/config/data`, obj);
   }
+  getNotification(obj:any): Observable<any>{
+    return this.http.post(`${this.ApiEndpoint}/dashboard/notification`, obj);
+  }
   saveKPIAttribute(obj: any) {
     return this.http.post(`${this.ApiEndpoint}/attribute/save`, obj);
   }
 
+  updateKPIAttribute(obj: any) {
+    return this.http.post(`${this.ApiEndpoint}/attribute/update`, obj);
+  }
+  getAllEmpKpiList(obj:any): Observable<any> {
+    return this.http.post(`${this.ApiEndpoint}/list/allEmp`, obj);
+  }
+  saveAnnouncement(obj: any) {
+    return this.http.post(`${this.ApiEndpoint}/dashboard/save/announcement`, obj);
+  }
 }

@@ -18,6 +18,7 @@ export class InitialComponent {
   @Output() selectedDatesEva: EventEmitter<string | null> = new EventEmitter<string | null>();
   totalEmloyee: any;
   userId:any;
+  timePeriod:any;
   @Input() tabs: any;
    resData: any;
    dashBoardData: any;
@@ -28,6 +29,7 @@ export class InitialComponent {
               private kpi: CommonServiceService) {}
   ngOnInit() {
     this.userId = localStorage.getItem('username');
+    this.timePeriod = localStorage.getItem('timePeriod');
     this.today = new Date();
     this.bsConfig = {
       adaptivePosition: false,
@@ -37,11 +39,12 @@ export class InitialComponent {
     };
 
     this.completed = 250;
-
     this.checkEndDate();
     if(this.mode=='edit'){
       this.getData();
     }
+      const now = new Date();
+      this.today = now.toISOString().split('T')[0];  // yyyy-mm-dd
 
   }
   @Output() showProceed = new EventEmitter<any>();
@@ -60,11 +63,28 @@ export class InitialComponent {
   }
 
   checkEndDate() {
-    this.kpi.getLogData({ param: 'KPIendDate', userIdKPI: this.userId })
+    let param;
+    if(this.tabs==='evaluation'){
+      param='EvaEndDate';
+    }
+    else{
+      param='KPIendDate';
+    }
+    this.kpi.getLogData({ param: param, userIdKPI: this.userId })
       .subscribe(res => {
-        this.resData = res?.['KPIendDate'][0] || [];
+        if(this.tabs==='evaluation'){
+          this.resData = res?.['EvaEndDate'][0] || [];
+          this.selectedDateEva = this.formatDateForInput(this.resData.kpi_last_date);
+          this.selectedDatesEva.emit(this.selectedDateEva);
+        }
+        else{
+          this.resData = res?.['KPIendDate'][0] || [];
 
-        this.selectedDate = this.formatDateForInput(this.resData.kpi_last_date);
+          this.selectedDate = this.formatDateForInput(this.resData.kpi_last_date);
+          this.selectedDates.emit(this.selectedDate);
+        }
+
+
       });
   }
   formatDateForInput(dateString: string): string {

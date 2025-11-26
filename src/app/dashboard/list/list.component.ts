@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
 import {Router} from "@angular/router";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {CommonServiceService} from "../common-service.service";
 import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
+import {SettingsComponent} from "../settings/settings.component";
 
 @Component({
   selector: 'app-list',
@@ -20,6 +21,7 @@ export class ListComponent {
 
   userName:any;
   userId:any;
+  timePeriod:any;
   pagination: any = {
     paramLimit: 100,
     paramOffset: 0,
@@ -39,6 +41,12 @@ export class ListComponent {
   year:any = '2025';
   isInitCrossed: boolean = false;
   showEvaluation: boolean = false;
+  isShowAdd: boolean = false;
+ remarkList: any;
+  isHierarchyOpen: boolean = false;
+  team: any;
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
+  toastMessage: string = '';
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
@@ -48,31 +56,11 @@ export class ListComponent {
   ngOnInit() {
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
+    this.timePeriod = localStorage.getItem('timePeriod');
     this.loadData('');
-    this.checkInitiationDate();
-    // this.kpi.getLogData({param: 'check_kpi_my',objectId:this.year,extraParam:this.userId})
-    //   .subscribe(res => {
-    //
-    //       this.check_kpi = Array.isArray(res?.['check_kpi_my']) ? res?.['check_kpi_my'] : res?.['check_kpi_my']
-    //       console.log(this.check_kpi);
-    //     },
-    //     (error) => {
-    //       console.error("Error fetching permission list", error);
-    //     }
-    //   );
-
-
+    this.userTeam();
   }
 
-  checkInitiationDate() {
-    this.kpi.getLogData({ param: 'initiationCheck', userIdKPI: this.userId })
-      .subscribe(res => {
-        this.isInitCrossed = res?.['initiationCheck'][0].deadline_crossed;
-        if(this.isInitCrossed){
-          this.showEvaluation = true;
-        }
-      });
-  }
 
 
   loadData(obj:any){
@@ -99,6 +87,7 @@ export class ListComponent {
           this.pagination.paramOffset=offset
           this.resData = res.result['content'];
           this.resDataDup = res.result['content'];
+          this.isShowAdd = res.result['addPermission']?.[0]?.addPermission;
 
           this.scrollStatus = false;
           // document.getElementById('dataTable').scrollTo(0, 0);
@@ -141,10 +130,35 @@ export class ListComponent {
 
 
   onClick() {
-    this.modalService.show(KpiFormComponent, {
+    const initialState = {
+      currentStatus:'employee',
+      view:true,
+      draftShow:true,
+      team:this.team
+    };
+    this.modalRef = this.modalService.show(KpiFormComponent, {
       backdrop: 'static',
       keyboard: false,
-      class: 'modal-dialog modal-dialog-centered modal-xl'
+      class: 'modal-dialog modal-dialog-centered modal-max',
+      initialState:initialState
+    });
+
+    if (this.modalRef) {
+      const modalContent = this.modalRef.content as SettingsComponent;
+
+      const subscription = modalContent.requestEmitter.subscribe(() => {
+        this.loadData('');
+      });
+
+      this.modalRef.onHidden?.subscribe(() => {
+        subscription.unsubscribe();
+      });
+    }
+
+    let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+      this.loadData({});
+      this.showToast("KPI submitted successfully.");
+      dataLoader.unsubscribe();
     });
 
     // this.router.navigate(['', 'my-form']);
@@ -152,26 +166,244 @@ export class ListComponent {
 
 
   search() {
-
+     this.loadData({})
   }
+
+  showToast(msg: string) {
+    this.toastMessage = msg;
+
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+      el.classList.add('show');
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 5000);
+
+    }, 0);
+  }
+
+  fullHierarchy: any;
 
   viewClick(user: any): void {
-    if (user.status == 'closed' && this.showEvaluation) {
-      // this.viewDetails(user);
-      const initialState = {
-        userData: user,
-        title: 'Employee Evaluation',
-        currentStatus:'employee',
-      };
-      this.modalService.show(EvaluationComponent, {
-        initialState:initialState,
-        backdrop: 'static',
-        keyboard: false,
-        class: 'modal-dialog modal-dialog-centered modal-xl'
-      });
-    } else {
-      console.log('View disabled — conditions not met');
+
+    console.log("user.edit_permission : ", user.edit_permission);
+    console.log("this.timePeriod : ", this.timePeriod);
+
+      if (this.timePeriod === 'evaluation'  ) {
+        const initialState = {
+          userData: user,
+          title: 'Employee Evaluation',
+          currentStatus:'employee',
+          view:user.edit_permission,
+        };
+
+        this.modalRef = this.modalService.show(EvaluationComponent, {
+          initialState:initialState,
+          backdrop: 'static',
+          keyboard: false,
+          class: 'modal-dialog modal-dialog-centered modal-max'
+        });
+
+        let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+          this.loadData({});
+          dataLoader.unsubscribe();
+        });
+      }
+      else if(this.timePeriod === 'initiation'  ){
+
+        const initialState = {
+          kpiUserId: user.user_id,
+          status: user.status,
+          team: user.team,
+          name: user.name,
+          year: user.year,
+          kpiId: user.id,
+          approvalStatus: user.approval_status,
+          currentStatus:'employee',
+          view:user.edit_permission,
+          draftShow:true
+        };
+        this.modalRef = this.modalService.show(KpiFormComponent, {
+          backdrop: 'static',
+          keyboard: false,
+          class: 'modal-dialog modal-dialog-centered modal-max',
+          initialState: initialState
+        });
+
+        let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+          this.loadData({});
+          // if(this.draftShow == true){
+          //   this.showToast("KPI Save Successfully.");
+          // }
+          dataLoader.unsubscribe();
+        });
+      }
     }
+
+  // activeDropdown: HTMLElement | null = null;
+  // openHierarchy(user: any, event: MouseEvent) {
+  //   event.stopPropagation();
+  //   if (this.isHierarchyOpen) {
+  //     this.closeAllDropdowns();
+  //     return;
+  //   }
+  //   this.isHierarchyOpen = true;
+  //   this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
+  //     .subscribe(res => {
+  //       this.fullHierarchy = res?.['get_hierarchy'] || [];
+  //
+  //     });
+  //
+  //   const dropdown = (event.target as HTMLElement)
+  //     .closest('.dropdown')!
+  //     .querySelector('.hierarchy-dropdown') as HTMLElement;
+  //
+  //   this.activeDropdown = dropdown;
+  //
+  //   const rect = (event.target as HTMLElement).getBoundingClientRect();
+  //
+  //   dropdown.style.display = 'block';
+  //   dropdown.style.top = (rect.top + 30) + 'px';
+  //   dropdown.style.left = rect.left + 'px';
+  //   dropdown.classList.add('show');
+  //
+  // }
+  // @HostListener('document:click')
+  // closeAllDropdowns() {
+  //   if (this.activeDropdown) {
+  //     this.activeDropdown.classList.remove('show');
+  //   }
+  //   this.isHierarchyOpen = false;
+  // }
+
+
+  openHierarchyIndex: number | null = null;
+  activeDropdown: HTMLElement | null = null;
+
+  openHierarchy(user: any, event: MouseEvent, index: number) {
+    event.stopPropagation();
+    this.openRemarksIndex = null;
+
+    // Toggle logic
+    if (this.openHierarchyIndex === index) {
+      this.closeDropdown();
+      return;
+    }
+
+    this.openHierarchyIndex = index;
+
+    // Load API
+    this.kpi.getLogData({
+      param: 'get_hierarchy',
+      userIdKPI: this.userId,
+      extraParam: user.team,
+      pid:user.id
+    }).subscribe(res => {
+      this.fullHierarchy = res?.['get_hierarchy'] || [];
+    });
+
+    // Position dropdown
+    const dropdown = (event.target as HTMLElement)
+      .closest('.dropdown')
+      ?.querySelector('.hierarchy-dropdown') as HTMLElement;
+
+    this.activeDropdown = dropdown;
+
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+    dropdown.style.top = rect.top + 30 + 'px';
+    dropdown.style.left = rect.left + 'px';
+
+    dropdown.classList.add('show');
   }
 
+  closeDropdown() {
+    if (this.activeDropdown) {
+      this.activeDropdown.classList.remove('show');
+    }
+    this.openHierarchyIndex = null;
+  }
+
+  @HostListener('document:click')
+  onOutsideClick() {
+    this.closeDropdown();
+    this.closeRemarksDropdown();
+  }
+
+
+  openRemarksIndex: number | null = null;
+  activeRemarksDropdown: HTMLElement | null = null;
+
+
+
+  // openRemarks(user: any, event: MouseEvent, index: number) {
+  //     this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+  //       .subscribe(res => {
+  //         this.remarkList = res?.['reverted_remark_list'] || [];
+  //
+  //       });
+  //     const dropdown = (event.target as HTMLElement)
+  //       .closest('.dropdown')!
+  //       .querySelector('.hierarchy-dropdown-remark') as HTMLElement;
+  //
+  //     const rect = (event.target as HTMLElement).getBoundingClientRect();
+  //
+  //     dropdown.style.display = 'block';
+  //     dropdown.style.top = (rect.top + 20) + 'px';
+  //     dropdown.style.left = rect.left + 'px';
+  //   }
+
+  openRemarks(user: any, event: MouseEvent, index: number) {
+    event.stopPropagation();
+    this.openHierarchyIndex = null;
+
+    // If clicking same index → toggle close
+    if (this.openRemarksIndex === index) {
+      this.closeRemarksDropdown();
+      return;
+    }
+
+    this.openRemarksIndex = index;
+
+    this.kpi.getLogData({
+      param: 'reverted_remark_list',
+      userIdKPI: this.userId,
+      parameter:this.timePeriod,
+      extraParam:user.id
+
+    }).subscribe(res => {
+      this.remarkList = res?.['reverted_remark_list'] || [];
+    });
+
+
+    const dropdown = (event.target as HTMLElement)
+      .closest('.dropdown')
+      ?.querySelector('.hierarchy-dropdown-remark') as HTMLElement;
+
+    this.activeRemarksDropdown = dropdown;
+
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+    dropdown.style.top = rect.top + 30 + 'px';
+    dropdown.style.left = rect.left -30 + 'px';
+
+    dropdown.classList.add('show');
+  }
+
+  closeRemarksDropdown() {
+    if (this.activeRemarksDropdown) {
+      this.activeRemarksDropdown.classList.remove('show');
+    }
+    this.openRemarksIndex = null;
+  }
+
+
+  userTeam() {
+    this.kpi.getLogData({
+      param: 'get_userTeam',
+      extraParam:this.userId
+
+    }).subscribe(res => {
+      this.team = res?.['get_userTeam'][0].team_name || [];
+      console.log("this.team : ", this.team);
+    });
+  }
 }

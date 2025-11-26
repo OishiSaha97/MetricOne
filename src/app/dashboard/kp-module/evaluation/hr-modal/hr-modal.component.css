@@ -1,0 +1,134 @@
+.objective-box {
+  background-color: #35363D;
+  border: 1px solid #7A7B8299;
+  transition: background-color 0.3s ease;
+}
+
+.objective-box.bg-open {
+  background-color: #41424C;
+  border-color: #9A9BA3;
+}
+
+.btn-primary {
+  background-color: #6366f1;
+  border: none;
+}
+
+.collapse-content {
+  animation: fadeIn 0.2s ease-in-out;
+
+}
+@media (max-width: 576px) {
+  .objective-box {
+    padding: 1rem;
+  }
+
+  select.form-select-sm {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+.work-obj{
+  background-color: #35363D;
+  border: 1px solid #7A7B8299;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.obj-input{
+  width:100%;
+  height:auto;
+  background-color: #2A2B2F ;
+  display: block;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  appearance: none;
+  background-clip: padding-box;
+  border: 1px solid #7A7B8299;
+  border-radius: 8px;
+  transition: border-color .15s
+  ease-in-out, box-shadow .15s
+  ease-in-out;
+
+}
+.obj-input:focus{
+  border: 1px solid #7A7B8299;
+  outline: none;
+}
+.submit-btn{
+  color:white;
+  background-color: rgba(100, 73, 190, 1);
+  border: 1px solid rgba(100, 73, 190, 1);
+  padding: 8px 30px;
+  border-radius: 4px;
+}
+.cancel-btn{
+  color:white;
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  background-color: transparent;
+  padding: 8px 30px;
+  border-radius: 4px;
+}
+.cancel-btn.hover{
+  border: 1px solid rgba(100, 73, 190, 0.41);
+  color:white;
+}
+.custom-tooltip:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  background: #25262C;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: normal;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  max-width: 180px;
+  overflow-wrap: break-word;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  pointer-events: none;
+}
+.select-item{
+  color:#FFFFFF80;
+  cursor: pointer;
+}
+.select-item.focus{
+  border:none;
+  background-color: #33343C;
+}
+.dropdown-scroll{
+  background-color: #33343C;
+  transform: translate(-2px, 33px)!important;
+  width: 150px;
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #6c6d74 black !important;
+}
+
+.objective-error {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  font-size: 12px;
+  color: #D75656FF;
+  white-space: nowrap;
+}
+.tick-icon{
+  background: url("src/assets/tick-icon.svg") no-repeat center center;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+textarea::placeholder {
+  color: whitesmoke;
+  opacity: 1;
+}

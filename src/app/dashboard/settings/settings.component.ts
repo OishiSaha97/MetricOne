@@ -1,4 +1,4 @@
-import {Component, Inject, Input, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
 import {DOCUMENT} from "@angular/common";
@@ -10,10 +10,12 @@ declare var $: any;
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent {
+  requestEmitter: EventEmitter<any> = new EventEmitter<any>();
   currentStage = 0;
   selectedDate: string | null = null;
   selectedDateEva: string | null = null;
   userId:any;
+  timePeriod:any;
   stages = ['KPI Initiation', 'KPI Modification', 'KPI Evaluation'];
   tables = {
     initiation: {
@@ -38,6 +40,7 @@ export class SettingsComponent {
               private kpi: CommonServiceService) {}
   ngOnInit(){
     this.userId = localStorage.getItem('username');
+    this.timePeriod = localStorage.getItem('timePeriod');
     this.currentTable = 'initiation';
     this.tab='initiation';
 
@@ -51,6 +54,9 @@ export class SettingsComponent {
         this.isInitCrossed = res?.['initiationCheck'][0].deadline_crossed;
         if(this.isInitCrossed){
           this.showEvaluation = true;
+        }
+        else{
+          this.showEvaluation = false;
         }
       });
   }
@@ -124,6 +130,7 @@ export class SettingsComponent {
         // this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
         if (this.modalRef) {
           this.modalRef.hide();
+          this.requestEmitter.emit(true);
         }
         this.bsModalRef.hide();
 
@@ -138,15 +145,16 @@ export class SettingsComponent {
     const formData = new FormData();
 
     formData.append('userId', this.userId);
-    formData.append('date', formattedDate);
-    formData.append('forDate', (this.tab === 'initiation'? 'initiation' : 'evaluation')  );
+    formData.append('date', formattedDate.toString());
+    formData.append('forDate', 'evaluation');
 
     console.log('Submitting EndDate:', formData);
-    this.kpi.saveEndDate(formData).subscribe({
+    this.kpi.saveEvaEndDate(formData).subscribe({
       next: (response) => {
         // this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
         if (this.modalRef) {
           this.modalRef.hide();
+          this.requestEmitter.emit(true);
         }
         this.bsModalRef.hide();
 

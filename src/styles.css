@@ -60,7 +60,13 @@ body {
 }
 .modal { overflow: auto !important; }
 
-
+.revert-btn {
+  padding: 5px 20px;
+  border: 1px solid #3CA895;
+  background-color: #3CA895;
+  color: white;
+  border-radius: 4px;
+}
 
 
 
@@ -153,3 +159,74 @@ body {
 .common-purple{
   color: #AD94FF !important;
 }
+
+.container,.container-fluid{
+  max-width: 82%!important;
+}
+
+.active-btn{
+  background-color: #04AC7C;
+  color: #FFFFFF;
+  border:none;
+  width: 75px;
+  border-radius: 5px;
+}
+
+
+.custom-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background:  #35363D;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.custom-toast.show {
+  opacity: 1;
+  z-index:9999;
+}
+@font-face {
+  font-family: "poppins";
+  src: url("assets/fonts/Poppins-ExtraLight.ttf");
+}
+
+.poppins-font {
+  font-family: poppins;
+}
+
+/*.modal-backdrop {*/
+/*  background-color: rgba(0, 0, 0, 1) !important; !* Full black *!*/
+/*}*/
+
+/*.modal-backdrop.show {*/
+/*  opacity: 1 !important; !* No transparency *!*/
+/*}*/
+
+.white-font{
+  color:white!important;
+}
+
+/*.view-mode input,*/
+/*.view-mode textarea {*/
+/*  pointer-events: none;*/
+/*  !*background-color: #33343c !important;*!*/
+/*  opacity: 0.6;*/
+/*}*/
+
+/*.readonly,*/
+/*.readonly * {*/
+/*  pointer-events: none !important;*/
+/*  !*opacity: 0.6;*!*/
+/*}*/
+
+/*.auto-textarea {*/
+/*  min-height: 41px;*/
+/*  max-height: fit-content;*/
+/*  overflow: hidden;*/
+/*  resize: none;*/
+/*}*/

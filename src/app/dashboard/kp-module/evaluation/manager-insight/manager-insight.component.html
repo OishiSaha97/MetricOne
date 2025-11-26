@@ -1,8 +1,8 @@
-<div class="objectives-card p-4 rounded">
+<div class="objectives-card p-4 rounded" [class.view-mode]="view === 0 || currentStatus === 'hr'">
   <h5 class="text-light fw-semibold">Manager's Insight</h5>
 
 
-  <div class="container mt-3">
+  <div class="mt-3">
     <ul class="list-group">
       <div class="work-obj">
         <div class="d-flex justify-content-start">
@@ -23,12 +23,15 @@
           </div>
           <div *ngIf="obj.isOpen" class="collapse-content">
             <hr style="width: 104%;margin-left: -18px;">
-            <input
+            <textarea
               type="text"
               class="obj-input mb-2"
               [(ngModel)]="obj.objectiveText"
-              placeholder="Type Here"
-            />
+              placeholder="Type Here">
+            </textarea>
+            <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">
+              {{ objectiveErrors[i].objectiveText }}
+            </small>
           </div>
         </div>
 

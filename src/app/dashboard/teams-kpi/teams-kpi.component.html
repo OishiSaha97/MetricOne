@@ -1,27 +1,8 @@
 <div class="list-table">
-  <div class="d-flex justify-content-between align-items-center mb-5">
+  <div class="d-flex justify-content-end align-items-center mb-5">
 
-    <div class="left-side d-flex align-items-center gap-3">
-      <div class="KPI-status border-1  d-flex align-items-center p-10px"
-           style="background-color: #1B1B1B; border-radius: 5px; align-items: center">
-        <p class="m-0 p-2">{{ choosedOption }}</p>
-      </div>
-
-      <div class="KPI-status border-1 align-items-center  p-10px " style="background-color: #25262C;
-; border-radius: 5px;  border: 5px solid #44454E; align-items: center">
-        <div class="m-0 p-1">
-          <p class="m-0 small-text "><span style="color: #AD94FF;">Closes In:</span> {{ choosedOption }}</p>
-          <p class="m-0 small-text "><span style="color: #AD94FF;">End Date:</span> {{ choosedOption }}</p>
-        </div>
-      </div>
-
-
-    </div>
 
     <div class="right-side" style="display: flex; align-items: center; gap: 16px;">
-<!--      <div class="icons" style="display: flex; align-items: center; gap: 8px;">-->
-<!--        <img src="../../../assets/announcement.svg" alt="announcement" style="width: 24px; height: 24px;">-->
-<!--        <img src="../../../assets/notification.svg" alt="notification" style="width: 24px; height: 24px;">-->
 <!--      </div>-->
       <div class="logo" style="display: flex; align-items: center;">
         <img src="../../../assets/logo-datasoft.svg" alt="datasoft logo" style="width: 120px; height: auto;">
@@ -36,19 +17,15 @@
       <h5 style="color:#AD94FF;">{{ label }}</h5>
     </div>
     <div class="actions">
-      <img src="../../../assets/download.svg" style="background-color:#6449BE ; padding: 10px; border-radius: 5px"/>
-      <img src="../../../assets/upload.svg" style="background-color:#6449BE ; padding: 10px; border-radius: 5px"/>
-
-<!--      <button style="background-color: #6449BE;">+ Add New</button>-->
-      <div class="search-wrapper">
-        <input type="text" placeholder="Search Here" class="search-input" />
-        <img src="../../../assets/magnifine-bar.svg" class="search-icon" />
+      <div class="search-wrapper" (keyup.enter)="search()">
+        <input type="text" placeholder="Search Here" [(ngModel)]="searchParam" class="search-input" />
+        <img src="../../../assets/magnifine-bar.svg" class="search-icon"  (click)="search()" />
       </div>
     </div>
   </div>
 
   <!-- Table scroll wrapper -->
-  <div class="table-scroll-wrapper">
+  <div class="table-scroll-wrapper" style="min-height: 60vh;">
     <div class="table-x-scroll">
       <table>
         <thead>
@@ -59,40 +36,147 @@
           <th>Team</th>
           <th>Employee Id</th>
           <th>Status</th>
-          <th>Designation</th>
+<!--          <th>Designation</th>-->
+          <th>Hierarchy</th>
           <th>Remarks</th>
           <th>Action</th>
         </tr>
         </thead>
         <tbody>
-<!--        <tr *ngFor="let user of userList; let i = index">-->
-<!--          <td>{{ i + 1 }}</td>-->
-<!--          <td title="{{ user.year }}">{{ user.year }}</td>-->
-<!--          <td title="{{ user.employeeName }}">{{ user.employeeName }}</td>-->
-<!--          <td title="{{ user.team }}">{{ user.team }}</td>-->
-<!--          <td title="{{ user.employeeId }}">{{ user.employeeId }}</td>-->
-<!--          <td title="{{ user.status }} " [ngClass]="getStatusClass(user.status)">{{ user.status }}</td>-->
-<!--          <td title="{{ user.designation }}">{{ user.designation }}</td>-->
         <tr *ngFor="let user of resData; let i = index" >
           <td>{{ i + 1 }}</td>
-          <td title="{{ user.year }}">{{ user.year }}</td>
-                    <td title="{{ user.name }}">{{ user.name }}</td>
-          <td title="{{ user.team }}">{{ user.team }}</td>
-                    <td title="{{ user.employee_id }}">{{ user.employee_id }}</td>
-          <td title="{{ user.status }}" [ngClass]="getStatusClass(user.status)">{{ user.status }} </td>
-          <td title="{{ user.SBU }}">{{ user.sbu }}</td>
-          <td title="{{ user.remarks }}">
-            <span class="remarks"> ({{ user.remarks }})</span>
-            {{" "}} <img src="../../../assets/comment.svg" />
+          <td >{{ user.year }}</td>
+<!--                    <td title="{{ user.name }}">{{ user.name }}</td>-->
+          <td>
+            <div
+              *ngIf="user.name?.length > 15; else noTooltip"
+              tooltip="{{ user.name }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.name | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltip>
+              <div class="text-truncate">{{ user.name }}</div>
+            </ng-template>
+          </td>
+          <td>
+            <div
+              *ngIf="user.team?.length > 15; else noTooltipTeam"
+              tooltip="{{ user.team }}"
+              placement="top"
+              container="body"
+              class="text-truncate"
+            >
+              {{ (user.name | slice:0:15) + '...' }}
+            </div>
+            <ng-template #noTooltipTeam>
+              <div class="text-truncate">{{ user.team }}</div>
+            </ng-template>
+          </td>
+          <td >{{ user.employee_id }}</td>
+          <td  [style.color]="
+                user.status === 'Forwarded' ? '#6BCAFA' :
+                user.status === 'In Progress' ? '#FF4FD3' :
+                user.status === 'Reverted' ? '#E5FD51' :
+                user.status === 'Draft' ? '#FFFFFF' :
+                user.status === 'Submitted' ? '#6BCAFA' :
+                user.status === 'Pending' ? '#FF9945' :
+                user.status === 'Published' ? '#A645FF' :
+                'white'
+              "
+          >
+            {{ user.status }} </td>
+<!--          <td>{{ user.desg }}</td>-->
+          <td style="cursor:pointer;position: relative;">
+            <span *ngIf="user.hieCount > 0"
+              class="text-white dropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              aria-expanded="false"
+              (click)="openHierarchy(user)">
+              <ul style="color: #fff;">{{ user.hieCount }}</ul>
+            </span>
+            <span *ngIf="user.hieCount <= 0"
+              class="text-white dropdown"
+              role="button">
+              <ul style="color: #fff;">{{ user.hieCount }}</ul>
+            </span>
+            <div
+              class="dropdown-menu hierarchy-dropdown p-4"
+              aria-labelledby="dropdownMenu2">
+
+              <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
+                Hierarchy
+              </div>
+
+              <div class="w-100">
+                <div *ngFor="let user of fullHierarchy; let i = index;">
+                  <div style="font-size:14px; color:white; display:flex; justify-content:space-between; align-items:center;">
+                    <span>{{ user.user_name }}</span>
+                    <span
+                      [style.color]="user.status === 'Pending' ? 'yellow' : (user.status === 'Approved' ? 'lightgreen' : 'white')"
+                    >
+                    {{ user.status }}
+                  </span>
+                  </div>
+                  <div class="dropdown-divider"></div>
+                </div>
+
+              </div>
+            </div>
+
+
+            <!--            </div>-->
+
+
+          </td>
+          <td >
+            <span *ngIf="user.remarks > 0"
+              class="text-white dropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              aria-expanded="false"
+              (click)="user.remarks > 0 ? openRemarks(user): ''">
+              {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />
+            </span>
+            <span *ngIf="user.remarks <= 0"
+              class="text-white dropdown"
+              role="button">
+              {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />
+            </span>
+            <div
+              class="dropdown-menu hierarchy-dropdown p-4"
+              aria-labelledby="dropdownMenu2" style="left: -189px !important;">
+              <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
+                Remarks
+              </div>
+              <div *ngFor="let note of remarkList">
+                <div class="popup-meta">
+                    <span class="common-purple"
+                          [title]="note.created_by">
+                          {{ note.created_by?.length > 20 ? (note.created_by | slice:0:20) + '...' : note.created_by }}
+                  </span>
+
+                  <span class="date" style="margin-left: 34px;">Date:{{note.created_at }}</span>
+                </div>
+                <p style=" overflow-wrap: break-word;word-break: break-word;">{{note.obj_remark}}</p>
+              </div>
+            </div>
+
+
           </td>
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"
                  [ngStyle]="{
-                    cursor: user.status === 'Submitted for Reviewer' ? 'pointer' : 'default',
-                    opacity: user.status === 'Submitted for Reviewer' ? 1 : 0.4,
-                    'pointer-events': user.status === 'Submitted for Reviewer' ? 'all' : 'none'
-                  }"
-                 (click)="viewDetails(user)"
+                      cursor: isClickable(user) ? 'pointer' : 'default',
+                      opacity: isClickable(user) ? 1 : 0.4,
+                      'pointer-events': isClickable(user) ? 'all' : 'none'
+                      }"
+                 (click)="isClickable(user) && viewDetails(user)"
             />
           </td>
         </tr>
@@ -101,3 +185,9 @@
     </div>
   </div>
 </div>
+
+
+
+<!--isClickable(user) &&-->
+
+

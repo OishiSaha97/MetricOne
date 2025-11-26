@@ -40,6 +40,9 @@
             <label class="name mb-1" style="color:white;">Name</label> <br>
             <input type="text" class="textinput" [(ngModel)]="attributeName"  placeholder="Type Here">
 
+            <div *ngIf="errorMessage" style="color: red; font-size: 12px; margin-top: 3px;">
+              {{ errorMessage }}
+            </div>
 
           </div>
         </div>
@@ -49,9 +52,10 @@
     </div>
 
     <footer class="footer-section">
-      <div class="d-flex justify-content-end gap-2 p-4 pb-2">
+      <div class="d-flex justify-content-end gap-2 p-4">
         <button class="btn cancel-btn" (click)="closePopup()">Cancel</button>
-        <button class="btn submit-btn" (click)="save()">Save</button>
+        <button class="btn submit-btn" (click)="save()"
+                [disabled]="isSaveDisabled()">Save</button>
       </div>
     </footer>
 
