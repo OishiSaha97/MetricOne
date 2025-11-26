@@ -195,10 +195,9 @@
 
                     <textarea
                       type="text"
-                      class="obj-input  mb-2 from-control  readonly-scroll"
+                      class="obj-input mb-2 auto-textarea"
                       [(ngModel)]="obj.objectiveText"
                       placeholder="Enter objective..."
-                      (input)="autoGrow($event)"
                       [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingObjective">
                     </textarea>
 
@@ -263,7 +262,7 @@
                     <textarea
                       rows="4"
                       type="text"
-                      class="obj-input small form-control"
+                      class="obj-input small auto-textarea"
                       [(ngModel)]="obj.performanceText"
                       placeholder="Enter Performance..."
                       [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingPerformance"
@@ -328,11 +327,10 @@
 
                       <textarea
                         rows="4"
-                        class="obj-input small from-control"
+                        class="obj-input small"
                         [(ngModel)]="obj.targetText"
                         placeholder="Enter target..."
-                        [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingTarget"
-                        (input)="autoGrow($event)" >
+                        [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingTarget">
                       </textarea>
 
                       <p style="font-size: 10px;">Please set the target based on the following measurements: Numeric, Percentage, Monitory, Ratio or Time</p>
