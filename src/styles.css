@@ -211,22 +211,22 @@ body {
   color:white!important;
 }
 
-.view-mode input,
-.view-mode textarea {
-  pointer-events: none;
-  /*background-color: #33343c !important;*/
-  opacity: 0.6;
-}
+/*.view-mode input,*/
+/*.view-mode textarea {*/
+/*  pointer-events: none;*/
+/*  !*background-color: #33343c !important;*!*/
+/*  opacity: 0.6;*/
+/*}*/
 
-.readonly,
-.readonly * {
-  pointer-events: none !important;
-  /*opacity: 0.6;*/
-}
+/*.readonly,*/
+/*.readonly * {*/
+/*  pointer-events: none !important;*/
+/*  !*opacity: 0.6;*!*/
+/*}*/
 
-.auto-textarea {
-  min-height: 41px;
-  max-height: fit-content;
-  overflow: hidden;
-  resize: none;
-}
+/*.auto-textarea {*/
+/*  min-height: 41px;*/
+/*  max-height: fit-content;*/
+/*  overflow: hidden;*/
+/*  resize: none;*/
+/*}*/
