@@ -29,6 +29,8 @@ export class HrModalComponent {
   @Input() view: any;
   @Input() oldObjective:any=[];
   @Input() isBack:any=false;
+  @Input() onNexts:any=false;
+  @Input() savedHrData:any=[];
 
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false,isOpenIncrement: false,isEditingObjective: false, objectiveText: '',increment: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''},
@@ -55,6 +57,17 @@ export class HrModalComponent {
     this.userId = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
     this.getRating();
+
+    if (this.onNexts === true && this.savedHrData.length > 0) {
+      const saved = this.savedHrData[0];
+
+      this.objectives[0] = {
+        ...this.objectives[0],   // keep existing structure
+        ...saved,                // copy saved values
+        isOpen: false,           // override
+        isOpenIncrement: false                 // update only matching fields
+      };
+    }
   }
 
   toggleObjective(obj: Objective): void {
@@ -142,6 +155,11 @@ export class HrModalComponent {
           console.error("Error fetching ratings", error);
         }
       );
+  }
+  @Output() backdataSubmitted = new EventEmitter<any>();
+  onNext(){
+    this.backdataSubmitted.emit(this.objectives);
+
   }
 
 }
