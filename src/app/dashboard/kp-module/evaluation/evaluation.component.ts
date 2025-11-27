@@ -233,6 +233,7 @@ export class EvaluationComponent {
       if(this.selfAssessment.length > 0){
         if(this.currentStatus == 'employee'){
           this.openConfirmation(this.confirmation);
+          return;
           // this.submitEmployee();
         }
           currentStep = 3;
