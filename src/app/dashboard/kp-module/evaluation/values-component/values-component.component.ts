@@ -108,7 +108,6 @@ export class ValuesComponentComponent {
               }
             });
 
-            console.log("this.objectives : ", this.objectives);
           },
           (error) => {
             console.error("Error fetching permission list", error);
@@ -116,7 +115,6 @@ export class ValuesComponentComponent {
         );
     }
     else if(this.onNexts === true && this.isBack === true){
-      console.log("savedValuesData : ", this.savedValuesData);
       this.objectives = this.savedValuesData.map((obj: any, index: number) => {
 
         const savedRating = obj.selectedRating || '';
@@ -139,7 +137,6 @@ export class ValuesComponentComponent {
 
     }
     else {
-      console.log("this.oldObjective : ", this.oldObjective);
 
       this.objectives = this.oldObjective.map((obj: any, index: number) => {
 
