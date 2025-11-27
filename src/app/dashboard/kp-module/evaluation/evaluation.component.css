@@ -161,3 +161,9 @@
   background: #6c5dd3;
   opacity: 0.4;
 }
+.scroll-component{
+  max-height:400px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #6c6d74 black !important;
+}

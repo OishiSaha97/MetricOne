@@ -67,9 +67,7 @@
         <span class="remark-count2 text-right">{{'(' + (userData.remarks  || 0) + ')'}}</span>
         <div class="dropdown-menu dropdown-options d-large p-4" aria-labelledby="dropdownMenu2"
              style="word-wrap: break-word; overflow-wrap: break-word;background-color: black !important;   white-space: normal !important;
-              word-break: break-word;
-              width: 332px;
-              font-size: 13px;">
+              word-break: break-word;width: 332px;font-size: 13px;">
           <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">
             Remarks
           </div>
@@ -151,7 +149,8 @@
     </div>
 
     <div class="col-lg-9 col-md-9">
-      <fieldset *ngIf="currentTable=='objective'">
+      <fieldset *ngIf="currentTable=='objective'" >
+<!--        class="scroll-component"-->
         <app-objective-set [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack1"
                            [oldObjective]="objectiveSet" (dataSubmittedDraft)="onChildDataSubmittedDraft($event,'objective')"
                            (dataSubmitted)="onChildDataSubmitted($event,'objective')"
