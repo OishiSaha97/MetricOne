@@ -101,6 +101,7 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                             [attr.disabled]=" userData.status === 'Closed' ? true : null"
+                            [attr.title]="obj.selectedType && obj.selectedType.length > 11 ? obj.selectedType : null"
                             style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right: 25px;">
                       {{ obj.selectedType ? (obj.selectedType.length > 12 ? (obj.selectedType | slice:0:12) + '...' : obj.selectedType) : 'Select' }}
                     </button>
