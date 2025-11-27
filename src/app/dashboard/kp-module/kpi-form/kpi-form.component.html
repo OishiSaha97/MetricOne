@@ -161,8 +161,9 @@
 
                               <li *ngFor="let type of filterObjectiveTypes">
                                 <a class="dropdown-item text-light select-item"
-                                   (click)="view === 0 ? null : onObjectiveChange(type, obj, i)">
-                                  {{ type.name }}
+                                   (click)="view === 0 ? null : onObjectiveChange(type, obj, i)"
+                                   [attr.title]="type.name.length > 13 ? type.name : null">
+                                  {{ type.name.length > 13 ? (type.name | slice:0:13) + '...' : type.name }}
                                   <i class="tick-icon" *ngIf="obj.selectedType === type.name"></i>
                                 </a>
                               </li>
