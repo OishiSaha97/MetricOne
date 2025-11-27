@@ -109,7 +109,7 @@ export class TeamsKPIComponent {
 
   viewDetails(user: any) {
 
-    if(this.timePeriod === 'initiation'){
+    if(user.stage === 'initiation'){
       const initialState = {
         kpiUserId: user.user_id,
         status: user.status,
@@ -147,7 +147,7 @@ export class TeamsKPIComponent {
       });
 
     }
-    else if(this.timePeriod === 'evaluation'){
+    else if(user.stage === 'evaluation'){
       const initialState = {
         userData: user,
         title: 'Manager Evaluation',
