@@ -57,7 +57,14 @@ export class NavbarComponent {
 
     navigateTo(path: string) {
       this.activeSubTask = path;
-      this.isHomeActive = false;
+      if(path === 'home'){
+        this.isHomeActive = true;
+        this.activeIndex= null;
+      }
+      else{
+        this.isHomeActive = false;
+      }
+
       this.router.navigate(['dashboard', path]);
     }
 

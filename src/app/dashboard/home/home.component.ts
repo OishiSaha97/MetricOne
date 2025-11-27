@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FinalApprovalPopUpComponent} from "../approval-hierarchy/final-approval-pop-up/final-approval-pop-up.component";
 import {SettingsComponent} from "../settings/settings.component";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
@@ -165,6 +165,8 @@ export class HomeComponent {
 
       const subscription = modalContent.requestEmitter.subscribe(() => {
         this.checkEndDate();
+        this.getNotification();
+        this.getAnnouncements();
       });
 
       this.modalRef.onHidden?.subscribe(() => {
@@ -193,10 +195,25 @@ export class HomeComponent {
       });
 
   }
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
+  toastMessage: string = '';
+
+  showToast(msg: string) {
+    this.toastMessage = msg;
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+      el.classList.add('show');
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 5000);
+
+    }, 0);
+  }
+
 
   publishAnnoc() {
     if (!this.anncText || this.anncText.trim() === '') {
-      alert("Announcement text cannot be empty!");
+      this.showToast("Announcement text cannot be empty!");
       return;
     }
     const formData = new FormData();
