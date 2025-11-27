@@ -236,9 +236,11 @@ export class KpiFormComponent implements OnInit {
     }, 0);
   }
 
+
   validateObjectives(): boolean {
     let totalWeightage = 0;
     this.objectiveErrors = {};
+    let hasDuplicateType = false;
 
     for (let i = 0; i < this.objectives.length; i++) {
       const obj = this.objectives[i];
@@ -291,13 +293,21 @@ export class KpiFormComponent implements OnInit {
 
     Object.keys(typeCount).forEach(typeKey => {
       if (typeCount[typeKey] > 1) {
-        this.objectives.forEach((obj:Objective, index:any) => {
+        hasDuplicateType = true;
+
+        this.objectives.forEach((obj: Objective, index: any) => {
           if (obj.selectedType === typeKey) {
             this.objectiveErrors[index].selectedType = '*Duplicate Type is not allowed';
           }
         });
       }
     });
+
+
+    if (hasDuplicateType) {
+      this.showToast('Duplicate Key results area is not allowed!');
+      return false;
+    }
 
     if (Math.round(totalWeightage) !== 100) {
       this.showToast(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
