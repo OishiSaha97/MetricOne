@@ -30,25 +30,6 @@
                    *ngIf="['manager','hr','approver'].includes(currentStatus)" >Rating</div>
 
             </div>
-
-
-
-<!--          <div-->
-<!--            class="d-flex justify-content-between align-items-center gap-4 flex-grow-1"-->
-<!--            [ngClass]="{-->
-<!--        'justify-content-end': !['manager','hr','approver'].includes(currentStatus)-->
-<!--      }"-->
-<!--          >-->
-<!--            <div class="fw-semibold p-3" style="margin-right: -38px;">WEIGHTAGE</div>-->
-<!--            <div class="fw-semibold p-3">Objective Name</div>-->
-<!--            <div-->
-<!--              class="fw-semibold p-3"-->
-<!--              style="margin-right: 40px;"-->
-<!--              *ngIf="['manager','hr','approver'].includes(currentStatus)"-->
-<!--            >-->
-<!--              Rating-->
-<!--            </div>-->
-<!--          </div>-->
         </div>
 
           <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light"
@@ -76,9 +57,10 @@
                   <div class="col-md-11">
                     <div class="d-flex justify-content-between align-items-center"
                          [ngClass]="{
-                  'justify-content-end': !['manager','hr','approver'].includes(currentStatus)
-                }"
+                      'for-rating': !['manager','hr','approver'].includes(currentStatus)
+                     }"
                     >
+
                       <div class="input-with-percent"  style="position: relative;" >
                         <input
                           type="text"
