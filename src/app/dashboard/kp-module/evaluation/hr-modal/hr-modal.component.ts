@@ -68,6 +68,36 @@ export class HrModalComponent {
         isOpenIncrement: false
       };
     }
+    else {
+      this.kpi.getLogData({
+        param: 'evalution-hr-kpi-list',
+        objectId: this.userData.user_id,
+        parameter: this.userData.team,
+        pid: this.userData.year,
+        extraParam: this.userData.id
+      })
+        .subscribe(res => {
+            const data = res?.['evalution-hr-kpi-list']?.[0];
+            if (!data) return;
+            this.objectives[0] = {
+              ...this.objectives[0],       // keep existing flags and structure
+              objectiveText: data.hr_comment || '',
+              increment: data.hr_increment || '',
+              attendanceRating: data.attendance || '',
+              leaveRating: data.leave || '',
+              issueRating: data.disciplary_issue || '',
+              awardRating: data.award || '',
+              isOpen: false,               // force to false
+              isOpenIncrement: false       // force to false
+            };
+
+
+          },
+          (error) => {
+            console.error("Error fetching permission list", error);
+          }
+        );
+    }
   }
 
   toggleObjective(obj: Objective): void {
