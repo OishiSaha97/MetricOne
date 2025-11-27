@@ -13,322 +13,248 @@
   <p class="text-secondary white-font" style="font-size: 11px;">
     Please write SMART Objective statements: Stretching, Measurable, Agreed, Realistic, Time-Bound. Providing atleast 3 work objective is mandatory. Click on the “Add Work Objective” to add more work objective.
   </p>
-
-  <div class="mt-3">
-    <ul class="list-group">
-      <div class="work-obj">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="fw-semibold p-3">Work Objective</div>
-          <div class="d-flex justify-content-between align-items-center gap-4 "
-                      [ngClass]="{
+<!--  <div class="scroll-component">-->
+    <div class="mt-3">
+      <ul class="list-group">
+        <div class="work-obj">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="fw-semibold p-3">Work Objective</div>
+            <div class="d-flex justify-content-between align-items-center gap-4 "
+                 [ngClass]="{
                   'justify-content-end': !['manager','hr','approver'].includes(currentStatus)
                 }"
-          >
-            <div class="fw-semibold p-3" style="margin-right: -38px;" >WEIGHTAGE</div>
-            <div class="fw-semibold p-3">KEY RESULTS AREA</div>
-            <div class="fw-semibold p-3" style="margin-right: 45px;margin-left: -5px;"
-                 *ngIf="['manager','hr','approver'].includes(currentStatus)" >Rating</div>
+            >
+              <div class="fw-semibold p-3" style="margin-right: -38px;" >WEIGHTAGE</div>
+              <div class="fw-semibold p-3">KEY RESULTS AREA</div>
+              <div class="fw-semibold p-3" style="margin-right: 45px;margin-left: -5px;"
+                   *ngIf="['manager','hr','approver'].includes(currentStatus)" >Rating</div>
 
+            </div>
+
+
+
+            <!--          <div-->
+            <!--            class="d-flex justify-content-between align-items-center gap-4 flex-grow-1"-->
+            <!--            [ngClass]="{-->
+            <!--        'justify-content-end': !['manager','hr','approver'].includes(currentStatus)-->
+            <!--      }"-->
+            <!--          >-->
+            <!--            <div class="fw-semibold p-3" style="margin-right: -38px;">WEIGHTAGE</div>-->
+            <!--            <div class="fw-semibold p-3">Objective Name</div>-->
+            <!--            <div-->
+            <!--              class="fw-semibold p-3"-->
+            <!--              style="margin-right: 40px;"-->
+            <!--              *ngIf="['manager','hr','approver'].includes(currentStatus)"-->
+            <!--            >-->
+            <!--              Rating-->
+            <!--            </div>-->
+            <!--          </div>-->
           </div>
 
-
-
-<!--          <div-->
-<!--            class="d-flex justify-content-between align-items-center gap-4 flex-grow-1"-->
-<!--            [ngClass]="{-->
-<!--        'justify-content-end': !['manager','hr','approver'].includes(currentStatus)-->
-<!--      }"-->
-<!--          >-->
-<!--            <div class="fw-semibold p-3" style="margin-right: -38px;">WEIGHTAGE</div>-->
-<!--            <div class="fw-semibold p-3">Objective Name</div>-->
-<!--            <div-->
-<!--              class="fw-semibold p-3"-->
-<!--              style="margin-right: 40px;"-->
-<!--              *ngIf="['manager','hr','approver'].includes(currentStatus)"-->
-<!--            >-->
-<!--              Rating-->
-<!--            </div>-->
-<!--          </div>-->
-        </div>
-
-        <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light"
-             [ngClass]="{
+          <div *ngFor="let obj of objectives; let i = index;" class="objective-box p-3 text-light"
+               [ngClass]="{
                'bg-open': obj.isOpen
              }" >
 
-          <div class="row"
+            <div class="row"
 
-               style="cursor:pointer;">
-            <div class="col-md-5">
-              <div class="d-flex justify-content-start"  (click)="toggleObjective(obj)">
-                <div>
-                  <img *ngIf="obj.isOpen" src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.6"  />
-                  <img *ngIf="!obj.isOpen" src="../../../assets/collapse-icon.svg" class="mb-1" style="scale:0.6"  />
+                 style="cursor:pointer;">
+              <div class="col-md-5">
+                <div class="d-flex justify-content-start"  (click)="toggleObjective(obj)">
+                  <div>
+                    <img *ngIf="obj.isOpen" src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.6"  />
+                    <img *ngIf="!obj.isOpen" src="../../../assets/collapse-icon.svg" class="mb-1" style="scale:0.6"  />
+                  </div>
+                  <span class="fw-semibold" style="font-size: 14px;">{{ obj.title }}</span>
                 </div>
-                <span class="fw-semibold" style="font-size: 14px;">{{ obj.title }}</span>
               </div>
-            </div>
-            <div class="col-md-7">
-              <div class="d-flex justify-content-between align-items-center"
-                   [ngClass]="{
+              <div class="col-md-7">
+                <div class="d-flex justify-content-between align-items-center"
+                     [ngClass]="{
                   'justify-content-end': !['manager','hr','approver'].includes(currentStatus)
                 }"
-              >
-                <div class="input-with-percent" >
-                  <input
-                    type="text"
-                    class="obj-input-weightage text-center"
-                    [(ngModel)]="obj.weightage"
-                    [disabled]="userData.status === 'Published' || userData.status === 'Closed'"
-                  />
-                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.weightage">
-                    {{ objectiveErrors[i].weightage }}
-                  </small>
-                  <span class="percentage-icon">%</span>
-                </div>
-
-                <div
-                  class="dropdown-wrapper"
-                  [class.readonly]="view === 0"
-                  (click)="view === 0 ? $event.stopPropagation() : null"
-                  (mousedown)="view === 0 ? $event.preventDefault() : null"
                 >
-                <div style="position: relative;">
-                  <div class="dropdown"
-                       [class.disabled-dropdown]=" userData.status === 'Closed'">
-                    <button class="btn btn-dark btn-sm dropdown-toggle"
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            [attr.disabled]=" userData.status === 'Closed' ? true : null"
-                            style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right: 25px;">
-                      {{ obj.selectedType ? (obj.selectedType.length > 12 ? (obj.selectedType | slice:0:12) + '...' : obj.selectedType) : 'Select' }}
-                    </button>
+                  <div class="input-with-percent"  style="position: relative;" >
+                    <input
+                      type="text"
+                      class="obj-input-weightage text-center"
+                      [(ngModel)]="obj.weightage"
+                      [disabled]="userData.status === 'Published' || userData.status === 'Closed'"
+                    />
+                    <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.weightage">
+                      {{ objectiveErrors[i].weightage }}
+                    </small>
+                    <span class="percentage-icon">%</span>
+                  </div>
 
-                    <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
-                        style="background-color: #33343C; width:150px;">
-                      <div (click)="$event.stopPropagation();" class="search-box bg-color" style="">
-                        <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
-                        <input [(ngModel)]="searchType" type="text" class="form-control search-input"
-                               placeholder="Search Here" style=""
-                               (input)="filterTypes()">
-                      </div>
-                      <li *ngFor="let type of filterObjectiveTypes">
-                        <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
+                  <div
+                    class="dropdown-wrapper"
+                    [class.readonly]="view === 0"
+                    (click)="view === 0 ? $event.stopPropagation() : null"
+                    (mousedown)="view === 0 ? $event.preventDefault() : null"
+                  >
+                    <div style="position: relative;">
+                      <div class="dropdown"
+                           [class.disabled-dropdown]=" userData.status === 'Closed'">
+                        <button class="btn btn-dark btn-sm dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                [attr.disabled]=" userData.status === 'Closed' ? true : null"
+                                style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right: 25px;">
+                          {{ obj.selectedType ? (obj.selectedType.length > 12 ? (obj.selectedType | slice:0:12) + '...' : obj.selectedType) : 'Select' }}
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
+                            style="background-color: #33343C; width:150px;">
+                          <div (click)="$event.stopPropagation();" class="search-box bg-color" style="">
+                            <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
+                            <input [(ngModel)]="searchType" type="text" class="form-control search-input"
+                                   placeholder="Search Here" style=""
+                                   (input)="filterTypes()">
+                          </div>
+                          <li *ngFor="let type of filterObjectiveTypes">
+                            <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
                               <span class="custom-tooltip"
                                     tooltip="{{ type.name }}">
                                 {{ type.name.length > 11 ? (type.name | slice:0:11) + '...' : type.name }}
                               </span>
-                          <i class="tick-icon"
-                             *ngIf="obj.selectedType === type.name"></i>
-                        </a>
-                      </li>
-                    </ul>
+                              <i class="tick-icon"
+                                 *ngIf="obj.selectedType === type.name"></i>
+                            </a>
+                          </li>
+                        </ul>
 
+                      </div>
+                      <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.selectedType">
+                        {{ objectiveErrors[i].selectedType }}
+                      </small>
+                    </div>
                   </div>
-                  <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.selectedType">
-                    {{ objectiveErrors[i].selectedType }}
-                  </small>
-                </div>
-                </div>
 
 
 
-                <div style="position: relative;">
-                  <div class="dropdown"
-                       [class.disabled-dropdown]=" userData.status === 'Closed'"
-                       *ngIf="['manager','hr','approver'].includes(currentStatus)">
-                    <!--                  *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
-                    <button class="btn btn-dark btn-sm dropdown-toggle"
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            [attr.disabled]=" userData.status === 'Closed' ? true : null"
-                            style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
-                      {{ obj.rating ? (obj.rating.length > 12 ? (obj.rating | slice:0:12) + '...' : obj.rating) : 'Select' }}
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
-                        style="background-color: #33343C;">
-                      <li *ngFor="let type of ratings">
-                        <a class="dropdown-item text-light select-item" [class.disabled-item]="userData.status === 'Closed'"
-                           (click)="onRating(type, obj, i)">
+                  <div style="position: relative;">
+                    <div class="dropdown"
+                         [class.disabled-dropdown]=" userData.status === 'Closed'"
+                         *ngIf="['manager','hr','approver'].includes(currentStatus)">
+                      <!--                  *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
+                      <button class="btn btn-dark btn-sm dropdown-toggle"
+                              type="button"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                              [attr.disabled]=" userData.status === 'Closed' ? true : null"
+                              style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
+                        {{ obj.rating ? (obj.rating.length > 12 ? (obj.rating | slice:0:12) + '...' : obj.rating) : 'Select' }}
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
+                          style="background-color: #33343C;">
+                        <li *ngFor="let type of ratings">
+                          <a class="dropdown-item text-light select-item" [class.disabled-item]="userData.status === 'Closed'"
+                             (click)="onRating(type, obj, i)">
                           <span class="custom-tooltip"
                                 tooltip="{{ type.kpi_category_name }}">
                                 {{ type.kpi_category_name.length > 11 ? (type.kpi_category_name | slice:0:11) + '...' : type.kpi_category_name }}
                           </span>
-                          <i class="tick-icon"
-                             *ngIf="obj.rating === type.kpi_category_name"></i>
-                        </a>
-                      </li>
-                    </ul>
+                            <i class="tick-icon"
+                               *ngIf="obj.rating === type.kpi_category_name"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <small class="objective-error" *ngIf="objectiveErrors[i]?.rating">
+                      {{ objectiveErrors[i].rating }}
+                    </small>
                   </div>
-                  <small class="objective-error" *ngIf="objectiveErrors[i]?.rating">
-                    {{ objectiveErrors[i].rating }}
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Collapsible content -->
+            <div *ngIf="obj.isOpen" class="collapse-content">
+              <hr>
+              <div>
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <label class="text-secondary small white-font" >OBJECTIVE</label>
+                  </div>
+
+                  <div class="col-md-6" style="text-align:end" *ngIf="currentStatus != 'employee'">
+                    <img src="../../../assets/fa-regular_edit.svg"
+                         class="mb-1" style="scale:0.7"
+                         (click)="toggleObjectiveEdit(obj)" />
+                  </div>
+                </div>
+
+                <textarea
+                  type="text"
+                  (input)="autoGrow($event)"
+                  class="obj-input mt-2 auto-textarea"
+                  [(ngModel)]="obj.objectiveText"
+                  placeholder="Enter objective..."
+                  [readonly]=" !obj.isEditingObjective"
+                  [disabled]=" userData.status === 'Closed'"
+                  [ngStyle]="{opacity: !obj.isEditingObjective ? 0.6 : 1}">
+              </textarea>
+                <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">
+                  {{ objectiveErrors[i].objectiveText }}
+                </small>
+
+                <div *ngIf="obj.isEditingObjective" class="mt-3">
+                  <h6 style="font-size: 12px;">Key Update Points*</h6>
+                  <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                  <textarea
+                    rows="4"
+                    (input)="autoGrow($event)"
+                    class="obj-input mt-2 auto-textarea"
+                    [(ngModel)]="obj.keyObjective"
+                    placeholder="Enter key point objective..."
+                    [disabled]=" userData.status === 'Closed'">
+                </textarea>
+                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyObjectiveText">
+                    {{ objectiveErrors[i].keyObjectiveText }}
                   </small>
                 </div>
 
-              </div>
-            </div>
+                <div  class=" mb-3" (clickOutside)="showObjectiveHistoryIndex=null">
+                  <img src="../../../assets/bx_chat.svg"
+                       style="scale:0.877"
+                       (click)="openObjectiveHistory(obj,i);" />
 
+                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openObjectiveHistory(obj,i);">Changed History</span>
 
-
-
-          </div>
-
-          <!-- Collapsible content -->
-          <div *ngIf="obj.isOpen" class="collapse-content">
-            <hr>
-            <div>
-              <div class="row">
-                <div class="col-md-6 mb-2">
-                  <label class="text-secondary small white-font" >OBJECTIVE</label>
-                </div>
-
-                <div class="col-md-6" style="text-align:end" *ngIf="currentStatus != 'employee'">
-                  <img src="../../../assets/fa-regular_edit.svg"
-                       class="mb-1" style="scale:0.7"
-                       (click)="toggleObjectiveEdit(obj)" />
-                </div>
-              </div>
-
-              <textarea
-                type="text"
-                (input)="autoGrow($event)"
-                class="obj-input mt-2 auto-textarea"
-                [(ngModel)]="obj.objectiveText"
-                placeholder="Enter objective..."
-                [readonly]=" !obj.isEditingObjective"
-                [disabled]=" userData.status === 'Closed'"
-                [ngStyle]="{opacity: !obj.isEditingObjective ? 0.6 : 1}">
-              </textarea>
-              <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">
-                {{ objectiveErrors[i].objectiveText }}
-              </small>
-
-              <div *ngIf="obj.isEditingObjective" class="mt-3">
-                <h6 style="font-size: 12px;">Key Update Points*</h6>
-                <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
-                <textarea
-                  rows="4"
-                  (input)="autoGrow($event)"
-                  class="obj-input mt-2 auto-textarea"
-                  [(ngModel)]="obj.keyObjective"
-                  placeholder="Enter key point objective..."
-                  [disabled]=" userData.status === 'Closed'">
-                </textarea>
-                <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyObjectiveText">
-                  {{ objectiveErrors[i].keyObjectiveText }}
-                </small>
-              </div>
-
-              <div  class=" mb-3" (clickOutside)="showObjectiveHistoryIndex=null">
-                <img src="../../../assets/bx_chat.svg"
-                      style="scale:0.877"
-                     (click)="openObjectiveHistory(obj,i);" />
-
-                <span class="ml-2 common-purple" style="font-size:12px" (click)="openObjectiveHistory(obj,i);">Changed History</span>
-
-                <div class="history-popup" *ngIf="showObjectiveHistoryIndex === i">
-                  <div class="popup-header">
-                    <h5>History</h5>
-                    <button class="close-btn" (click)="openChangedObjectiveHistory(i)">×</button>
-                  </div>
-                  <div *ngFor="let note of changedObjHistory">
-                    <div class="popup-meta">
-                      <span class="common-purple">{{note.created_by}}</span>
-                      <span class="date">Date:{{note.created_at }}</span>
+                  <div class="history-popup" *ngIf="showObjectiveHistoryIndex === i">
+                    <div class="popup-header">
+                      <h5>History</h5>
+                      <button class="close-btn" (click)="openChangedObjectiveHistory(i)">×</button>
                     </div>
-                    <p>{{note.key_point}}</p>
-                  </div>
-                </div>
-
-              </div>
-
-
-            </div>
-
-
-
-            <div>
-              <div class="row">
-                <div class="col-md-6 col-sm-6 mb-2">
-                  <label class="text-secondary small white-font">PERFORMANCE MEASURE</label>
-                </div>
-
-                <div class="col-md-6  col-sm-6" style="text-align:end">
-                  <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
-                       class="mb-1" style="scale:0.7"
-                       (click)="togglePerformanceEdit(obj)" />
-                </div>
-              </div>
-
-              <textarea
-                rows="4"
-                (input)="autoGrow($event)"
-                class="obj-input small auto-textarea"
-                [(ngModel)]="obj.performanceText"
-                placeholder="Enter target..."
-                [readonly]="!obj.isEditingPerformance"
-                [disabled]="userData.status === 'Closed'"
-                [ngStyle]="{opacity: !obj.isEditingPerformance ? 0.6 : 1}">
-              </textarea>
-
-              <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
-                {{ objectiveErrors[i].performanceText }}
-              </small>
-
-              <div *ngIf="obj.isEditingPerformance" class="mt-3">
-                <h6 style="font-size: 12px;">Key Update Points*</h6>
-                <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
-                <textarea
-                  rows="4"
-                  (input)="autoGrow($event)"
-                  class="obj-input mt-2 auto-textarea"
-                  [(ngModel)]="obj.keyPerformance"
-                  placeholder="Enter key point target..."
-                  [disabled]=" userData.status === 'Closed'">
-                </textarea>
-                <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyPerformanceText">
-                  {{ objectiveErrors[i].keyPerformanceText }}
-                </small>
-              </div>
-
-              <div  class="mb-3" (clickOutside)="showPerformanceHistoryIndex=null">
-                <img src="../../../assets/bx_chat.svg"
-                      style="scale:0.877"
-                     (click)="openPerformanceHistory(obj,i)" />
-                <span class="ml-2 common-purple" style="font-size:12px" (click)="openPerformanceHistory(obj,i)">Changed History</span>
-
-                <div class="history-popup" *ngIf="showPerformanceHistoryIndex === i">
-                  <div class="popup-header">
-                    <h5>History</h5>
-                    <button class="close-btn" (click)="openChangedHistory(i)">×</button>
-                  </div>
-                  <div *ngFor="let note of changedPerformanceHistory">
-                    <div class="popup-meta">
-                      <span class="common-purple">{{note.created_by}}</span>
-                      <span class="date">Date:{{note.created_at }}</span>
+                    <div *ngFor="let note of changedObjHistory">
+                      <div class="popup-meta">
+                        <span class="common-purple">{{note.created_by}}</span>
+                        <span class="date">Date:{{note.created_at }}</span>
+                      </div>
+                      <p>{{note.key_point}}</p>
                     </div>
-                    <p>{{note.key_point}}</p>
                   </div>
+
                 </div>
+
 
               </div>
 
-            </div>
 
 
-            <div class="row">
-
-              <div class="col-md-12 col-sm-12">
+              <div>
                 <div class="row">
-                  <div class="col-md-6 mb-2">
-                    <label class="text-secondary small white-font">TARGET</label>
+                  <div class="col-md-6 col-sm-6 mb-2">
+                    <label class="text-secondary small white-font">PERFORMANCE MEASURE</label>
                   </div>
-                  <div class="col-md-6" style="text-align:end">
+
+                  <div class="col-md-6  col-sm-6" style="text-align:end">
                     <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
                          class="mb-1" style="scale:0.7"
-                         (click)="toggleTargetEdit(obj)" />
+                         (click)="togglePerformanceEdit(obj)" />
                   </div>
                 </div>
 
@@ -336,42 +262,45 @@
                   rows="4"
                   (input)="autoGrow($event)"
                   class="obj-input small auto-textarea"
-                  [(ngModel)]="obj.targetText"
+                  [(ngModel)]="obj.performanceText"
                   placeholder="Enter target..."
-                  [disabled]=" userData.status === 'Closed'"
-                  [readonly]=" !obj.isEditingTarget"
-                  [ngStyle]="{opacity: !obj.isEditingTarget ? 0.6 : 1}"></textarea>
+                  [readonly]="!obj.isEditingPerformance"
+                  [disabled]="userData.status === 'Closed'"
+                  [ngStyle]="{opacity: !obj.isEditingPerformance ? 0.6 : 1}">
+              </textarea>
 
-                <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.targetText">
-                  {{ objectiveErrors[i].targetText }}
+                <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
+                  {{ objectiveErrors[i].performanceText }}
                 </small>
 
-                <div *ngIf="obj.isEditingTarget" class="mt-3">
+                <div *ngIf="obj.isEditingPerformance" class="mt-3">
                   <h6 style="font-size: 12px;">Key Update Points*</h6>
                   <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
                   <textarea
                     rows="4"
                     (input)="autoGrow($event)"
                     class="obj-input mt-2 auto-textarea"
-                    [(ngModel)]="obj.keyTarget"
+                    [(ngModel)]="obj.keyPerformance"
                     placeholder="Enter key point target..."
-                    [disabled]=" userData.status === 'Closed'"></textarea>
-                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyTargetText">
-                    {{ objectiveErrors[i].keyTargetText }}
+                    [disabled]=" userData.status === 'Closed'">
+                </textarea>
+                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyPerformanceText">
+                    {{ objectiveErrors[i].keyPerformanceText }}
                   </small>
                 </div>
 
-                <div  class=" mb-3" (clickOutside)="showTargetHistoryIndex=null">
+                <div  class="mb-3" (clickOutside)="showPerformanceHistoryIndex=null">
                   <img src="../../../assets/bx_chat.svg"
                        style="scale:0.877"
-                       (click)="openTargetHistory(obj,i)" />
-                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openTargetHistory(obj,i)">Changed History</span>
-                  <div class="history-popup" *ngIf="showTargetHistoryIndex === i">
+                       (click)="openPerformanceHistory(obj,i)" />
+                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openPerformanceHistory(obj,i)">Changed History</span>
+
+                  <div class="history-popup" *ngIf="showPerformanceHistoryIndex === i">
                     <div class="popup-header">
                       <h5>History</h5>
-                      <button class="close-btn" (click)="openChangedTargetHistory(i)">×</button>
+                      <button class="close-btn" (click)="openChangedHistory(i)">×</button>
                     </div>
-                    <div *ngFor="let note of changedTargetHistory">
+                    <div *ngFor="let note of changedPerformanceHistory">
                       <div class="popup-meta">
                         <span class="common-purple">{{note.created_by}}</span>
                         <span class="date">Date:{{note.created_at }}</span>
@@ -381,151 +310,221 @@
                   </div>
 
                 </div>
+
               </div>
 
-            </div>
 
+              <div class="row">
 
-            <div class="row">
-
-              <div class="col-md-8">
-                <div class="row">
-                  <div class="col-md-6 mb-2">
-                    <label class="text-secondary small white-font">ACHIEVED</label>
+                <div class="col-md-12 col-sm-12">
+                  <div class="row">
+                    <div class="col-md-6 mb-2">
+                      <label class="text-secondary small white-font">TARGET</label>
+                    </div>
+                    <div class="col-md-6" style="text-align:end">
+                      <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
+                           class="mb-1" style="scale:0.7"
+                           (click)="toggleTargetEdit(obj)" />
+                    </div>
                   </div>
-                  <div class="col-md-6" style="text-align:end">
-                    <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
-                         class="mb-1" style="scale:0.7"
-                         (click)="toggleAchievedEdit(obj)" />
+
+                  <textarea
+                    rows="4"
+                    (input)="autoGrow($event)"
+                    class="obj-input small auto-textarea"
+                    [(ngModel)]="obj.targetText"
+                    placeholder="Enter target..."
+                    [disabled]=" userData.status === 'Closed'"
+                    [readonly]=" !obj.isEditingTarget"
+                    [ngStyle]="{opacity: !obj.isEditingTarget ? 0.6 : 1}"></textarea>
+
+                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.targetText">
+                    {{ objectiveErrors[i].targetText }}
+                  </small>
+
+                  <div *ngIf="obj.isEditingTarget" class="mt-3">
+                    <h6 style="font-size: 12px;">Key Update Points*</h6>
+                    <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                    <textarea
+                      rows="4"
+                      (input)="autoGrow($event)"
+                      class="obj-input mt-2 auto-textarea"
+                      [(ngModel)]="obj.keyTarget"
+                      placeholder="Enter key point target..."
+                      [disabled]=" userData.status === 'Closed'"></textarea>
+                    <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyTargetText">
+                      {{ objectiveErrors[i].keyTargetText }}
+                    </small>
+                  </div>
+
+                  <div  class=" mb-3" (clickOutside)="showTargetHistoryIndex=null">
+                    <img src="../../../assets/bx_chat.svg"
+                         style="scale:0.877"
+                         (click)="openTargetHistory(obj,i)" />
+                    <span class="ml-2 common-purple" style="font-size:12px" (click)="openTargetHistory(obj,i)">Changed History</span>
+                    <div class="history-popup" *ngIf="showTargetHistoryIndex === i">
+                      <div class="popup-header">
+                        <h5>History</h5>
+                        <button class="close-btn" (click)="openChangedTargetHistory(i)">×</button>
+                      </div>
+                      <div *ngFor="let note of changedTargetHistory">
+                        <div class="popup-meta">
+                          <span class="common-purple">{{note.created_by}}</span>
+                          <span class="date">Date:{{note.created_at }}</span>
+                        </div>
+                        <p>{{note.key_point}}</p>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
-                <textarea
-                  rows="4"
-                  (input)="autoGrow($event)"
-                  class="obj-input  auto-textarea"
-                  [(ngModel)]="obj.achievedText"
-                  placeholder="Enter Achieved..."
-                  [readonly]="currentStatus == 'manager' && !obj.isEditingAchieved"
-                  [ngStyle]="{opacity: !obj.isEditingAchieved ? 0.6 : 1}"
-                ></textarea>
+              </div>
 
-                <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.achievedText">
-                  {{ objectiveErrors[i].achievedText }}
+
+              <div class="row">
+
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-6 mb-2">
+                      <label class="text-secondary small white-font">ACHIEVED</label>
+                    </div>
+                    <div class="col-md-6" style="text-align:end">
+                      <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
+                           class="mb-1" style="scale:0.7"
+                           (click)="toggleAchievedEdit(obj)" />
+                    </div>
+                  </div>
+
+                  <textarea
+                    rows="4"
+                    (input)="autoGrow($event)"
+                    class="obj-input  auto-textarea"
+                    [(ngModel)]="obj.achievedText"
+                    placeholder="Enter Achieved..."
+                    [readonly]="currentStatus == 'manager' && !obj.isEditingAchieved"
+                    [ngStyle]="{opacity: !obj.isEditingAchieved ? 0.6 : 1}"
+                  ></textarea>
+
+                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.achievedText">
+                    {{ objectiveErrors[i].achievedText }}
+                  </small>
+
+                  <div *ngIf="obj.isEditingAchieved " class="mt-3">
+                    <h6 style="font-size: 12px;">Key Update Points*</h6>
+                    <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
+                    <textarea
+                      type="text"
+                      (input)="autoGrow($event)"
+                      [ngStyle]="{ 'height': 'auto', 'overflow': 'hidden' }"
+                      class="obj-input mt-2 auto-textarea"
+                      [(ngModel)]="obj.keyAchieved"
+                      placeholder="Enter key point achieved..."
+                    ></textarea>
+                    <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyAchieved">
+                      {{ objectiveErrors[i].keyAchieved }}
+                    </small>
+                  </div>
+
+                  <div  class="mb-3" (clickOutside)="showAchievedHistoryIndex=null">
+                    <img src="../../../assets/bx_chat.svg"
+                         class="mb-1" style="scale:0.877"
+                         (click)="openAchievedHistory(obj,i)" />
+                    <span class="ml-2 common-purple" style="font-size:12px" (click)="openAchievedHistory(obj,i)">Changed History</span>
+                    <div class="history-popup" *ngIf="showAchievedHistoryIndex === i">
+                      <div class="popup-header">
+                        <h5>History</h5>
+                        <button class="close-btn" (click)="openChangedAchievedHistory(i)">×</button>
+                      </div>
+                      <div *ngFor="let note of changedAchievedHistory">
+                        <div class="popup-meta">
+                          <span class="common-purple">{{note.created_by}}</span>
+                          <span class="date">Date:{{note.created_at }}</span>
+                        </div>
+                        <p>{{note.key_point}}</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-md-4 mt-2">
+                  <div>
+                    <label class="text-secondary small white-font">ACHIEVED(%)</label>
+                  </div>
+                  <div class="input-with-percent-achieved" >
+                    <input
+                      type="text"
+                      class="obj-input mb-2"
+                      [(ngModel)]="obj.achievedInt"
+                      (keydown)="blockDecimal($event)"
+                      placeholder="Enter achieved..."
+                      style="height: 41px;"
+                    />
+                    <span class="percentage-icon" style="right:13px!important;">%</span>
+                    <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.achievedInt">
+                      {{ objectiveErrors[i].achievedInt }}
+                    </small>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </ul>
+
+    </div>
+    <div class="mt-3" *ngIf="['manager','hr','approver'].includes(currentStatus)">
+      <ul class="list-group">
+        <div class="work-obj">
+          <div class="objective-box p-3 text-light">
+            <div class="d-flex justify-content-between">
+              <div>
+                <span class="fw-semibold">{{ 'OVERALL RATING' }}</span>
+              </div>
+              <div style="position: relative;">
+                <div class="dropdown"
+                     [class.disabled-dropdown]=" userData.status === 'Closed'"
+                     *ngIf="['manager','hr','approver'].includes(currentStatus)">
+                  <button class="btn btn-dark btn-sm dropdown-toggle"
+                          type="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          [attr.disabled]=" userData.status === 'Closed' ? true : null"
+                          style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
+                    {{ objOverallRating ? (objOverallRating.length > 12 ? (objOverallRating | slice:0:12) + '...' : objOverallRating) : 'Select' }}
+                  </button>
+
+                  <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
+                      style="background-color: #33343C;">
+                    <li *ngFor="let type of ratings">
+                      <a class="dropdown-item text-light"
+                         [class.disabled-item]=" userData.status === 'Closed'"
+                         (click)="onOverallRating(type)">
+
+                        {{ type.kpi_category_name ? (type.kpi_category_name.length > 12 ? (type.kpi_category_name | slice:0:12) + '...' : type.kpi_category_name) : 'Select' }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <small class="objective-error" style="left: -14px;" *ngIf="objOverallRatingError">
+                  {{ objOverallRatingError }}
                 </small>
 
-                <div *ngIf="obj.isEditingAchieved " class="mt-3">
-                  <h6 style="font-size: 12px;">Key Update Points*</h6>
-                  <p style="font-size: 10px;">Please fill up this mandatory field mentioning briefly the modifications you did for future reference purpose.</p>
-                  <textarea
-                    type="text"
-                    (input)="autoGrow($event)"
-                    [ngStyle]="{ 'height': 'auto', 'overflow': 'hidden' }"
-                    class="obj-input mt-2 auto-textarea"
-                    [(ngModel)]="obj.keyAchieved"
-                    placeholder="Enter key point achieved..."
-                  ></textarea>
-                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.keyAchieved">
-                    {{ objectiveErrors[i].keyAchieved }}
-                  </small>
-                </div>
-
-                <div  class="mb-3" (clickOutside)="showAchievedHistoryIndex=null">
-                  <img src="../../../assets/bx_chat.svg"
-                       class="mb-1" style="scale:0.877"
-                       (click)="openAchievedHistory(obj,i)" />
-                  <span class="ml-2 common-purple" style="font-size:12px" (click)="openAchievedHistory(obj,i)">Changed History</span>
-                  <div class="history-popup" *ngIf="showAchievedHistoryIndex === i">
-                    <div class="popup-header">
-                      <h5>History</h5>
-                      <button class="close-btn" (click)="openChangedAchievedHistory(i)">×</button>
-                    </div>
-                    <div *ngFor="let note of changedAchievedHistory">
-                      <div class="popup-meta">
-                        <span class="common-purple">{{note.created_by}}</span>
-                        <span class="date">Date:{{note.created_at }}</span>
-                      </div>
-                      <p>{{note.key_point}}</p>
-                    </div>
-                  </div>
-
-                </div>
               </div>
-
-              <div class="col-md-4 mt-2">
-                <div>
-                  <label class="text-secondary small white-font">ACHIEVED(%)</label>
-                </div>
-                <div class="input-with-percent-achieved" >
-                  <input
-                    type="text"
-                    class="obj-input mb-2"
-                    [(ngModel)]="obj.achievedInt"
-                    (keydown)="blockDecimal($event)"
-                    placeholder="Enter achieved..."
-                    style="height: 41px;"
-                  />
-                  <span class="percentage-icon" style="right:13px!important;">%</span>
-                  <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.achievedInt">
-                    {{ objectiveErrors[i].achievedInt }}
-                  </small>
-                </div>
-              </div>
-
-
-          </div>
-        </div>
-
-      </div>
-      </div>
-    </ul>
-
-  </div>
-  <div class="mt-3" *ngIf="['manager','hr','approver'].includes(currentStatus)">
-    <ul class="list-group">
-      <div class="work-obj">
-        <div class="objective-box p-3 text-light">
-          <div class="d-flex justify-content-between">
-            <div>
-              <span class="fw-semibold">{{ 'OVERALL RATING' }}</span>
-            </div>
-            <div style="position: relative;">
-              <div class="dropdown"
-                   [class.disabled-dropdown]=" userData.status === 'Closed'"
-                   *ngIf="['manager','hr','approver'].includes(currentStatus)">
-                <button class="btn btn-dark btn-sm dropdown-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        [attr.disabled]=" userData.status === 'Closed' ? true : null"
-                        style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
-                  {{ objOverallRating ? (objOverallRating.length > 12 ? (objOverallRating | slice:0:12) + '...' : objOverallRating) : 'Select' }}
-                </button>
-
-                <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
-                    style="background-color: #33343C;">
-                  <li *ngFor="let type of ratings">
-                    <a class="dropdown-item text-light"
-                       [class.disabled-item]=" userData.status === 'Closed'"
-                       (click)="onOverallRating(type)">
-
-                      {{ type.kpi_category_name ? (type.kpi_category_name.length > 12 ? (type.kpi_category_name | slice:0:12) + '...' : type.kpi_category_name) : 'Select' }}
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <small class="objective-error" style="left: -14px;" *ngIf="objOverallRatingError">
-                {{ objOverallRatingError }}
-              </small>
 
             </div>
-
           </div>
-        </div>
 
-      </div>
-    </ul>
-  </div>
+        </div>
+      </ul>
+    </div>
+<!--  </div>-->
+
+
 
 
 
