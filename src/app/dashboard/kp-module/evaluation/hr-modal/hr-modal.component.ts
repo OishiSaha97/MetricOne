@@ -62,10 +62,10 @@ export class HrModalComponent {
       const saved = this.savedHrData[0];
 
       this.objectives[0] = {
-        ...this.objectives[0],   // keep existing structure
-        ...saved,                // copy saved values
-        isOpen: false,           // override
-        isOpenIncrement: false                 // update only matching fields
+        ...this.objectives[0],
+        ...saved,
+        isOpen: false,
+        isOpenIncrement: false
       };
     }
   }

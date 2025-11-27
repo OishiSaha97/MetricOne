@@ -53,8 +53,6 @@ export class NavbarComponent {
 
 
       this.getPermission();
-
-
       this.setActiveMenu(this.router.url);
 
       // also check on navigation
@@ -75,7 +73,7 @@ export class NavbarComponent {
 
     this.isHomeActive = false;
     if (!url.includes('/dashboard/home')) {
-      this.activeIndex = 1;
+      // this.activeIndex = 1;
       this.activeSubTask = url.split('/dashboard/')[1];
     }
 
