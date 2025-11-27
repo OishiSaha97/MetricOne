@@ -27,6 +27,8 @@
           <textarea
             type="text"
             class="obj-input mb-2"
+            [attr.disabled]=" userData.status === 'Closed' ? true : null"
+            [disabled]=" userData.status === 'Closed'"
             [(ngModel)]="obj.objectiveText"
             placeholder="Type Here">
           </textarea>
@@ -61,6 +63,8 @@
         <textarea
           type="text"
           class="obj-input mb-2"
+          [attr.disabled]=" userData.status === 'Closed' ? true : null"
+          [disabled]=" userData.status === 'Closed'"
           [(ngModel)]="obj.increment"
           placeholder="Type Here">
           </textarea>
@@ -78,12 +82,18 @@
       <div class="work-obj">
         <div class="d-flex justify-content-between">
           <div class="fw-semibold p-3" style="margin-top: 6px;">ATTENDANCE</div>
-          <div style="position: relative;">
+          <div style="position: relative;"  [class.readonly]="view === 0">
             <div class="dropdown">
             <button class="btn btn-dark dropdown-toggle m-3"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
+                    [attr.data-bs-toggle]="view === 0 ? null : 'dropdown'"
+                    [ngStyle]="{
+                                  'pointer-events': view === 0 ? 'none' : 'auto',
+                                  'opacity': view === 0 ? 0.5 : 1
+                                }"
+                    [attr.disabled]=" userData.status === 'Closed' ? true : null"
                     style="background-color:#33343C; border:1px solid #7A7B8299;width: 170px;">
               {{ obj.attendanceRating ? (obj.attendanceRating.length > 12 ? (obj.attendanceRating | slice:0:12) + '...' : obj.attendanceRating) : 'Select' }}
             </button>
@@ -122,6 +132,12 @@
             <button class="btn btn-dark dropdown-toggle m-3"
                     type="button"
                     data-bs-toggle="dropdown"
+                    [attr.data-bs-toggle]="view === 0 ? null : 'dropdown'"
+                    [ngStyle]="{
+                                  'pointer-events': view === 0 ? 'none' : 'auto',
+                                  'opacity': view === 0 ? 0.5 : 1
+                                }"
+                    [attr.disabled]=" userData.status === 'Closed' ? true : null"
                     aria-expanded="false"
                     style="background-color:#33343C; border:1px solid #7A7B8299;width: 170px;">
               {{ obj.leaveRating ? (obj.leaveRating.length > 12 ? (obj.leaveRating | slice:0:12) + '...' : obj.leaveRating) : 'Select' }}
@@ -161,6 +177,12 @@
             <button class="btn btn-dark dropdown-toggle m-3"
                     type="button"
                     data-bs-toggle="dropdown"
+                    [attr.data-bs-toggle]="view === 0 ? null : 'dropdown'"
+                    [ngStyle]="{
+                                  'pointer-events': view === 0 ? 'none' : 'auto',
+                                  'opacity': view === 0 ? 0.5 : 1
+                                }"
+                    [attr.disabled]=" userData.status === 'Closed' ? true : null"
                     aria-expanded="false"
                     style="background-color:#33343C; border:1px solid #7A7B8299;width: 170px;">
               {{ obj.issueRating ? (obj.issueRating.length > 12 ? (obj.issueRating | slice:0:12) + '...' : obj.issueRating) : 'Select' }}
@@ -200,6 +222,12 @@
             <button class="btn btn-dark dropdown-toggle m-3"
                     type="button"
                     data-bs-toggle="dropdown"
+                    [attr.data-bs-toggle]="view === 0 ? null : 'dropdown'"
+                    [ngStyle]="{
+                                  'pointer-events': view === 0 ? 'none' : 'auto',
+                                  'opacity': view === 0 ? 0.5 : 1
+                                }"
+                    [attr.disabled]=" userData.status === 'Closed' ? true : null"
                     aria-expanded="false"
                     style="background-color:#33343C; border:1px solid #7A7B8299;width: 170px;">
               {{ obj.awardRating ? (obj.awardRating.length > 12 ? (obj.awardRating | slice:0:12) + '...' : obj.awardRating) : 'Select' }}

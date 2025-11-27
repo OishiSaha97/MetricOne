@@ -85,7 +85,7 @@ export class HrModalComponent {
               increment: data.hr_increment || '',
               attendanceRating: data.attendance || '',
               leaveRating: data.leave || '',
-              issueRating: data.disciplary_issue || '',
+              issueRating: data.disciplnary_issue || '',
               awardRating: data.award || '',
               isOpen: false,               // force to false
               isOpenIncrement: false       // force to false
