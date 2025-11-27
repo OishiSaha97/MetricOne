@@ -203,7 +203,7 @@
                       && userData.status !== 'Submitted'">Save</button>
 
               <button class="revert-btn" (click)="openModal(actionModal)"
-                      *ngIf="view == true || currentStatus != 'employee' ">Revert</button>
+                      *ngIf="view == true && currentStatus != 'employee' ">Revert</button>
 
               <button *ngIf="currentStep != maxStep" class="submit-btn" (click)="onNext()">
                 {{ 'Next' }}
@@ -281,3 +281,94 @@
 
 
 
+<ng-template #confirmation>
+
+  <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
+
+    <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">
+      <div class="d-flex justify-content-center text-center " >
+        <div style="color: white; font-size: 16px;">Are you sure you want to submit?</div>
+      </div>
+
+
+    </div>
+    <div class="">
+      <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
+        <button class="btn close-btn" style="cursor: pointer;" (click)="closeConfirmModal() ">Close</button>
+        <button class=" active-btn" style="cursor: pointer;"
+                (click)="submitEmployee('submit')">Submit</button>
+        <!--      onActive();-->
+      </div>
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #confirmationPublish>
+
+  <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
+
+    <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">
+      <div class="d-flex justify-content-center text-center " >
+        <div style="color: white; font-size: 16px;">Are you sure you want to publish?</div>
+      </div>
+
+
+    </div>
+    <div class="">
+      <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
+        <button class="btn close-btn" style="cursor: pointer;" (click)="closePublishModal() ">Close</button>
+        <button class=" active-btn" style="cursor: pointer;"
+                (click)="submitHr('publish')">Publish</button>
+        <!--      onActive();-->
+      </div>
+    </div>
+
+  </div>
+</ng-template>
+
+<!--<ng-template #confirmationDirectPublish>-->
+
+<!--  <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">-->
+
+<!--    <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">-->
+<!--      <div class="d-flex justify-content-center text-center " >-->
+<!--        <div style="color: white; font-size: 16px;">Are you sure you want to publish?</div>-->
+<!--      </div>-->
+
+
+<!--    </div>-->
+<!--    <div class="">-->
+<!--      <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">-->
+<!--        <button class="btn close-btn" style="cursor: pointer;" (click)="closeDirectPublishModal() ">Close</button>-->
+<!--        <button class=" active-btn" style="cursor: pointer;"-->
+<!--                (click)="directPublish('publish')">Publish</button>-->
+<!--        &lt;!&ndash;      onActive();&ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</ng-template>-->
+
+<ng-template #confirmationForward>
+
+  <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
+
+    <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">
+      <div class="d-flex justify-content-center text-center " >
+        <div style="color: white; font-size: 16px;">Are you sure you want to forward?</div>
+      </div>
+
+
+    </div>
+    <div class="">
+      <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
+        <button class="btn close-btn" style="cursor: pointer;" (click)="closeForwardModal() ">Close</button>
+        <button class=" active-btn" style="cursor: pointer;"
+                (click)="submitManager('forward')">Forward</button>
+        <!--      onActive();-->
+      </div>
+    </div>
+
+  </div>
+</ng-template>

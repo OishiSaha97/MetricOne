@@ -210,6 +210,17 @@ export class ListComponent {
 
         let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
           this.loadData({});
+          if(res?.action === 'publish'){
+            this.showToast("KPI published successfully.");
+          }
+          else if(res?.action === 'submit' ){
+            this.showToast("KPI submitted successfully.");
+          }
+          else if (res?.action === 'forward') {
+            this.showToast("KPI forwarded successfully.");
+          }else if (res?.action == 'draft') {
+            this.showToast("KPI saved as draft successfully.");
+          }
           dataLoader.unsubscribe();
         });
       }

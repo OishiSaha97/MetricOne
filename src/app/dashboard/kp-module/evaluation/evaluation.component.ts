@@ -73,6 +73,10 @@ export class EvaluationComponent {
 
   constructor(public modalRef: BsModalRef,
               public revertModalRef: BsModalRef,
+              public modalRefConfirm: BsModalRef,
+              public modalRefForward: BsModalRef,
+              public modalRefPublish: BsModalRef,
+              public modalRefDirectPublish: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
   }
@@ -125,13 +129,15 @@ export class EvaluationComponent {
 
     }else if(this.currentStep == 3){
       this.valuesComp.submitData();
+
       // currentStep = 4;
       // this.changeTable('manager',currentStep)
     }else if(this.currentStep == 4){
      this.managerComp.submitData();
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
         if(this.managerData && this.managerData.length > 0){
-          this.submitManager();
+          this.openForwardConfirmation(this.confirmationForward)
+          //this.submitManager();
         }
       }else{
         currentStep = 5;
@@ -191,13 +197,19 @@ export class EvaluationComponent {
     }else if(item == 'hr'){
       this.hrData = data;
       console.log('Received data from hr:', data);
-      this.submitHr();
+      this.openPublishConfirmation(this.confirmationPublish);
+      // this.submitHr();
     }
 
   }
 
   cancel(){
     this.modalService.hide();
+    this.modalRefConfirm.hide();
+    this.modalRefPublish.hide();
+    this.modalRefDirectPublish.hide();
+    this.modalRefForward.hide();
+    this.revertModalRef.hide();
   }
 
 
@@ -217,7 +229,8 @@ export class EvaluationComponent {
       this.selfAssessment = data;
       if(this.selfAssessment.length > 0){
         if(this.currentStatus == 'employee'){
-          this.submitEmployee();
+          this.openConfirmation(this.confirmation);
+          // this.submitEmployee();
         }
           currentStep = 3;
           this.changeTable('values',currentStep)
@@ -232,14 +245,25 @@ export class EvaluationComponent {
     }else if(item == 'hr'){
       this.hrData = data;
       console.log('Received data from hr:', data);
-      this.submitHr();
+      this.openPublishConfirmation(this.confirmationPublish);
+      // this.submitHr();
     }
 
 
   }
 
+  @ViewChild('confirmation') confirmation!: TemplateRef<any>;
 
-  submitEmployee() {
+  openConfirmation(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-dialog-centered'
+    });
+  }
+
+
+  submitEmployee(type:any) {
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
@@ -282,7 +306,7 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
-        this.saveEmitter.next(true);
+        this.saveEmitter.next({ action:'submit'});
         this.cancel();
       },
       error: (error: any) => {
@@ -293,7 +317,7 @@ export class EvaluationComponent {
 
   }
 
-  submitManager() {
+  submitManager(type:any) {
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
@@ -339,7 +363,7 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
-        this.saveEmitter.next(true);
+        this.saveEmitter.next({ action:'forward'});
         this.cancel();
       },
       error: (error: any) => {
@@ -350,7 +374,7 @@ export class EvaluationComponent {
   }
 
 
-  submitHr() {
+  submitHr(type:any) {
 
     let objectiveData;
     if(this.objectiveSet?.objectives){
@@ -402,7 +426,7 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
-        this.saveEmitter.next(true);
+        this.saveEmitter.next({ action:'publish'});
         this.cancel();
       },
       error: (error: any) => {
@@ -435,7 +459,7 @@ export class EvaluationComponent {
       next: (response) => {
         console.log('KPI saved successfully:', response);
         // alert('KPI data submitted successfully!');
-        this.saveEmitter.next(true);
+        this.saveEmitter.next({ action:'revert'});
         this.cancel();
       },
       error: (error) => {
@@ -474,8 +498,6 @@ export class EvaluationComponent {
 
 
   draft() {
-
-
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
@@ -516,7 +538,7 @@ export class EvaluationComponent {
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
         console.log('KPI saved successfully:', response);
-        this.saveEmitter.next(true);
+        this.saveEmitter.next({ action:'draft'});
         this.cancel();
       },
       error: (error: any) => {
@@ -549,6 +571,57 @@ export class EvaluationComponent {
     } else if (item == 'self') {
       this.selfAssessment = data;
       this.draft();
+    }
+  }
+
+  @ViewChild('confirmationForward') confirmationForward!: TemplateRef<any>;
+  openForwardConfirmation(template: TemplateRef<any>){
+    this.modalRefForward = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
+  @ViewChild('confirmationPublish') confirmationPublish!: TemplateRef<any>;
+  openPublishConfirmation(template: TemplateRef<any>){
+    this.modalRefPublish = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
+  // openDirectPublishConfirmation(template: TemplateRef<any>){
+  //   this.modalRefDirectPublish = this.modalService.show(template, {
+  //     backdrop: 'static',
+  //     keyboard: false,
+  //     class: 'modal-md'
+  //   });
+  // }
+
+
+  closeConfirmModal() {
+    if (this.modalRefConfirm) {
+      this.modalRefConfirm.hide();
+    }
+  }
+
+  closePublishModal() {
+    if (this.modalRefPublish) {
+      this.modalRefPublish.hide();
+    }
+  }
+
+  closeDirectPublishModal() {
+    if (this.modalRefDirectPublish) {
+      this.modalRefDirectPublish.hide();
+    }
+  }
+
+  closeForwardModal(){
+    if (this.modalRefForward) {
+      this.modalRefForward.hide();
     }
   }
 
