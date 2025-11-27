@@ -193,7 +193,7 @@ export class ListComponent {
     console.log("user.edit_permission : ", user.edit_permission);
     console.log("this.timePeriod : ", this.timePeriod);
 
-      if (this.timePeriod === 'evaluation'  ) {
+      if (user.stage === 'evaluation'   ) {
         const initialState = {
           userData: user,
           title: 'Employee Evaluation',
@@ -213,7 +213,7 @@ export class ListComponent {
           dataLoader.unsubscribe();
         });
       }
-      else if(this.timePeriod === 'initiation'  ){
+      else if(user.stage === 'initiation'  ){
 
         const initialState = {
           kpiUserId: user.user_id,
