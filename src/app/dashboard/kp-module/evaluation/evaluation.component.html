@@ -167,8 +167,8 @@
       </fieldset>
 
       <fieldset *ngIf="currentTable=='values'">
-        <app-values-component [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack3"
-                              [oldObjective]="valuesData"
+        <app-values-component [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack3" [onNexts] ="onNext2"
+                              [oldObjective]="valuesData" [savedValuesData]="valuesData" (backdataSubmitted)="onChildBackDataSubmitted($event,'values')"
                               (dataSubmitted)="onChildDataSubmitted($event,'values')"></app-values-component>
       </fieldset>
 

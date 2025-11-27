@@ -348,8 +348,8 @@
   display: inline-flex;
   align-items: center;
   width: auto; /* changed */
-  margin-right: 8px;
-  margin-left: -2%;
+  margin-right: 8%;
+  margin-left: 1%;
 }
 .input-with-percent-achieved {
   position: relative;

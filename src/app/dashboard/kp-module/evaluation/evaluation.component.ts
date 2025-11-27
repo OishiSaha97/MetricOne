@@ -38,6 +38,7 @@ export class EvaluationComponent {
   isBack4:any=false;
   isBack5:any=false;
   onNext1:any=false;
+  onNext2:any=false;
   onNext3:any=false;
   kpiUserId:any;
   status: any;
@@ -161,6 +162,7 @@ export class EvaluationComponent {
       this.changeTable('objective',currentStep)
     }else if(this.currentStep == 3) {
       currentStep = 2;
+      this.valuesComp.onNextsself();
       this.isBack2 =true;
       this.changeTable('self',currentStep)
     }else if(this.currentStep == 4){
@@ -188,6 +190,8 @@ export class EvaluationComponent {
       this.selfAssessment = data;
 
     }else if(item == 'values'){
+      this.onNext2 = true;
+      this.isBack3 = true;
       this.valuesData = data;
       console.log("Received data from values:", this.valuesData);
       currentStep = 4;
