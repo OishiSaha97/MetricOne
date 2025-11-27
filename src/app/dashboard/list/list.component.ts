@@ -251,73 +251,37 @@ export class ListComponent {
         });
       }
 
-      else{
-        let view = false;
-        if((user.status ==="Published" ||user.status ==="Closed")  && !user.edit_permission){
-          view = true;
-        }
-        const initialState = {
-          kpiUserId: user.user_id,
-          status: user.status,
-          team: user.team,
-          name: user.name,
-          year: user.year,
-          kpiId: user.id,
-          approvalStatus: user.approval_status,
-          currentStatus:'employee',
-          view:view,
-          draftShow:true
-        };
-        this.modalRef = this.modalService.show(KpiFormComponent, {
-          backdrop: 'static',
-          keyboard: false,
-          class: 'modal-dialog modal-dialog-centered modal-max',
-          initialState: initialState
-        });
-
-        let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
-          this.loadData({});
-          dataLoader.unsubscribe();
-        });
-
-      }
+      // else{
+      //   let view = false;
+      //   if((user.status ==="Published" ||user.status ==="Closed")  && !user.edit_permission){
+      //     view = false;
+      //   }
+      //   const initialState = {
+      //     kpiUserId: user.user_id,
+      //     status: user.status,
+      //     team: user.team,
+      //     name: user.name,
+      //     year: user.year,
+      //     kpiId: user.id,
+      //     approvalStatus: user.approval_status,
+      //     currentStatus:'employee',
+      //     view:view,
+      //     draftShow:true
+      //   };
+      //   this.modalRef = this.modalService.show(KpiFormComponent, {
+      //     backdrop: 'static',
+      //     keyboard: false,
+      //     class: 'modal-dialog modal-dialog-centered modal-max',
+      //     initialState: initialState
+      //   });
+      //
+      //   let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
+      //     this.loadData({});
+      //     dataLoader.unsubscribe();
+      //   });
+      //
+      // }
     }
-
-  // activeDropdown: HTMLElement | null = null;
-  // openHierarchy(user: any, event: MouseEvent) {
-  //   event.stopPropagation();
-  //   if (this.isHierarchyOpen) {
-  //     this.closeAllDropdowns();
-  //     return;
-  //   }
-  //   this.isHierarchyOpen = true;
-  //   this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team })
-  //     .subscribe(res => {
-  //       this.fullHierarchy = res?.['get_hierarchy'] || [];
-  //
-  //     });
-  //
-  //   const dropdown = (event.target as HTMLElement)
-  //     .closest('.dropdown')!
-  //     .querySelector('.hierarchy-dropdown') as HTMLElement;
-  //
-  //   this.activeDropdown = dropdown;
-  //
-  //   const rect = (event.target as HTMLElement).getBoundingClientRect();
-  //
-  //   dropdown.style.display = 'block';
-  //   dropdown.style.top = (rect.top + 30) + 'px';
-  //   dropdown.style.left = rect.left + 'px';
-  //   dropdown.classList.add('show');
-  //
-  // }
-  // @HostListener('document:click')
-  // closeAllDropdowns() {
-  //   if (this.activeDropdown) {
-  //     this.activeDropdown.classList.remove('show');
-  //   }
-  //   this.isHierarchyOpen = false;
-  // }
 
 
   openHierarchyIndex: number | null = null;
@@ -331,41 +295,6 @@ export class ListComponent {
 
   }
 
-  // openHierarchy(user: any, event: MouseEvent, index: number) {
-  //   event.stopPropagation();
-  //   this.openRemarksIndex = null;
-  //
-  //   // Toggle logic
-  //   if (this.openHierarchyIndex === index) {
-  //     this.closeDropdown();
-  //     return;
-  //   }
-  //
-  //   this.openHierarchyIndex = index;
-  //
-  //   // Load API
-  //   this.kpi.getLogData({
-  //     param: 'get_hierarchy',
-  //     userIdKPI: this.userId,
-  //     extraParam: user.team,
-  //     pid:user.id
-  //   }).subscribe(res => {
-  //     this.fullHierarchy = res?.['get_hierarchy'] || [];
-  //   });
-  //
-  //   // Position dropdown
-  //   const dropdown = (event.target as HTMLElement)
-  //     .closest('.dropdown')
-  //     ?.querySelector('.hierarchy-dropdown') as HTMLElement;
-  //
-  //   this.activeDropdown = dropdown;
-  //
-  //   const rect = (event.target as HTMLElement).getBoundingClientRect();
-  //   dropdown.style.top = rect.top + 30 + 'px';
-  //   dropdown.style.left = rect.left + 'px';
-  //
-  //   dropdown.classList.add('show');
-  // }
 
   closeDropdown() {
     if (this.activeDropdown) {
@@ -385,23 +314,6 @@ export class ListComponent {
   activeRemarksDropdown: HTMLElement | null = null;
 
 
-
-  // openRemarks(user: any, event: MouseEvent, index: number) {
-  //     this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
-  //       .subscribe(res => {
-  //         this.remarkList = res?.['reverted_remark_list'] || [];
-  //
-  //       });
-  //     const dropdown = (event.target as HTMLElement)
-  //       .closest('.dropdown')!
-  //       .querySelector('.hierarchy-dropdown-remark') as HTMLElement;
-  //
-  //     const rect = (event.target as HTMLElement).getBoundingClientRect();
-  //
-  //     dropdown.style.display = 'block';
-  //     dropdown.style.top = (rect.top + 20) + 'px';
-  //     dropdown.style.left = rect.left + 'px';
-  //   }
 
   openRemarks(user: any, event: MouseEvent, index: number) {
     event.stopPropagation();
