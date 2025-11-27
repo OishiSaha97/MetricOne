@@ -47,6 +47,10 @@ export class KpiFormComponent implements OnInit {
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
               public modalRefConfirm: BsModalRef,
+              public modalRefForward: BsModalRef,
+              public modalRefPublish: BsModalRef,
+              public modalRefDirectPublish: BsModalRef,
+              public modalRefRevert: BsModalRef,
               public modalServ: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
@@ -199,10 +203,6 @@ export class KpiFormComponent implements OnInit {
     this.searchType = '';
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
 
-    // this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
-    //   (t: any) => t.name !== obj.selectedType
-    // );
-    // this.filterTypes();
   }
   selectedTypes: string[] = [];
   @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
@@ -395,18 +395,10 @@ export class KpiFormComponent implements OnInit {
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
 
-        if(type === 'publish'){
-          this.showToast("KPI submitted successfully.");
-        }
-        else if(type === 'submit' ){
-          this.showToast("KPI submitted successfully.");
-        }
-        else if (type === 'forward') {
-          this.showToast("KPI submitted successfully.");
-        }
-        this.saveEmitter.next({ action: 'submit' });
+        this.saveEmitter.next({ action: type });
         // this.saveEmitter.next(true);
         this.onCancel();
+        this.onModalOff();
         this.modalRefConfirm.hide();
         this.requestEmitter.emit(true);
 
@@ -434,6 +426,14 @@ export class KpiFormComponent implements OnInit {
 
   onCancel() {
     this.modalRefRemark.hide();
+  }
+
+  onModalOff() {
+  this.modalRefConfirm.hide();
+  this.modalRefPublish.hide();
+  this.modalRefDirectPublish.hide();
+  this.modalRefForward.hide();
+  this.modalRefRevert.hide();
   }
 
 
@@ -562,7 +562,7 @@ export class KpiFormComponent implements OnInit {
 
 
   openModal(template: TemplateRef<any>) {
-      this.modalRefRemark = this.modalService.show(template, {
+      this.modalRefRevert = this.modalService.show(template, {
         backdrop: 'static',
         keyboard: false,
         class: 'modal-md'
@@ -581,8 +581,44 @@ export class KpiFormComponent implements OnInit {
     });
   }
 
+  openForwardConfirmation(template: TemplateRef<any>){
+    if (!this.validateObjectives()) {
+      return;
+    }
+
+    this.modalRefForward = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
+  openPublishConfirmation(template: TemplateRef<any>){
+    if (!this.validateObjectives()) {
+      return;
+    }
+
+    this.modalRefPublish = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
+  openDirectPublishConfirmation(template: TemplateRef<any>){
+    if (!this.validateObjectives()) {
+      return;
+    }
+
+    this.modalRefDirectPublish = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
   onClose(): void {
-    this.modalRef?.hide();
+    this.modalRefRevert?.hide();
   }
 
    getData() {
@@ -661,6 +697,24 @@ export class KpiFormComponent implements OnInit {
   closeConfirmModal() {
     if (this.modalRefConfirm) {
       this.modalRefConfirm.hide();
+    }
+  }
+
+  closePublishModal() {
+    if (this.modalRefPublish) {
+      this.modalRefPublish.hide();
+    }
+  }
+
+  closeDirectPublishModal() {
+    if (this.modalRefDirectPublish) {
+      this.modalRefDirectPublish.hide();
+    }
+  }
+
+  closeForwardModal(){
+    if (this.modalRefForward) {
+      this.modalRefForward.hide();
     }
   }
 
@@ -807,5 +861,8 @@ export class KpiFormComponent implements OnInit {
       event.preventDefault();
     }
   }
+
+
+
 
 }

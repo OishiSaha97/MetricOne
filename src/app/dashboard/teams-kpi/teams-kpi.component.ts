@@ -132,7 +132,15 @@ export class TeamsKPIComponent {
       let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
         this.loadData({});
         if (res?.action == 'revert') {
-          this.showToast("KPI reverted successfully.");
+          this.showToast("KPI Reverted Successfully.");
+        }else if(res?.action === 'publish'){
+          this.showToast("KPI Published Successfully.");
+        }
+        else if(res?.action === 'submit' ){
+          this.showToast("KPI Submitted Successfully.");
+        }
+        else if (res?.action === 'forward') {
+          this.showToast("KPI Forwarded Successfully.");
         }
 
         dataLoader.unsubscribe();
