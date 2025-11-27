@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
 import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
@@ -237,6 +237,21 @@ export class AllEmployeeKPIComponent {
   }
 
   view:any;
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
+  toastMessage: string = '';
+
+  showToast(msg: string) {
+    this.toastMessage = msg;
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+      el.classList.add('show');
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 5000);
+
+    }, 0);
+  }
+
 
   viewDetails(user: any) {
 
@@ -252,7 +267,7 @@ export class AllEmployeeKPIComponent {
         userData: user,
         title: 'HR Evaluation',
         currentStatus: 'hr',
-        view: viewMode      // <-- apply view mode here
+        view: user.editPermission      // <-- apply view mode here
       };
 
       this.modalRef = this.modalService.show(EvaluationComponent, {
@@ -278,7 +293,7 @@ export class AllEmployeeKPIComponent {
         mode: "approver",
         kpiId: user.id,
         currentStatus: 'hr',
-        view: viewMode
+        view: user.editPermission
       };
 
       this.modalRef = this.modalService.show(KpiFormComponent, {
@@ -290,6 +305,17 @@ export class AllEmployeeKPIComponent {
 
       let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
         this.loadData({});
+        if (res?.action == 'revert') {
+          this.showToast("KPI Reverted Successfully.");
+        }else if(res?.action === 'publish'){
+          this.showToast("KPI Published Successfully.");
+        }
+        else if(res?.action === 'submit' ){
+          this.showToast("KPI Submitted Successfully.");
+        }
+        else if (res?.action === 'forward') {
+          this.showToast("KPI Forwarded Successfully.");
+        }
         dataLoader.unsubscribe();
       });
 

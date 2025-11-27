@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
@@ -131,6 +131,18 @@ export class TeamsKPIComponent {
 
       let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
         this.loadData({});
+        if (res?.action == 'revert') {
+          this.showToast("KPI Reverted Successfully.");
+        }else if(res?.action === 'publish'){
+          this.showToast("KPI Published Successfully.");
+        }
+        else if(res?.action === 'submit' ){
+          this.showToast("KPI Submitted Successfully.");
+        }
+        else if (res?.action === 'forward') {
+          this.showToast("KPI Forwarded Successfully.");
+        }
+
         dataLoader.unsubscribe();
       });
 
@@ -158,6 +170,20 @@ export class TeamsKPIComponent {
     }
   }
 
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
+  toastMessage: string = '';
+
+  showToast(msg: string) {
+    this.toastMessage = msg;
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+      el.classList.add('show');
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 5000);
+
+    }, 0);
+  }
 
   isClickable(user: any): boolean {
     return user.editPermission || user.viewPermission;

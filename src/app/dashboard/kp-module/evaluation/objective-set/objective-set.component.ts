@@ -37,6 +37,7 @@ export class ObjectiveSetComponent {
   }
 
   @Output() dataSubmitted = new EventEmitter<any>();
+  @Output() dataSubmittedDraft = new EventEmitter<any>();
   @Output() rateSubmit = new EventEmitter<any>();
   @Input() currentStatus: any;
   @Input() view: any;
@@ -131,7 +132,6 @@ export class ObjectiveSetComponent {
     }
     this.getRating();
 
-    // this.getAttribute();
     this.userName = localStorage.getItem('fullName');
     this.userId = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
@@ -195,11 +195,8 @@ export class ObjectiveSetComponent {
           keyTarget: item.keyTarget,
           keyPerformance: item.keyPerformance,
           keyAchieved: item.keyAchieved,
-
-          //targetText: item.target,
           isOpen: true
         }));
-        // this.objOverallRating=this.oldOverallRating;
       }
     console.log(this.objectives);
 
@@ -728,4 +725,8 @@ export class ObjectiveSetComponent {
   }
 
 
+  submitDraftData() {
+    this.rateSubmit.emit(this.objOverallRating);
+    this.dataSubmittedDraft.emit(this.objectives);
+  }
 }

@@ -157,7 +157,11 @@ export class ListComponent {
 
     let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
       this.loadData({});
-      this.showToast("KPI submitted successfully.");
+      if (res?.action == 'draft') {
+        this.showToast("KPI saved as draft successfully.");
+      }else if (res?.action == 'submit') {
+        this.showToast("KPI submitted successfully.");
+      }
       dataLoader.unsubscribe();
     });
 
@@ -232,6 +236,17 @@ export class ListComponent {
 
         let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
           this.loadData({});
+          if(res?.action === 'publish'){
+            this.showToast("KPI published successfully.");
+          }
+          else if(res?.action === 'submit' ){
+            this.showToast("KPI submitted successfully.");
+          }
+          else if (res?.action === 'forward') {
+            this.showToast("KPI forwarded successfully.");
+          }else if (res?.action == 'draft') {
+            this.showToast("KPI saved as draft successfully.");
+          }
           dataLoader.unsubscribe();
         });
       }
@@ -308,41 +323,49 @@ export class ListComponent {
   openHierarchyIndex: number | null = null;
   activeDropdown: HTMLElement | null = null;
 
-  openHierarchy(user: any, event: MouseEvent, index: number) {
-    event.stopPropagation();
-    this.openRemarksIndex = null;
+  openHierarchy(user: any) {
+    this.kpi.getLogData({ param: 'get_hierarchy', userIdKPI: this.userId, extraParam:user.team,pid:user.id })
+      .subscribe(res => {
+        this.fullHierarchy = res?.['get_hierarchy'] || [];
+      });
 
-    // Toggle logic
-    if (this.openHierarchyIndex === index) {
-      this.closeDropdown();
-      return;
-    }
-
-    this.openHierarchyIndex = index;
-
-    // Load API
-    this.kpi.getLogData({
-      param: 'get_hierarchy',
-      userIdKPI: this.userId,
-      extraParam: user.team,
-      pid:user.id
-    }).subscribe(res => {
-      this.fullHierarchy = res?.['get_hierarchy'] || [];
-    });
-
-    // Position dropdown
-    const dropdown = (event.target as HTMLElement)
-      .closest('.dropdown')
-      ?.querySelector('.hierarchy-dropdown') as HTMLElement;
-
-    this.activeDropdown = dropdown;
-
-    const rect = (event.target as HTMLElement).getBoundingClientRect();
-    dropdown.style.top = rect.top + 30 + 'px';
-    dropdown.style.left = rect.left + 'px';
-
-    dropdown.classList.add('show');
   }
+
+  // openHierarchy(user: any, event: MouseEvent, index: number) {
+  //   event.stopPropagation();
+  //   this.openRemarksIndex = null;
+  //
+  //   // Toggle logic
+  //   if (this.openHierarchyIndex === index) {
+  //     this.closeDropdown();
+  //     return;
+  //   }
+  //
+  //   this.openHierarchyIndex = index;
+  //
+  //   // Load API
+  //   this.kpi.getLogData({
+  //     param: 'get_hierarchy',
+  //     userIdKPI: this.userId,
+  //     extraParam: user.team,
+  //     pid:user.id
+  //   }).subscribe(res => {
+  //     this.fullHierarchy = res?.['get_hierarchy'] || [];
+  //   });
+  //
+  //   // Position dropdown
+  //   const dropdown = (event.target as HTMLElement)
+  //     .closest('.dropdown')
+  //     ?.querySelector('.hierarchy-dropdown') as HTMLElement;
+  //
+  //   this.activeDropdown = dropdown;
+  //
+  //   const rect = (event.target as HTMLElement).getBoundingClientRect();
+  //   dropdown.style.top = rect.top + 30 + 'px';
+  //   dropdown.style.left = rect.left + 'px';
+  //
+  //   dropdown.classList.add('show');
+  // }
 
   closeDropdown() {
     if (this.activeDropdown) {

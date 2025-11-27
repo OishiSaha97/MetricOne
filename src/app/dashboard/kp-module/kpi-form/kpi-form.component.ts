@@ -1,5 +1,14 @@
 
-import {NgModule, Component, OnInit, TemplateRef, EventEmitter, ViewChild, ElementRef} from '@angular/core';
+import {
+  NgModule,
+  Component,
+  OnInit,
+  TemplateRef,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  ViewChildren, QueryList
+} from '@angular/core';
 import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {Subject} from "rxjs";
@@ -20,6 +29,7 @@ interface Objective {
   keyTarget?: string;
   keyPerformance?: string;
   addedByApprover?:boolean;
+  status?:string;
 }
 
 @Component({
@@ -37,6 +47,10 @@ export class KpiFormComponent implements OnInit {
   constructor(public modalRef: BsModalRef,
               public modalRefRemark: BsModalRef,
               public modalRefConfirm: BsModalRef,
+              public modalRefForward: BsModalRef,
+              public modalRefPublish: BsModalRef,
+              public modalRefDirectPublish: BsModalRef,
+              public modalRefRevert: BsModalRef,
               public modalServ: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService) {
@@ -119,19 +133,24 @@ export class KpiFormComponent implements OnInit {
                 performanceText: (item.performance || '').replace(/\\n/g, '\n'),
                 weightage: item.weightage,
                 isOpen: false,
-                addedByApprover: false
-              }));
-            },
+                addedByApprover: false,
+                status:'old',
+               }));
+              // setTimeout(() => {
+              //   this.adjustAllTextAreas();
+              // }, 0);
+             },
             (error) => {
               console.error("Error fetching permission list", error);
             }
+
           );
 
         this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
           .subscribe(res => {
-
               this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
               console.log(this.changedHistory);
+              // this.adjustAllTextAreas();
             },
             (error) => {
               console.error("Error fetching permission list", error);
@@ -141,6 +160,7 @@ export class KpiFormComponent implements OnInit {
     this.filterObjectiveTypes = [...this.objectiveTypes];
     this.getManagerName();
   }
+
   getManagerName() {
     this.kpi.getLogData({
       param: 'get_manager_name',
@@ -163,7 +183,8 @@ export class KpiFormComponent implements OnInit {
       performanceText: '',
       weightage: '',
       isOpen: false,
-      addedByApprover: this.mode === 'approver' ? true : false
+      addedByApprover: this.mode === 'approver' ? true : false,
+      status:'newObjective'
     };
     this.objectives.push(newObjective);
   }
@@ -182,10 +203,6 @@ export class KpiFormComponent implements OnInit {
     this.searchType = '';
     console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
 
-    // this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
-    //   (t: any) => t.name !== obj.selectedType
-    // );
-    // this.filterTypes();
   }
   selectedTypes: string[] = [];
   @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
@@ -219,9 +236,11 @@ export class KpiFormComponent implements OnInit {
     }, 0);
   }
 
+
   validateObjectives(): boolean {
     let totalWeightage = 0;
     this.objectiveErrors = {};
+    let hasDuplicateType = false;
 
     for (let i = 0; i < this.objectives.length; i++) {
       const obj = this.objectives[i];
@@ -274,13 +293,21 @@ export class KpiFormComponent implements OnInit {
 
     Object.keys(typeCount).forEach(typeKey => {
       if (typeCount[typeKey] > 1) {
-        this.objectives.forEach((obj:Objective, index:any) => {
+        hasDuplicateType = true;
+
+        this.objectives.forEach((obj: Objective, index: any) => {
           if (obj.selectedType === typeKey) {
             this.objectiveErrors[index].selectedType = '*Duplicate Type is not allowed';
           }
         });
       }
     });
+
+
+    if (hasDuplicateType) {
+      this.showToast('Duplicate Key results area is not allowed!');
+      return false;
+    }
 
     if (Math.round(totalWeightage) !== 100) {
       this.showToast(`Total weightage must be exactly 100%. Current total: ${totalWeightage}%`);
@@ -378,24 +405,18 @@ export class KpiFormComponent implements OnInit {
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
 
-        if(type === 'publish'){
-          this.showToast("KPI submitted successfully.");
-        }
-        else if(type === 'submit' ){
-          this.showToast("KPI submitted successfully.");
-        }
-        else if (type === 'forward') {
-          this.showToast("KPI submitted successfully.");
-        }
-
-        this.saveEmitter.next(true);
+        this.saveEmitter.next({ action: type });
+        // this.saveEmitter.next(true);
         this.onCancel();
+        this.onModalOff();
+        this.modalRefConfirm.hide();
         this.requestEmitter.emit(true);
 
       },
       error: (error) => {
         console.error('Error saving KPI:', error);
         this.onCancel();
+        this.modalRefConfirm.hide();
       }
     });
   }
@@ -415,6 +436,14 @@ export class KpiFormComponent implements OnInit {
 
   onCancel() {
     this.modalRefRemark.hide();
+  }
+
+  onModalOff() {
+  this.modalRefConfirm.hide();
+  this.modalRefPublish.hide();
+  this.modalRefDirectPublish.hide();
+  this.modalRefForward.hide();
+  this.modalRefRevert.hide();
   }
 
 
@@ -494,9 +523,9 @@ export class KpiFormComponent implements OnInit {
   }
 
   onRevert() {
-    if (!this.validateObjectives()) {
-      return;
-    }
+    // if (!this.validateObjectives()) {
+    //   return;
+    // }
 
     const escapeText = (text: string | undefined) => {
       return text
@@ -530,7 +559,7 @@ export class KpiFormComponent implements OnInit {
 
     this.kpi.revertKpi(requestPayload).subscribe({
       next: (response) => {
-        this.showToast("KPI reverted successfully.");
+        this.saveEmitter.next({ action: 'revert' });
         this.onCancel();
         this.onClose();
       },
@@ -543,7 +572,7 @@ export class KpiFormComponent implements OnInit {
 
 
   openModal(template: TemplateRef<any>) {
-      this.modalRefRemark = this.modalService.show(template, {
+      this.modalRefRevert = this.modalService.show(template, {
         backdrop: 'static',
         keyboard: false,
         class: 'modal-md'
@@ -551,6 +580,10 @@ export class KpiFormComponent implements OnInit {
     }
 
   openConfirmation(template: TemplateRef<any>){
+    if (!this.validateObjectives()) {
+      return;
+    }
+
     this.modalRefConfirm = this.modalService.show(template, {
       backdrop: 'static',
       keyboard: false,
@@ -558,8 +591,44 @@ export class KpiFormComponent implements OnInit {
     });
   }
 
+  openForwardConfirmation(template: TemplateRef<any>){
+    if (!this.validateObjectives()) {
+      return;
+    }
+
+    this.modalRefForward = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
+  openPublishConfirmation(template: TemplateRef<any>){
+    if (!this.validateObjectives()) {
+      return;
+    }
+
+    this.modalRefPublish = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
+  openDirectPublishConfirmation(template: TemplateRef<any>){
+    if (!this.validateObjectives()) {
+      return;
+    }
+
+    this.modalRefDirectPublish = this.modalService.show(template, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-md'
+    });
+  }
+
   onClose(): void {
-    this.modalRef?.hide();
+    this.modalRefRevert?.hide();
   }
 
    getData() {
@@ -641,6 +710,24 @@ export class KpiFormComponent implements OnInit {
     }
   }
 
+  closePublishModal() {
+    if (this.modalRefPublish) {
+      this.modalRefPublish.hide();
+    }
+  }
+
+  closeDirectPublishModal() {
+    if (this.modalRefDirectPublish) {
+      this.modalRefDirectPublish.hide();
+    }
+  }
+
+  closeForwardModal(){
+    if (this.modalRefForward) {
+      this.modalRefForward.hide();
+    }
+  }
+
   draft() {
     let processedObjectives = this.objectives.map((obj: Objective) => {
 
@@ -681,8 +768,9 @@ export class KpiFormComponent implements OnInit {
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
 
-        this.showToast("KPI Save Successfully.");
-        this.saveEmitter.next(true);
+       // this.showToast("KPI Save Successfully.");
+       //  this.saveEmitter.next(true);
+        this.saveEmitter.next({ action: 'draft' });
         this.onCancel();
         this.requestEmitter.emit(true);
 
@@ -756,8 +844,9 @@ export class KpiFormComponent implements OnInit {
 
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
-        this.showToast("KPI submitted successfully.");
-        this.saveEmitter.next(true);
+        // this.showToast("KPI submitted successfully.");
+        this.saveEmitter.next({ action: 'submit' });
+        // this.saveEmitter.next(true);
         this.onCancel();
         this.requestEmitter.emit(true);
 
@@ -775,12 +864,15 @@ export class KpiFormComponent implements OnInit {
     this.filterObjectiveTypes = [...this.objectiveTypes]
   }
 
-  autoGrow(event: any) {
-    const textarea = event.target;
+  blockTyping(event: KeyboardEvent, obj: any) {
+    const isReadonly = this.view === 0;
 
-    textarea.style.height = '41px';   // reset to minimum height
-    textarea.style.height = textarea.scrollHeight + 'px';  // grow according to content
+    if ((this.view === 0) ) {
+      event.preventDefault();
+    }
   }
+
+
 
 
 }

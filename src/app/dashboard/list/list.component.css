@@ -332,28 +332,54 @@ table, tr, td {
   scrollbar-color: #6c6d74 black !important;
 }
 
-.hierarchy-dropdown-remark {
-  position: fixed !important;
-  z-index: 99999 !important;
+
+.hierarchy-dropdown {
+  position: absolute !important;
+  bottom: 100% !important;
+  left: 0 !important;
+  z-index: 9999 !important;
   background-color: black !important;
-  min-width: 200px;
+  /*min-width: 200px;*/
+  transform: none !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   border-radius: 6px;
   padding: 10px 15px !important;
   height: 200px;
   max-height: 250px;
-  overflow-y: auto;
-  display: none;
+  overflow-y: auto !important;
+  /*max-width: 350px;*/
   white-space: normal !important;
   overflow-wrap: break-word;
   word-break: break-word;
-  width: 280px;
+  width: 332px;
   font-size: 13px;
 }
 
-.hierarchy-dropdown-remark.show {
-  display: block !important;
+.hierarchy-dropdown .w-100 {
+  max-height: 250px;
+  overflow-y: auto;
+  max-width: 350px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
+
+.status-pill {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pending {
+  background-color: yellow;
+  color: black;
+}
+
+.status-approved {
+  background-color: #28a745; /* green */
+  color: white;
+}
+
 .popup-meta {
   display: flex;
   justify-content: space-between;
@@ -364,5 +390,5 @@ table, tr, td {
 .popup-body {
   background-color: #25262C;
   padding: 50px;
-  font-size: 12px; /* smaller font overall */
+  font-size: 14px; /* smaller font overall */
 }

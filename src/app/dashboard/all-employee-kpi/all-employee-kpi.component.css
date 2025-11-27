@@ -381,13 +381,14 @@ table, tr, td {
   overflow: visible !important;
   position: relative !important;
 }
+
 .hierarchy-dropdown {
   position: absolute !important;
   bottom: 100% !important;
-  left: 0 !important;
+  left: -93px !important;
   z-index: 9999 !important;
   background-color: black !important;
-  min-width: 200px;
+  /*min-width: 200px;*/
   transform: none !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   border-radius: 6px;
@@ -395,10 +396,48 @@ table, tr, td {
   height: 200px;
   max-height: 250px;
   overflow-y: auto !important;
+  /*max-width: 350px;*/
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  width: 332px;
+  font-size: 13px;
 }
 
 .hierarchy-dropdown .w-100 {
   max-height: 250px;
   overflow-y: auto;
+  max-width: 350px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
+.status-pill {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pending {
+  background-color: yellow;
+  color: black;
+}
+
+.status-approved {
+  background-color: #28a745; /* green */
+  color: white;
+}
+
+.popup-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: white!important;
+}
+
+.popup-body {
+  background-color: #25262C;
+  padding: 50px;
+  font-size: 14px; /* smaller font overall */
+}

@@ -162,13 +162,10 @@
 }
 .obj-input{
   width:100%;
-  height:auto;
   background-color: #2A2B2F ;
-  display: block;
   padding: .375rem .75rem;
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.5;
   color: white;
   appearance: none;
   background-clip: padding-box;
@@ -444,7 +441,7 @@ input::placeholder {
 }
 .delete-icon{
   cursor: pointer;
-  margin-right: 20px;
+  /*margin-right: 20px;*/
 }
 
 .objective-error {
@@ -482,7 +479,12 @@ input::placeholder {
 
 .view-mode input,
 .view-mode textarea {
-  pointer-events: none;
+  /*pointer-events: none;*/
   /*background-color: #33343c !important;*/
   opacity: 0.6;
+}
+
+.textarea-readonly {
+  overflow-y: auto !important;
+  pointer-events: auto !important; /* allow scrolling */
 }

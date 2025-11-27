@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import {DomSanitizer} from "@angular/platform-browser";
 import {CommonServiceService} from "../common-service.service";
 
+
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -40,7 +42,10 @@ export class NavbarComponent {
   permissionList:any='';
   isHr: boolean = false;
   role: any;
-    constructor(private router: Router,private kpi: CommonServiceService){}
+    constructor(private router: Router,
+                private kpi: CommonServiceService,
+                // public cookieService: CookieService
+    ){}
 
     ngOnInit() {
       this.userId = localStorage.getItem('username');
@@ -88,6 +93,18 @@ export class NavbarComponent {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
           }
+          // if (data.allPermission) {
+          //   this.setCookie('role', 'hr', 1);
+          //   this.role = "hr";
+          // }
+          // else if (data.teamKpi) {
+          //   this.setCookie('role', 'manager', 1);
+          //   this.role = "manager";
+          // }
+          // else {
+          //   this.setCookie('role', 'employee', 1);
+          //   this.role = "employee";
+          // }
           if(data.allPermission ) {
             localStorage.setItem('role', "hr");
             this.role = "hr";
@@ -196,7 +213,38 @@ export class NavbarComponent {
   }
 
   private setTimePeriod(period: 'initiation' | 'evaluation' | 'new year'): void {
-    localStorage.setItem('timePeriod', period);
+     localStorage.setItem('timePeriod', period);
+    // this.setCookie('timePeriod', period, 1);
   }
+
+
+
+
+  setCookie(name: string, value: string, days: number) {
+    let expires = "";
+    if (days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  eraseCookie(name: string) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+  }
+
+
 
 }

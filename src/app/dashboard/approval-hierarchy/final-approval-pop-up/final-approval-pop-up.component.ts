@@ -106,14 +106,20 @@ export class FinalApprovalPopUpComponent {
 
   }
 
-  selectOption( option: any) {
+  resetFilter() {
+    this.searchApprover = '';
+    this.filterAprroversList = [...this.aprrovers];
+  }
 
+  selectOption( option: any) {
     if(this.mode == 'edit'){
       this.finalApproverNew = option;
     }
     else{
       this.finalApprover = option;
     }
+    this.searchApprover='';
+    this.filterAprroversList = [...this.aprrovers];
   }
 
   filterApprovers() {
@@ -137,4 +143,5 @@ export class FinalApprovalPopUpComponent {
         }
       );
   }
+
 }

@@ -211,22 +211,63 @@ body {
   color:white!important;
 }
 
-.view-mode input,
-.view-mode textarea {
-  pointer-events: none;
-  /*background-color: #33343c !important;*/
-  opacity: 0.6;
+
+.hierarchy-dropdown {
+  position: absolute !important;
+  bottom: 100% !important;
+  left: 0 !important;
+  z-index: 9999 !important;
+  background-color: black !important;
+  /*min-width: 200px;*/
+  transform: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  padding: 10px 15px !important;
+  height: 200px;
+  max-height: 250px;
+  overflow-y: auto !important;
+  /*max-width: 350px;*/
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  width: 332px;
+  font-size: 13px;
 }
 
-.readonly,
-.readonly * {
-  pointer-events: none !important;
-  /*opacity: 0.6;*/
+.hierarchy-dropdown .w-100 {
+  max-height: 250px;
+  overflow-y: auto;
+  max-width: 350px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
-.auto-textarea {
-  min-height: 41px;
-  height: auto;
-  overflow: hidden;
-  resize: none;
+.status-pill {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pending {
+  background-color: yellow;
+  color: black;
+}
+
+.status-approved {
+  background-color: #28a745; /* green */
+  color: white;
+}
+
+.popup-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: white!important;
+}
+
+.popup-body {
+  background-color: #25262C;
+  padding: 50px;
+  font-size: 14px; /* smaller font overall */
 }

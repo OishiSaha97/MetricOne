@@ -73,7 +73,7 @@
                 <div class="fw-semibold p-3">Work Objective</div>
                 <div class="d-flex justify-content-between align-items-center gap-4">
                   <div class="fw-semibold p-3" style="margin-right: -11px;" >WEIGHTAGE</div>
-                  <div class="fw-semibold p-3" style="margin-right: 15px;">Key Results Area</div>
+                  <div class="fw-semibold p-3" style="margin-right: 15px;">KEY RESULTS AREA</div>
                   <!--            *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
 
                 </div>
@@ -102,75 +102,92 @@
                           type="text"
                           class="obj-input-weightage text-center"
                           [(ngModel)]="obj.weightage"
+                          (keydown)="blockTyping($event,obj)"
                           (keydown)="blockDecimal($event)"
                         />
                         <small class="objective-error" style="font-size: 11px;margin-left: 40%;" *ngIf="objectiveErrors[i]?.weightage">
                           {{ objectiveErrors[i].weightage }}
                         </small>
 
-                        <span class="percentage-icon">%</span>
+                        <span class="col-md-1 percentage-icon">%</span>
                       </div>
+
 
                       <div
                         class="dropdown-wrapper"
                         [class.readonly]="view === 0"
-                        (click)="view === 0 ? $event.stopPropagation() : null"
-                        (mousedown)="view === 0 ? $event.preventDefault() : null"
                       >
                         <div style="position: relative;">
                           <div class="dropdown">
-                            <button class="btn btn-dark btn-sm dropdown-toggle"
-                                    type="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false" (click)="opendropdown();"
-                                    style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right:10px;">
+
+                            <!-- DROPDOWN BUTTON -->
+                            <button
+                              class="btn btn-dark btn-sm dropdown-toggle"
+                              type="button"
+                              [attr.data-bs-toggle]="view === 0 ? null : 'dropdown'"
+                              [ngStyle]="{
+                                  'pointer-events': view === 0 ? 'none' : 'auto',
+                                  'opacity': view === 0 ? 0.5 : 1
+                                }"
+                              [attr.title]="obj.selectedType && obj.selectedType.length > 11 ? obj.selectedType : null"
+                              style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right:10px;"
+                            >
                               {{ obj.selectedType ? (obj.selectedType.length > 11 ? (obj.selectedType | slice:0:11) + '...' : obj.selectedType) : 'Select' }}
                             </button>
 
+                            <!-- MENU -->
+                            <ul
+                              class="dropdown-menu dropdown-menu-dark dropdown-scroll"
+                              [ngStyle]="{
+                                'pointer-events': view === 0 ? 'none' : 'auto'
+                              }"
+                              style="background-color: #33343C;"
+                            >
 
-
-                            <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"style="background-color: #33343C;">
-                              <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">
-                                <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
-                                <input [(ngModel)]="searchType" type="text" class="form-control search-input"
-                                       placeholder="Search Here" style=""
-                                       (input)="filterTypes()">
+                              <div
+                                class="search-box bg-color"
+                                [ngStyle]="{
+                                  'pointer-events': view === 0 ? 'none' : 'auto',
+                                  'opacity': view === 0 ? 0.5 : 1
+                                }"
+                                (click)="$event.stopPropagation()"
+                              >
+                                <input [(ngModel)]="searchType"
+                                       type="text"
+                                       class="form-control search-input"
+                                       placeholder="Search Here"
+                                       (input)="filterTypes()"
+                                       [disabled]="view === 0">
                               </div>
+
                               <li *ngFor="let type of filterObjectiveTypes">
-                                <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">
-                                <span *ngIf="type.name.length <= 11">
-                                  {{ type.name }}
-                                </span>
-                                  <span *ngIf="type.name.length > 11" class="custom-tooltip"
-                                        tooltip="{{ type.name }}">
-                                  {{ (type.name | slice:0:11) + '...'  }}
-                                </span>
-                                  <i class="tick-icon"
-                                     *ngIf="obj.selectedType === type.name"></i>
+                                <a class="dropdown-item text-light select-item"
+                                   (click)="view === 0 ? null : onObjectiveChange(type, obj, i)"
+                                   [attr.title]="type.name.length > 13 ? type.name : null">
+                                  {{ type.name.length > 13 ? (type.name | slice:0:13) + '...' : type.name }}
+                                  <i class="tick-icon" *ngIf="obj.selectedType === type.name"></i>
                                 </a>
                               </li>
 
                             </ul>
+
                           </div>
-                          <small class="objective-error" *ngIf="objectiveErrors[i]?.selectedType">
-                            {{ objectiveErrors[i].selectedType }}
-                          </small>
                         </div>
                       </div>
 
-                      <div class="delete-icon" *ngIf="view == true">
-                        <img *ngIf="i > 2"
-                          src="../../../../assets/delete-icon.svg"
-                          class="cursor-enabled"
-                          (click)="actionDelete(deleteModal,i)"
-                          alt="Delete Icon"
-                        />
-<!--                        <button-->
-<!--                          class="btn btn-sm btn-outline-danger"-->
-<!--                          *ngIf="i > 2"-->
-<!--                          (click)="deleteObjective(i)">-->
-<!--                          🗑-->
-<!--                        </button>-->
+                      <div *ngIf="view == true">
+                        <div *ngIf="i > 2 " class="delete-icon" >
+                          <img
+                               src="../../../../assets/delete-icon.svg"
+                               class="cursor-enabled"
+                               (click)="actionDelete(deleteModal,i)"
+                               alt="Delete Icon"
+                          />
+                        </div>
+                        <div *ngIf=" i <= 2 " >
+                          <span style="width: 14px!important; padding: 8px!important;"></span>
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -186,7 +203,7 @@
                   <div>
                     <div>
                       <label class="text-secondary small white-font">OBJECTIVE</label>
-                      <div *ngIf="mode == 'approver' && !obj.addedByApprover">
+                      <div *ngIf="mode == 'approver' && !obj.addedByApprover && view !== 0">
                         <img src="../../../assets/fa-regular_edit.svg"
                              class="mb-1" style="scale:0.7"
                              (click)="toggleObjectiveEdit(obj)" />
@@ -198,7 +215,7 @@
                       class="obj-input mb-2 auto-textarea"
                       [(ngModel)]="obj.objectiveText"
                       placeholder="Enter objective..."
-                      (input)="autoGrow($event)"
+                      (keydown)="blockTyping($event,obj)"
                       [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingObjective">
                     </textarea>
 
@@ -253,7 +270,7 @@
                   <div>
                     <div>
                       <label class="text-secondary small white-font">PERFORMANCE MEASURE</label>
-                      <div *ngIf="mode === 'approver' && !obj.addedByApprover">
+                      <div *ngIf="mode === 'approver' && !obj.addedByApprover && view !== 0">
                         <img src="../../../assets/fa-regular_edit.svg"
                              class="mb-1" style="scale:0.7"
                              (click)="togglePerformanceEdit(obj)" />
@@ -266,8 +283,8 @@
                       class="obj-input small auto-textarea"
                       [(ngModel)]="obj.performanceText"
                       placeholder="Enter Performance..."
-                      [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingPerformance"
-                      (input)="autoGrow($event)">
+                      (keydown)="blockTyping($event,obj)"
+                      [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingPerformance">
                     </textarea>
 
                     <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
@@ -319,7 +336,7 @@
                     <div class="col-md-12 col-sm-12 col-lg-12">
                       <div>
                         <label class="text-secondary small white-font">TARGET</label>
-                        <div *ngIf="mode === 'approver' && !obj.addedByApprover">
+                        <div *ngIf="mode === 'approver' && !obj.addedByApprover && view !== 0">
                           <img src="../../../assets/fa-regular_edit.svg"
                                class="mb-1" style="scale:0.7"
                                (click)="toggleTargetEdit(obj)" />
@@ -328,11 +345,11 @@
 
                       <textarea
                         rows="4"
-                        class="obj-input small auto-textarea"
+                        class="obj-input small"
                         [(ngModel)]="obj.targetText"
                         placeholder="Enter target..."
-                        [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingTarget"
-                        (input)="autoGrow($event)" >
+                        (keydown)="blockTyping($event, obj)"
+                        [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingTarget">
                       </textarea>
 
                       <p style="font-size: 10px;">Please set the target based on the following measurements: Numeric, Percentage, Monitory, Ratio or Time</p>
@@ -408,14 +425,14 @@
               <button class="revert-btn" (click)="draft()" *ngIf="draftShow" >Save</button>
               <button class="revert-btn" (click)="openModal(actionModal)" *ngIf="mode == 'approver'" >Revert</button>
               <button class="forward-btn" *ngIf=" currentStatus != 'hr'"
-                      (click)="(currentStatus == 'manager' || currentStatus === 'approver') ? onSubmit('forward'): openConfirmation(confirmation);"
+                      (click)="(currentStatus == 'manager' || currentStatus === 'approver') ? openForwardConfirmation(confirmationForward): openConfirmation(confirmation);"
                       [ngClass]="{
                           'forward-btn': true
                         }">
                 {{ (currentStatus == 'manager' || currentStatus === 'approver') ? 'Forward' : 'Submit' }}
               </button>
-              <button class="btn submit-btn" *ngIf=" currentStatus === 'hr'" (click)="onSubmit('publish')" >Publish</button>
-              <button class="btn submit-btn" *ngIf=" currentStatus == 'manager' || currentStatus === 'approver'" (click)="directPublish('publish')" >Publish</button>
+              <button class="btn submit-btn" *ngIf=" currentStatus === 'hr'" (click)="openPublishConfirmation(confirmationPublish)" >Publish</button>
+              <button class="btn submit-btn" *ngIf=" currentStatus == 'manager' || currentStatus === 'approver'" (click)="openDirectPublishConfirmation(confirmationDirectPublish)" >Publish</button>
             </div>
           </div>
 
@@ -498,6 +515,75 @@
   </div>
 </ng-template>
 
+<ng-template #confirmationPublish>
+
+  <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
+
+    <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">
+      <div class="d-flex justify-content-center text-center " >
+        <div style="color: white; font-size: 16px;">Are you sure you want to publish?</div>
+      </div>
+
+
+    </div>
+    <div class="">
+      <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
+        <button class="btn close-btn" style="cursor: pointer;" (click)="closePublishModal() ">Close</button>
+        <button class=" active-btn" style="cursor: pointer;"
+                (click)="onSubmit('publish')">Publish</button>
+        <!--      onActive();-->
+      </div>
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #confirmationDirectPublish>
+
+  <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
+
+    <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">
+      <div class="d-flex justify-content-center text-center " >
+        <div style="color: white; font-size: 16px;">Are you sure you want to publish?</div>
+      </div>
+
+
+    </div>
+    <div class="">
+      <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
+        <button class="btn close-btn" style="cursor: pointer;" (click)="closeDirectPublishModal() ">Close</button>
+        <button class=" active-btn" style="cursor: pointer;"
+                (click)="directPublish('publish')">Publish</button>
+        <!--      onActive();-->
+      </div>
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #confirmationForward>
+
+  <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
+
+    <div class="modal-body modal-message-body" style="display: flex;flex-direction: column;top: 25%">
+      <div class="d-flex justify-content-center text-center " >
+        <div style="color: white; font-size: 16px;">Are you sure you want to forward?</div>
+      </div>
+
+
+    </div>
+    <div class="">
+      <div class="d-flex justify-content-center gap-2" style="margin-right: 44px; padding-bottom: 30px; padding-top: 20px;">
+        <button class="btn close-btn" style="cursor: pointer;" (click)="closeForwardModal() ">Close</button>
+        <button class=" active-btn" style="cursor: pointer;"
+                (click)="onSubmit('forward')">Forward</button>
+        <!--      onActive();-->
+      </div>
+    </div>
+
+  </div>
+</ng-template>
+
 <ng-template #deleteModal>
 
   <div class="modal-content" style="background-color: #25262C;border: 1px solid #25262C;border-radius: 0px;">
@@ -520,3 +606,60 @@
 
   </div>
 </ng-template>
+
+
+
+
+
+
+
+
+
+
+<!--                      <div-->
+<!--                        class="dropdown-wrapper"-->
+<!--                        [class.disabled-dropdown]="view === 0"-->
+
+<!--                        (click)="view === 0 ? $event.stopPropagation() : null"-->
+<!--                        (mousedown)="view === 0 ? $event.preventDefault() : null"-->
+<!--                      >-->
+<!--                        <div style="position: relative;">-->
+<!--                          <div class="dropdown">-->
+<!--                            <button class="btn btn-dark btn-sm dropdown-toggle"-->
+<!--                                    type="button"-->
+<!--                                    data-bs-toggle="dropdown"-->
+<!--                                    aria-expanded="false" (click)="opendropdown();"-->
+<!--                                    style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right:10px;">-->
+<!--                              {{ obj.selectedType ? (obj.selectedType.length > 11 ? (obj.selectedType | slice:0:11) + '...' : obj.selectedType) : 'Select' }}-->
+<!--                            </button>-->
+
+
+
+<!--                            <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"style="background-color: #33343C;">-->
+<!--                              <div (click)="$event.stopPropagation()" class="search-box bg-color" style="">-->
+<!--                                <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>-->
+<!--                                <input [(ngModel)]="searchType" type="text" class="form-control search-input"-->
+<!--                                       placeholder="Search Here" style=""-->
+<!--                                       (input)="filterTypes()">-->
+<!--                              </div>-->
+<!--                              <li *ngFor="let type of filterObjectiveTypes">-->
+<!--                                <a class="dropdown-item text-light select-item" (click)="onObjectiveChange(type, obj, i)">-->
+<!--                                <span *ngIf="type.name.length <= 11">-->
+<!--                                  {{ type.name }}-->
+<!--                                </span>-->
+<!--                                  <span *ngIf="type.name.length > 11" class="custom-tooltip"-->
+<!--                                        tooltip="{{ type.name }}">-->
+<!--                                  {{ (type.name | slice:0:11) + '...'  }}-->
+<!--                                </span>-->
+<!--                                  <i class="tick-icon"-->
+<!--                                     *ngIf="obj.selectedType === type.name"></i>-->
+<!--                                </a>-->
+<!--                              </li>-->
+
+<!--                            </ul>-->
+<!--                          </div>-->
+<!--                          <small class="objective-error" *ngIf="objectiveErrors[i]?.selectedType">-->
+<!--                            {{ objectiveErrors[i].selectedType }}-->
+<!--                          </small>-->
+<!--                        </div>-->
+<!--                      </div>-->
