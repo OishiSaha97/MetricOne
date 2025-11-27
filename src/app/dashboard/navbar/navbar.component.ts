@@ -64,7 +64,6 @@ export class NavbarComponent {
 
     }
   setActiveMenu(url: string) {
-    console.log("url : ", url);
     if (url.includes('/dashboard/home')) {
       this.isHomeActive = true;
       this.activeIndex = null;
