@@ -123,19 +123,17 @@ export class HomeComponent {
 
         const [year, month, day] = this.initialtionDate.split('-').map(Number);
         const kpiDate = new Date(year, month - 1, day);
+
         if(this.initialtionDate && (kpiDate >= today)){
           this.settingTitle = "KPI INITIATION";
           this.mode = "edit";
         }
-        else if (kpiDate <= today) {
-          this.settingTitle = "KPI EVALUATION";
-          this.checkEvaEndDate();
-          this.mode = "add";
-        }
-        else {
+        else{
           this.settingTitle = "SETTING";
           this.mode = "add";
         }
+
+        this.checkEvaEndDate();
       });
   }
   formatDateForInput(dateString: string): string {
@@ -185,9 +183,15 @@ export class HomeComponent {
     this.kpi.getLogData({ param: 'EvaEndDate', userIdKPI: this.userId })
       .subscribe(res => {
         this.resData = res?.['EvaEndDate'][0] || [];
-
+        const result = res?.['EvaEndDate']?.[0];
         this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
+        if(result){
+          this.settingTitle = "KPI EVALUATION";
+          this.mode = "add";
+
+        }
       });
+
   }
 
   publishAnnoc() {
