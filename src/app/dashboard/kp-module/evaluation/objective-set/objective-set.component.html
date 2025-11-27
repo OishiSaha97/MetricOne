@@ -80,6 +80,8 @@
                       class="obj-input-weightage text-center"
                       [(ngModel)]="obj.weightage"
                       [disabled]="userData.status === 'Published' || userData.status === 'Closed'"
+                      (keydown)="blockTyping($event,obj)"
+                      (keydown)="blockDecimal($event)"
                     />
                     <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.weightage">
                       {{ objectiveErrors[i].weightage }}
@@ -87,12 +89,9 @@
                     <span class="percentage-icon">%</span>
                   </div>
 
-                <div
-                  class="dropdown-wrapper"
-                  [class.readonly]="view === 0"
-                  (click)="view === 0 ? $event.stopPropagation() : null"
-                  (mousedown)="view === 0 ? $event.preventDefault() : null"
-                >
+                  <div
+                    class="dropdown-wrapper"
+                    [class.readonly]="view === 0">
                 <div style="position: relative;">
                   <div class="dropdown"
                        [class.disabled-dropdown]=" userData.status === 'Closed'">
@@ -100,6 +99,11 @@
                             type="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
+                            [attr.data-bs-toggle]="view === 0 ? null : 'dropdown'"
+                            [ngStyle]="{
+                                  'pointer-events': view === 0 ? 'none' : 'auto',
+                                  'opacity': view === 0 ? 0.5 : 1
+                                }"
                             [attr.disabled]=" userData.status === 'Closed' ? true : null"
                             [attr.title]="obj.selectedType && obj.selectedType.length > 11 ? obj.selectedType : null"
                             style="background-color:#33343C; border:1px solid #7A7B8299;width: 130px; margin-right: 25px;">
@@ -107,7 +111,10 @@
                     </button>
 
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
-                            style="background-color: #33343C; width:150px;">
+                            style="background-color: #33343C; width:150px;"
+                            [ngStyle]="{
+                                'pointer-events': view === 0 ? 'none' : 'auto'
+                              }">
                           <div (click)="$event.stopPropagation();" class="search-box bg-color" style="">
                             <i class="search-box-container-i cursor-enabled" style="position: absolute;z-index: 100; left: 10px; top: 50%; transform: translateY(-50%);"></i>
                             <input [(ngModel)]="searchType" type="text" class="form-control search-input"
@@ -403,6 +410,7 @@
                     class="obj-input  auto-textarea"
                     [(ngModel)]="obj.achievedText"
                     placeholder="Enter Achieved..."
+                    (keydown)="blockTyping($event,obj)"
                     [readonly]="currentStatus == 'manager' && !obj.isEditingAchieved"
                     [ngStyle]="{opacity: !obj.isEditingAchieved ? 0.6 : 1}"
                   ></textarea>
@@ -458,6 +466,7 @@
                       type="text"
                       class="obj-input mb-2"
                       [(ngModel)]="obj.achievedInt"
+                      (keydown)="blockTyping($event,obj)"
                       (keydown)="blockDecimal($event)"
                       placeholder="Enter achieved..."
                       style="height: 41px;"

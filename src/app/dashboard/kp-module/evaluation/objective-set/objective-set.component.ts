@@ -729,4 +729,14 @@ export class ObjectiveSetComponent {
     this.rateSubmit.emit(this.objOverallRating);
     this.dataSubmittedDraft.emit(this.objectives);
   }
+
+
+  blockTyping(event: KeyboardEvent, obj: any) {
+    const isReadonly = this.view === 0;
+
+    if ((this.view === 0) ) {
+      event.preventDefault();
+    }
+  }
+
 }

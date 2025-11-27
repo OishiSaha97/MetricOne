@@ -136,7 +136,8 @@ export class EvaluationComponent {
      this.managerComp.submitData();
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
         if(this.managerData && this.managerData.length > 0){
-          this.openForwardConfirmation(this.confirmationForward)
+          this.openForwardConfirmation(this.confirmationForward);
+          return;
           //this.submitManager();
         }
       }else{
