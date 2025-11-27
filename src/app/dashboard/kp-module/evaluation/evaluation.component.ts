@@ -73,7 +73,7 @@ export class EvaluationComponent {
 
   constructor(public modalRef: BsModalRef,
               public revertModalRef: BsModalRef,
-              public modalRefConfirm: BsModalRef,
+              public modalRefConfirma: BsModalRef,
               public modalRefForward: BsModalRef,
               public modalRefPublish: BsModalRef,
               public modalRefDirectPublish: BsModalRef,
@@ -203,13 +203,16 @@ export class EvaluationComponent {
 
   }
 
-  cancel(){
-    this.modalService.hide();
-    this.modalRefConfirm.hide();
+  onModalOff(){
+    this.modalRefConfirma.hide();
     this.modalRefPublish.hide();
     this.modalRefDirectPublish.hide();
     this.modalRefForward.hide();
     this.revertModalRef.hide();
+  }
+
+  cancel(){
+    this.modalService.hide();
   }
 
 
@@ -255,7 +258,7 @@ export class EvaluationComponent {
   @ViewChild('confirmation') confirmation!: TemplateRef<any>;
 
   openConfirmation(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {
+    this.modalRefConfirma = this.modalService.show(template, {
       backdrop: 'static',
       keyboard: false,
       class: 'modal-dialog-centered'
@@ -602,8 +605,8 @@ export class EvaluationComponent {
 
 
   closeConfirmModal() {
-    if (this.modalRefConfirm) {
-      this.modalRefConfirm.hide();
+    if (this.modalRefConfirma) {
+      this.modalRefConfirma.hide();
     }
   }
 
