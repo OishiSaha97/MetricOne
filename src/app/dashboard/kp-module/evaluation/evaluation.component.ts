@@ -73,7 +73,7 @@ export class EvaluationComponent {
 
   constructor(public modalRef: BsModalRef,
               public revertModalRef: BsModalRef,
-              public modalRefConfirm: BsModalRef,
+              public modalRefConfirma: BsModalRef,
               public modalRefForward: BsModalRef,
               public modalRefPublish: BsModalRef,
               public modalRefDirectPublish: BsModalRef,
@@ -136,7 +136,8 @@ export class EvaluationComponent {
      this.managerComp.submitData();
       if(this.currentStatus == 'manager' || this.currentStatus == 'approver'){
         if(this.managerData && this.managerData.length > 0){
-          this.openForwardConfirmation(this.confirmationForward)
+          this.openForwardConfirmation(this.confirmationForward);
+          return;
           //this.submitManager();
         }
       }else{
@@ -203,13 +204,16 @@ export class EvaluationComponent {
 
   }
 
-  cancel(){
-    this.modalService.hide();
-    this.modalRefConfirm.hide();
+  onModalOff(){
+    this.modalRefConfirma.hide();
     this.modalRefPublish.hide();
     this.modalRefDirectPublish.hide();
     this.modalRefForward.hide();
     this.revertModalRef.hide();
+  }
+
+  cancel(){
+    this.modalService.hide();
   }
 
 
@@ -230,6 +234,7 @@ export class EvaluationComponent {
       if(this.selfAssessment.length > 0){
         if(this.currentStatus == 'employee'){
           this.openConfirmation(this.confirmation);
+          return;
           // this.submitEmployee();
         }
           currentStep = 3;
@@ -255,7 +260,7 @@ export class EvaluationComponent {
   @ViewChild('confirmation') confirmation!: TemplateRef<any>;
 
   openConfirmation(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {
+    this.modalRefConfirma = this.modalService.show(template, {
       backdrop: 'static',
       keyboard: false,
       class: 'modal-dialog-centered'
@@ -602,8 +607,8 @@ export class EvaluationComponent {
 
 
   closeConfirmModal() {
-    if (this.modalRefConfirm) {
-      this.modalRefConfirm.hide();
+    if (this.modalRefConfirma) {
+      this.modalRefConfirma.hide();
     }
   }
 

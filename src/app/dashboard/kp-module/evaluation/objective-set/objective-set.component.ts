@@ -163,7 +163,7 @@ export class ObjectiveSetComponent {
                   ? null
                   : item.overall_rating,
               achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
-              achievedInt: item.achieved_int,
+              achievedInt: item.achieved_int ?? "",
               //targetText: item.target,
               isOpen: false
             }));
@@ -729,4 +729,14 @@ export class ObjectiveSetComponent {
     this.rateSubmit.emit(this.objOverallRating);
     this.dataSubmittedDraft.emit(this.objectives);
   }
+
+
+  blockTyping(event: KeyboardEvent, obj: any) {
+    const isReadonly = this.view === 0;
+
+    if ((this.view === 0) ) {
+      event.preventDefault();
+    }
+  }
+
 }
