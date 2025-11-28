@@ -163,7 +163,7 @@ export class ObjectiveSetComponent {
                   ? null
                   : item.overall_rating,
               achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
-              achievedInt: item.achieved_int,
+              achievedInt: item.achieved_int ?? "",
               //targetText: item.target,
               isOpen: false
             }));
