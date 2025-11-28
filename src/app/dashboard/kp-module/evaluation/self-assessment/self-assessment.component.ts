@@ -194,5 +194,13 @@ export class SelfAssessmentComponent {
     }, 0);
   }
 
+  blockTyping(event: KeyboardEvent, obj: any) {
+    const isReadonly = this.view === 0;
+
+    if ((this.view === 0) ) {
+      event.preventDefault();
+    }
+  }
+
 
 }
