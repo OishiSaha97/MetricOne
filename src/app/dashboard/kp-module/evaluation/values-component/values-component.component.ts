@@ -32,8 +32,11 @@ export class ValuesComponentComponent {
   @Input() currentStatus: any;
   @Input() view: any;
   @Input() isBack:any=false;
+  @Input() onNexts:any=false;
   @Input() oldObjective:any=[];
   @Input() oldOverallRating:any=[];
+  @Output() backdataSubmitted = new EventEmitter<any>();
+  @Input() savedValuesData:any=[];
   isOpen: boolean[] = [];
   mode:any;
   userId:any;
@@ -112,6 +115,29 @@ export class ValuesComponentComponent {
           }
         );
     }
+    else if(this.onNexts === true && this.isBack === true){
+      console.log("savedValuesData : ", this.savedValuesData);
+      this.objectives = this.savedValuesData.map((obj: any, index: number) => {
+
+        const savedRating = obj.selectedRating || '';
+        const overallRating = obj.overAllRating || '';
+
+        if (index === 7) {
+          return {
+            ...obj,
+            selectedRating: undefined,
+            overAllRating: overallRating
+          };
+        } else {
+          return {
+            ...obj,
+            selectedRating: savedRating,
+            overAllRating: undefined
+          };
+        }
+      });
+
+    }
     else {
       console.log("this.oldObjective : ", this.oldObjective);
 
@@ -176,6 +202,10 @@ export class ValuesComponentComponent {
     } else {
       console.log('All objectives are filled in.');
     }
+  }
+
+  onNextsself(){
+    this.backdataSubmitted.emit(this.objectives);
   }
 
   objectiveErrors: { [key: number]:

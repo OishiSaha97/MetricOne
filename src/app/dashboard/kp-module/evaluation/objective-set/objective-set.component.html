@@ -184,9 +184,7 @@
                     </div>
                   </div>
 
-
                 </div>
-
               </div>
             </div>
 
@@ -421,7 +419,6 @@
                     class="obj-input  auto-textarea"
                     [(ngModel)]="obj.achievedText"
                     placeholder="Enter Achieved..."
-                    (keydown)="blockTyping($event,obj)"
                     [readonly]="currentStatus == 'manager' && !obj.isEditingAchieved"
                     [ngStyle]="{opacity: !obj.isEditingAchieved ? 0.6 : 1}"
                   ></textarea>
