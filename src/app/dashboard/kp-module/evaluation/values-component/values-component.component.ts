@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
 interface Objective {
@@ -198,9 +198,15 @@ export class ValuesComponentComponent {
       }
 
     }
+
     if(!this.objectives[7].overAllRating?.trim() && (this.currentStatus === 'manager' || this.currentStatus === 'approver' || this.currentStatus === 'hr')){
       this.objectiveErrors[7].overAllRating = '*Overall Rating is required';
       hasError = true;
+    }
+
+    if (hasError) {
+      this.showToast("Please fill all required fields.");
+      return false;
     }
     return !hasError;
   }
@@ -234,6 +240,24 @@ export class ValuesComponentComponent {
         }
       );
   }
+
+  @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
+  toastMessage: string = '';
+
+  showToast(msg: string) {
+    this.toastMessage = msg;
+
+    setTimeout(() => {
+      const el = this.errorToast.nativeElement;
+
+      el.classList.add('show');
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 5000);
+
+    }, 0);
+  }
+
 
 
 }
