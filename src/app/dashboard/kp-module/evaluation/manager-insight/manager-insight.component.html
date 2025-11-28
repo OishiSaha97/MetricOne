@@ -27,6 +27,7 @@
               type="text"
               class="obj-input mb-2"
               [(ngModel)]="obj.objectiveText"
+              (keydown)="blockTyping($event)"
               placeholder="Type Here">
             </textarea>
             <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">

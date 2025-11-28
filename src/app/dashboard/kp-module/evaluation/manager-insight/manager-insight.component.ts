@@ -182,5 +182,11 @@ export class ManagerInsightComponent {
   }
 
 
+  blockTyping(event: Event) {
+    if (this.view === 0 || this.currentStatus === 'hr') {
+      event.preventDefault();
+    }
+  }
+
 
 }

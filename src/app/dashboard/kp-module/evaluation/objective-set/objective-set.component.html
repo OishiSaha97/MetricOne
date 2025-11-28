@@ -419,7 +419,7 @@
                     class="obj-input  auto-textarea"
                     [(ngModel)]="obj.achievedText"
                     placeholder="Enter Achieved..."
-                    [readonly]="currentStatus == 'manager' && !obj.isEditingAchieved"
+                    [readonly]="(currentStatus == 'manager' || currentStatus == 'hr') && !obj.isEditingAchieved"
                     [ngStyle]="{opacity: !obj.isEditingAchieved ? 0.6 : 1}"
                   ></textarea>
 
