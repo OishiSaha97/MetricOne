@@ -59,7 +59,7 @@
             <div class="row"
 
                  style="cursor:pointer;">
-              <div class="col-md-5">
+              <div class="col-md-6">
                 <div class="d-flex justify-content-start"  (click)="toggleObjective(obj)">
                   <div>
                     <img *ngIf="obj.isOpen" src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.6"  />
@@ -68,26 +68,32 @@
                   <span class="fw-semibold" style="font-size: 14px;">{{ obj.title }}</span>
                 </div>
               </div>
-              <div class="col-md-7">
-                <div class="d-flex justify-content-between align-items-center"
-                     [ngClass]="{
-                  'justify-content-end': !['manager','hr','approver'].includes(currentStatus)
-                }"
-                >
-                  <div class="input-with-percent"  style="position: relative;" >
-                    <input
-                      type="text"
-                      class="obj-input-weightage text-center"
-                      [(ngModel)]="obj.weightage"
-                      [disabled]="userData.status === 'Published' || userData.status === 'Closed'"
-                      (keydown)="blockTyping($event,obj)"
-                      (keydown)="blockDecimal($event)"
-                    />
-                    <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.weightage">
-                      {{ objectiveErrors[i].weightage }}
-                    </small>
-                    <span class="percentage-icon">%</span>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-1">
+
                   </div>
+                  <div class="col-md-11">
+                    <div class="d-flex justify-content-between align-items-center"
+                         [ngClass]="{
+                      'for-rating': !['manager','hr','approver'].includes(currentStatus)
+                     }"
+                    >
+
+                      <div class="input-with-percent"  style="position: relative;" >
+                        <input
+                          type="text"
+                          class="obj-input-weightage text-center"
+                          [(ngModel)]="obj.weightage"
+                          [disabled]="userData.status === 'Published' || userData.status === 'Closed'"
+                          (keydown)="blockTyping($event,obj)"
+                          (keydown)="blockDecimal($event)"
+                        />
+                        <span class="percentage-icon">%</span>
+                        <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.weightage">
+                          {{ objectiveErrors[i].weightage }}
+                        </small>
+                      </div>
 
                   <div
                     class="dropdown-wrapper"
@@ -127,55 +133,60 @@
                                     tooltip="{{ type.name }}">
                                 {{ type.name.length > 11 ? (type.name | slice:0:11) + '...' : type.name }}
                               </span>
-                              <i class="tick-icon"
-                                 *ngIf="obj.selectedType === type.name"></i>
-                            </a>
-                          </li>
-                        </ul>
+                                  <i class="tick-icon"
+                                     *ngIf="obj.selectedType === type.name"></i>
+                                </a>
+                              </li>
+                            </ul>
 
+                          </div>
+                          <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.selectedType">
+                            {{ objectiveErrors[i].selectedType }}
+                          </small>
+                        </div>
                       </div>
-                      <small class="objective-error" style="margin-right:10px;" *ngIf="objectiveErrors[i]?.selectedType">
-                        {{ objectiveErrors[i].selectedType }}
-                      </small>
-                    </div>
-                  </div>
 
 
 
-                  <div style="position: relative;">
-                    <div class="dropdown"
-                         [class.disabled-dropdown]=" userData.status === 'Closed'"
-                         *ngIf="['manager','hr','approver'].includes(currentStatus)">
-                      <!--                  *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
-                      <button class="btn btn-dark btn-sm dropdown-toggle"
-                              type="button"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                              [attr.disabled]=" userData.status === 'Closed' ? true : null"
-                              style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
-                        {{ obj.rating ? (obj.rating.length > 12 ? (obj.rating | slice:0:12) + '...' : obj.rating) : 'Select' }}
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
-                          style="background-color: #33343C;">
-                        <li *ngFor="let type of ratings">
-                          <a class="dropdown-item text-light select-item" [class.disabled-item]="userData.status === 'Closed'"
-                             (click)="onRating(type, obj, i)">
+                      <div style="position: relative;">
+                        <div class="dropdown"
+                             [class.disabled-dropdown]=" userData.status === 'Closed'"
+                             *ngIf="['manager','hr','approver'].includes(currentStatus)">
+                          <!--                  *ngIf="currentStatus == 'manager' || currentStatus == 'approver' || currentStatus == 'hr' "-->
+                          <button class="btn btn-dark btn-sm dropdown-toggle"
+                                  type="button"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                  [attr.disabled]=" userData.status === 'Closed' ? true : null"
+                                  style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
+                            {{ obj.rating ? (obj.rating.length > 12 ? (obj.rating | slice:0:12) + '...' : obj.rating) : 'Select' }}
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
+                              style="background-color: #33343C;">
+                            <li *ngFor="let type of ratings">
+                              <a class="dropdown-item text-light select-item" [class.disabled-item]="userData.status === 'Closed'"
+                                 (click)="onRating(type, obj, i)">
                           <span class="custom-tooltip"
                                 tooltip="{{ type.kpi_category_name }}">
                                 {{ type.kpi_category_name.length > 11 ? (type.kpi_category_name | slice:0:11) + '...' : type.kpi_category_name }}
                           </span>
-                            <i class="tick-icon"
-                               *ngIf="obj.rating === type.kpi_category_name"></i>
-                          </a>
-                        </li>
-                      </ul>
+                                <i class="tick-icon"
+                                   *ngIf="obj.rating === type.kpi_category_name"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <small class="objective-error" *ngIf="objectiveErrors[i]?.rating">
+                          {{ objectiveErrors[i].rating }}
+                        </small>
+                      </div>
+
                     </div>
-                    <small class="objective-error" *ngIf="objectiveErrors[i]?.rating">
-                      {{ objectiveErrors[i].rating }}
-                    </small>
                   </div>
 
+
                 </div>
+
               </div>
             </div>
 

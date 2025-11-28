@@ -27,7 +27,8 @@
                style="cursor:pointer;">
             <div class="d-flex justify-content-between"  (click)="toggleObjective(obj)">
               <div>
-                <img src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.7"  />
+                <img *ngIf="obj.isOpen" src="../../../assets/work_obj.svg" class="mb-1" style="scale:0.6"  />
+                <img *ngIf="!obj.isOpen" src="../../../assets/collapse-icon.svg" class="mb-1" style="scale:0.6"  />
               </div>
               <span class="fw-semibold">{{ obj.title }}</span>
             </div>
