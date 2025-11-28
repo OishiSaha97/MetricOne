@@ -206,7 +206,7 @@ export class EvaluationComponent {
       this.hrData = data;
 
       console.log('Received data from hr:', data);
-      this.openPublishConfirmation(this.confirmationPublish);
+      // this.openPublishConfirmation(this.confirmationPublish);
       // this.submitHr();
     }
 
@@ -433,6 +433,7 @@ export class EvaluationComponent {
       hrData: JSON.stringify(this.hrData),
       pid: this.userData.id,
       objectId:this.userId,
+      otherParam:this.rateOverall,
       param: 'hr_evaluation_insert_data'
     };
 

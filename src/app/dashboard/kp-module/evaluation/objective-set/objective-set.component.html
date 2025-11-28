@@ -1,6 +1,6 @@
 
 
-<div class="objectives-card p-4 rounded" [class.view-mode]="view === 0">
+<div class="objectives-card p-4 rounded" [class.view-mode]="view === 0 ">
   <h5 class="text-light fw-semibold">Objectives Set for Year 2025</h5>
 <!--  <p class="text-secondary small">-->
 <!--    Please write SMART Objective statements:-->
@@ -197,7 +197,7 @@
                     <label class="text-secondary small white-font" >OBJECTIVE</label>
                   </div>
 
-                  <div class="col-md-6" style="text-align:end" *ngIf="currentStatus != 'employee'">
+                  <div class="col-md-6" style="text-align:end" *ngIf="currentStatus != 'employee' && view == true">
                     <img src="../../../assets/fa-regular_edit.svg"
                          class="mb-1" style="scale:0.7"
                          (click)="toggleObjectiveEdit(obj)" />
@@ -269,7 +269,7 @@
                   </div>
 
                   <div class="col-md-6  col-sm-6" style="text-align:end">
-                    <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
+                    <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'  && view == true"
                          class="mb-1" style="scale:0.7"
                          (click)="togglePerformanceEdit(obj)" />
                   </div>
@@ -339,7 +339,7 @@
                       <label class="text-secondary small white-font">TARGET</label>
                     </div>
                     <div class="col-md-6" style="text-align:end">
-                      <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
+                      <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'  && view == true"
                            class="mb-1" style="scale:0.7"
                            (click)="toggleTargetEdit(obj)" />
                     </div>
@@ -407,7 +407,7 @@
                       <label class="text-secondary small white-font">ACHIEVED</label>
                     </div>
                     <div class="col-md-6" style="text-align:end">
-                      <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'"
+                      <img src="../../../assets/fa-regular_edit.svg" *ngIf="currentStatus != 'employee'  && view == true"
                            class="mb-1" style="scale:0.7"
                            (click)="toggleAchievedEdit(obj)" />
                     </div>
