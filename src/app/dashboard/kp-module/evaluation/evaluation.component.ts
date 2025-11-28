@@ -40,6 +40,7 @@ export class EvaluationComponent {
   onNext1:any=false;
   onNext2:any=false;
   onNext3:any=false;
+  onNext4:any=false;
   kpiUserId:any;
   status: any;
   team: any;
@@ -173,6 +174,7 @@ export class EvaluationComponent {
     }else if(this.currentStep == 5){
       currentStep = 4;
       this.isBack4 =true;
+      this.hrComp.onNext();
       this.changeTable('manager',currentStep)
     }
   }
@@ -200,7 +202,9 @@ export class EvaluationComponent {
       this.onNext3 = true;
       this.managerData = data;
     }else if(item == 'hr'){
+      this.onNext4 = true;
       this.hrData = data;
+
       console.log('Received data from hr:', data);
       this.openPublishConfirmation(this.confirmationPublish);
       // this.submitHr();

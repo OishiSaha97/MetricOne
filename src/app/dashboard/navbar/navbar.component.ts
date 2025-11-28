@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {DomSanitizer} from "@angular/platform-browser";
 import {CommonServiceService} from "../common-service.service";
 
@@ -53,9 +53,36 @@ export class NavbarComponent {
 
 
       this.getPermission();
+
+
+      this.setActiveMenu(this.router.url);
+
+      // also check on navigation
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          this.setActiveMenu(event.urlAfterRedirects);
+        }
+      });
+
+    }
+  setActiveMenu(url: string) {
+    console.log("url : ", url);
+    if (url.includes('/dashboard/home')) {
+      this.isHomeActive = true;
+      this.activeIndex = null;
+      return;
     }
 
+    this.isHomeActive = false;
+    if (!url.includes('/dashboard/home')) {
+      this.activeIndex = 1;
+      this.activeSubTask = url.split('/dashboard/')[1];
+    }
+
+  }
+
     navigateTo(path: string) {
+      console.log('Navigating to:', path);
       this.activeSubTask = path;
       if(path === 'home'){
         this.isHomeActive = true;

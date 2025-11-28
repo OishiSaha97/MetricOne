@@ -179,8 +179,8 @@
       </fieldset>
 
       <fieldset *ngIf="currentTable=='hr'">
-        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack5"
-                      [oldObjective]="hrData"
+        <app-hr-modal [userData]="userData" [currentStatus]="currentStatus" [view]="view" [isBack]="isBack5" [onNexts] ="onNext4"
+                      [oldObjective]="hrData"  [savedHrData]="hrData" (backdataSubmitted)="onChildBackDataSubmitted($event,'hr')"
                       (dataSubmitted)="onChildDataSubmitted($event,'hr')"></app-hr-modal>
       </fieldset>
 
