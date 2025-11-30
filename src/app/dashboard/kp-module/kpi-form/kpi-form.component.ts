@@ -13,6 +13,7 @@ import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {Subject} from "rxjs";
 import {Toast} from "primeng/toast";
+import {CryptoService} from "../../crypto.service";
 
 declare var $: any;
 
@@ -53,6 +54,7 @@ export class KpiFormComponent implements OnInit {
               public modalRefRevert: BsModalRef,
               public modalServ: BsModalRef,
               private modalService: BsModalService,
+              private cryptoService: CryptoService,
               private kpi: CommonServiceService) {
   }
 
@@ -728,8 +730,9 @@ export class KpiFormComponent implements OnInit {
     }
   }
 
-  draft() {
-    let processedObjectives = this.objectives.map((obj: Objective) => {
+  async draft() {
+    let processedObjectives = await Promise.all(
+      this.objectives.map(async (obj: Objective) => {
 
       const escapeText = (text: string | undefined) => {
         return text
@@ -742,15 +745,17 @@ export class KpiFormComponent implements OnInit {
 
       let item: any = {
         title: obj.title,
-        selectedType: obj.selectedType,
-        weightage: obj.weightage,
-        objectiveText: escapeText(obj.objectiveText),
-        performanceText: escapeText(obj.performanceText),
-        targetText: escapeText(obj.targetText)
+        selectedType: await this.cryptoService.encrypt(obj.selectedType) ,
+        weightage: await this.cryptoService.encrypt(obj.weightage),
+        objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
+        performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)) ,
+        targetText: await this.cryptoService.encrypt( escapeText(obj.targetText))
       };
 
       return item;
-    });
+    })
+
+    );
     let obj: any = {
       userIdKPI: this.userId,
       userName: this.userName,
@@ -764,7 +769,7 @@ export class KpiFormComponent implements OnInit {
     }else{
       obj.objectId = '';
     }
-
+    console.log('OBJECT TO SEND:', obj);
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
 
