@@ -125,43 +125,8 @@ export class KpiFormComponent implements OnInit {
       }
 
       if(this.mode == 'approver' || this.kpiId != '' ){
-        this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
-          .subscribe(res => {
-              this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list']
-              console.log(this.data);
-              this.objectives = this.data.map((item:any, index:any) => ({
-                id: item.id,
-                workId: item.work_id,
-                title: `Work Objective ${index + 1}`,
-                selectedType: item.category_name,
-                objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
-                targetText: (item.target || '').replace(/\\n/g, '\n'),
-                performanceText: (item.performance || '').replace(/\\n/g, '\n'),
-                weightage: item.weightage,
-                isOpen: false,
-                addedByApprover: false,
-                status:'old',
-               }));
-              // setTimeout(() => {
-              //   this.adjustAllTextAreas();
-              // }, 0);
-             },
-            (error) => {
-              console.error("Error fetching permission list", error);
-            }
+        this.getDatafromDraftOrExisting();
 
-          );
-
-        this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
-          .subscribe(res => {
-              this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
-              console.log(this.changedHistory);
-              // this.adjustAllTextAreas();
-            },
-            (error) => {
-              console.error("Error fetching permission list", error);
-            }
-          );
       }
     this.filterObjectiveTypes = [...this.objectiveTypes];
     this.getManagerName();
@@ -882,6 +847,40 @@ export class KpiFormComponent implements OnInit {
   }
 
 
+   getDatafromDraftOrExisting() {
+     this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
+       .subscribe(async res => {
+           this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list']
+           console.log(" this.data ", this.data);
+           this.objectives = await Promise.all(this.data.map(async(item: any, index: any) => ({
+               id: item.id,
+               workId: item.work_id,
+               title: `Work Objective ${index + 1}`,
+               selectedType: await this.cryptoService.decrypt(item.category_name),
+               objectiveText: (await this.cryptoService.decrypt(item.objective))?.replace(/\\n/g, '\n'),
+               targetText: (await this.cryptoService.decrypt(item.target))?.replace(/\\n/g, '\n'),
+               performanceText: (await this.cryptoService.decrypt(item.performance))?.replace(/\\n/g, '\n'),
+               weightage: await this.cryptoService.decrypt(item.weightage),
+               isOpen: false,
+               addedByApprover: false,
+               status: 'old',
+             }))
+           );
+         },
+         (error) => {
+           console.error("Error fetching permission list", error);
+         }
 
+       );
 
+     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
+       .subscribe(res => {
+           this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
+           console.log(this.changedHistory);
+         },
+         (error) => {
+           console.error("Error fetching permission list", error);
+         }
+       );
+  }
 }
