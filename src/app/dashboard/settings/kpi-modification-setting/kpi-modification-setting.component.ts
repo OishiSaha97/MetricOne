@@ -44,8 +44,8 @@ export class KpiModificationSettingComponent {
     this.userName = this.cookieService.getCookie('fullName');
     this.today = new Date();
     this.bsConfig = {
-      adaptivePosition: false, // disables auto reposition
-      containerClass: 'theme-default bs-datepicker-top',        // forces it above
+      adaptivePosition: false,
+      containerClass: 'theme-default bs-datepicker-top',
       dateInputFormat: 'DD MMM YYYY',
       showWeekNumbers: false
     };
