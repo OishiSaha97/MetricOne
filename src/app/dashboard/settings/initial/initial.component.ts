@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {BsDatepickerConfig} from "ngx-bootstrap/datepicker";
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
+import {CookiesService} from "../../cookies.service";
 
 @Component({
   selector: 'app-initial',
@@ -26,10 +27,11 @@ export class InitialComponent {
    showProceedButton: boolean = false;
 
   constructor(public bsModalRef: BsModalRef,
-              private kpi: CommonServiceService) {}
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {}
   ngOnInit() {
-    this.userId = localStorage.getItem('username');
-    this.timePeriod = localStorage.getItem('timePeriod');
+    this.userId = this.cookieService.getCookie('username');
+    this.timePeriod = this.cookieService.getCookie('timePeriod');
     this.today = new Date();
     this.bsConfig = {
       adaptivePosition: false,
