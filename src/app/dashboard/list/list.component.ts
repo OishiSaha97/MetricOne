@@ -58,7 +58,7 @@ export class ListComponent {
   }
 
   ngOnInit() {
-    this.timePeriod = localStorage.getItem('timePeriod');
+    this.timePeriod = this.cookieService.getCookie('timePeriod');
     this.role = this.cookieService.getCookie('role');
     this.userId = this.cookieService.getCookie('username');
     this.userName = this.cookieService.getCookie('fullName');

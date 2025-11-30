@@ -2,6 +2,7 @@ import {Component, EventEmitter, Inject, Input, TemplateRef} from '@angular/core
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
 import {DOCUMENT} from "@angular/common";
+import {CookiesService} from "../cookies.service";
 
 declare var $: any;
 @Component({
@@ -37,10 +38,11 @@ export class SettingsComponent {
    showEvaluation: boolean = false;
   constructor(public bsModalRef: BsModalRef,
               private modalServ: BsModalService,
-              private kpi: CommonServiceService) {}
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {}
   ngOnInit(){
-    this.userId = localStorage.getItem('username');
-    this.timePeriod = localStorage.getItem('timePeriod');
+    this.userId = this.cookieService.getCookie('username');
+    this.timePeriod = this.cookieService.getCookie('timePeriod');
     this.currentTable = 'initiation';
     this.tab='initiation';
 
