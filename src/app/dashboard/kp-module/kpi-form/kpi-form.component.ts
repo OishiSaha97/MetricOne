@@ -139,7 +139,6 @@ export class KpiFormComponent implements OnInit {
 
     }).subscribe(res => {
       this.managerName = res?.['get_manager_name'][0].managerName || [];
-      console.log("this.managerName : ", this.managerName)
     });
 
   }
@@ -172,7 +171,6 @@ export class KpiFormComponent implements OnInit {
     }
     this.isOpen[i] = false;
     this.searchType = '';
-    console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
 
   }
   selectedTypes: string[] = [];
@@ -385,7 +383,7 @@ export class KpiFormComponent implements OnInit {
 
       },
       error: (error) => {
-        console.error('Error saving KPI:', error);
+
         this.onCancel();
         this.modalRefConfirm.hide();
       }
@@ -446,10 +444,18 @@ export class KpiFormComponent implements OnInit {
   }
 
   openObjectiveHistory(obj: any,i:any) {
+    console.log("obj  : ", obj)
     //this.showObjectiveHistoryIndex = null;
-    this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
-      .subscribe(res => {
-          this.changedObjHistory = Array.isArray(res?.['changed-objective-history']) ? res?.['changed-objective-history'] : res?.['changed-objective-history']
+    this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
+      .subscribe(async res => {
+          let history = res?.['changed-objective-history'] || [];
+          this.changedObjHistory = await Promise.all(
+            history.map(async (item: any) => ({
+              ...item,
+              key_point: await this.cryptoService.decrypt(item.key_point),
+              objective_id: await this.cryptoService.decrypt(item.objective_id),
+            }))
+          );
           this.openChangedObjectiveHistory(i);
         },
         (error) => {
@@ -463,7 +469,6 @@ export class KpiFormComponent implements OnInit {
     this.kpi.getLogData({param: 'attributeType'})
       .subscribe(res => {
           this.attributeType = Array.isArray(res?.['attributeType']) ? res?.['attributeType'] : res?.['attributeType']
-          console.log(this.attributeType);
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -493,7 +498,7 @@ export class KpiFormComponent implements OnInit {
     }
   }
 
-  onRevert() {
+  async onRevert() {
     // if (!this.validateObjectives()) {
     //   return;
     // }
@@ -507,15 +512,18 @@ export class KpiFormComponent implements OnInit {
         : '';
     };
 
-    let processedObjectives = this.objectives.map((obj: Objective) => {
+    let processedObjectives = await Promise.all( this.objectives.map(async (obj: Objective) => {
+
+
       let item: any = {
         title: obj.title,
-        selectedType: obj.selectedType,
-        objectiveText: escapeText(obj.objectiveText),
-        targetText: escapeText(obj.targetText)
+        selectedType: await this.cryptoService.encrypt(obj.selectedType) ,
+        objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
+        targetText: await this.cryptoService.encrypt( escapeText(obj.targetText))
       };
       return item;
-    });
+    })
+    );
 
     let requestPayload: any = {
       userIdKPI: this.userId,
@@ -606,7 +614,6 @@ export class KpiFormComponent implements OnInit {
      this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-reverted-list',extraParam:this.kpiId,objectId:this.kpiUserId,parameter:this.team,pid:this.year})
        .subscribe(res => {
            this.data = Array.isArray(res?.['kpi-reverted-list']) ? res?.['kpi-reverted-list'] : res?.['kpi-reverted-list']
-           console.log(this.data);
            this.objectives = this.data.map((item:any, index:any) => ({
              id: item.id,
              workId: item.work_id,
@@ -756,12 +763,12 @@ export class KpiFormComponent implements OnInit {
     });
   }
 
-  directPublish(type: string) {
+  async directPublish(type: string) {
     if (!this.validateObjectives()) {
       return;
     }
 
-    let processedObjectives = this.objectives.map((obj: Objective) => {
+    let processedObjectives = await Promise.all( this.objectives.map( async (obj: Objective) => {
 
       const escapeText = (text: string | undefined) => {
         return text
@@ -774,27 +781,27 @@ export class KpiFormComponent implements OnInit {
 
       let item: any = {
         title: obj.title,
-        selectedType: obj.selectedType,
-        weightage: obj.weightage,
-        objectiveText: escapeText(obj.objectiveText),
-        performanceText: escapeText(obj.performanceText),
-        targetText: escapeText(obj.targetText)
+        selectedType: await this.cryptoService.encrypt(obj.selectedType) ,
+        weightage: await this.cryptoService.encrypt(obj.weightage),
+        objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
+        performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)) ,
+        targetText: await this.cryptoService.encrypt( escapeText(obj.targetText))
       };
 
       if (this.mode === 'approver') {
         if (obj.keyObjective?.trim()) {
-          item.keyObjective = escapeText(obj.keyObjective.trim());
+          item.keyObjective = await this.cryptoService.encrypt(escapeText(obj.keyObjective.trim()));
         }
         if (obj.keyTarget?.trim()) {
-          item.keyTarget = escapeText(obj.keyTarget.trim());
+          item.keyTarget = await this.cryptoService.encrypt(escapeText(obj.keyTarget.trim()));
         }
         if (obj.keyPerformance?.trim()) {
-          item.keyPerformance = escapeText(obj.keyPerformance.trim());
+          item.keyPerformance = await this.cryptoService.encrypt(escapeText(obj.keyPerformance.trim()));
         }
       }
 
       return item;
-    });
+    }) );
 
     let param: string ='';
 
@@ -850,13 +857,13 @@ export class KpiFormComponent implements OnInit {
    getDatafromDraftOrExisting() {
      this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-list',objectId:this.kpiUserId,parameter:this.team,pid:this.year})
        .subscribe(async res => {
-           this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list']
-           console.log(" this.data ", this.data);
+           this.data = Array.isArray(res?.['kpi-list']) ? res?.['kpi-list'] : res?.['kpi-list'];
            this.objectives = await Promise.all(this.data.map(async(item: any, index: any) => ({
                id: item.id,
                workId: item.work_id,
                title: `Work Objective ${index + 1}`,
                selectedType: await this.cryptoService.decrypt(item.category_name),
+               selectedTypeDb: item.category_name,
                objectiveText: (await this.cryptoService.decrypt(item.objective))?.replace(/\\n/g, '\n'),
                targetText: (await this.cryptoService.decrypt(item.target))?.replace(/\\n/g, '\n'),
                performanceText: (await this.cryptoService.decrypt(item.performance))?.replace(/\\n/g, '\n'),
