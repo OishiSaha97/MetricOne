@@ -307,12 +307,12 @@ export class KpiFormComponent implements OnInit {
     }
   }
 
-  onSubmit(type:any): void {
+  async onSubmit(type:any): Promise<void> {
     if (!this.validateObjectives()) {
       return;
     }
 
-    let processedObjectives = this.objectives.map((obj: Objective) => {
+    let processedObjectives = await Promise.all( this.objectives.map( async (obj: Objective) => {
 
       const escapeText = (text: string | undefined) => {
         return text
@@ -322,30 +322,30 @@ export class KpiFormComponent implements OnInit {
             .replace(/\t/g, '\\t')
           : '';
       };
-
       let item: any = {
         title: obj.title,
-        selectedType: obj.selectedType,
-        weightage: obj.weightage,
-        objectiveText: escapeText(obj.objectiveText),
-        performanceText: escapeText(obj.performanceText),
-        targetText: escapeText(obj.targetText)
+        selectedType: await this.cryptoService.encrypt(obj.selectedType) ,
+        weightage: await this.cryptoService.encrypt(obj.weightage),
+        objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
+        performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)) ,
+        targetText: await this.cryptoService.encrypt( escapeText(obj.targetText))
       };
 
       if (this.mode === 'approver') {
         if (obj.keyObjective?.trim()) {
-          item.keyObjective = escapeText(obj.keyObjective.trim());
+          item.keyObjective = await this.cryptoService.encrypt(escapeText(obj.keyObjective.trim()));
         }
         if (obj.keyTarget?.trim()) {
-          item.keyTarget = escapeText(obj.keyTarget.trim());
+          item.keyTarget = await this.cryptoService.encrypt(escapeText(obj.keyTarget.trim()));
         }
         if (obj.keyPerformance?.trim()) {
-          item.keyPerformance = escapeText(obj.keyPerformance.trim());
+          item.keyPerformance = await this.cryptoService.encrypt(escapeText(obj.keyPerformance.trim()));
         }
       }
 
       return item;
-    });
+    })
+    );
 
     let param: string ='';
 
