@@ -254,8 +254,10 @@ export class NavbarComponent {
   }
 
   private setTimePeriod(period: 'initiation' | 'evaluation' | 'new year'): void {
-     localStorage.setItem('timePeriod', period);
+     // localStorage.setItem('timePeriod', period);
     // this.setCookie('timePeriod', period, 1);
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
   }
 
 

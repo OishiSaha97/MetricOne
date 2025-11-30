@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {BsDatepickerConfig} from "ngx-bootstrap/datepicker";
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
+import {CookiesService} from "../../cookies.service";
 
 @Component({
   selector: 'app-kpi-modification-setting',
@@ -33,11 +34,14 @@ export class KpiModificationSettingComponent {
   searchTeam: any;
    individuals: any;
    filterIndividuals: any;
+  userName: any;
 
   constructor(public bsModalRef: BsModalRef,
-              private kpi: CommonServiceService) {}
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {}
   ngOnInit() {
-    this.userId = localStorage.getItem('username');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
     this.today = new Date();
     this.bsConfig = {
       adaptivePosition: false, // disables auto reposition
