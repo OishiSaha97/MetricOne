@@ -3,6 +3,7 @@ import {FinalApprovalPopUpComponent} from "../approval-hierarchy/final-approval-
 import {SettingsComponent} from "../settings/settings.component";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
+import {CookiesService} from "../cookies.service";
 
 @Component({
   selector: 'app-home',
@@ -27,9 +28,12 @@ export class HomeComponent {
   anncText:any='';
   allPermission: any = [];
   teamKpi: any = [];
+  userName: any = [];
    notifications: any;
+  token:any;
   constructor(private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
 
   employees = [
@@ -44,7 +48,11 @@ export class HomeComponent {
 
   ngOnInit() {
     console.log("initialtionDate :", this.initialtionDate);
-    this.userId = localStorage.getItem('username');
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
+    this.token = this.cookieService.getCookie('token');
+    // this.userId = localStorage.getItem('username');
     // this.role = localStorage.getItem('role');
     // console.log(this.role);
     this.checkEndDate();

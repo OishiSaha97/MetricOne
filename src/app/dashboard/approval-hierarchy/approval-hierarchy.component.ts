@@ -4,6 +4,7 @@ import {ApproHierarchyPopUpComponent} from "./appro-hierarchy-pop-up/appro-hiera
 import {CommonServiceService} from "../common-service.service";
 import {FinalApprovalPopUpComponent} from "./final-approval-pop-up/final-approval-pop-up.component";
 import {Router} from "@angular/router";
+import {CookiesService} from "../cookies.service";
 
 declare var $: any;
 @Component({
@@ -41,22 +42,27 @@ export class ApprovalHierarchyComponent {
   mode: any;
   toastMessage:any= '';
   role:any;
+  token: any;
 
 
   constructor(private router: Router,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
 
 
   ngOnInit() {
-    this.role = localStorage.getItem('role');
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
+    this.token = this.cookieService.getCookie('token');
     if (this.role !== 'hr') {
       this.router.navigate(['/dashboard/404']);
       return;
     }
-    this.userName = localStorage.getItem('fullName');
-    this.userId = localStorage.getItem('username');
+    // this.userName = localStorage.getItem('fullName');
+    // this.userId = localStorage.getItem('username');
     this.loadData('');
     this.getFinalApprover();
 

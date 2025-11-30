@@ -5,6 +5,7 @@ import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component"
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
 import {SettingsComponent} from "../settings/settings.component";
 import {Router} from "@angular/router";
+import {CookiesService} from "../cookies.service";
 
 @Component({
   selector: 'app-all-employee-kpi',
@@ -37,11 +38,13 @@ export class AllEmployeeKPIComponent {
   minutes: number = 0;
   choosedOptionDate: any;
   role:any;
+  token: any;
 
 
   constructor(private router: Router,public modalRef: BsModalRef,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
 
   timerId: any;
@@ -50,24 +53,18 @@ export class AllEmployeeKPIComponent {
 
 
   ngOnInit() {
-    this.role = localStorage.getItem('role');
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
+    this.token = this.cookieService.getCookie('token');
     if (this.role !== 'hr') {
       this.router.navigate(['/dashboard/404']);
       return;
     }
-
-    this.timePeriod = localStorage.getItem('timePeriod');
+    this.timePeriod = this.cookieService.getCookie('timePeriod');
     this.checkEndDate();
     this.timerId = setInterval(() => this.updateCountdown(), 1000);
-
-    this.userName = localStorage.getItem('fullName');
-    this.userId = localStorage.getItem('username');
     this.loadData('');
-    this.userId = localStorage.getItem('username');
-    // this.role = localStorage.getItem('role');
-    // console.log(this.role);
-
-
   }
 
   checkEndDate() {

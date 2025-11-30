@@ -7,6 +7,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
 import {HrModalComponent} from "./hr-modal/hr-modal.component";
 import {Subject} from "rxjs";
+import {CookiesService} from "../../cookies.service";
 declare var $: any;
 
 
@@ -80,20 +81,25 @@ export class EvaluationComponent {
               public modalRefPublish: BsModalRef,
               public modalRefDirectPublish: BsModalRef,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
   maxStep:any=3;
   managerName: any;
+  token: any;
 
 
 
   ngOnInit(){
     this.maxStepData();
     this.currentTable = 'objective';
-    this.userId = localStorage.getItem('username');
-    this.userName = localStorage.getItem('fullName');
-    this.role = localStorage.getItem('role');
-    this.timePeriod = localStorage.getItem('timePeriod');
+
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
+    this.token = this.cookieService.getCookie('token');
+    this.timePeriod = this.cookieService.getCookie('timePeriod');
+
     this.kpiId = this.userData.id;
     console.log("Role:", this.role);
     console.log("user:", this.userData);

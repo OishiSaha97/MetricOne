@@ -3,6 +3,7 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
 import {KpiFormComponent} from "../kp-module/kpi-form/kpi-form.component";
 import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
+import {CookiesService} from "../cookies.service";
 
 @Component({
   selector: 'app-teams-kpi',
@@ -32,16 +33,24 @@ export class TeamsKPIComponent {
   timePeriod:any;
   fullHierarchy: any;
   remarkList: any;
+  role: any;
+  token: any;
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
 
   ngOnInit() {
-    this.userName = localStorage.getItem('fullName');
-    this.userId = localStorage.getItem('username');
-    this.timePeriod = localStorage.getItem('timePeriod');
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
+    this.token = this.cookieService.getCookie('token');
+
+    // this.userName = localStorage.getItem('fullName');
+    // this.userId = localStorage.getItem('username');
+    // this.timePeriod = localStorage.getItem('timePeriod');
     this.loadData('');
 
   }

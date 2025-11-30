@@ -1,6 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
+import {CookiesService} from "../../../cookies.service";
 interface Objective {
   id: number;
   name: string;
@@ -40,17 +41,20 @@ export class ValuesComponentComponent {
   isOpen: boolean[] = [];
   mode:any;
   userId:any;
+  role:any;
   ratings: any = [];
   overAllRating: any;
   data: any =[];
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
 
 
   ngOnInit(): void {
-    this.userId = localStorage.getItem('username');
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
     this.getRating();
     if(!this.isBack) {
       this.kpi.getLogData({
