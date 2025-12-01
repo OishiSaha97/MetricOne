@@ -108,9 +108,13 @@ export class NavbarComponent {
 
   logout() {
 
-    localStorage.clear();
+    this.cookieService.deleteCookie('username');
+    this.cookieService.deleteCookie('fullName');
+    this.cookieService.deleteCookie('token');
+    this.cookieService.deleteCookie('timePeriod');
+    this.cookieService.deleteCookie('role');
 
-    sessionStorage.clear();
+   // sessionStorage.clear();
 
     this.router.navigate([''], { replaceUrl: true });
 
