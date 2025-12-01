@@ -427,7 +427,7 @@ export class EvaluationComponent {
       managerData: JSON.stringify(processedmanagerData),
       pid: this.userData.id,
       objectId:this.userId,
-      otherParam:this.rateOverall,
+      otherParam: await this.cryptoService.encrypt(this.rateOverall) ,
       param: 'manager_evaluation_insert_data'
     };
 

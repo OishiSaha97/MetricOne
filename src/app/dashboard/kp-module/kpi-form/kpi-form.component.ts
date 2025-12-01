@@ -438,7 +438,6 @@ export class KpiFormComponent implements OnInit {
   }
 
   openTargetHistory(obj: any) {
-    console.log(obj)
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
       .subscribe(async res => {
           let history = res?.['changed-target-history'] || [];

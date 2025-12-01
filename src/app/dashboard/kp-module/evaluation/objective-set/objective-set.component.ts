@@ -586,11 +586,16 @@ export class ObjectiveSetComponent {
 
 
   openTargetHistory(obj: any,i:any) {
-    console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
-      .subscribe(res => {
-          this.changedTargetHistory = Array.isArray(res?.['changed-target-history']) ? res?.['changed-target-history'] : res?.['changed-target-history']
-          console.log(this.changedTargetHistory);
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
+      .subscribe(async res => {
+          let history = res?.['changed-target-history'] || [];
+          this.changedTargetHistory = await Promise.all(
+            history.map(async (item: any) => ({
+              ...item,
+              key_point: await this.cryptoService.decrypt(item.key_point),
+              target_id: await this.cryptoService.decrypt(item.target_id),
+            }))
+          );
           this.openChangedTargetHistory(i);
         },
         (error) => {
@@ -601,9 +606,16 @@ export class ObjectiveSetComponent {
 
   openObjectiveHistory(obj: any,i:any) {
     //this.showObjectiveHistoryIndex = null;
-    this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
-      .subscribe(res => {
-          this.changedObjHistory = Array.isArray(res?.['changed-objective-history']) ? res?.['changed-objective-history'] : res?.['changed-objective-history']
+    this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
+      .subscribe(async res => {
+          let history = res?.['changed-objective-history'] || [];
+          this.changedObjHistory = await Promise.all(
+            history.map(async (item: any) => ({
+              ...item,
+              key_point: await this.cryptoService.decrypt(item.key_point),
+              objective_id: await this.cryptoService.decrypt(item.objective_id),
+            }))
+          );
           this.openChangedObjectiveHistory(i);
         },
         (error) => {
@@ -612,17 +624,6 @@ export class ObjectiveSetComponent {
       );
   }
 
-  // getAttribute() {
-  //   this.kpi.getLogData({param: 'attributeType'})
-  //     .subscribe(res => {
-  //         this.attributeType = Array.isArray(res?.['attributeType']) ? res?.['attributeType'] : res?.['attributeType']
-  //         console.log(this.attributeType);
-  //       },
-  //       (error) => {
-  //         console.error("Error fetching permission list", error);
-  //       }
-  //     );
-  // }
 
   togglePerformanceEdit(obj: any) {
     obj.isEditingPerformance = !obj.isEditingPerformance;
@@ -632,10 +633,17 @@ export class ObjectiveSetComponent {
 
   openPerformanceHistory(obj: any,i:any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
-      .subscribe(res => {
-          this.changedPerformanceHistory = Array.isArray(res?.['changed-performance-history']) ? res?.['changed-performance-history'] : res?.['changed-performance-history']
-          this.openChangedHistory(i);
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
+      .subscribe(async res => {
+          let history = res?.['changed-performance-history'] || [];
+          this.changedPerformanceHistory = await Promise.all(
+            history.map(async (item: any) => ({
+              ...item,
+              key_point: await this.cryptoService.decrypt(item.key_point),
+              performance_id: await this.cryptoService.decrypt(item.performance_id),
+            }))
+          );
+        this.openChangedHistory(i);
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -645,9 +653,16 @@ export class ObjectiveSetComponent {
 
   openAchievedHistory(obj: any,i:any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-achieved-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
-      .subscribe(res => {
-          this.changedAchievedHistory = Array.isArray(res?.['changed-achieved-history']) ? res?.['changed-achieved-history'] : res?.['changed-achieved-history']
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-achieved-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
+      .subscribe( async res => {
+          let history = res?.['changed-achieved-history'] || [];
+          this.changedAchievedHistory = await Promise.all(
+            history.map(async (item: any) => ({
+              ...item,
+              key_point: await this.cryptoService.decrypt(item.key_point),
+              achieved_id: await this.cryptoService.decrypt(item.achieved_id),
+            }))
+          );
           this.openChangedAchievedHistory(i);
         },
         (error) => {
@@ -712,9 +727,9 @@ export class ObjectiveSetComponent {
 
   getOverallRating(){
     this.kpi.getLogData({userIdKPI:this.userId,param: 'get_overAllRating',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
-      .subscribe(res => {
-          this.objOverallRating = Array.isArray(res?.['get_overAllRating']) ? res?.['get_overAllRating'][0].over_all_rating : res?.['get_overAllRating'][0].over_all_rating
-          console.log("Overall Rating :", this.objOverallRating);
+      .subscribe(async res => {
+          this.objOverallRating = Array.isArray(res?.['get_overAllRating']) ? await this.cryptoService.decrypt(res?.['get_overAllRating'][0].over_all_rating) : await this.cryptoService.decrypt(res?.['get_overAllRating'][0].over_all_rating)
+
           if(this.isBack){
             this.objOverallRating=this.oldOverallRating;
           }
