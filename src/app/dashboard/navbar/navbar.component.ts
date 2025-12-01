@@ -136,6 +136,7 @@ export class NavbarComponent {
           if (data) {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
+
           }
           if (data.allPermission) {
             this.cookieService.setCookie('role', 'hr', 1);
