@@ -8,6 +8,7 @@ import {CommonServiceService} from "../../common-service.service";
 import {HrModalComponent} from "./hr-modal/hr-modal.component";
 import {Subject} from "rxjs";
 import {CookiesService} from "../../cookies.service";
+import {CryptoService} from "../../crypto.service";
 declare var $: any;
 
 
@@ -82,6 +83,7 @@ export class EvaluationComponent {
               public modalRefDirectPublish: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService,
+              private cryptoService: CryptoService,
               public cookieService: CookiesService) {
   }
   maxStep:any=3;
@@ -282,7 +284,7 @@ export class EvaluationComponent {
   }
 
 
-  submitEmployee(type:any) {
+  async submitEmployee(type:any) {
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
@@ -290,34 +292,45 @@ export class EvaluationComponent {
       objectiveData = this.objectiveSet;
     }
 
-    let processedObjectives = objectiveData.map((obj: any ) => {
-      const escapeText = (text: string | undefined) => {
+    let processedObjectives = await Promise.all( objectiveData.map(async (obj: any ) => {
+      const escapeText = (text: string | null) => {
         return text;
 
       };
+
+
       let item: any = {
         title: obj.title,
-        selectedType: obj.selectedType,
-        objectiveText: escapeText(obj.objectiveText),
-        targetText: escapeText(obj.targetText),
-        performanceText: escapeText(obj.performanceText),
-        weightage: escapeText(obj.weightage),
-        keyObjective: escapeText(obj.keyObjective),
-        keyTarget: escapeText(obj.keyTarget),
-        keyAchieved: escapeText(obj.keyAchieved),
-        keyPerformance: escapeText(obj.keyPerformance),
-        selectedRating: escapeText(obj.rating),
-        achievedText: escapeText(obj.achievedText),
-        achievedInt: escapeText(obj.achievedInt),
+        selectedType: await this.cryptoService.encrypt(obj.selectedType),
+        objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
+        targetText: await this.cryptoService.encrypt( escapeText(obj.targetText)),
+        performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)),
+        weightage: await this.cryptoService.encrypt(obj.weightage),
+        keyObjective: await this.cryptoService.encrypt(escapeText(obj.keyObjective)) ,
+        keyTarget: await this.cryptoService.encrypt(escapeText(obj.keyTarget)),
+        keyAchieved: await this.cryptoService.encrypt(escapeText(obj.keyAchieved)),
+        keyPerformance: await this.cryptoService.encrypt(escapeText(obj.keyPerformance)) ,
+        selectedRating: await this.cryptoService.encrypt(escapeText(obj.rating)) ,
+        achievedText: await this.cryptoService.encrypt(escapeText(obj.achievedText)) ,
+        achievedInt: await this.cryptoService.encrypt(escapeText(obj.achievedInt)),
       };
       return item;
-    });
+    })
+    );
+    // console.log("this.selfAssessment",this.selfAssessment);
+    let processedSelfAssessment = await Promise.all(
+      this.selfAssessment.map(async (obj: any) => ({
+        id: obj.id,
+        title: obj.title,
+        selfText: await this.cryptoService.encrypt(obj.selfText)
+      }))
+    );
 
     let obj: any = {
       userIdKPI: this.userData.user_id,
       year: this.userData.year,
       objectiveData: JSON.stringify(processedObjectives),
-      selfData: JSON.stringify(this.selfAssessment),
+      selfData: JSON.stringify(processedSelfAssessment),
       pid: this.userData.id,
       param: 'employee_evaluation_insert_data'
     };

@@ -418,9 +418,17 @@ export class KpiFormComponent implements OnInit {
 
   openPerformanceHistory(obj: any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
-      .subscribe(res => {
-          this.changedPerformanceHistory = Array.isArray(res?.['changed-performance-history']) ? res?.['changed-performance-history'] : res?.['changed-performance-history']
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
+      .subscribe(async res => {
+          let history = res?.['changed-performance-history'] || [];
+          this.changedPerformanceHistory = await Promise.all(
+            history.map(async (item: any) => ({
+              ...item,
+              key_point: await this.cryptoService.decrypt(item.key_point),
+              performance_id: await this.cryptoService.decrypt(item.performance_id),
+            }))
+          );
+
           this.openChangedHistory();
         },
         (error) => {
@@ -431,10 +439,17 @@ export class KpiFormComponent implements OnInit {
 
   openTargetHistory(obj: any) {
     console.log(obj)
-    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedType})
-      .subscribe(res => {
+    this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
+      .subscribe(async res => {
+          let history = res?.['changed-target-history'] || [];
+          this.changedTargetHistory = await Promise.all(
+            history.map(async (item: any) => ({
+              ...item,
+              key_point: await this.cryptoService.decrypt(item.key_point),
+              target_id: await this.cryptoService.decrypt(item.target_id),
+            }))
+          );
 
-          this.changedTargetHistory = Array.isArray(res?.['changed-target-history']) ? res?.['changed-target-history'] : res?.['changed-target-history']
           this.openChangedTargetHistory();
         },
         (error) => {
