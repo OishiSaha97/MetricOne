@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@an
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
 import {CookiesService} from "../../../cookies.service";
+import {CryptoService} from "../../../crypto.service";
 interface Objective {
   id: number;
   name: string;
@@ -48,6 +49,7 @@ export class ValuesComponentComponent {
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService,
+              private cryptoService: CryptoService,
               public cookieService: CookiesService) {
   }
 
@@ -64,7 +66,7 @@ export class ValuesComponentComponent {
         pid: this.userData.year,
         extraParam: this.userData.id
       })
-        .subscribe(res => {
+        .subscribe(async res => {
             const data = res?.['evalution-values-kpi-list']?.[0];
             if (!data) return;
             let ratingArray: string[] = [];
@@ -73,33 +75,33 @@ export class ValuesComponentComponent {
             } catch (e) {
               console.warn("Rating parse failed, using empty array");
             }
-            this.objectives = this.objectives.map((obj, index) => {
+            this.objectives =  await Promise.all(this.objectives.map(async(obj, index) => {
               let rating = '';
 
               switch (obj.name.toUpperCase()) {
                 case 'DEPENDABILITY':
-                  rating = data.dependability;
+                  rating = await this.cryptoService.decrypt( data.dependability)?? '';
                   break;
                 case 'JOB KNOWLEDGE AND SKILLS':
-                  rating = data.job_knowledge;
+                  rating = await this.cryptoService.decrypt( data.job_knowledge)?? '';
                   break;
                 case 'INITIATIVE AND RESOURCEFULNESS':
-                  rating = data.initiative;
+                  rating = await this.cryptoService.decrypt( data.initiative)?? '';
                   break;
                 case 'JUDGEMENT':
-                  rating = data.judgement;
+                  rating = await this.cryptoService.decrypt( data.judgement)?? '';
                   break;
                 case 'ADAPTABILITY':
-                  rating = data.adaptability;
+                  rating = await this.cryptoService.decrypt( data.adaptability)?? '';
                   break;
                 case 'DECISIVENESS':
-                  rating = data.decidiveness;
+                  rating = await this.cryptoService.decrypt(data.decidiveness)?? '';
                   break;
                 case 'INTERPERSONAL RELATIONSHIPS':
-                  rating = data.interpersonal_relation;
+                  rating = await this.cryptoService.decrypt(data.interpersonal_relation)?? '';
                   break;
                 case 'OVERALL RATING':
-                  rating = data.overall_rating;
+                  rating = await this.cryptoService.decrypt(data.overall_rating)?? '';
                   break;
                 default:
                   rating = ratingArray[index] || '';
@@ -110,7 +112,7 @@ export class ValuesComponentComponent {
               } else {
                 return {...obj, selectedRating: rating};
               }
-            });
+            }) );
 
           },
           (error) => {

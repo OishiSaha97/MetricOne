@@ -393,8 +393,6 @@ export class EvaluationComponent {
         const base = {
           id: obj.id,
           name: obj.name,
-          objectiveText: await this.cryptoService.encrypt(obj.objectiveText),
-          keyObjective: await this.cryptoService.encrypt(obj.keyObjective),
         };
 
         if (obj.id === 8) {
@@ -577,7 +575,6 @@ export class EvaluationComponent {
 
     this.kpi.revertKpi(requestPayload).subscribe({
       next: (response) => {
-        console.log('KPI saved successfully:', response);
         // alert('KPI data submitted successfully!');
         this.saveEmitter.next({ action:'revert'});
         this.cancel();

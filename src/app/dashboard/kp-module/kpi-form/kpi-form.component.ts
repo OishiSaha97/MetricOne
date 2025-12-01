@@ -626,19 +626,20 @@ export class KpiFormComponent implements OnInit {
 
    getData() {
      this.kpi.getLogData({userIdKPI:this.userId,param: 'kpi-reverted-list',extraParam:this.kpiId,objectId:this.kpiUserId,parameter:this.team,pid:this.year})
-       .subscribe(res => {
+       .subscribe(async res => {
            this.data = Array.isArray(res?.['kpi-reverted-list']) ? res?.['kpi-reverted-list'] : res?.['kpi-reverted-list']
-           this.objectives = this.data.map((item:any, index:any) => ({
+           this.objectives = await Promise.all( this.data.map(async (item:any, index:any) => ({
              id: item.id,
              workId: item.work_id,
              title: `Work Objective ${index + 1}`,
-             selectedType: item.category_name,
-             objectiveText: item.objective,
-             targetText: item.target,
-             performanceText: item.performance,
-             weightage: item.weightage,
+             selectedType: await this.cryptoService.decrypt(item.category_name),
+             selectedTypeDb: item.category_name,
+             objectiveText: (await this.cryptoService.decrypt(item.objective))?.replace(/\\n/g, '\n'),
+             targetText: (await this.cryptoService.decrypt(item.target))?.replace(/\\n/g, '\n'),
+             performanceText: (await this.cryptoService.decrypt(item.performance))?.replace(/\\n/g, '\n'),
+             weightage: await this.cryptoService.decrypt(item.weightage),
              isOpen: false
-           }));
+           })) );
          },
          (error) => {
            console.error("Error fetching permission list", error);

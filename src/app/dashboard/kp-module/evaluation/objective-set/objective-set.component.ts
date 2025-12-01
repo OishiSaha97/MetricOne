@@ -205,7 +205,6 @@ export class ObjectiveSetComponent {
           isOpen: true
         }));
       }
-    console.log(this.objectives);
 
 
 

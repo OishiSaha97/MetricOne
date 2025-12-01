@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@an
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
 import {CookiesService} from "../../../cookies.service";
+import {CryptoService} from "../../../crypto.service";
 
 
 
@@ -64,6 +65,8 @@ export class SelfAssessmentComponent {
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService,
+              private cryptoService: CryptoService,
+
               public cookieService: CookiesService) {
   }
 
@@ -76,7 +79,6 @@ export class SelfAssessmentComponent {
     this.token = this.cookieService.getCookie('token');
 
     if(this.onNexts == true){
-      console.log("savedselfData",this.savedselfData);
       this.objectives = this.savedselfData.map((obj:Objective, index:number) => ({
         ...obj,
         selfText: this.savedselfData[index]?.selfText || ''
@@ -84,14 +86,13 @@ export class SelfAssessmentComponent {
     }
     else{
       this.kpi.getLogData({param: 'evalution-self-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
-        .subscribe(res => {
-            // this.data = res?.['kpi-list'];
-            this.data = Array.isArray(res?.['evalution-self-kpi-list']) ? res?.['evalution-self-kpi-list'] : res?.['evalution-self-kpi-list']
-            console.log(this.data);
-            this.objectives = this.objectives.map((obj, index) => ({
+        .subscribe(async res => {
+            this.data = res?.['evalution-self-kpi-list'] || [];
+            this.objectives = await Promise.all( this.data.map( async(obj:any, index:any) => ({
               ...obj,
-              selfText: this.data[index]?.remark || ''
-            }));
+              selfText: await this.cryptoService.decrypt(this.data[index]?.remark) || ''
+            }))
+            );
           },
           (error) => {
             console.error("Error fetching permission list", error);
