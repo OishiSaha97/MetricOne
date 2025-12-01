@@ -139,9 +139,10 @@ export class HomeComponent {
         else{
           this.settingTitle = "SETTING";
           this.mode = "add";
+          this.checkEvaEndDate();
         }
 
-        this.checkEvaEndDate();
+
       });
   }
   formatDateForInput(dateString: string): string {
