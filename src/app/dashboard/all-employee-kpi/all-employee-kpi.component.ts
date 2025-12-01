@@ -57,10 +57,12 @@ export class AllEmployeeKPIComponent {
     this.userId = this.cookieService.getCookie('username');
     this.userName = this.cookieService.getCookie('fullName');
     this.token = this.cookieService.getCookie('token');
+
     if (this.role !== 'hr') {
       this.router.navigate(['/dashboard/404']);
       return;
     }
+
     this.timePeriod = this.cookieService.getCookie('timePeriod');
     this.checkEndDate();
     this.timerId = setInterval(() => this.updateCountdown(), 1000);
