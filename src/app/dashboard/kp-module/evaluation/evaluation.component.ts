@@ -349,7 +349,7 @@ export class EvaluationComponent {
 
   }
 
-  submitManager(type:any) {
+  async submitManager(type:any) {
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
@@ -357,35 +357,74 @@ export class EvaluationComponent {
       objectiveData = this.objectiveSet;
     }
 
-    let processedObjectives = objectiveData.map((obj: any ) => {
-      const escapeText = (text: string | undefined) => {
+    let processedObjectives = await Promise.all(
+      objectiveData.map(async (obj: any ) => {
+      const escapeText = (text: string | null) => {
         return text;
       };
       let item: any = {
         title: obj.title,
-        selectedType: obj.selectedType,
-        objectiveText: escapeText(obj.objectiveText),
-        targetText: escapeText(obj.targetText),
-        performanceText: escapeText(obj.performanceText),
-        weightage: escapeText(obj.weightage),
-        keyObjective: escapeText(obj.keyObjective),
-        keyTarget: escapeText(obj.keyTarget),
-        keyAchieved: escapeText(obj.keyAchieved),
-        keyPerformance: escapeText(obj.keyPerformance),
-        selectedRating: escapeText(obj.rating),
-        achievedText: escapeText(obj.achievedText),
-        achievedInt: escapeText(obj.achievedInt),
+        selectedType: await this.cryptoService.encrypt(obj.selectedType),
+        objectiveText: await this.cryptoService.encrypt( escapeText(obj.objectiveText)),
+        targetText: await this.cryptoService.encrypt( escapeText(obj.targetText)),
+        performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)),
+        weightage: await this.cryptoService.encrypt( escapeText(obj.weightage)),
+        keyObjective: await this.cryptoService.encrypt( escapeText(obj.keyObjective)),
+        keyTarget: await this.cryptoService.encrypt( escapeText(obj.keyTarget)),
+        keyAchieved: await this.cryptoService.encrypt( escapeText(obj.keyAchieved)),
+        keyPerformance: await this.cryptoService.encrypt( escapeText(obj.keyPerformance)),
+        selectedRating: await this.cryptoService.encrypt( escapeText(obj.rating)),
+        achievedText: await this.cryptoService.encrypt(escapeText(obj.achievedText)),
+        achievedInt : await this.cryptoService.encrypt(escapeText(obj.achievedInt)),
       };
       return item;
-    });
+    })
+    );
+
+    let processedSelfAssessment = await Promise.all(
+      this.selfAssessment.map(async (obj: any) => ({
+        id: obj.id,
+        title: obj.title,
+        selfText: await this.cryptoService.encrypt(obj.selfText)
+      }))
+    );
+    let processedValuesData = await Promise.all(
+      this.valuesData.map(async (obj: any) => {
+        const base = {
+          id: obj.id,
+          name: obj.name,
+          objectiveText: await this.cryptoService.encrypt(obj.objectiveText),
+          keyObjective: await this.cryptoService.encrypt(obj.keyObjective),
+        };
+
+        if (obj.id === 8) {
+          return {
+            ...base,
+            overAllRating: await this.cryptoService.encrypt(obj.overAllRating),
+          };
+        } else {
+          return {
+            ...base,
+            selectedRating: await this.cryptoService.encrypt(obj.selectedRating),
+          };
+        }
+      })
+    );
+    let processedmanagerData = await Promise.all(
+      this.managerData.map(async (obj: any) => ({
+        id: obj.id,
+        name: obj.name,
+        objectiveText: await this.cryptoService.encrypt(obj.objectiveText),
+      }))
+    );
 
     let obj: any = {
       userIdKPI: this.userData.user_id,
       year: this.userData.year,
       objectiveData: JSON.stringify(processedObjectives),
-      selfData: JSON.stringify(this.selfAssessment),
-      valuesData: JSON.stringify(this.valuesData),
-      managerData: JSON.stringify(this.managerData),
+      selfData: JSON.stringify(processedSelfAssessment),
+      valuesData: JSON.stringify(processedValuesData),
+      managerData: JSON.stringify(processedmanagerData),
       pid: this.userData.id,
       objectId:this.userId,
       otherParam:this.rateOverall,
@@ -406,7 +445,7 @@ export class EvaluationComponent {
   }
 
 
-  submitHr(type:any) {
+  async submitHr(type:any) {
 
     let objectiveData;
     if(this.objectiveSet?.objectives){
@@ -415,41 +454,90 @@ export class EvaluationComponent {
       objectiveData = this.objectiveSet;
     }
 
-    let processedObjectives = objectiveData.map((obj: any ) => {
-      const escapeText = (text: string | undefined) => {
-        return text;
-          // ? text
-          //   .replace(/\r/g, '\\r')
-          //   .replace(/\n/g, '\\n')
-          //   .replace(/\t/g, '\\t')
-          // : '';
-      };
-      let item: any = {
+    let processedObjectives = await Promise.all(
+      objectiveData.map(async (obj: any ) => {
+        const escapeText = (text: string | null) => {
+          return text;
+        };
+        let item: any = {
+          title: obj.title,
+          selectedType: await this.cryptoService.encrypt(obj.selectedType),
+          objectiveText: await this.cryptoService.encrypt( escapeText(obj.objectiveText)),
+          targetText: await this.cryptoService.encrypt( escapeText(obj.targetText)),
+          performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)),
+          weightage: await this.cryptoService.encrypt( escapeText(obj.weightage)),
+          keyObjective: await this.cryptoService.encrypt( escapeText(obj.keyObjective)),
+          keyTarget: await this.cryptoService.encrypt( escapeText(obj.keyTarget)),
+          keyAchieved: await this.cryptoService.encrypt( escapeText(obj.keyAchieved)),
+          keyPerformance: await this.cryptoService.encrypt( escapeText(obj.keyPerformance)),
+          selectedRating: await this.cryptoService.encrypt( escapeText(obj.rating)),
+          achievedText: await this.cryptoService.encrypt(escapeText(obj.achievedText)),
+          achievedInt : await this.cryptoService.encrypt(escapeText(obj.achievedInt)),
+        };
+        return item;
+      })
+    );
+
+    let processedSelfAssessment = await Promise.all(
+      this.selfAssessment.map(async (obj: any) => ({
+        id: obj.id,
         title: obj.title,
-        selectedType: obj.selectedType,
-        objectiveText: escapeText(obj.objectiveText),
-        targetText: escapeText(obj.targetText),
-        performanceText: escapeText(obj.performanceText),
-        weightage: escapeText(obj.weightage),
-        keyObjective: escapeText(obj.keyObjective),
-        keyTarget: escapeText(obj.keyTarget),
-        keyAchieved: escapeText(obj.keyAchieved),
-        keyPerformance: escapeText(obj.keyPerformance),
-        selectedRating: escapeText(obj.rating),
-        achievedText: escapeText(obj.achievedText),
-        achievedInt: escapeText(obj.achievedInt),
-      };
-      return item;
-    });
+        selfText: await this.cryptoService.encrypt(obj.selfText)
+      }))
+    );
+    let processedValuesData = await Promise.all(
+      this.valuesData.map(async (obj: any) => {
+        const base = {
+          id: obj.id,
+          name: obj.name,
+          objectiveText: await this.cryptoService.encrypt(obj.objectiveText),
+          keyObjective: await this.cryptoService.encrypt(obj.keyObjective),
+        };
+
+        if (obj.id === 8) {
+          return {
+            ...base,
+            overAllRating: await this.cryptoService.encrypt(obj.overAllRating),
+          };
+        } else {
+          return {
+            ...base,
+            selectedRating: await this.cryptoService.encrypt(obj.selectedRating),
+          };
+        }
+      })
+    );
+    let processedmanagerData = await Promise.all(
+      this.managerData.map(async (obj: any) => ({
+        id: obj.id,
+        name: obj.name,
+        objectiveText: await this.cryptoService.encrypt(obj.objectiveText),
+      }))
+    );
+
+    let processedhrData = await Promise.all(
+      this.hrData.map(async (obj: any) => ({
+        id: obj.id,
+        name: obj.name,
+        objectiveText: await this.cryptoService.encrypt(obj.objectiveText),
+        increment: await this.cryptoService.encrypt(obj.increment),
+        keyObjective: await this.cryptoService.encrypt(obj.keyObjective),
+        attendanceRating: await this.cryptoService.encrypt(obj.attendanceRating),
+        leaveRating: await this.cryptoService.encrypt(obj.leaveRating),
+        issueRating: await this.cryptoService.encrypt(obj.issueRating),
+        awardRating: await this.cryptoService.encrypt(obj.awardRating)
+      }))
+    );
+
 
     let obj: any = {
       userIdKPI: this.userData.user_id,
       year: this.userData.year,
       objectiveData: JSON.stringify(processedObjectives),
-      selfData: JSON.stringify(this.selfAssessment),
-      valuesData: JSON.stringify(this.valuesData),
-      managerData: JSON.stringify(this.managerData),
-      hrData: JSON.stringify(this.hrData),
+      selfData: JSON.stringify(processedSelfAssessment),
+      valuesData: JSON.stringify(processedValuesData),
+      managerData: JSON.stringify(processedmanagerData),
+      hrData: JSON.stringify(processedhrData),
       pid: this.userData.id,
       objectId:this.userId,
       otherParam:this.rateOverall,
@@ -458,7 +546,6 @@ export class EvaluationComponent {
 
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
-        console.log('KPI saved successfully:', response);
         this.saveEmitter.next({ action:'publish'});
         this.cancel();
       },

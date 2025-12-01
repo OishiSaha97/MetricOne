@@ -35,7 +35,6 @@ export class HrModalComponent {
 
   objectives: Objective[] = [
     { id: 1, name: 'HR’S COMMENT', isOpen: false,isOpenIncrement: false,isEditingObjective: false, objectiveText: '',increment: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''},
-    // { id: 2, name: 'FINAL INCREMENT', isOpen: false, isEditingObjective: false, objectiveText: '', keyObjective: '',attendanceRating:'',leaveRating:'',issueRating:'' ,awardRating:''},
   ];
   mode: any;
   userName: any;

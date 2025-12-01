@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@an
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
 import {CookiesService} from "../../../cookies.service";
+import {CryptoService} from "../../../crypto.service";
 
 interface Objective {
   id: number;
@@ -35,6 +36,7 @@ export class ObjectiveSetComponent {
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService,
+              private cryptoService: CryptoService,
               public cookieService: CookiesService) {
   }
 
@@ -145,31 +147,33 @@ export class ObjectiveSetComponent {
 
       if(!this.isBack){
        this.kpi.getLogData({userIdKPI:this.userData.employee_id,param: 'evalution-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
-        .subscribe(res => {
+        .subscribe(async res => {
             // this.data = res?.['kpi-list'];
             this.data = Array.isArray(res?.['evalution-kpi-list']) ? res?.['evalution-kpi-list'] : res?.['evalution-kpi-list']
             console.log(this.data);
-            this.objectives = this.data.map((item:any, index:any) => ({
+            this.objectives = await Promise.all(this.data.map(async(item:any, index:any) => ({
               id: item.id,
               workId: item.work_id,
               title: `Work Objective ${index + 1}`,
-              selectedType: item.category_name,
-              objectiveText: (item.objective || '').replace(/\\n/g, '\n'),
-              targetText: (item.target || '').replace(/\\n/g, '\n'),
-              performanceText: (item.performance || '').replace(/\\n/g, '\n'),
-              weightage: item.weightage,
+              selectedType: await this.cryptoService.decrypt(item.category_name),
+              selectedTypeDb: item.category_name,
+              objectiveText: (await this.cryptoService.decrypt(item.objective))?.replace(/\\n/g, '\n'),
+              targetText: (await this.cryptoService.decrypt(item.target))?.replace(/\\n/g, '\n'),
+              performanceText: (await this.cryptoService.decrypt(item.performance))?.replace(/\\n/g, '\n'),
+              weightage: await this.cryptoService.decrypt(item.weightage),
               rating:
                 item.overall_rating === null ||
                 item.overall_rating === undefined ||
                 item.overall_rating === '' ||
                 item.overall_rating === 'null'
                   ? null
-                  : item.overall_rating,
-              achievedText: (item.achieved_text || '').replace(/\\n/g, '\n'),
-              achievedInt: item.achieved_int ?? "",
+                  :  await this.cryptoService.decrypt(item.overall_rating),
+              achievedText: (await this.cryptoService.decrypt(item.achieved_text))?.replace(/\\n/g, '\n'),
+              achievedInt: await this.cryptoService.decrypt(item.achieved_int) ?? "",
               //targetText: item.target,
               isOpen: false
-            }));
+            }))
+            );
           },
           (error) => {
             console.error("Error fetching permission list", error);
