@@ -615,6 +615,7 @@ export class ObjectiveSetComponent {
               objective_id: item.objective_id,
             }))
           );
+          console.log("this.changedObjHistory : ",this.changedObjHistory);
           this.openChangedObjectiveHistory(i);
         },
         (error) => {
@@ -729,6 +730,7 @@ export class ObjectiveSetComponent {
       .subscribe(async res => {
           this.objOverallRating = Array.isArray(res?.['get_overAllRating']) ? await this.cryptoService.decrypt(res?.['get_overAllRating'][0].over_all_rating) : await this.cryptoService.decrypt(res?.['get_overAllRating'][0].over_all_rating)
 
+          console.log("this.objOverallRating : ",this.objOverallRating);
           if(this.isBack){
             this.objOverallRating=this.oldOverallRating;
           }

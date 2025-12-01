@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@an
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
 import {CookiesService} from "../../../cookies.service";
+import {CryptoService} from "../../../crypto.service";
 
 interface Objective {
   id: number;
@@ -50,6 +51,7 @@ export class HrModalComponent {
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
               private kpi: CommonServiceService,
+              private cryptoService: CryptoService,
               public cookieService: CookiesService) {
   }
 
@@ -81,17 +83,17 @@ export class HrModalComponent {
         pid: this.userData.year,
         extraParam: this.userData.id
       })
-        .subscribe(res => {
+        .subscribe( async res => {
             const data = res?.['evalution-hr-kpi-list']?.[0];
             if (!data) return;
             this.objectives[0] = {
               ...this.objectives[0],       // keep existing flags and structure
-              objectiveText: data.hr_comment || '',
-              increment: data.hr_increment || '',
-              attendanceRating: data.attendance || '',
-              leaveRating: data.leave || '',
-              issueRating: data.disciplnary_issue || '',
-              awardRating: data.award || '',
+              objectiveText: await this.cryptoService.decrypt(data.hr_comment) || '',
+              increment: await this.cryptoService.decrypt(data.hr_increment) || '',
+              attendanceRating: await this.cryptoService.decrypt(data.attendance) || '',
+              leaveRating: await this.cryptoService.decrypt(data.leave) || '',
+              issueRating: await this.cryptoService.decrypt(data.disciplnary_issue) || '',
+              awardRating: await this.cryptoService.decrypt(data.award) || '',
               isOpen: false,               // force to false
               isOpenIncrement: false       // force to false
             };

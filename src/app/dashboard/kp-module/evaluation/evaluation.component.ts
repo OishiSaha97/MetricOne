@@ -538,7 +538,7 @@ export class EvaluationComponent {
       hrData: JSON.stringify(processedhrData),
       pid: this.userData.id,
       objectId:this.userId,
-      otherParam:this.rateOverall,
+      otherParam:await this.cryptoService.encrypt(this.rateOverall),
       param: 'hr_evaluation_insert_data'
     };
 

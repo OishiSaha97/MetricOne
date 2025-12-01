@@ -48,7 +48,7 @@ export class AllEmployeeKPIComponent {
   }
 
   timerId: any;
-   target!: Date;
+  target!: Date;
 
 
 
@@ -71,11 +71,11 @@ export class AllEmployeeKPIComponent {
 
   checkEndDate() {
     let param = '';
-      if(this.timePeriod == 'evaluation'){
-         param = 'EvaEndDate'
-      }else{
-          param = 'KPIendDate'
-      }
+    if(this.timePeriod == 'evaluation'){
+      param = 'EvaEndDate'
+    }else{
+      param = 'KPIendDate'
+    }
     this.kpi.getLogData({ param: param, userIdKPI: this.userId })
       .subscribe(res => {
         this.dateData = res?.[param][0] || [];
@@ -112,7 +112,7 @@ export class AllEmployeeKPIComponent {
     }
   }
 
- pad(num: number): string {
+  pad(num: number): string {
     return String(num).padStart(2, '0');
   }
 
@@ -260,7 +260,7 @@ export class AllEmployeeKPIComponent {
       viewMode = true;
     }
 
-    if (this.timePeriod == 'evaluation') {
+    if (user.stage == 'evaluation') {
 
       const initialState = {
         userData: user,
@@ -381,7 +381,7 @@ export class AllEmployeeKPIComponent {
 
 
   search() {
-   this.loadData({});
+    this.loadData({});
   }
 
   fullHierarchy: any;
