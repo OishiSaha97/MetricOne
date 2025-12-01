@@ -197,7 +197,6 @@ export class ValuesComponentComponent {
   }
 
   onNext(): void {
-    console.log('All Objectives:', this.objectives);
 
     const incomplete = this.objectives.filter(o => !o.objectiveText || !o.selectedRating);
     if (incomplete.length > 0) {
@@ -260,7 +259,6 @@ export class ValuesComponentComponent {
       return obj;
     });
     this.dataSubmitted.emit(finalData);
-    console.log(this.objectives)
   }
 
   getRating() {

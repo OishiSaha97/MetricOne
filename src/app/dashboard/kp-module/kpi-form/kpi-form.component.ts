@@ -322,7 +322,7 @@ export class KpiFormComponent implements OnInit {
       };
       let item: any = {
         title: obj.title,
-        selectedType: await this.cryptoService.encrypt(obj.selectedType) ,
+        selectedType: obj.selectedType ,
         weightage: await this.cryptoService.encrypt(obj.weightage),
         objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
         performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)) ,
@@ -425,7 +425,7 @@ export class KpiFormComponent implements OnInit {
             history.map(async (item: any) => ({
               ...item,
               key_point: await this.cryptoService.decrypt(item.key_point),
-              performance_id: await this.cryptoService.decrypt(item.performance_id),
+              performance_id: item.performance_id,
             }))
           );
 
@@ -445,7 +445,7 @@ export class KpiFormComponent implements OnInit {
             history.map(async (item: any) => ({
               ...item,
               key_point: await this.cryptoService.decrypt(item.key_point),
-              target_id: await this.cryptoService.decrypt(item.target_id),
+              target_id:item.target_id,
             }))
           );
 
@@ -467,7 +467,7 @@ export class KpiFormComponent implements OnInit {
             history.map(async (item: any) => ({
               ...item,
               key_point: await this.cryptoService.decrypt(item.key_point),
-              objective_id: await this.cryptoService.decrypt(item.objective_id),
+              objective_id: item.objective_id,
             }))
           );
           this.openChangedObjectiveHistory(i);
@@ -531,7 +531,7 @@ export class KpiFormComponent implements OnInit {
 
       let item: any = {
         title: obj.title,
-        selectedType: await this.cryptoService.encrypt(obj.selectedType) ,
+        selectedType: obj.selectedType ,
         objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
         targetText: await this.cryptoService.encrypt( escapeText(obj.targetText))
       };
@@ -632,7 +632,7 @@ export class KpiFormComponent implements OnInit {
              id: item.id,
              workId: item.work_id,
              title: `Work Objective ${index + 1}`,
-             selectedType: await this.cryptoService.decrypt(item.category_name),
+             selectedType: item.category_name,
              selectedTypeDb: item.category_name,
              objectiveText: (await this.cryptoService.decrypt(item.objective))?.replace(/\\n/g, '\n'),
              targetText: (await this.cryptoService.decrypt(item.target))?.replace(/\\n/g, '\n'),
@@ -736,7 +736,7 @@ export class KpiFormComponent implements OnInit {
 
       let item: any = {
         title: obj.title,
-        selectedType: await this.cryptoService.encrypt(obj.selectedType) ,
+        selectedType: obj.selectedType ,
         weightage: await this.cryptoService.encrypt(obj.weightage),
         objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
         performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)) ,
@@ -796,7 +796,7 @@ export class KpiFormComponent implements OnInit {
 
       let item: any = {
         title: obj.title,
-        selectedType: await this.cryptoService.encrypt(obj.selectedType) ,
+        selectedType: obj.selectedType ,
         weightage: await this.cryptoService.encrypt(obj.weightage),
         objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
         performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)) ,
@@ -877,7 +877,7 @@ export class KpiFormComponent implements OnInit {
                id: item.id,
                workId: item.work_id,
                title: `Work Objective ${index + 1}`,
-               selectedType: await this.cryptoService.decrypt(item.category_name),
+               selectedType: item.category_name,
                selectedTypeDb: item.category_name,
                objectiveText: (await this.cryptoService.decrypt(item.objective))?.replace(/\\n/g, '\n'),
                targetText: (await this.cryptoService.decrypt(item.target))?.replace(/\\n/g, '\n'),

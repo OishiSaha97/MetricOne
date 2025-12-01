@@ -77,21 +77,23 @@ export class SelfAssessmentComponent {
     this.userId = this.cookieService.getCookie('username');
     this.userName = this.cookieService.getCookie('fullName');
     this.token = this.cookieService.getCookie('token');
+    console.log("is back :", this.isBack)
 
     if(this.onNexts == true){
       this.objectives = this.savedselfData.map((obj:Objective, index:number) => ({
         ...obj,
         selfText: this.savedselfData[index]?.selfText || ''
       }));
+
     }
     else{
       this.kpi.getLogData({param: 'evalution-self-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
         .subscribe(async res => {
             this.data = res?.['evalution-self-kpi-list'] || [];
-            this.objectives = await Promise.all( this.data.map( async(obj:any, index:any) => ({
-              ...obj,
-              selfText: await this.cryptoService.decrypt(this.data[index]?.remark) || ''
-            }))
+            this.objectives = await Promise.all( this.objectives.map( async(obj:any, index:any) => ({
+                ...obj,
+                selfText: await this.cryptoService.decrypt(this.data[index]?.remark) || ''
+              }))
             );
           },
           (error) => {

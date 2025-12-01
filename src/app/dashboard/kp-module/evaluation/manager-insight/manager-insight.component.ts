@@ -1,6 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
+import {CryptoService} from "../../../crypto.service";
 
 
 interface Objective {
@@ -37,6 +38,7 @@ export class ManagerInsightComponent {
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
+              private cryptoService: CryptoService,
               private kpi: CommonServiceService) {
   }
 
@@ -64,7 +66,6 @@ export class ManagerInsightComponent {
     //
     //   );
 
-    console.log("this.savedManagerData : ", this.savedManagerData);
 
     if (this.onNexts == true){
       if(this.savedManagerData && this.savedManagerData.length>0){
@@ -85,8 +86,7 @@ export class ManagerInsightComponent {
       parameter: this.userData.team,
       pid: this.userData.year,
       extraParam: this.userData.id
-    }).subscribe(
-      (res: any) => {
+    }).subscribe(async res => {
         const dataArray = res?.['evalution-manager-insight-kpi-list'];
         const data = Array.isArray(dataArray) ? dataArray[0] : null;
 
@@ -101,10 +101,11 @@ export class ManagerInsightComponent {
           "PROPOSED INCREMENT": "proposed_increment"
         };
 
-        this.objectives = this.objectives.map(obj => ({
+        this.objectives = await Promise.all(this.objectives.map(async obj => ({
           ...obj,
-          objectiveText: data[mapFields[obj.name]] || ''
-        }));
+          objectiveText: await this.cryptoService.decrypt(data[mapFields[obj.name]]) || ''
+        }))
+        );
 
         console.log("Updated objectives:", this.objectives);
       },

@@ -301,7 +301,7 @@ export class EvaluationComponent {
 
       let item: any = {
         title: obj.title,
-        selectedType: await this.cryptoService.encrypt(obj.selectedType),
+        selectedType: obj.selectedType,
         objectiveText: await this.cryptoService.encrypt(escapeText(obj.objectiveText)),
         targetText: await this.cryptoService.encrypt( escapeText(obj.targetText)),
         performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)),
@@ -364,7 +364,7 @@ export class EvaluationComponent {
       };
       let item: any = {
         title: obj.title,
-        selectedType: await this.cryptoService.encrypt(obj.selectedType),
+        selectedType: obj.selectedType,
         objectiveText: await this.cryptoService.encrypt( escapeText(obj.objectiveText)),
         targetText: await this.cryptoService.encrypt( escapeText(obj.targetText)),
         performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)),
@@ -459,7 +459,7 @@ export class EvaluationComponent {
         };
         let item: any = {
           title: obj.title,
-          selectedType: await this.cryptoService.encrypt(obj.selectedType),
+          selectedType: obj.selectedType,
           objectiveText: await this.cryptoService.encrypt( escapeText(obj.objectiveText)),
           targetText: await this.cryptoService.encrypt( escapeText(obj.targetText)),
           performanceText: await this.cryptoService.encrypt(escapeText(obj.performanceText)),

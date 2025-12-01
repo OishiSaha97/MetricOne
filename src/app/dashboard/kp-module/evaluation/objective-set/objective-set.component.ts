@@ -155,7 +155,7 @@ export class ObjectiveSetComponent {
               id: item.id,
               workId: item.work_id,
               title: `Work Objective ${index + 1}`,
-              selectedType: await this.cryptoService.decrypt(item.category_name),
+              selectedType:item.category_name,
               selectedTypeDb: item.category_name,
               objectiveText: (await this.cryptoService.decrypt(item.objective))?.replace(/\\n/g, '\n'),
               targetText: (await this.cryptoService.decrypt(item.target))?.replace(/\\n/g, '\n'),
@@ -592,7 +592,7 @@ export class ObjectiveSetComponent {
             history.map(async (item: any) => ({
               ...item,
               key_point: await this.cryptoService.decrypt(item.key_point),
-              target_id: await this.cryptoService.decrypt(item.target_id),
+              target_id: item.target_id,
             }))
           );
           this.openChangedTargetHistory(i);
@@ -612,7 +612,7 @@ export class ObjectiveSetComponent {
             history.map(async (item: any) => ({
               ...item,
               key_point: await this.cryptoService.decrypt(item.key_point),
-              objective_id: await this.cryptoService.decrypt(item.objective_id),
+              objective_id: item.objective_id,
             }))
           );
           this.openChangedObjectiveHistory(i);
@@ -639,7 +639,7 @@ export class ObjectiveSetComponent {
             history.map(async (item: any) => ({
               ...item,
               key_point: await this.cryptoService.decrypt(item.key_point),
-              performance_id: await this.cryptoService.decrypt(item.performance_id),
+              performance_id: item.performance_id,
             }))
           );
         this.openChangedHistory(i);
@@ -659,7 +659,7 @@ export class ObjectiveSetComponent {
             history.map(async (item: any) => ({
               ...item,
               key_point: await this.cryptoService.decrypt(item.key_point),
-              achieved_id: await this.cryptoService.decrypt(item.achieved_id),
+              achieved_id:item.achieved_id,
             }))
           );
           this.openChangedAchievedHistory(i);
