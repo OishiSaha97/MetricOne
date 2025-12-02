@@ -71,9 +71,8 @@ export class LoginPageComponent {
             this.cookieService.setCookie('username', this.username,1);
             this.cookieService.setCookie('fullName', result['Name'],1);
             this.cookieService.setCookie('token', result['token'],1);
-            // localStorage.setItem('username', this.username);
-            // localStorage.setItem('fullName', result['Name']);
-            // localStorage.setItem('token', result['token']);
+
+            // this.storeData(this.username,result['token']);
 
             this.router.navigate(['/dashboard/home']);
           }
