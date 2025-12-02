@@ -4,6 +4,7 @@ import {ApproAttributePopUpComponent} from "./appro-attribute-pop-up/appro-attri
 import {CommonServiceService} from "../common-service.service";
 import {SettingsComponent} from "../settings/settings.component";
 import {Router} from "@angular/router";
+import {CookiesService} from "../cookies.service";
 
 @Component({
   selector: 'app-kpi-attribute',
@@ -32,19 +33,26 @@ export class KpiAttributeComponent {
   resData: any = [];
   resDataDup: any = [];
   role: any;
+  token:any ;
   constructor(private router: Router,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
 
   ngOnInit() {
-    this.role = localStorage.getItem('role');
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
+    this.token = this.cookieService.getCookie('token');
+    // this.timePeriod = this.cookieService.getCookie('timePeriod');
+    // this.role = localStorage.getItem('role');
     if (this.role !== 'hr') {
       this.router.navigate(['/dashboard/404']);
       return;
     }
-    this.userName = localStorage.getItem('fullName');
-    this.userId = localStorage.getItem('username');
+    // this.userName = localStorage.getItem('fullName');
+    // this.userId = localStorage.getItem('username');
     this.loadData('');
 
   }

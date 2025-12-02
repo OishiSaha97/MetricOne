@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {DomSanitizer} from "@angular/platform-browser";
 import {CommonServiceService} from "../common-service.service";
+import {CookiesService} from "../cookies.service";
 
 
 
@@ -42,14 +43,21 @@ export class NavbarComponent {
   permissionList:any='';
   isHr: boolean = false;
   role: any;
+  token:any;
     constructor(private router: Router,
                 private kpi: CommonServiceService,
-                // public cookieService: CookieService
+                public cookieService: CookiesService
     ){}
 
     ngOnInit() {
-      this.userId = localStorage.getItem('username');
-      this.userName = localStorage.getItem('fullName');
+
+      this.role = this.cookieService.getCookie('role');
+      this.userId = this.cookieService.getCookie('username');
+      this.userName = this.cookieService.getCookie('fullName');
+      this.token = this.cookieService.getCookie('token');
+
+      // this.userId = localStorage.getItem('username');
+      // this.userName = localStorage.getItem('fullName');
 
 
       this.getPermission();
@@ -63,6 +71,7 @@ export class NavbarComponent {
       });
 
     }
+
   setActiveMenu(url: string) {
     if (url.includes('/dashboard/home')) {
       this.isHomeActive = true;
@@ -99,9 +108,13 @@ export class NavbarComponent {
 
   logout() {
 
-    localStorage.clear();
+    this.cookieService.deleteCookie('username');
+    this.cookieService.deleteCookie('fullName');
+    this.cookieService.deleteCookie('token');
+    this.cookieService.deleteCookie('timePeriod');
+    this.cookieService.deleteCookie('role');
 
-    sessionStorage.clear();
+   // sessionStorage.clear();
 
     this.router.navigate([''], { replaceUrl: true });
 
@@ -123,32 +136,34 @@ export class NavbarComponent {
           if (data) {
             this.allPermission = data.allPermission;
             this.teamKpi = data.teamKpi;
+
           }
-          // if (data.allPermission) {
-          //   this.setCookie('role', 'hr', 1);
-          //   this.role = "hr";
-          // }
-          // else if (data.teamKpi) {
-          //   this.setCookie('role', 'manager', 1);
-          //   this.role = "manager";
-          // }
-          // else {
-          //   this.setCookie('role', 'employee', 1);
-          //   this.role = "employee";
-          // }
-          if(data.allPermission ) {
-            localStorage.setItem('role', "hr");
+          if (data.allPermission) {
+            this.cookieService.setCookie('role', 'hr', 1);
             this.role = "hr";
-            this.isHr = true;
-          }else if(data.teamKpi){
-            localStorage.setItem('role', "manager");
-            this.role = "manager";
-            this.isHr = false;
-          }else {
-            localStorage.setItem('role', "employee");
-            this.role = "employee";
-            this.isHr = false;
           }
+          else if (data.teamKpi) {
+            this.cookieService.setCookie('role', 'manager', 1);
+            this.role = "manager";
+          }
+          else {
+            this.cookieService.setCookie('role', 'employee', 1);
+            this.role = "employee";
+          }
+
+          // if(data.allPermission ) {
+          //   localStorage.setItem('role', "hr");
+          //   this.role = "hr";
+          //   this.isHr = true;
+          // }else if(data.teamKpi){
+          //   localStorage.setItem('role', "manager");
+          //   this.role = "manager";
+          //   this.isHr = false;
+          // }else {
+          //   localStorage.setItem('role', "employee");
+          //   this.role = "employee";
+          //   this.isHr = false;
+          // }
           this.checkEndDate();
 
         },
@@ -244,8 +259,10 @@ export class NavbarComponent {
   }
 
   private setTimePeriod(period: 'initiation' | 'evaluation' | 'new year'): void {
-     localStorage.setItem('timePeriod', period);
+     // localStorage.setItem('timePeriod', period);
     // this.setCookie('timePeriod', period, 1);
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
   }
 
 

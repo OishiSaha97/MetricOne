@@ -6,6 +6,7 @@ import {environment} from "../../environments/environment";
 import { NgModule } from '@angular/core';
 import {Router} from "@angular/router";
 import {CommonServiceService} from "../dashboard/common-service.service";
+import {CookiesService} from "../dashboard/cookies.service";
 
 @Component({
   selector: 'app-login-page',
@@ -29,7 +30,7 @@ export class LoginPageComponent {
   errorMessage: any;
 
   constructor(private client:HttpClient, private router: Router,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService, public cookieService: CookiesService) {
   }
 
 
@@ -66,9 +67,12 @@ export class LoginPageComponent {
 
         if(result){
           if(result.isLoginSuccess){
-            localStorage.setItem('username', this.username);
-            localStorage.setItem('fullName', result['Name']);
-            localStorage.setItem('token', result['token']);
+
+            this.cookieService.setCookie('username', this.username,1);
+            this.cookieService.setCookie('fullName', result['Name'],1);
+            this.cookieService.setCookie('token', result['token'],1);
+
+            // this.storeData(this.username,result['token']);
 
             this.router.navigate(['/dashboard/home']);
           }

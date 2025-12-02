@@ -5,6 +5,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {CommonServiceService} from "../common-service.service";
 import {EvaluationComponent} from "../kp-module/evaluation/evaluation.component";
 import {SettingsComponent} from "../settings/settings.component";
+import {CookiesService} from "../cookies.service";
 
 @Component({
   selector: 'app-list',
@@ -42,21 +43,26 @@ export class ListComponent {
   isInitCrossed: boolean = false;
   showEvaluation: boolean = false;
   isShowAdd: boolean = false;
- remarkList: any;
+  remarkList: any;
   isHierarchyOpen: boolean = false;
   team: any;
   @ViewChild('errorToast', { static: false }) errorToast!: ElementRef;
   toastMessage: string = '';
+  role: any = '';
+  token: any = '';
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
 
   ngOnInit() {
-    this.userName = localStorage.getItem('fullName');
-    this.userId = localStorage.getItem('username');
-    this.timePeriod = localStorage.getItem('timePeriod');
+    this.timePeriod = this.cookieService.getCookie('timePeriod');
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
+    this.token = this.cookieService.getCookie('token');
     this.loadData('');
     this.userTeam();
   }

@@ -13,6 +13,7 @@ import {CommonServiceService} from "../../common-service.service";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {Subject} from "rxjs";
 import {Toast} from "primeng/toast";
+import {CookiesService} from "../../cookies.service";
 
 declare var $: any;
 
@@ -53,7 +54,8 @@ export class KpiFormComponent implements OnInit {
               public modalRefRevert: BsModalRef,
               public modalServ: BsModalRef,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
 
   requestEmitter: EventEmitter<any> = new EventEmitter<any>();
@@ -105,6 +107,7 @@ export class KpiFormComponent implements OnInit {
   showObjectiveHistoryIndex: number | null = null;
   remark: string = '';
   searchType: any;
+  role:any;
 
   ngOnInit(): void {
     for (let i = 1; i <= 3; i++) {
@@ -112,8 +115,9 @@ export class KpiFormComponent implements OnInit {
     }
     console.log(this.view)
     this.getAttribute();
-    this.userName = localStorage.getItem('fullName');
-    this.userId = localStorage.getItem('username');
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
       if(this.approvalStatus == 'Reverted' ){
         this.getData();
       }
@@ -167,7 +171,7 @@ export class KpiFormComponent implements OnInit {
       extraParam:this.team
 
     }).subscribe(res => {
-      this.managerName = res?.['get_manager_name'][0].managerName || [];
+      this.managerName = res?.['get_manager_name'][0]?.managerName || [];
       console.log("this.managerName : ", this.managerName)
     });
 

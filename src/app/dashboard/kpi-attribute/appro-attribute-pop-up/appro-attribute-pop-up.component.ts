@@ -1,6 +1,7 @@
 import {Component, EventEmitter} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
+import {CookiesService} from "../../cookies.service";
 
 @Component({
   selector: 'app-appro-attribute-pop-up',
@@ -17,12 +18,17 @@ export class ApproAttributePopUpComponent {
   attributeName: any = '';
   resData: any;
   errorMessage: any='';
+  userName: any='';
+
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {}
-  ngOnInit(): void {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {}
 
-    this.userId = localStorage.getItem('username');
+
+  ngOnInit(): void {
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
     console.log("selectedAttribute :", this.selectedAttribute);
     if(this.mode=== 'edit'){
       this.getData();

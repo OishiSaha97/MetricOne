@@ -1,6 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../../common-service.service";
+import {CookiesService} from "../../../cookies.service";
 
 interface Objective {
   id: number;
@@ -40,6 +41,7 @@ export class HrModalComponent {
   userName: any;
   userId: any;
   role: any;
+  token: any;
   ratings: any = [];
   // attendanceRating: any;
   // leaveRating: any;
@@ -48,14 +50,18 @@ export class HrModalComponent {
 
   constructor(public modalRef: BsModalRef,
               private modalService: BsModalService,
-              private kpi: CommonServiceService) {
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {
   }
 
 
   ngOnInit(): void {
-    this.userName = localStorage.getItem('fullName');
-    this.userId = localStorage.getItem('username');
-    this.role = localStorage.getItem('role');
+
+    this.role = this.cookieService.getCookie('role');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
+    this.token = this.cookieService.getCookie('token');
+
     this.getRating();
 
     if (this.onNexts === true && this.savedHrData.length > 0) {

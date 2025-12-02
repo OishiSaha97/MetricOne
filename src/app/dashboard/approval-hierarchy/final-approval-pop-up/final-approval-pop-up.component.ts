@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
+import {CookiesService} from "../../cookies.service";
 
 @Component({
   selector: 'app-final-approval-pop-up',
@@ -14,7 +15,8 @@ export class FinalApprovalPopUpComponent {
    filterAprroversList: any=[];
    isexists: boolean = false;
    constructor(public bsModalRef: BsModalRef,
-              private kpi: CommonServiceService) {}
+              private kpi: CommonServiceService,
+               public cookieService: CookiesService) {}
   userId:any;
   @Output() finalApproverSelected = new EventEmitter<any>();
   @Output() modeEdit = new EventEmitter<any>();
@@ -22,10 +24,12 @@ export class FinalApprovalPopUpComponent {
   finalApproverNew: any;
   aprrovers: any=[];
   searchApprover: any;
+  userName: any;
 
   ngOnInit(): void {
 
-    this.userId = localStorage.getItem('username');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
     this.getUserList();
 
     console.log("mode:", this.mode);

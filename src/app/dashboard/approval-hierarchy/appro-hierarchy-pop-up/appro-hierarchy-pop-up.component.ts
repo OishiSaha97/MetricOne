@@ -1,6 +1,7 @@
 import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import {CommonServiceService} from "../../common-service.service";
+import {CookiesService} from "../../cookies.service";
 interface TierUser {
   index?: number;
   username: string;
@@ -19,12 +20,15 @@ export class ApproHierarchyPopUpComponent {
   @Output() clickOutside = new EventEmitter<MouseEvent>();
   @Output() hierarchySaved = new EventEmitter<void>();
   resData: any;
+  userName: any;
+
   constructor(public bsModalRef: BsModalRef,
-              private kpi: CommonServiceService) {}
+              private kpi: CommonServiceService,
+              public cookieService: CookiesService) {}
 
   ngOnInit(): void {
-
-    this.userId = localStorage.getItem('username');
+    this.userId = this.cookieService.getCookie('username');
+    this.userName = this.cookieService.getCookie('fullName');
     this.getUserList();
     console.log("mode : ", this.mode);
 
