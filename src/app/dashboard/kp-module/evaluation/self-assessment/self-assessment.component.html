@@ -51,7 +51,7 @@
               [(ngModel)]="obj.selfText"
               placeholder="Type Here"
               (keydown)="blockTyping($event,obj)"
-              [readonly]="currentStatus === 'manager' || currentStatus === 'approver'"
+              [readonly]="currentStatus === 'manager' || currentStatus === 'approver' || currentStatus === 'hr'"
               [disabled]=" userData.status === 'Closed'"></textarea>
             <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.selfText">
               {{ objectiveErrors[i].selfText }}
