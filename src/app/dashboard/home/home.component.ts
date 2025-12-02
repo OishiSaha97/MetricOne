@@ -261,6 +261,7 @@ export class HomeComponent {
       });
   }
 
+
  progressData() {
    this.kpi.getLogData({ param: 'dashboardProgress', userIdKPI: this.userId })
      .subscribe(res => {
