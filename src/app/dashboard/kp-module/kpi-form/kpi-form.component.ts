@@ -171,7 +171,7 @@ export class KpiFormComponent implements OnInit {
       extraParam:this.team
 
     }).subscribe(res => {
-      this.managerName = res?.['get_manager_name'][0].managerName || [];
+      this.managerName = res?.['get_manager_name'][0]?.managerName || [];
       console.log("this.managerName : ", this.managerName)
     });
 

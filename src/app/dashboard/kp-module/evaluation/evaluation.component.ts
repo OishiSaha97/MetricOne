@@ -575,7 +575,8 @@ export class EvaluationComponent {
        extraParam:this.userData.team
 
      }).subscribe(res => {
-       this.managerName = res?.['get_manager_name'][0].managerName || [];
+       this.managerName = res?.['get_manager_name']?.[0]?.managerName || '';
+       console.log(this.managerName)
      });
 
   }
