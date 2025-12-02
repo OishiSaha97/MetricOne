@@ -260,7 +260,7 @@ export class AllEmployeeKPIComponent {
       viewMode = true;
     }
 
-    if (this.timePeriod == 'evaluation') {
+    if (user.stage == 'evaluation') {
 
       const initialState = {
         userData: user,
@@ -405,7 +405,7 @@ export class AllEmployeeKPIComponent {
   }
   remarkList: any;
   openRemarks(user: any) {
-    this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+    this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:user.stage,extraParam:user.id })
       .subscribe(res => {
         this.remarkList = res?.['reverted_remark_list'] || [];
 
