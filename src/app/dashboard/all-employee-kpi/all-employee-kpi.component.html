@@ -9,10 +9,11 @@
       </div>
 
       <div class="KPI-status border-1 align-items-center  p-10px " style="background-color: #25262C;
-; border-radius: 5px;  border: 5px solid #44454E; align-items: center">
+; border-radius: 5px;  border: 5px solid #44454E; align-items: center" >
         <div class="m-0 p-1">
           <p class="m-0 small-text "><span style="color: #AD94FF;">Closes In:</span> {{ choosedOptionDate }}</p>
-          <p class="m-0 small-text "><span style="color: #AD94FF;">End Date:</span> {{ initialtionDate }}</p>
+          <p class="m-0 small-text "><span style="color: #AD94FF;" *ngIf="timePeriod == 'evalution'">End Date:</span> {{ evalutionDate }}</p>
+          <p class="m-0 small-text "><span style="color: #AD94FF;" *ngIf="timePeriod == 'initation'">End Date:</span> {{ initialtionDate }}</p>
         </div>
       </div>
 <!--      <div style="display: flex; align-items: center; gap: 16px;">-->

@@ -23,6 +23,7 @@ export class HomeComponent {
   pendingHR: any;
   totalEmloyee: any;
    settingTitle: any;
+  timePeriod: any;
    mode: any;
    completed: number = 0;
   anncText:any='';
@@ -134,11 +135,13 @@ export class HomeComponent {
 
         if(this.initialtionDate && (kpiDate >= today)){
           this.settingTitle = "KPI INITIATION";
+          this.timePeriod = this.cookieService.setCookie('timePeriod','initation',1);
           this.mode = "edit";
         }
         else{
           this.settingTitle = "SETTING";
           this.mode = "add";
+          this.timePeriod = this.cookieService.setCookie('timePeriod','evalution',1);
           this.checkEvaEndDate();
         }
 
