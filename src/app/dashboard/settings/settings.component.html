@@ -54,13 +54,13 @@
       <button class="cancel-btn" (click)="closePopup()">Cancel</button>
       <button class="submit-btn"
               [disabled]="
-                (currentTable === 'initiation' && (!selectedDate || timePeriod === 'evaluation')) ||
-                (currentTable === 'evaluation' && !selectedDateEva)
+                (currentTable === 'initiation' && (!selectedDate || ['evaluation', 'initiation_expired', 'evaluation_expired'].includes(timePeriod) )) ||
+                (currentTable === 'evaluation' && (!selectedDateEva || timePeriod === 'evaluation_expired'))
               "
               [ngClass]="{
                 'disabled-submit-btn':
-                  (currentTable === 'initiation' && (!selectedDate || timePeriod === 'evaluation')) ||
-                  (currentTable === 'evaluation' && !selectedDateEva)
+                  (currentTable === 'initiation' && (!selectedDate || ['evaluation', 'initiation_expired', 'evaluation_expired'].includes(timePeriod))) ||
+                  (currentTable === 'evaluation' && (!selectedDateEva || timePeriod === 'evaluation_expired'))
               }"
               (click)="statusAction(actionModal)"
       >Active</button>

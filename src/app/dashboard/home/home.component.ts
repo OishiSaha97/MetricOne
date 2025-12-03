@@ -141,7 +141,8 @@ export class HomeComponent {
         else{
           this.settingTitle = "SETTING";
           this.mode = "add";
-          this.timePeriod = this.cookieService.setCookie('timePeriod','evalution',1);
+          this.cookieService.setCookie('timePeriod','initiation_expired',1);
+          this.timePeriod= 'initiation_expired';
           this.checkEvaEndDate();
         }
 
@@ -199,11 +200,26 @@ export class HomeComponent {
         this.resData = res?.['EvaEndDate'][0] || [];
         const result = res?.['EvaEndDate']?.[0];
         this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
-        if(result){
-          this.settingTitle = "KPI EVALUATION";
-          this.mode = "add";
 
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const [year, month, day] = this.initialtionDate.split('-').map(Number);
+        const kpiEvaDate = new Date(year, month - 1, day);
+
+        if (result) {
+          if (kpiEvaDate >= today) {
+            this.settingTitle = "KPI EVALUATION";
+            this.mode = "add";
+            this.cookieService.setCookie('timePeriod', 'evaluation', 1);
+            this.timePeriod = 'evaluation';
+          } else {
+            this.cookieService.setCookie('timePeriod', 'evaluation_expired', 1);
+            this.timePeriod = 'evaluation_expired';
+            this.initialtionDate='';
+          }
         }
+
       });
 
   }
