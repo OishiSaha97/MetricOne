@@ -20,7 +20,7 @@ export class AllEmployeeKPIComponent {
   rowNo: any = 0;
 
   label="All Employee KPI";
-  choosedOption= "Initial KPI settings";
+  choosedOption:any ;
 
   userList: any[] = [];
   pagination: any = {
@@ -31,7 +31,8 @@ export class AllEmployeeKPIComponent {
   userName:any;
   userId:any;
   timePeriod:any;
-  initialtionDate: string | Date | undefined = undefined;
+  initialtionDate:any;
+  evalutionDate: any;
   dateData: any;
   days: number = 0;
   hours: number = 0;
@@ -62,25 +63,28 @@ export class AllEmployeeKPIComponent {
       this.router.navigate(['/dashboard/404']);
       return;
     }
-
+    this.loadData('');
     this.timePeriod = this.cookieService.getCookie('timePeriod');
     this.checkEndDate();
     this.timerId = setInterval(() => this.updateCountdown(), 1000);
-    this.loadData('');
   }
 
   checkEndDate() {
     let param = '';
-    if(this.timePeriod == 'evaluation'){
-      param = 'EvaEndDate'
-    }else{
-      param = 'KPIendDate'
-    }
+      if(this.timePeriod == 'evalution'){
+         param = 'EvaEndDate'
+      }else{
+          param = 'KPIendDate'
+      }
     this.kpi.getLogData({ param: param, userIdKPI: this.userId })
       .subscribe(res => {
         this.dateData = res?.[param][0] || [];
+        if(this.timePeriod == 'evalution'){
+          this.evalutionDate = this.formatToLongDate(this.dateData.kpi_last_date);
+        }else{
+          this.initialtionDate = this.formatToLongDate(this.dateData.kpi_last_date);
+        }
 
-        this.initialtionDate = this.formatToLongDate(this.dateData.kpi_last_date);
         this.target = new Date(this.dateData.kpi_last_date + 'T00:00:00');
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -112,7 +116,7 @@ export class AllEmployeeKPIComponent {
     }
   }
 
-  pad(num: number): string {
+ pad(num: number): string {
     return String(num).padStart(2, '0');
   }
 
@@ -219,6 +223,12 @@ export class AllEmployeeKPIComponent {
           this.pagination.paramOffset=offset
           this.userList = res.result['content'];
           this.userList = res.result['content'];
+        //console.log(this.userList[0].stage)
+           if(this.userList[0].stage == 'evaluation'){
+              this.choosedOption = "Evaluation KPI settings";
+           }else{
+             this.choosedOption= "Initial KPI settings";
+           }
 
           this.scrollStatus = false;
           // document.getElementById('dataTable').scrollTo(0, 0);
@@ -381,7 +391,7 @@ export class AllEmployeeKPIComponent {
 
 
   search() {
-    this.loadData({});
+   this.loadData({});
   }
 
   fullHierarchy: any;
@@ -405,7 +415,7 @@ export class AllEmployeeKPIComponent {
   }
   remarkList: any;
   openRemarks(user: any) {
-    this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:this.timePeriod,extraParam:user.id })
+    this.kpi.getLogData({ param: 'reverted_remark_list', userIdKPI: this.userId, parameter:user.stage,extraParam:user.id })
       .subscribe(res => {
         this.remarkList = res?.['reverted_remark_list'] || [];
 

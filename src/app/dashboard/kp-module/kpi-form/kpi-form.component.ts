@@ -171,6 +171,7 @@ export class KpiFormComponent implements OnInit {
     }
     this.isOpen[i] = false;
     this.searchType = '';
+    console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
 
   }
   selectedTypes: string[] = [];
@@ -458,7 +459,6 @@ export class KpiFormComponent implements OnInit {
   }
 
   openObjectiveHistory(obj: any,i:any) {
-    console.log("obj  : ", obj)
     //this.showObjectiveHistoryIndex = null;
     this.kpi.getLogData({param: 'changed-objective-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
       .subscribe(async res => {

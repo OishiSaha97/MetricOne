@@ -23,6 +23,7 @@ export class HomeComponent {
   pendingHR: any;
   totalEmloyee: any;
    settingTitle: any;
+  timePeriod: any;
    mode: any;
    completed: number = 0;
   anncText:any='';
@@ -132,15 +133,37 @@ export class HomeComponent {
         const [year, month, day] = this.initialtionDate.split('-').map(Number);
         const kpiDate = new Date(year, month - 1, day);
 
-        if(this.initialtionDate && (kpiDate >= today)){
-          this.settingTitle = "KPI INITIATION";
-          this.mode = "edit";
-        }
-        else{
+        if (this.initialtionDate) {
+          // Case 1: initiationDate exists
+
+          if (kpiDate >= today) {
+            // ⭐ Case 1A: Exists AND NOT expired
+            this.settingTitle = "KPI INITIATION";
+            this.mode = "edit";
+
+            this.cookieService.setCookie('timePeriod', 'initiation', 1);
+            this.timePeriod = 'initiation';
+          }
+          else {
+            // ⭐ Case 1B: Exists BUT expired
+            this.settingTitle = "SETTING";
+            this.mode = "add";
+
+            this.cookieService.setCookie('timePeriod', 'initiation_expired', 1);
+            this.timePeriod = 'initiation_expired';
+
+            this.checkEvaEndDate();
+          }
+
+        } else {
+          // ⭐ Case 2: initiationDate does NOT exist
           this.settingTitle = "SETTING";
           this.mode = "add";
-          this.checkEvaEndDate();
+
+          this.cookieService.setCookie('timePeriod', 'new_year', 1);
+          this.timePeriod = 'new_year';
         }
+
 
 
       });
@@ -196,11 +219,26 @@ export class HomeComponent {
         this.resData = res?.['EvaEndDate'][0] || [];
         const result = res?.['EvaEndDate']?.[0];
         this.initialtionDate = this.formatDateForInput(this.resData.kpi_last_date);
-        if(result){
-          this.settingTitle = "KPI EVALUATION";
-          this.mode = "add";
 
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const [year, month, day] = this.initialtionDate.split('-').map(Number);
+        const kpiEvaDate = new Date(year, month - 1, day);
+
+        if (result) {
+          if (kpiEvaDate >= today) {
+            this.settingTitle = "KPI EVALUATION";
+            this.mode = "add";
+            this.cookieService.setCookie('timePeriod', 'evaluation', 1);
+            this.timePeriod = 'evaluation';
+          } else {
+            this.cookieService.setCookie('timePeriod', 'evaluation_expired', 1);
+            this.timePeriod = 'evaluation_expired';
+            this.initialtionDate='';
+          }
         }
+
       });
 
   }

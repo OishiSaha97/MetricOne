@@ -27,7 +27,7 @@
            [(ngModel)]="selectedDate"
            (change)="onDateSelect()"
            class="custom-date-input"
-           [disabled]="timePeriod==='evaluation'"
+           [disabled]="timePeriod==='initiation_expired' || timePeriod==='evaluation' || timePeriod==='evaluation_expired' "
            [min]="today"
            [max]="(today | date:'yyyy') + '-12-31'"
 
@@ -42,6 +42,7 @@
            [(ngModel)]="selectedDateEva"
            (change)="onDateSelect()"
            class="custom-date-input"
+           [disabled]="timePeriod==='evaluation_expired'"
            [min]="today"
            [max]="(today | date:'yyyy') + '-12-31'"
          />
