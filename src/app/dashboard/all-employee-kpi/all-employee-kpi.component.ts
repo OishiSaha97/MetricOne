@@ -63,7 +63,9 @@ export class AllEmployeeKPIComponent {
       this.router.navigate(['/dashboard/404']);
       return;
     }
-    this.loadData('');this.timePeriod = this.cookieService.getCookie('timePeriod');
+    this.loadData('');
+    this.timePeriod = this.cookieService.getCookie('timePeriod');
+    console.log("timeperiod in all employee kpi component:", this.timePeriod);
     this.checkEndDate();
     this.timerId = setInterval(() => this.updateCountdown(), 1000);
 
@@ -121,6 +123,10 @@ export class AllEmployeeKPIComponent {
   }
 
   updateCountdown(): void {
+    if (!this.target || !this.target.getTime || isNaN(this.target.getTime())) {
+      this.choosedOptionDate = '0:0:0:0';
+      return;
+    }
     const ONE_DAY = 24 * 60 * 60 * 1000;
     const now = new Date();
     let diff = (this.target.getTime() + ONE_DAY) - now.getTime();
