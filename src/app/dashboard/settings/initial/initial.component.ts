@@ -32,6 +32,7 @@ export class InitialComponent {
   ngOnInit() {
     this.userId = this.cookieService.getCookie('username');
     this.timePeriod = this.cookieService.getCookie('timePeriod');
+    console.log("timeperiod in initial component:", this.timePeriod);
     this.today = new Date();
     this.bsConfig = {
       adaptivePosition: false,
