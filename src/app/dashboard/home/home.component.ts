@@ -133,18 +133,37 @@ export class HomeComponent {
         const [year, month, day] = this.initialtionDate.split('-').map(Number);
         const kpiDate = new Date(year, month - 1, day);
 
-        if(this.initialtionDate && (kpiDate >= today)){
-          this.settingTitle = "KPI INITIATION";
-          this.timePeriod = this.cookieService.setCookie('timePeriod','initation',1);
-          this.mode = "edit";
-        }
-        else{
+        if (this.initialtionDate) {
+          // Case 1: initiationDate exists
+
+          if (kpiDate >= today) {
+            // ⭐ Case 1A: Exists AND NOT expired
+            this.settingTitle = "KPI INITIATION";
+            this.mode = "edit";
+
+            this.cookieService.setCookie('timePeriod', 'initiation', 1);
+            this.timePeriod = 'initiation';
+          }
+          else {
+            // ⭐ Case 1B: Exists BUT expired
+            this.settingTitle = "SETTING";
+            this.mode = "add";
+
+            this.cookieService.setCookie('timePeriod', 'initiation_expired', 1);
+            this.timePeriod = 'initiation_expired';
+
+            this.checkEvaEndDate();
+          }
+
+        } else {
+          // ⭐ Case 2: initiationDate does NOT exist
           this.settingTitle = "SETTING";
           this.mode = "add";
-          this.cookieService.setCookie('timePeriod','initiation_expired',1);
-          this.timePeriod= 'initiation_expired';
-          this.checkEvaEndDate();
+
+          this.cookieService.setCookie('timePeriod', 'new_year', 1);
+          this.timePeriod = 'new_year';
         }
+
 
 
       });
