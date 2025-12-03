@@ -121,6 +121,10 @@ export class AllEmployeeKPIComponent {
   }
 
   updateCountdown(): void {
+    if (!this.target || !this.target.getTime || isNaN(this.target.getTime())) {
+      this.choosedOptionDate = '0:0:0:0';
+      return;
+    }
     const ONE_DAY = 24 * 60 * 60 * 1000;
     const now = new Date();
     let diff = (this.target.getTime() + ONE_DAY) - now.getTime();
