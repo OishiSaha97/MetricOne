@@ -107,6 +107,8 @@ export class KpiFormComponent implements OnInit {
   name:any='';
   view:any='';
   showObjectiveHistoryIndex: number | null = null;
+  showPerformanceHistoryIndex: number | null = null;
+  showTargetHistoryIndex: number | null = null;
   remark: string = '';
   searchType: any;
   role:any;
@@ -406,6 +408,9 @@ export class KpiFormComponent implements OnInit {
 
   onCancel() {
     this.modalRefRemark.hide();
+    if (this.modalRefDirectPublish) {
+      this.modalRefDirectPublish.hide();
+    }
   }
 
   onModalOff() {
@@ -417,7 +422,7 @@ export class KpiFormComponent implements OnInit {
   }
 
 
-  openPerformanceHistory(obj: any) {
+  openPerformanceHistory(obj: any,i:any) {
     console.log(obj)
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
       .subscribe(async res => {
@@ -430,7 +435,7 @@ export class KpiFormComponent implements OnInit {
             }))
           );
 
-          this.openChangedHistory();
+          this.openChangedHistory(i);
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -438,7 +443,7 @@ export class KpiFormComponent implements OnInit {
       );
   }
 
-  openTargetHistory(obj: any) {
+  openTargetHistory(obj: any,i:any) {
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-target-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
       .subscribe(async res => {
           let history = res?.['changed-target-history'] || [];
@@ -450,7 +455,7 @@ export class KpiFormComponent implements OnInit {
             }))
           );
 
-          this.openChangedTargetHistory();
+          this.openChangedTargetHistory(i);
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -494,12 +499,14 @@ export class KpiFormComponent implements OnInit {
   showTargetHistory = false;
   showObjectiveHistory = false;
 
-  openChangedHistory() {
-    this.showHistory = !this.showHistory;
+  openChangedHistory(i: number) {
+    this.showPerformanceHistoryIndex =
+      this.showPerformanceHistoryIndex === i ? null : i;
   }
 
-  openChangedTargetHistory() {
-    this.showTargetHistory = !this.showTargetHistory;
+  openChangedTargetHistory(i: number) {
+    this.showTargetHistoryIndex =
+      this.showTargetHistoryIndex === i ? null : i;
   }
 
 
