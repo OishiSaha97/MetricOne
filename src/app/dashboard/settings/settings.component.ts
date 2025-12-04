@@ -150,7 +150,6 @@ export class SettingsComponent {
     formData.append('date', formattedDate.toString());
     formData.append('forDate', 'evaluation');
 
-    console.log('Submitting EndDate:', formData);
     this.kpi.saveEvaEndDate(formData).subscribe({
       next: (response) => {
         // this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
