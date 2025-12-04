@@ -259,6 +259,7 @@ export class EvaluationComponent {
     }else if(item == 'values'){
       this.valuesData = data;
       console.log("Received data from values:", this.valuesData);
+      console.log("this.next : ", this.onNext3);
         currentStep = 4;
         this.changeTable('manager',currentStep);
     }else if(item == 'manager'){

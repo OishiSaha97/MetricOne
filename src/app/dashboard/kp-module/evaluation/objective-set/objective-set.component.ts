@@ -202,7 +202,7 @@ export class ObjectiveSetComponent {
           keyTarget: item.keyTarget,
           keyPerformance: item.keyPerformance,
           keyAchieved: item.keyAchieved,
-          isOpen: true
+          isOpen: false
         }));
       }
 
