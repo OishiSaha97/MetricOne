@@ -274,7 +274,7 @@ export class AllEmployeeKPIComponent {
       viewMode = true;
     }
 
-    if (user.stage == 'evaluation') {
+    if (user.stage == 'evaluation' || user.stage === 'evaluation_end') {
 
       const initialState = {
         userData: user,

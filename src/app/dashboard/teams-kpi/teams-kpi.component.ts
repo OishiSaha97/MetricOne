@@ -117,6 +117,7 @@ export class TeamsKPIComponent {
   }
 
   viewDetails(user: any) {
+    console.log("user",user);
 
     if(user.stage === 'initiation'){
       const initialState = {
@@ -156,7 +157,7 @@ export class TeamsKPIComponent {
       });
 
     }
-    else if(user.stage === 'evaluation'){
+    else if(user.stage === 'evaluation' || user.stage === 'evaluation_end'){
       const initialState = {
         userData: user,
         title: 'Manager Evaluation',
