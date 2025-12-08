@@ -71,7 +71,7 @@ export class AllEmployeeKPIComponent {
 
   checkEndDate() {
     let param = '';
-      if(this.timePeriod == 'evalution'){
+      if(this.timePeriod == 'evaluation'){
          param = 'EvaEndDate'
       }else{
           param = 'KPIendDate'
@@ -79,7 +79,7 @@ export class AllEmployeeKPIComponent {
     this.kpi.getLogData({ param: param, userIdKPI: this.userId })
       .subscribe(res => {
         this.dateData = res?.[param][0] || [];
-        if(this.timePeriod == 'evalution'){
+        if(this.timePeriod == 'evaluation'){
           this.evalutionDate = this.formatToLongDate(this.dateData.kpi_last_date);
         }else{
           this.initialtionDate = this.formatToLongDate(this.dateData.kpi_last_date);
