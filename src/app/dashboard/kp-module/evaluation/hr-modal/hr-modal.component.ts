@@ -138,7 +138,6 @@ export class HrModalComponent {
     if (!this.validateObjectives()) {
       return;
     }
-    console.log("objectives : ", this.objectives);
     this.dataSubmitted.emit(this.objectives);
   }
   objectiveErrors: { [key: number]:

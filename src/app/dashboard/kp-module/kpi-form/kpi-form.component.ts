@@ -117,7 +117,6 @@ export class KpiFormComponent implements OnInit {
     for (let i = 1; i <= 3; i++) {
       this.addObjective();
     }
-    console.log(this.view)
     this.getAttribute();
     this.role = this.cookieService.getCookie('role');
     this.userId = this.cookieService.getCookie('username');
@@ -173,7 +172,6 @@ export class KpiFormComponent implements OnInit {
     }
     this.isOpen[i] = false;
     this.searchType = '';
-    console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
 
   }
   selectedTypes: string[] = [];
@@ -423,7 +421,6 @@ export class KpiFormComponent implements OnInit {
 
 
   openPerformanceHistory(obj: any,i:any) {
-    console.log(obj)
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
       .subscribe(async res => {
           let history = res?.['changed-performance-history'] || [];
@@ -905,7 +902,7 @@ export class KpiFormComponent implements OnInit {
      this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-history',objectId:this.kpiUserId,parameter:this.team,pid:this.year,extraParam:this.kpiId})
        .subscribe(res => {
            this.changedHistory = Array.isArray(res?.['changed-history']) ? res?.['changed-history'] : res?.['changed-history']
-           console.log(this.changedHistory);
+
          },
          (error) => {
            console.error("Error fetching permission list", error);

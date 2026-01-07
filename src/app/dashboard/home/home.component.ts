@@ -48,14 +48,10 @@ export class HomeComponent {
   hrReviewCount:  number=0;
 
   ngOnInit() {
-    console.log("initialtionDate :", this.initialtionDate);
     this.role = this.cookieService.getCookie('role');
     this.userId = this.cookieService.getCookie('username');
     this.userName = this.cookieService.getCookie('fullName');
     this.token = this.cookieService.getCookie('token');
-    // this.userId = localStorage.getItem('username');
-    // this.role = localStorage.getItem('role');
-    // console.log(this.role);
     this.checkEndDate();
     this.getData();
     this.getAnnouncements();
@@ -84,7 +80,6 @@ export class HomeComponent {
             this.role = "employee";
           }
 
-          console.log("role",this.role)
         },
         (error) => {
           console.error("Error fetching permission list", error);
@@ -287,7 +282,6 @@ export class HomeComponent {
           announcement2: (item.announcement || '').replace(/\r?\n/g, '\n')
         }));
 
-        console.log('this.announcements:', this.announcements);
       });
   }
 
@@ -295,7 +289,6 @@ export class HomeComponent {
     this.kpi.getNotification({ param: 'notification-list', userIdKPI: this.userId })
       .subscribe(res => {
         this.notifications =  res?.result?.content || [];
-        console.log("this.announcements  : ", this.notifications );
       });
   }
 

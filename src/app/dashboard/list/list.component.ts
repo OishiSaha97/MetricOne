@@ -196,8 +196,6 @@ export class ListComponent {
 
   viewClick(user: any): void {
 
-    console.log("user.edit_permission : ", user.edit_permission);
-    console.log("this.timePeriod : ", this.timePeriod);
 
       if (user.stage === 'evaluation'   ) {
         const initialState = {
@@ -383,7 +381,6 @@ export class ListComponent {
 
     }).subscribe(res => {
       this.team = res?.['get_userTeam'][0].team_name || [];
-      console.log("this.team : ", this.team);
     });
   }
 }

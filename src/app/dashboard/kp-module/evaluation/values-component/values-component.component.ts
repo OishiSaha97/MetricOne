@@ -166,11 +166,6 @@ export class ValuesComponentComponent {
     }
 
   }
-  // onObjectiveChange(type: any, obj: Objective,i:number): void {
-  //   obj.selectedRating = type;
-  //   this.isOpen[i] = false;
-  //   console.log(`Objective ${obj.id} selected rating:`, obj.selectedRating);
-  // }
 
 
   toggleObjective(obj: Objective): void {
@@ -193,16 +188,6 @@ export class ValuesComponentComponent {
       obj.overAllRating = '';
     } else {
       obj.overAllRating = type.kpi_category_name;
-    }
-  }
-
-  onNext(): void {
-
-    const incomplete = this.objectives.filter(o => !o.objectiveText || !o.selectedRating);
-    if (incomplete.length > 0) {
-      console.warn('Incomplete objectives:', incomplete);
-    } else {
-      console.log('All objectives are filled in.');
     }
   }
 

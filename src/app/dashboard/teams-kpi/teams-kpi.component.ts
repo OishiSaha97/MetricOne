@@ -117,7 +117,6 @@ export class TeamsKPIComponent {
   }
 
   viewDetails(user: any) {
-    console.log("user",user);
 
     if(user.stage === 'initiation'){
       const initialState = {

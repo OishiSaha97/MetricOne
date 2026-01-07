@@ -103,8 +103,6 @@ export class EvaluationComponent {
     this.timePeriod = this.cookieService.getCookie('timePeriod');
 
     this.kpiId = this.userData.id;
-    console.log("Role:", this.role);
-    console.log("user:", this.userData);
     this.getManagerName();
   }
 
@@ -203,7 +201,6 @@ export class EvaluationComponent {
       this.onNext2 = true;
       this.isBack3 = true;
       this.valuesData = data;
-      console.log("Received data from values:", this.valuesData);
       currentStep = 4;
       this.changeTable('manager',currentStep);
     }else if(item == 'manager'){
@@ -212,10 +209,6 @@ export class EvaluationComponent {
     }else if(item == 'hr'){
       this.onNext4 = true;
       this.hrData = data;
-
-      console.log('Received data from hr:', data);
-      // this.openPublishConfirmation(this.confirmationPublish);
-      // this.submitHr();
     }
 
   }
@@ -258,15 +251,12 @@ export class EvaluationComponent {
       }
     }else if(item == 'values'){
       this.valuesData = data;
-      console.log("Received data from values:", this.valuesData);
-      console.log("this.next : ", this.onNext3);
         currentStep = 4;
         this.changeTable('manager',currentStep);
     }else if(item == 'manager'){
       this.managerData = data;
     }else if(item == 'hr'){
       this.hrData = data;
-      console.log('Received data from hr:', data);
       this.openPublishConfirmation(this.confirmationPublish);
       // this.submitHr();
     }
@@ -318,7 +308,6 @@ export class EvaluationComponent {
       return item;
     })
     );
-    // console.log("this.selfAssessment",this.selfAssessment);
     let processedSelfAssessment = await Promise.all(
       this.selfAssessment.map(async (obj: any) => ({
         id: obj.id,
@@ -338,7 +327,6 @@ export class EvaluationComponent {
 
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
-        console.log('KPI saved successfully:', response);
         this.saveEmitter.next({ action:'submit'});
         this.cancel();
       },
@@ -432,7 +420,6 @@ export class EvaluationComponent {
 
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
-        console.log('KPI saved successfully:', response);
         this.saveEmitter.next({ action:'forward'});
         this.cancel();
       },
@@ -662,7 +649,6 @@ export class EvaluationComponent {
 
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
-        console.log('KPI saved successfully:', response);
         this.saveEmitter.next({ action:'draft'});
         this.cancel();
       },
@@ -674,14 +660,12 @@ export class EvaluationComponent {
   }
 
    getManagerName() {
-     console.log("Getting manager name ",this.userData.team )
      this.kpi.getLogData({
        param: 'get_manager_name',
        extraParam:this.userData.team
 
      }).subscribe(res => {
        this.managerName = res?.['get_manager_name']?.[0]?.managerName || '';
-       console.log(this.managerName)
      });
 
   }

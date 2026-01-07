@@ -150,7 +150,7 @@ export class ObjectiveSetComponent {
         .subscribe(async res => {
             // this.data = res?.['kpi-list'];
             this.data = Array.isArray(res?.['evalution-kpi-list']) ? res?.['evalution-kpi-list'] : res?.['evalution-kpi-list']
-            console.log(this.data);
+
             this.objectives = await Promise.all(this.data.map(async(item:any, index:any) => ({
               id: item.id,
               workId: item.work_id,
@@ -245,7 +245,6 @@ export class ObjectiveSetComponent {
       obj.selectedType = type.name;
     }
     this.isOpen[i] = false;
-    console.log(`Objective ${obj.id} selected type:`, obj.selectedType);
     this.searchType='';
     // this.filterObjectiveTypes = this.filterObjectiveTypes.filter(
     //   (t: any) => t.name !== obj.selectedType
@@ -275,7 +274,6 @@ export class ObjectiveSetComponent {
       obj.rating = type.kpi_category_name;
     }
     this.isOpen[i] = false;
-    console.log(`Objective ${obj.id} selected rating:`, obj.rating);
   }
   objectiveErrors: { [key: number]:
       {
@@ -373,22 +371,6 @@ export class ObjectiveSetComponent {
           hasError = true;
         }
         totalWeightage += weight;
-
-        // if (
-        //   !obj.selectedType?.trim() ||
-        //   !obj.objectiveText?.trim() ||
-        //   !obj.targetText?.trim() ||
-        //   !obj.performanceText?.trim() ||
-        //   !obj.achievedText?.trim() ||
-        //   !obj.achievedInt ||
-        //   !obj.weightage?.trim() ||
-        //   !obj.rating?.trim() ||
-        //   !obj.overAllRating?.trim()
-        // ) {
-        //   console.log(obj)
-        //   alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
-        //   return hasError;
-        // }
       }
       else{
         if (this.currentStatus == 'employee'){
@@ -457,7 +439,6 @@ export class ObjectiveSetComponent {
         //   !obj.performanceText?.trim() ||
         //   !obj.achievedText?.trim()
         // ) {
-        //   console.log(obj)
         //   alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
         //   return false;
         // }
@@ -537,7 +518,6 @@ export class ObjectiveSetComponent {
       return item;
     });
 
-    console.log(processedObjectives);
 
     const param =
       this.mode === 'approver'
@@ -560,7 +540,6 @@ export class ObjectiveSetComponent {
 
     this.kpi.saveKpi(obj).subscribe({
       next: (response) => {
-        console.log('KPI saved successfully:', response);
         this.onCancel();
       },
       error: (error) => {
@@ -615,7 +594,6 @@ export class ObjectiveSetComponent {
               objective_id: item.objective_id,
             }))
           );
-          console.log("this.changedObjHistory : ",this.changedObjHistory);
           this.openChangedObjectiveHistory(i);
         },
         (error) => {
@@ -632,7 +610,7 @@ export class ObjectiveSetComponent {
 
 
   openPerformanceHistory(obj: any,i:any) {
-    console.log(obj)
+
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-performance-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
       .subscribe(async res => {
           let history = res?.['changed-performance-history'] || [];
@@ -652,7 +630,7 @@ export class ObjectiveSetComponent {
   }
 
   openAchievedHistory(obj: any,i:any) {
-    console.log(obj)
+
     this.kpi.getLogData({userIdKPI:this.userId,param: 'changed-achieved-history',objectId:obj.id,parameter:this.team,pid:this.year,extraParam:obj.selectedTypeDb})
       .subscribe( async res => {
           let history = res?.['changed-achieved-history'] || [];
@@ -730,7 +708,6 @@ export class ObjectiveSetComponent {
       .subscribe(async res => {
           this.objOverallRating = Array.isArray(res?.['get_overAllRating']) ? await this.cryptoService.decrypt(res?.['get_overAllRating'][0].over_all_rating) : await this.cryptoService.decrypt(res?.['get_overAllRating'][0].over_all_rating)
 
-          console.log("this.objOverallRating : ",this.objOverallRating);
           if(this.isBack){
             this.objOverallRating=this.oldOverallRating;
           }

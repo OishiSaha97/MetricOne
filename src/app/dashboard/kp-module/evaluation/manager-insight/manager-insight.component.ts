@@ -44,29 +44,6 @@ export class ManagerInsightComponent {
 
   ngOnInit(): void {
 
-    console.log(this.currentStatus)
-    // this.kpi.getLogData({param: 'evalution-manager-insight-kpi-list',objectId:this.userData.user_id,parameter:this.userData.team,pid:this.userData.year,extraParam:this.userData.id})
-    //   .subscribe(res => {
-    //       this.data = Array.isArray(res?.['evalution-manager-insight-kpi-list']) ? res?.['evalution-manager-insight-kpi-list'] : res?.['evalution-manager-insight-kpi-list']
-    //       const mapFields: any = {
-    //         "MANAGER’S COMMENT": "managers_comment",
-    //         "OVERALL PERFORMANCE": "overall_performance",
-    //         "PROPOSED INCREMENT": "proposed_increment"
-    //       };
-    //
-    //       this.objectives = this.objectives.map(obj => ({
-    //         ...obj,
-    //         objectiveText: this.data[mapFields[obj.name]] || ''
-    //       }));
-    //       console.log("this.objectives : ", this.objectives);
-    //     },
-    //     (error) => {
-    //       console.error("Error fetching permission list", error);
-    //     }
-    //
-    //   );
-
-
     if (this.onNexts == true){
       if(this.savedManagerData && this.savedManagerData.length>0){
         this.objectives = this.objectives.map((obj, index) => ({
@@ -110,7 +87,6 @@ export class ManagerInsightComponent {
         }))
         );
 
-        console.log("Updated objectives:", this.objectives);
       },
       (error) => {
         console.error(" Error fetching manager insight:", error);
@@ -137,7 +113,6 @@ export class ManagerInsightComponent {
       return;
     }
     this.dataSubmitted.emit(this.objectives);
-    console.log(this.objectives);
   }
   onNext(){
     this.backdataSubmitted.emit(this.objectives);

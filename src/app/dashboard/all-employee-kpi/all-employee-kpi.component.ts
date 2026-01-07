@@ -227,7 +227,6 @@ export class AllEmployeeKPIComponent {
           this.pagination.paramOffset=offset
           this.userList = res.result['content'];
           this.userList = res.result['content'];
-        //console.log(this.userList[0].stage)
            if(this.userList[0].stage == 'evaluation'){
               this.choosedOption = "Evaluation KPI settings";
            }else{

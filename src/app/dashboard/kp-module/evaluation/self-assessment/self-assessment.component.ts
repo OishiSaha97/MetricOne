@@ -77,7 +77,6 @@ export class SelfAssessmentComponent {
     this.userId = this.cookieService.getCookie('username');
     this.userName = this.cookieService.getCookie('fullName');
     this.token = this.cookieService.getCookie('token');
-    console.log("is back :", this.isBack)
 
     if(this.onNexts == true){
       this.objectives = this.savedselfData.map((obj:Objective, index:number) => ({
@@ -139,7 +138,6 @@ export class SelfAssessmentComponent {
       return;
     }
     this.dataSubmitted.emit(this.objectives);
-    console.log(this.objectives)
   }
 
   submitDataDraft() {
@@ -168,17 +166,8 @@ export class SelfAssessmentComponent {
         return false;
       }
 
-      //
-        // if ((this.currentStatus == 'employee') &&
-        //   !obj.selfText?.trim()
-        // ) {
-        //   console.log(obj)
-        //   alert(`Please fill all fields for ${obj.title || 'Objective ' + (i + 1)}`);
-        //   return false;
-        // }
       }
 
-    // }
 
     return !hasError;
   }
