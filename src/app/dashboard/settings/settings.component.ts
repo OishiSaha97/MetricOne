@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Inject, Input, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, TemplateRef, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../common-service.service";
 import {DOCUMENT} from "@angular/common";
 import {CookiesService} from "../cookies.service";
+import {HomeComponent} from "../home/home.component";
 
 declare var $: any;
 @Component({
@@ -117,7 +118,7 @@ export class SettingsComponent {
   getProceedButton($event: any) {
     this.showProceedButton = $event;
   }
-
+  @ViewChild(HomeComponent) homeComp!: HomeComponent;
   onActive() {
     const formattedDate =  this.selectedDate || '';
     const formData = new FormData();
@@ -133,9 +134,10 @@ export class SettingsComponent {
         if (this.modalRef) {
           this.modalRef.hide();
           this.requestEmitter.emit(true);
+          // this.homeComp.checkEndDate();
         }
         this.bsModalRef.hide();
-
+        this.homeComp.checkEndDate();
       },
       error: (error) => {
 

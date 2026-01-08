@@ -50,9 +50,9 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   onDateSelected(date: Date): void {
     this.selectedDate = date;
+    console.log('Selected date object:', date);
     // Convert to YYYY-MM-DD string
-    const dateStr = date.toISOString().split('T')[0];
-    console.log('Date selected from date-picker:', dateStr);
+    const dateStr = date.toLocaleDateString('en-CA');
     this.onChange(date);
     this.onTouched();
     this.dateChange.emit(dateStr);
