@@ -1,0 +1,23 @@
+<div class="dropdown-container" >
+  <button (click)="toggleDropdown()" [disabled]="disabled">
+    {{ displayText }}
+  </button>
+
+  <div class="dropdown-list" *ngIf="isOpen">
+    <ul #ulElement>
+      <li
+        *ngFor="let option of options"
+        (click)="selectOption(option)"
+        [class.selected]="selectedOption?.value === option.value"
+        [class.disabled]="option.disabled"
+        style="text-align: center">
+
+        {{ option.label }}
+      </li>
+    </ul>
+    <div #scrollbarTrack class="custom-scrollbar" [class.show]="hasOverflow" (mousedown)="onTrackMousedown($event)">
+      <div #thumbElement class="thumb" (mousedown)="onThumbMousedown($event)"></div>
+    </div>
+  </div>
+</div>
+

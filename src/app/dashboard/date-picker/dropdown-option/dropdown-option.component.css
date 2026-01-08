@@ -1,0 +1,181 @@
+.dropdown-container {
+  --dropdown-font-family: var(--calendar-font-family, Arial, sans-serif);
+  /*--dropdown-max-width: 20rem;*/
+  /*--dropdown-min-width: 0rem;*/
+  --dropdown-button-padding: 4px 7px;
+  --dropdown-button-border: 1px solid #C6C5CA80;
+  --dropdown-button-border-radius: 6px;
+  --dropdown-button-bg: #33343C;
+  --dropdown-button-color: var(--day-cell-color, #333);
+  --dropdown-button-font-size: .8rem;
+  --dropdown-button-transition: border-color 0.3s ease;
+  --dropdown-button-hover-border-color: none;
+  --dropdown-button-hover-outline-color: none;
+  --dropdown-button-disabled-bg: #f5f5f5;
+  --dropdown-button-disabled-color: #999;
+  --dropdown-ul-border: 1px solid #999;
+  --dropdown-ul-bg:#33343C;
+  --dropdown-ul-border-radius: 6px;
+  --dropdown-ul-max-height: 200px;
+  /*--dropdown-ul-box-shadow: var(--calendar-box-shadow, 0 4px 6px rgba(0, 0, 0, 0.1));*/
+  --dropdown-li-padding: 10px 15px;
+  --dropdown-li-font-size: .8rem;
+  --dropdown-li-color: var(--day-cell-color, #333);
+  --dropdown-li-bg:#33343C;
+  --dropdown-li-transition: background-color 0.2s ease;
+  /*--dropdown-li-hover-bg: var(--day-cell-hover-bg, #e3f2fd);*/
+  --dropdown-li-selected-bg: rgba(100, 73, 190, 1);
+  --dropdown-li-selected-color: var(--day-cell-selected-color, white);
+  --dropdown-li-disabled-color: var(--day-cell-other-month-color, #ccc);
+
+  --scrollbar-width: 6px;
+  --scrollbar-track-bg: transparent;
+  --scrollbar-thumb-bg: #888;
+  --scrollbar-thumb-hover-bg: #555;
+  --thumb-min-height: 20px; /* Controls min height in non-reset mode */
+  --thumb-reset-height: 50px; /* Controls fixed height in reset mode */
+
+  position: relative;
+  width: 100%;
+  max-width: var(--dropdown-max-width);
+  min-width: var(--dropdown-min-width);
+  font-family: var(--dropdown-font-family);
+  text-align: center;
+  justify-content: center;
+}
+
+.dropdown-container button {
+  width: 100%;
+  padding: var(--dropdown-button-padding);
+  border: var(--dropdown-button-border);
+  border-radius: var(--dropdown-button-border-radius);
+  background-color: var(--dropdown-button-bg);
+  cursor: pointer;
+  outline: none;
+  /*text-align: left;*/
+  font-size: var(--dropdown-button-font-size);
+  color: var(--dropdown-button-color);
+  transition: var(--dropdown-button-transition);
+}
+
+.dropdown-container button:hover:not(:disabled) {
+  border-color: var(--dropdown-button-hover-border-color);
+  outline: none;
+}
+
+.dropdown-container button:disabled {
+  background-color: var(--dropdown-button-disabled-bg);
+  cursor: not-allowed;
+  color: var(--dropdown-button-disabled-color);
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--dropdown-ul-bg);
+  border: var(--dropdown-ul-border);
+  border-top: none;
+  border-bottom-left-radius: var(--dropdown-ul-border-radius);
+  border-bottom-right-radius: var(--dropdown-ul-border-radius);
+  max-height: var(--dropdown-ul-max-height);
+  z-index: 1000;
+  box-shadow: var(--dropdown-ul-box-shadow);
+  display: flex;
+}
+
+.dropdown-list ul {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.dropdown-list ul::-webkit-scrollbar {
+  display: none;
+}
+
+.dropdown-container li {
+  padding: var(--dropdown-li-padding);
+  cursor: pointer;
+  font-size: var(--dropdown-li-font-size);
+  color: var(--dropdown-li-color);
+  transition: var(--dropdown-li-transition);
+}
+
+.dropdown-container li:hover:not(.disabled) {
+  background-color: var(--dropdown-li-hover-bg);
+}
+
+.dropdown-container li.selected {
+  background-color: var(--dropdown-li-selected-bg);
+  color: var(--dropdown-li-selected-color);
+}
+
+.dropdown-container li.disabled {
+  color: var(--dropdown-li-disabled-color);
+  cursor: not-allowed;
+}
+
+/* Container scrollbar */
+.custom-scrollbar {
+  position: relative;
+  width: var(--scrollbar-width, 6px); /* Narrower scrollbar width */
+  background: var(--scrollbar-track-bg, #f0f0f0); /* Track background color */
+  display: none;
+}
+
+/* Show scrollbar */
+.custom-scrollbar.show {
+  display: block;
+}
+
+/* Webkit browsers (Chrome, Edge, Safari) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: var(--scrollbar-width, 6px);       /* Narrow width */
+  background: var(--scrollbar-track-bg, #f0f0f0); /* Track color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-bg, #888); /* Thumb color */
+  border-radius: 4px;                               /* Rounded edges */
+  min-height: var(--thumb-min-height, 20px);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover-bg, #555); /* Thumb hover color */
+}
+
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;        /* Thin scrollbar */
+  scrollbar-color: #888 #f0f0f0; /* thumb color | track color */
+}
+
+
+.thumb {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: var(--thumb-height); /* Dynamic mode uses this var (set in TS) */
+  background: var(--scrollbar-thumb-bg);
+  top: 0;
+  transition: background 0.2s;
+  cursor: grab;
+}
+
+.thumb.reset-mode {
+  height: var(--thumb-reset-height); /* Fixed reset mode height controlled here */
+}
+
+.thumb:hover {
+  background: var(--scrollbar-thumb-hover-bg);
+}
+
+.thumb:active {
+  cursor: grabbing;
+}
