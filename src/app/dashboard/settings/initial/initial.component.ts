@@ -18,6 +18,7 @@ export class InitialComponent {
   @Input() mode: any;
   selectedDate: string | null = null;
   selectedDateEva: string | null = null;
+  kpi_last_date: Date | null = null;
   @Output() selectedDates: EventEmitter<string | null> = new EventEmitter<string | null>();
   @Output() selectedDatesEva: EventEmitter<string | null> = new EventEmitter<string | null>();
   totalEmloyee: any;
@@ -81,12 +82,13 @@ export class InitialComponent {
       .subscribe(res => {
         if(this.tabs==='evaluation'){
           this.resData = res?.['EvaEndDate'][0] || [];
+          this.kpi_last_date = this.resData.kpi_last_date;
           this.selectedDateEva = this.formatDateForInput(this.resData.kpi_last_date);
           this.selectedDatesEva.emit(this.selectedDateEva);
         }
         else{
           this.resData = res?.['KPIendDate'][0] || [];
-
+          this.kpi_last_date = this.resData.kpi_last_date;
           this.selectedDate = this.formatDateForInput(this.resData.kpi_last_date);
           this.selectedDates.emit(this.selectedDate);
         }

@@ -118,7 +118,6 @@ export class SettingsComponent {
   getProceedButton($event: any) {
     this.showProceedButton = $event;
   }
-  @ViewChild(HomeComponent) homeComp!: HomeComponent;
   onActive() {
     const formattedDate =  this.selectedDate || '';
     const formData = new FormData();
@@ -127,17 +126,13 @@ export class SettingsComponent {
     formData.append('date', formattedDate);
     formData.append('forDate', 'initiation');
 
-    console.log('Submitting EndDate:', formData);
     this.kpi.saveEndDate(formData).subscribe({
       next: (response) => {
-        // this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
         if (this.modalRef) {
           this.modalRef.hide();
           this.requestEmitter.emit(true);
-          // this.homeComp.checkEndDate();
         }
         this.bsModalRef.hide();
-        this.homeComp.checkEndDate();
       },
       error: (error) => {
 
@@ -154,13 +149,11 @@ export class SettingsComponent {
 
     this.kpi.saveEvaEndDate(formData).subscribe({
       next: (response) => {
-        // this.finalApproverSelected.emit({'username': approverId, 'full_name': name});
         if (this.modalRef) {
           this.modalRef.hide();
           this.requestEmitter.emit(true);
         }
         this.bsModalRef.hide();
-
       },
       error: (error) => {
 

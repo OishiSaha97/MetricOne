@@ -26,21 +26,9 @@
            [disabled]="timePeriod==='initiation_expired' || timePeriod==='evaluation' || timePeriod==='evaluation_expired' "
            [minDate]="today"
            [maxDate]="maxDate"
-           [selectedDate]="resData.kpi_last_date"
+           [selectedDate]="kpi_last_date"
            (dateChange)="onDateSelected($event)"
          ></app-date-picker>
-<!--         <input-->
-<!--           type="date"-->
-<!--           id="dateInput"-->
-<!--           [(ngModel)]="selectedDate"-->
-<!--           (change)="onDateSelect()"-->
-<!--           class="custom-date-input"-->
-<!--           [disabled]="timePeriod==='initiation_expired' || timePeriod==='evaluation' || timePeriod==='evaluation_expired' "-->
-<!--           [min]="today"-->
-<!--           [max]="(today | date:'yyyy') + '-12-31'"-->
-
-<!--         />-->
-<!--         <span class="calendar-icon"></span>-->
        </div>
        <div class="date-input-container date-input" *ngIf="tabs === 'evaluation'">
 
@@ -49,10 +37,9 @@
            [disabled]="timePeriod === 'evaluation_expired'"
            [minDate]="today"
            [maxDate]="maxDate"
-           [selectedDate]="resData.kpi_last_date"
+           [selectedDate]="kpi_last_date"
            (dateChange)="onDateSelected($event)"
          ></app-date-picker>
-<!--         <span class="calendar-icon"></span>-->
        </div>
 
      </div>
