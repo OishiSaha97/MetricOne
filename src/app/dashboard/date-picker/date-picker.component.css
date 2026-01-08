@@ -1,0 +1,101 @@
+.custom-date-input {
+  /*position: relative;*/
+  /*display: inline-block;*/
+  background-color: #33343C;
+  border: 1px solid #C6C5CA80;
+  color: #FFFFFF80;
+  border-radius: 4px;
+  padding: 0px 28px 0px 0px;
+  font-size: 14px;
+  width: 166px;
+  height: 34px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.custom-date-input:focus {
+  border-color: #00B2B1;
+}
+/* ================= DATE PICKER CONTAINER ================= */
+.date-picker {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+}
+
+/* ================= INPUT FIELD ================= */
+.picker-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: #33343C;
+  height: 31px;
+  color: #aaa;
+}
+
+.picker-input:hover:not(.disabled) {
+  border: none;
+  outline: none;
+}
+
+.picker-input:focus {
+  outline: none;
+  border: none;
+}
+
+.picker-input::placeholder {
+  color: #aaa;
+}
+
+.picker-input.disabled {
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+  color: #999;
+}
+.calendar-icon {
+  position: absolute;
+  right: 0px;
+  top: 47%;
+  transform: translateY(-50%);
+  height: 25px;
+  width: 30px;
+  background: url("src/assets/calender.svg") center center no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  pointer-events: auto;
+  scale: 0.7;
+  z-index: 5;
+}
+
+/* ================= CALENDAR OVERLAY ================= */
+.date-picker app-calendar {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 1000;
+
+  min-width: 280px;
+
+}
+
+/* ================= RESPONSIVE ADJUSTMENTS ================= */
+/* If the date-picker is near the right edge, align calendar to the right */
+.date-picker.align-right app-calendar {
+  left: auto;
+  right: 0;
+}
+
+/* ================= OPTIONAL: FULL WIDTH VARIANT ================= */
+.date-picker.full-width {
+  width: 100%;
+  display: block;
+}
+
+.date-picker.full-width app-calendar {
+  /* Keep calendar at fixed width even if input is full-width */
+  min-width: 280px;
+  max-width: 320px;
+}

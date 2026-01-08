@@ -1,0 +1,65 @@
+<div class="calendar-container" (click)="$event.stopPropagation()">
+  <div class="header">
+    <span>Select date</span>
+  </div>
+
+
+
+  <div class="selected-date">
+    {{ getSelectedDay() || 'Select a date' }}
+  </div>
+
+  <div class="month-year-controls">
+    <div class="dropdowns">
+      <app-dropdown-option
+        [options]="monthOptions"
+        [selectedValue]="currentMonth"
+        (selectionChange)="onMonthChange($event)"
+        [resetThumbToCenter]="false"
+        minWidth="6rem"
+      >
+
+      </app-dropdown-option>
+      <app-dropdown-option
+        [options]="yearOptions"
+        [selectedValue]="currentYear"
+        (selectionChange)="onYearChange($event)"
+        [resetThumbToCenter]="true"
+        minWidth="5rem">
+
+      </app-dropdown-option>
+    </div>
+
+    <div class="nav-buttons">
+      <button (click)="prevMonth()" type="button" class="btn-nav">&lt;</button>
+      <button (click)="nextMonth()" type="button" class="btn-nav">&gt;</button>
+    </div>
+  </div>
+
+  <div class="days-header">
+    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+  </div>
+
+  <div class="calendar-grid">
+    <div *ngFor="let week of weeks" class="week">
+      <button
+        *ngFor="let day of week"
+        type="button"
+        class="day-cell"
+        [class.selected]="isDaySelected(day)"
+        [class.other-month]="day.type !== 'current'"
+        [class.disabled]="isDateDisabled(day)"
+        [disabled]="isDateDisabled(day)"
+        (click)="selectDate(day)">
+        {{ day.day }}
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button (click)="cancel()" class="btn-flat" type="button">Cancel</button>
+    <button (click)="confirm()" class="btn-flat primary" type="button">OK</button>
+  </div>
+</div>
+
+

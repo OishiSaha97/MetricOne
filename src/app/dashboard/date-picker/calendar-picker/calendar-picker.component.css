@@ -1,0 +1,242 @@
+:root {
+  /*--calendar-bg-color: #1e1e1e;*/
+}
+
+.calendar-container {
+  --calendar-width: 17rem;
+  --calendar-padding: 12px;
+
+  --calendar-border-radius: 8px;
+  --calendar-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --calendar-font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --header-font-size: 13px;
+  --header-text-transform: uppercase;
+  --header-letter-spacing: 0.5px;
+  --header-color: #a0a0a0;
+  --header-margin-bottom: 2px;
+
+  --selected-date-font-size: 15px;
+  --selected-date-font-weight: 600;
+  --selected-date-margin-bottom: 0px;
+  --selected-date-color: #6449BEFF;
+  --selected-date-min-height: 28px;
+
+  --controls-gap: 6px;
+  --controls-margin-bottom: 10px;
+
+  --dropdowns-gap: 6px;
+
+  --nav-buttons-gap: 3px;
+  --nav-button-padding: 4px 8px;
+  --nav-button-border: 1px solid #333333;
+  --nav-button-border-radius: 4px;
+  --nav-button-bg: #2a2a2a;
+  --nav-button-color: #dddddd;
+  --nav-button-font-weight: bold;
+  --nav-button-font-size: .8rem;
+  --nav-button-transition: all 0.2s;
+  --nav-button-hover-bg: #3a3a3a;
+  --nav-button-hover-border-color: #444444;
+
+  --days-header-margin-bottom: 6px;
+  --days-header-font-weight: 600;
+  --days-header-color: #bbbbbb;
+  --days-header-font-size: 12px;
+
+  --calendar-grid-gap: 2px;
+
+  --week-gap: 2px;
+
+  --day-cell-color: #eeeeee;              /* Available days – cool blue-gray */
+  --day-cell-other-month-color: #999999;  /* Other month – muted gray */
+  --day-cell-disabled-color: 		#555555;  /* Disabled days – neutral, subdued */
+
+
+
+  --day-cell-font-size: .8rem;
+
+  --day-cell-transition: background 0.2s, color 0.2s;
+  --day-cell-hover-bg: #333333;
+  --day-cell-hover-color: #947BE7FF;
+  --day-cell-selected-bg: #6449BEFF;
+  --day-cell-selected-color: #ffffff;
+  --day-cell-selected-font-weight: bold;
+
+
+  --day-cell-disabled-bg: transparent;
+
+  --footer-gap: 8px;
+  --footer-margin-top: 10px;
+  --footer-padding-top: 10px;
+  --footer-border-top: 1px solid #333333;
+
+  --btn-flat-padding: 6px 12px;
+  --btn-flat-border-radius: 4px;
+  --btn-flat-font-size: 10px;
+  --btn-flat-font-weight: 600;
+  --btn-flat-text-transform: uppercase;
+  --btn-flat-color: #bbbbbb;
+  --btn-flat-transition: background 0.2s;
+  --btn-flat-hover-bg: #3a3a3a;
+  --btn-flat-primary-color: #947BE7FF;
+  --btn-flat-primary-hover-bg: #2a3a4a;
+
+  width: var(--calendar-width);
+  padding: var(--calendar-padding);
+  background: #2d2828;
+  border-radius: var(--calendar-border-radius);
+  box-shadow: var(--calendar-box-shadow);
+  font-family: var(--calendar-font-family);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  font-size: var(--header-font-size);
+  text-transform: var(--header-text-transform);
+  letter-spacing: var(--header-letter-spacing);
+  color: var(--header-color);
+  margin-bottom: var(--header-margin-bottom);
+}
+
+.selected-date {
+  font-size: var(--selected-date-font-size);
+  font-weight: var(--selected-date-font-weight);
+  margin-bottom: var(--selected-date-margin-bottom);
+  color: var(--selected-date-color);
+  min-height: var(--selected-date-min-height);
+
+}
+
+.month-year-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--controls-gap);
+  margin-bottom: var(--controls-margin-bottom);
+}
+
+.dropdowns {
+  display: flex;
+  gap: var(--dropdowns-gap);
+  flex: 1;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: var(--nav-buttons-gap);
+}
+
+.btn-nav {
+  padding: var(--nav-button-padding);
+  border: var(--nav-button-border);
+  border-radius: var(--nav-button-border-radius);
+  background: var(--nav-button-bg);
+  cursor: pointer;
+  color: var(--nav-button-color);
+  font-weight: var(--nav-button-font-weight);
+  font-size: var(--nav-button-font-size);
+  transition: var(--nav-button-transition);
+}
+
+.btn-nav:hover {
+  background: var(--nav-button-hover-bg);
+  border-color: var(--nav-button-hover-border-color);
+}
+
+.days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: var(--days-header-margin-bottom);
+  text-align: center;
+  font-weight: var(--days-header-font-weight);
+  color: var(--days-header-color);
+  font-size: var(--days-header-font-size);
+}
+
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--calendar-grid-gap);
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--week-gap);
+}
+
+.day-cell {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  font-size: var(--day-cell-font-size);
+  color: var(--day-cell-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--day-cell-transition);
+  outline: none;
+}
+
+.day-cell:hover:not(.selected):not(.disabled) {
+  background: var(--day-cell-hover-bg);
+  color: var(--day-cell-hover-color);
+}
+
+.day-cell.selected {
+  background: var(--day-cell-selected-bg) !important;
+  color: var(--day-cell-selected-color) !important;
+  font-weight: var(--day-cell-selected-font-weight);
+}
+
+.day-cell.other-month {
+  color: var(--day-cell-other-month-color);
+}
+
+.day-cell.disabled {
+  color: var(--day-cell-disabled-color) !important;
+  background: var(--day-cell-disabled-bg) !important;
+  cursor: default !important;
+  text-decoration: none;
+  opacity: 1;
+}
+
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--footer-gap);
+  margin-top: var(--footer-margin-top);
+  padding-top: var(--footer-padding-top);
+  border-top: var(--footer-border-top);
+}
+
+.btn-flat {
+  padding: var(--btn-flat-padding);
+  border: none;
+  background: none;
+  border-radius: var(--btn-flat-border-radius);
+  cursor: pointer;
+  font-size: var(--btn-flat-font-size);
+  font-weight: var(--btn-flat-font-weight);
+  text-transform: var(--btn-flat-text-transform);
+  color: var(--btn-flat-color);
+  transition: var(--btn-flat-transition);
+}
+
+.btn-flat:hover {
+  background: var(--btn-flat-hover-bg);
+}
+
+.btn-flat.primary {
+  color: var(--btn-flat-primary-color);
+}
+
+.btn-flat.primary:hover {
+  background: var(--btn-flat-primary-hover-bg);
+}

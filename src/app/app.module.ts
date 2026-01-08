@@ -44,6 +44,9 @@ import { SelfAssessmentComponent } from './dashboard/kp-module/evaluation/self-a
 import { HrModalComponent } from './dashboard/kp-module/evaluation/hr-modal/hr-modal.component';
 import { ClickOutsideDirective } from './shared/click-outside.directive';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { DatePickerComponent } from './dashboard/date-picker/date-picker.component';
+import {CalendarPickerComponent} from "./dashboard/date-picker/calendar-picker/calendar-picker.component";
+import {DropdownOptionComponent} from "./dashboard/date-picker/dropdown-option/dropdown-option.component";
 
 @NgModule({
   declarations: [
@@ -74,7 +77,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
     SelfAssessmentComponent,
     HrModalComponent,
     ClickOutsideDirective,
-    NotFoundComponent
+    NotFoundComponent,
+    DatePickerComponent,
+    CalendarPickerComponent,
+    DropdownOptionComponent
   ],
   imports: [
     BrowserModule,

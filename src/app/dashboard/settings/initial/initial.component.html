@@ -21,70 +21,48 @@
          {{ 'End Date:'  }}
        </div>
        <div class="date-input-container date-input " *ngIf="tabs === 'initiation'">
-         <input
-           type="date"
-           id="dateInput"
-           [(ngModel)]="selectedDate"
-           (change)="onDateSelect()"
-           class="custom-date-input"
+         <app-date-picker
+           style="z-index:1"
            [disabled]="timePeriod==='initiation_expired' || timePeriod==='evaluation' || timePeriod==='evaluation_expired' "
-           [min]="today"
-           [max]="(today | date:'yyyy') + '-12-31'"
+           [minDate]="today"
+           [maxDate]="maxDate"
+           [selectedDate]="resData.kpi_last_date"
+           (dateChange)="onDateSelected($event)"
+         ></app-date-picker>
+<!--         <input-->
+<!--           type="date"-->
+<!--           id="dateInput"-->
+<!--           [(ngModel)]="selectedDate"-->
+<!--           (change)="onDateSelect()"-->
+<!--           class="custom-date-input"-->
+<!--           [disabled]="timePeriod==='initiation_expired' || timePeriod==='evaluation' || timePeriod==='evaluation_expired' "-->
+<!--           [min]="today"-->
+<!--           [max]="(today | date:'yyyy') + '-12-31'"-->
 
-         />
-<!--        [min]="today"  [disabled]="timePeriod==='evaluation'"-->
-         <span class="calendar-icon"></span>
+<!--         />-->
+<!--         <span class="calendar-icon"></span>-->
        </div>
-       <div class="date-input-container date-input " *ngIf="tabs === 'evaluation'">
-         <input
-           type="date"
-           id="dateInputEva"
-           [(ngModel)]="selectedDateEva"
-           (change)="onDateSelect()"
-           class="custom-date-input"
-           [disabled]="timePeriod==='evaluation_expired'"
-           [min]="today"
-           [max]="(today | date:'yyyy') + '-12-31'"
-         />
-         <span class="calendar-icon"></span>
+       <div class="date-input-container date-input" *ngIf="tabs === 'evaluation'">
+
+         <app-date-picker
+           style="z-index:1"
+           [disabled]="timePeriod === 'evaluation_expired'"
+           [minDate]="today"
+           [maxDate]="maxDate"
+           [selectedDate]="resData.kpi_last_date"
+           (dateChange)="onDateSelected($event)"
+         ></app-date-picker>
+<!--         <span class="calendar-icon"></span>-->
        </div>
+
      </div>
 
      <div>
-<!--       <div>-->
-<!--         <div class="d-flex justify-content-end gap-2 p-3">-->
-<!--           <button class="btn active-btn"-->
-<!--                   [disabled]="!selectedDate"-->
-<!--                   [ngClass]="{ 'disabled-active-btn': !selectedDate }"-->
-<!--                   (click)="onActive()"-->
-<!--           >Active</button>-->
-<!--           <button class="btn close-btn"-->
-<!--                   [disabled]="!selectedDate"-->
-<!--                   [ngClass]="{ 'disabled-close-btn': !selectedDate }"-->
-<!--                   (click)="closePopup()"-->
-<!--           >Close</button>-->
-<!--         </div>-->
-<!--       </div>-->
+
      </div>
 
    </div>
-<!--   <div *ngIf="mode==='edit' && tabs === 'initiation'">-->
-<!--     <div class="d-flex justify-content-start gap-3" style="font-size: 12px;padding-left: 28px;" >-->
-<!--       <div>-->
-<!--         <span style="color:#AD94FF">Total Employee:</span><span style="color: white"> {{ totalEmloyee }}</span>-->
-<!--       </div>-->
-<!--       <div>-->
-<!--         <span style="color:#AD94FF">KPI Ongoing:</span><span style="color: white"> {{ totalEmloyee }}</span>-->
-<!--       </div>-->
-<!--       <div>-->
-<!--         <span style="color:#AD94FF">Pending Manager Review:</span><span style="color: white"> {{ totalEmloyee }}</span>-->
-<!--       </div>-->
-<!--       <div>-->
-<!--         <span style="color:#AD94FF">Completed:</span><span style="color: white"> {{ completed }}</span>-->
-<!--       </div>-->
 
-<!--     </div>-->
-<!--   </div>-->
    <div *ngIf="mode==='edit' && tabs === 'evaluation'">
      <div class="d-flex justify-content-start gap-3" style="font-size: 12px;padding-left: 28px;" >
 

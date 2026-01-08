@@ -1,8 +1,11 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {BsDatepickerConfig} from "ngx-bootstrap/datepicker";
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {CommonServiceService} from "../../common-service.service";
 import {CookiesService} from "../../cookies.service";
+import flatpickr from "flatpickr";
+
+
 
 @Component({
   selector: 'app-initial',
@@ -11,7 +14,7 @@ import {CookiesService} from "../../cookies.service";
 })
 export class InitialComponent {
   bsConfig?: Partial<BsDatepickerConfig>;
-  today: any;
+  today: Date = new Date();
   @Input() mode: any;
   selectedDate: string | null = null;
   selectedDateEva: string | null = null;
@@ -25,15 +28,16 @@ export class InitialComponent {
    dashBoardData: any;
     completed: any;
    showProceedButton: boolean = false;
-
+  private evaCalendar: any;
+  maxDate!: Date;
   constructor(public bsModalRef: BsModalRef,
               private kpi: CommonServiceService,
               public cookieService: CookiesService) {}
   ngOnInit() {
     this.userId = this.cookieService.getCookie('username');
     this.timePeriod = this.cookieService.getCookie('timePeriod');
-    console.log("timeperiod in initial component:", this.timePeriod);
     this.today = new Date();
+    this.maxDate = new Date(this.today.getFullYear(), 11, 31);
     this.bsConfig = {
       adaptivePosition: false,
       containerClass: 'theme-default bs-datepicker-top',
@@ -46,8 +50,8 @@ export class InitialComponent {
     if(this.mode=='edit'){
       this.getData();
     }
-      const now = new Date();
-      this.today = now.toISOString().split('T')[0];  // yyyy-mm-dd
+      // const now = new Date();
+      // this.today = now.toISOString().split('T')[0];  // yyyy-mm-dd
 
   }
   @Output() showProceed = new EventEmitter<any>();
@@ -136,6 +140,17 @@ export class InitialComponent {
     else{
       this.selectedDates.emit(this.selectedDate);
     }
+
+  }
+
+  onDateSelected(date: string | null){
+    if(this.tabs === 'evaluation'){
+      this.selectedDatesEva.emit(date);
+    }
+    else{
+      this.selectedDates.emit(date);
+    }
+    // this.selectedDateEva = date;
 
   }
 

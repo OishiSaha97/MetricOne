@@ -1,0 +1,25 @@
+<div class="custom-date-input">
+  <input
+    type="text"
+    [value]="displayText"
+    [placeholder]="placeholder"
+    [disabled]="disabled || isDisabled"
+    readonly
+    (click)="!disabled && toggleCalendar($event)"
+    class="picker-input"
+    aria-label="Date picker input"
+    [attr.aria-expanded]="showCalendar"
+    aria-haspopup="dialog"
+  />
+  <app-calendar-picker
+    *ngIf="showCalendar"
+    [initialDate]="initialDate"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    (dateSelected)="onDateSelected($event)"
+    (close)="showCalendar = false">
+
+  </app-calendar-picker>
+  <span class="calendar-icon" (click)="!disabled && toggleCalendar($event)"></span>
+
+</div>
