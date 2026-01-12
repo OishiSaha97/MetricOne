@@ -94,7 +94,7 @@ export class KpiFormComponent implements OnInit {
   attributeType: any = [];
   changedTargetHistory: any = [];
   changedPerformanceHistory: any = [];
-  year:string='2025';
+  year: string = new Date().getFullYear().toString();
   userName:any;
   userId:any;
   mode:any
