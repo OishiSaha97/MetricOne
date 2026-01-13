@@ -110,7 +110,7 @@ export class ObjectiveSetComponent {
   changedObjHistory: any = [];
   attributeType: any = [];
   changedTargetHistory: any = [];
-  year:string='2025';
+  year: string = new Date().getFullYear().toString();
   userName:any;
   userId:any;
   mode:any
