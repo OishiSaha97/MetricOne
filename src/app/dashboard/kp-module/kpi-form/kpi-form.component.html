@@ -217,7 +217,7 @@
                       [(ngModel)]="obj.objectiveText"
                       placeholder="Enter objective..."
                       (keydown)="blockTyping($event,obj)"
-                      [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingObjective">
+                      [readonly]="(mode === 'approver' && !obj.addedByApprover && !obj.isEditingObjective) || kpiStatus === 'Submitted'">
                     </textarea>
 
                     <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.objectiveText">
@@ -285,7 +285,7 @@
                       [(ngModel)]="obj.performanceText"
                       placeholder="Enter Performance..."
                       (keydown)="blockTyping($event,obj)"
-                      [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingPerformance">
+                      [readonly]="(mode === 'approver' && !obj.addedByApprover && !obj.isEditingPerformance) || kpiStatus === 'Submitted'">
                     </textarea>
 
                     <small class="text-danger" style="font-size: 11px;" *ngIf="objectiveErrors[i]?.performanceText">
@@ -350,7 +350,7 @@
                         [(ngModel)]="obj.targetText"
                         placeholder="Enter target..."
                         (keydown)="blockTyping($event, obj)"
-                        [readonly]="mode === 'approver' && !obj.addedByApprover && !obj.isEditingTarget">
+                        [readonly]="(mode === 'approver' && !obj.addedByApprover && !obj.isEditingTarget) || kpiStatus === 'Submitted'">
                       </textarea>
 
                       <p style="font-size: 10px;">Please set the target based on the following measurements: Numeric, Percentage, Monitory, Ratio or Time</p>
