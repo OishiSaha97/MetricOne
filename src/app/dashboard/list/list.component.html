@@ -91,6 +91,7 @@
 
           <td style="cursor:pointer;position: relative;">
             <span *ngIf="user.hieCount > 0"
+                  style="top: 8px;"
                   class="text-white dropdown"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -100,7 +101,7 @@
               <ul style="color: #fff;">{{ user.hieCount }}</ul>
             </span>
             <span *ngIf="user.hieCount <= 0"
-                  class="text-white dropdown"
+                  class="text-white dropdown" style="top: 8px;"
                   role="button">
               <ul style="color: #fff;">{{ user.hieCount }}</ul>
             </span>
@@ -168,68 +169,7 @@
               </div>
             </div>
 
-
           </td>
-
-
-<!--          <td style="cursor:pointer;position: relative;">-->
-<!--            <div class="dropdown" style="position: relative;">-->
-<!--              <span-->
-<!--                class="text-white"-->
-<!--                role="button"-->
-<!--                (click)="user.hieCount>0 ? openHierarchy(user, $event,i): ''">-->
-<!--                <ul style="color:#fff;">{{ user.hieCount }}</ul>-->
-<!--              </span>-->
-
-<!--              <div #dropdownMenu class="dropdown-menu hierarchy-dropdown dropdown-options p-4"-->
-<!--                   [class.show]="openHierarchyIndex === i">-->
-<!--                <div style="font-size:16px; color:white; font-weight:bold;">Hierarchy</div>-->
-<!--                <div class="w-100">-->
-<!--                  <div *ngFor="let u of fullHierarchy" >-->
-<!--                    <div style="font-size:14px; color:white; display:flex; justify-content:space-between; align-items:center;">-->
-<!--                      <span>{{ u.user_name }}</span>-->
-<!--                      <span-->
-<!--                        [style.color]="u.status === 'Pending' ? 'yellow' : (u.status === 'Approved' ? 'lightgreen' : 'white')"-->
-<!--                          >-->
-<!--                        {{ u.status }}-->
-<!--                      </span>-->
-<!--                    </div>-->
-<!--                    <div class="dropdown-divider"></div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-
-
-<!--          </td>-->
-<!--          <td style="cursor:pointer;position: relative;">-->
-<!--            <div class="dropdown" style="position: relative;">-->
-<!--             <span-->
-<!--             class="text-white"-->
-<!--             role="button"-->
-<!--             (click)="user.remarks>0 ? openRemarks(user, $event,i): ''">-->
-<!--              {{ ( user.remarks ) }} <img src="../../../assets/comment.svg" />-->
-<!--            </span>-->
-<!--            <div #dropdownMenu [class.show]="openRemarksIndex === i"-->
-<!--                 class="dropdown-menu hierarchy-dropdown-remark dropdown-options p-4" style="font-size: 12px;">-->
-<!--              <div style="font-size: 16px; color: white; font-weight: bold; position: sticky; height: 48px;">-->
-<!--                Remarks-->
-<!--              </div>-->
-<!--              <div *ngFor="let note of remarkList">-->
-<!--                <div class="popup-meta">-->
-<!--                  <span class="common-purple"-->
-<!--                        [title]="note.created_by">-->
-<!--                          {{ note.created_by?.length > 15 ? (note.created_by | slice:0:15) + '...' : note.created_by }}-->
-<!--                        </span>-->
-<!--                  <span class="date" style="margin-left: 34px;">Date:{{note.created_at }}</span>-->
-<!--                </div>-->
-<!--                <p>{{note.obj_remark}}</p>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            </div>-->
-<!--          </td>-->
-
 
           <td class="text-center">
             <img src="../../../assets/clear-eye.svg" alt="actions"

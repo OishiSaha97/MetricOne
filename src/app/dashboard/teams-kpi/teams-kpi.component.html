@@ -94,6 +94,7 @@
             <span *ngIf="user.hieCount > 0"
               class="text-white dropdown"
               role="button"
+              style="top: 8px;"
               data-bs-toggle="dropdown"
               data-bs-display="static"
               aria-expanded="false"
@@ -101,7 +102,7 @@
               <ul style="color: #fff;">{{ user.hieCount }}</ul>
             </span>
             <span *ngIf="user.hieCount <= 0"
-              class="text-white dropdown"
+              class="text-white dropdown" style="top: 8px;"
               role="button">
               <ul style="color: #fff;">{{ user.hieCount }}</ul>
             </span>

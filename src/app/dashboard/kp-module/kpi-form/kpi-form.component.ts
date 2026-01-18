@@ -100,6 +100,7 @@ export class KpiFormComponent implements OnInit {
   mode:any
   team:any;
   kpiUserId:any;
+  kpiStatus:any;
   kpiId:any='';
   saveEmitter = new Subject<any>();
   approvalStatus:any;

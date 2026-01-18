@@ -298,7 +298,7 @@ export class AllEmployeeKPIComponent {
 
       const initialState = {
         kpiUserId: user.user_id,
-        status: user.status,
+        kpiStatus: user.status,
         team: user.team,
         name: user.name,
         year: user.year,

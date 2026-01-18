@@ -232,7 +232,7 @@ export class ListComponent {
 
         const initialState = {
           kpiUserId: user.user_id,
-          status: user.status,
+          kpiStatus: user.status,
           team: user.team,
           name: user.name,
           year: user.year,
@@ -266,36 +266,6 @@ export class ListComponent {
         });
       }
 
-      // else{
-      //   let view = false;
-      //   if((user.status ==="Published" ||user.status ==="Closed")  && !user.edit_permission){
-      //     view = false;
-      //   }
-      //   const initialState = {
-      //     kpiUserId: user.user_id,
-      //     status: user.status,
-      //     team: user.team,
-      //     name: user.name,
-      //     year: user.year,
-      //     kpiId: user.id,
-      //     approvalStatus: user.approval_status,
-      //     currentStatus:'employee',
-      //     view:view,
-      //     draftShow:true
-      //   };
-      //   this.modalRef = this.modalService.show(KpiFormComponent, {
-      //     backdrop: 'static',
-      //     keyboard: false,
-      //     class: 'modal-dialog modal-dialog-centered modal-max',
-      //     initialState: initialState
-      //   });
-      //
-      //   let dataLoader = this.modalRef.content.saveEmitter.subscribe((res:any) => {
-      //     this.loadData({});
-      //     dataLoader.unsubscribe();
-      //   });
-      //
-      // }
     }
 
 

@@ -102,6 +102,7 @@
                           type="text"
                           class="obj-input-weightage text-center"
                           [(ngModel)]="obj.weightage"
+                          [disabled]="kpiStatus === 'Published' || kpiStatus === 'Closed' || kpiStatus === 'Submitted'"
                           (keydown)="blockTyping($event,obj)"
                           (keydown)="blockDecimal($event)"
                         />
@@ -202,7 +203,7 @@
                   <hr>
                   <div>
                     <div>
-                      <label class="text-secondary small white-font">OBJECTIVE</label>
+                      <label class="text-secondary small white-font">OBJECTIVE*</label>
                       <div *ngIf="mode == 'approver' && !obj.addedByApprover && view !== 0">
                         <img src="../../../assets/fa-regular_edit.svg"
                              class="mb-1" style="scale:0.7"
@@ -269,7 +270,7 @@
 
                   <div>
                     <div>
-                      <label class="text-secondary small white-font">PERFORMANCE MEASURE</label>
+                      <label class="text-secondary small white-font">PERFORMANCE MEASURE*</label>
                       <div *ngIf="mode === 'approver' && !obj.addedByApprover && view !== 0">
                         <img src="../../../assets/fa-regular_edit.svg"
                              class="mb-1" style="scale:0.7"
@@ -335,7 +336,7 @@
 
                     <div class="col-md-12 col-sm-12 col-lg-12">
                       <div>
-                        <label class="text-secondary small white-font">TARGET</label>
+                        <label class="text-secondary small white-font">TARGET*</label>
                         <div *ngIf="mode === 'approver' && !obj.addedByApprover && view !== 0">
                           <img src="../../../assets/fa-regular_edit.svg"
                                class="mb-1" style="scale:0.7"
