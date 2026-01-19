@@ -74,6 +74,7 @@ export class EvaluationComponent {
   role: any = '';
   timePeriod:any = '';
   saveEmitter = new Subject<any>();
+  isClickable: boolean = true;
 
   constructor(public modalRef: BsModalRef,
               public revertModalRef: BsModalRef,
@@ -276,6 +277,7 @@ export class EvaluationComponent {
 
 
   async submitEmployee(type:any) {
+    this.isClickable = false;
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
@@ -331,6 +333,7 @@ export class EvaluationComponent {
         this.cancel();
       },
       error: (error: any) => {
+        this.isClickable =true;
         console.error('Error saving KPI:', error);
         this.cancel();
       }
@@ -339,6 +342,7 @@ export class EvaluationComponent {
   }
 
   async submitManager(type:any) {
+    this.isClickable = false;
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
@@ -420,10 +424,13 @@ export class EvaluationComponent {
 
     this.kpi.evaluationDataInsert(obj).subscribe({
       next: (response: any) => {
+
         this.saveEmitter.next({ action:'forward'});
         this.cancel();
+
       },
       error: (error: any) => {
+        this.isClickable = true;
         console.error('Error saving KPI:', error);
         this.cancel();
       }
@@ -432,7 +439,7 @@ export class EvaluationComponent {
 
 
   async submitHr(type:any) {
-
+    this.isClickable = false;
     let objectiveData;
     if(this.objectiveSet?.objectives){
       objectiveData = this.objectiveSet?.objectives;
@@ -536,6 +543,7 @@ export class EvaluationComponent {
         this.cancel();
       },
       error: (error: any) => {
+        this.isClickable =true;
         console.error('Error saving KPI:', error);
         this.cancel();
       }
