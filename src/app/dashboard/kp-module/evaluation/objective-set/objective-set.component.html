@@ -421,6 +421,7 @@
                     placeholder="Enter Achieved..."
                     (keydown)="blockTyping($event,obj)"
                     [readonly]="(currentStatus == 'manager' || currentStatus == 'hr') && !obj.isEditingAchieved"
+                    [disabled]=" userData.status === 'Closed'"
                     [ngStyle]="{opacity: !obj.isEditingAchieved ? 0.6 : 1}"
                   ></textarea>
 
@@ -477,6 +478,8 @@
                       [(ngModel)]="obj.achievedInt"
                       (keydown)="blockTyping($event,obj)"
                       (keydown)="blockDecimal($event)"
+                      [readonly]="this.view === 0"
+                      [disabled]=" userData.status === 'Closed'"
                       placeholder="Enter achieved..."
                       style="height: 41px;"
                     />
