@@ -231,7 +231,7 @@ export class ValuesComponentComponent {
 
   submitData() {
 
-    if (!this.validateObjectives()) {
+    if (this.view !== 0 && !this.validateObjectives()) {
       return;
     }
     const finalData = this.objectives.map((obj, index) => {

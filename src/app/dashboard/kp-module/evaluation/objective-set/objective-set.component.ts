@@ -132,6 +132,8 @@ export class ObjectiveSetComponent {
 
 
   ngOnInit(): void {
+    console.log("userData : ", this.userData);
+    console.log("view : ", this.view );
     for (let i = 1; i <= 3; i++) {
       this.addObjective();
     }
@@ -211,7 +213,7 @@ export class ObjectiveSetComponent {
   }
 
   submitData() {
-    if (!this.validateObjectives()) {
+    if (this.view !== 0 && !this.validateObjectives()) {
       return;
     }
     this.rateSubmit.emit(this.objOverallRating);

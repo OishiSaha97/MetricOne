@@ -148,7 +148,7 @@
 
 
 
-                      <div style="position: relative;">
+                      <div style="position: relative;" [class.readonly]="view === 0">
                         <div class="dropdown"
                              [class.disabled-dropdown]=" userData.status === 'Closed'"
                              *ngIf="['manager','hr','approver'].includes(currentStatus)">
@@ -157,11 +157,19 @@
                                   type="button"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
+                                  [attr.data-bs-toggle]="view === 0 ? null : 'dropdown'"
+                                  [ngStyle]="{
+                                  'pointer-events': view === 0 ? 'none' : 'auto',
+                                  'opacity': view === 0 ? 0.5 : 1
+                                }"
                                   [attr.disabled]=" userData.status === 'Closed' ? true : null"
                                   style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
                             {{ obj.rating ? (obj.rating.length > 12 ? (obj.rating | slice:0:12) + '...' : obj.rating) : 'Select' }}
                           </button>
                           <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
+                              [ngStyle]="{
+                                'pointer-events': view === 0 ? 'none' : 'auto'
+                              }"
                               style="background-color: #33343C;">
                             <li *ngFor="let type of ratings">
                               <a class="dropdown-item text-light select-item" [class.disabled-item]="userData.status === 'Closed'"
@@ -507,7 +515,7 @@
               <div>
                 <span class="fw-semibold">{{ 'OVERALL RATING' }}</span>
               </div>
-              <div style="position: relative;">
+              <div style="position: relative;" [class.readonly]="view === 0">
                 <div class="dropdown"
                      [class.disabled-dropdown]=" userData.status === 'Closed'"
                      *ngIf="['manager','hr','approver'].includes(currentStatus)">
@@ -515,12 +523,20 @@
                           type="button"
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
+                          [attr.data-bs-toggle]="view === 0 ? null : 'dropdown'"
+                          [ngStyle]="{
+                                  'pointer-events': view === 0 ? 'none' : 'auto',
+                                  'opacity': view === 0 ? 0.5 : 1
+                                }"
                           [attr.disabled]=" userData.status === 'Closed' ? true : null"
                           style="background-color:#33343C; border:1px solid #7A7B8299; width: 130px;">
                     {{ objOverallRating ? (objOverallRating.length > 12 ? (objOverallRating | slice:0:12) + '...' : objOverallRating) : 'Select' }}
                   </button>
 
                   <ul class="dropdown-menu dropdown-menu-dark dropdown-scroll"
+                      [ngStyle]="{
+                                'pointer-events': view === 0 ? 'none' : 'auto'
+                              }"
                       style="background-color: #33343C;">
                     <li *ngFor="let type of ratings">
                       <a class="dropdown-item text-light"

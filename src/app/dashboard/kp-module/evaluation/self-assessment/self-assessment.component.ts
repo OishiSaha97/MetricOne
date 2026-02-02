@@ -134,7 +134,7 @@ export class SelfAssessmentComponent {
 
 
   submitData() {
-    if (!this.validateObjectives()) {
+    if (this.view !== 0 && !this.validateObjectives()) {
       return;
     }
     this.dataSubmitted.emit(this.objectives);
